@@ -22,7 +22,7 @@
         </div>
 
         <!-- Formulario usuarios -->
-        <form action="php/procesar_registro.php" method="POST">
+        <form action="php/procesar_registro.php" method="POST" id="form-registro" novalidate>
 
             <!-- Zona de inputs -->
             <div class="placeholders">
@@ -109,6 +109,8 @@
                 </div>
 
             </div> <!-- Cierre de placeholders -->
+
+            <div id="mensaje-error" class="mensaje-error" style="display: none;"></div>
 
             <!-- Zona de aceptar términos -->
             <div class="terminos-condiciones" id="abrir-popup">

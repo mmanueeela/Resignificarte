@@ -20,9 +20,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password         = isset($_POST['password']) ? $_POST['password'] : '';
     $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 
-    // Validaciones básicas
-    if (empty($nombre) || empty($email) || empty($password)) {
-        die("Error: Faltan campos obligatorios."); // Más adelante lo cambiaremos por un mensaje bonito en HTML
+    // Validaciones de seguridad en el servidor
+    if (empty($nombre) || empty($apellidos) || empty($pais) || empty($dia) || empty($mes) || empty($anyo) || empty($email) || empty($password)) {
+        die("Error: Todos los campos son obligatorios.");
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Error: El formato del correo no es válido.");
+    }
+
+    if (strlen($password) < 8) {
+        die("Error: La contraseña debe tener al menos 8 caracteres.");
+    }
+
+    if (!preg_match('/[A-Z]/', $password)) {
+        die("Error: La contraseña debe tener al menos una letra mayúscula.");
     }
 
     if ($password !== $confirm_password) {

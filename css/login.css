@@ -5,6 +5,7 @@
 
 .logo-container a img {
     filter: saturate(200%);
+    margin-bottom: 40px;
 }
 
 main {
@@ -58,10 +59,6 @@ main {
     /* Esta es la línea blanca transparente que se ve debajo del texto */
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     padding-bottom: 8px;
-}
-
-.input-group:nth-child(1) {
-    margin-top: 30px;
 }
 
 .input-group .input-icon {

@@ -10,6 +10,7 @@
 
 .logo-container a img {
     filter: saturate(200%);
+    margin-bottom: 40px;
 }
 
 
@@ -20,9 +21,6 @@
     width: 100%;
 }
 
-.fila-doble:nth-child(1) {
-    margin-top: 30px;
-}
 
 .fila-doble .input-group {
     width: 50%;

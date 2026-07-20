@@ -2,8 +2,8 @@
 // 1. Datos de conexión a la base de datos
 $servidor   = "localhost";
 $usuario    = "root";
-$contrasena = "elena2009plesk@";
-$base_datos = "mzazzar_resignificarte";
+$contrasena = "";
+$base_datos = "resignificarte";
 
 // 2. Crear la conexión
 $conexion = new mysqli($servidor, $usuario, $contrasena, $base_datos);
@@ -16,8 +16,6 @@ if ($conexion->connect_error) {
 // 4. Configurar la codificación de caracteres a UTF-8 (para evitar símbolos raros en ñ y tildes)
 if (!$conexion->set_charset("utf8")) {
     die("Error cargando el conjunto de caracteres utf8: " . $conexion->error);
-} else {
-    die("Tutto è perfetto");
 }
 
 ?>

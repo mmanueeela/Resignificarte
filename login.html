@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Iniciar sesión en Resignificarte</title>
+    <link rel="stylesheet" href="css/estilos_comunes.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/retardo_cambio_pagina.js" defer></script>
+    <script src="js/login.js" defer></script>
+</head>
+<body>
+
+<main>
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="homepage.html"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        </div>
+
+        <!-- Zona de inputs -->
+        <div class="placeholders">
+            <!-- Grupo Email -->
+            <div class="input-group">
+                <img src="src/iconos/email_login.png" alt="Icono email" class="input-icon">
+                <input type="email" placeholder="Introduce tu email" id="email" required>
+            </div>
+
+            <!-- Grupo Contraseña -->
+            <div class="input-group">
+                <img src="src/iconos/candado_login.png" alt="Icono contraseña" class="input-icon">
+                <input type="password" placeholder="Introduce tu contraseña" id="password" required>
+            </div>
+        </div>
+
+        <!-- Zona de recordar usuario y contraseña olvidada -->
+        <div class="aceptar-terminos-y-contraseña-olvidada">
+            <label class="checkbox-label">
+                <input type="checkbox" id="remember-me">
+                Recuérdame
+            </label>
+            <a href="#" class="forgot-link">Contraseña olvidada?</a>
+        </div>
+
+        <!-- Botón -->
+        <button class="btn-login">INICIA SESIÓN</button>
+
+        <!-- Separador con los dos spans -->
+        <div class="separador">
+            <span></span>
+            <p>o</p>
+            <span></span>
+        </div>
+
+        <!-- Botón de Google -->
+        <button type="button" class="btn-google">
+            <!-- Cambia esta ruta por la de tu icono de Google -->
+            <img src="src/iconos/google.png" alt="Icono de Google">
+            Continuar con Google
+        </button>
+
+        <!-- Enlace para registrarse -->
+        <div class="registro-link">
+            ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

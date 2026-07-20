@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cargando...</title>
+    <link rel="stylesheet" href="css/logo_desvanecido.css">
+</head>
+<body>
+
+<div class="logo-contenedor" id="contenedor">
+    <video id="miVideo" autoplay muted playsinline preload="auto">
+        <source src="src/logo/animacion_logo.mp4" type="video/mp4">
+        Tu navegador no soporta videos incrustados.
+    </video>
+</div>
+
+<script>
+    const video = document.getElementById('miVideo');
+    const contenedor = document.getElementById('contenedor');
+
+    // Escuchamos el evento 'ended', que se dispara cuando el video termina
+    video.addEventListener('ended', () => {
+        // Añadimos la clase que hace el efecto de desvanecimiento
+        contenedor.classList.add('desvanecer');
+
+        // Esperamos 500ms y redirigimos a la página principal
+        setTimeout(() => {
+            window.location.href = 'homepage.html'; // Cambia de página
+        }, 500);
+    });
+</script>
+
+</body>
+</html>

@@ -10,6 +10,9 @@
 
 .logo-container a img {
     filter: saturate(200%);
+}
+
+.logo-container a {
     margin-bottom: 40px;
 }
 

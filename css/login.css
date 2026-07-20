@@ -5,6 +5,9 @@
 
 .logo-container a img {
     filter: saturate(200%);
+}
+
+.logo-container a {
     margin-bottom: 40px;
 }
 
@@ -32,13 +35,6 @@ main {
 
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-.login-container > img {
-    height: 120px;
-    width: 120px;
-    margin-bottom: 30px;
-    opacity: 70%;
 }
 
 /* --- ESTILOS INTERNOS DEL FORMULARIO --- */

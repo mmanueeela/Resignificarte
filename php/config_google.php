@@ -16,5 +16,5 @@ $cliente->addScope("email");
 $cliente->addScope("profile");
 
 // URI configurada en la consola de Google Cloud.
-$cliente->setRedirectUri('https://mzazzar.upv.edu.es/Resignificarte/php/callback_google.php');
+$cliente->setRedirectUri('https://mzazzar.upv.edu.es/php/callback_google.php');
 ?>

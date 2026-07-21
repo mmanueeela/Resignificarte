@@ -86,7 +86,7 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
         <?php endif; ?>
 
         <!-- FORMULARIO DE DATOS -->
-        <form class="perfil-formulario" id="form-perfil" method="POST" action="perfil_usuario.php">
+        <form class="perfil-formulario" id="form-perfil" method="POST" action="perfil_usuario.php" autocomplete="off">
             <input type="hidden" name="accion" value="actualizar">
 
             <div class="grid-2-columnas">

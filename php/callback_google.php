@@ -44,13 +44,42 @@ if (isset($_GET['code'])) {
             // Contraseña aleatoria e imposible de adivinar (entrará siempre por Google)
             $password_aleatoria = password_hash(bin2hex(random_bytes(10)), PASSWORD_DEFAULT);
 
-            $insertar = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?)");
+            // Añadimos el campo metodo_registro y el valor 'google' al final
+            $insertar = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password, metodo_registro) VALUES (?, ?, ?, ?, ?, ?, 'google')");
             $insertar->bind_param("ssssss", $nombre, $apellidos, $pais_generico, $fecha_generica, $email, $password_aleatoria);
 
             if ($insertar->execute()) {
                 // Registro exitoso, iniciamos sesión
                 $_SESSION['usuario_id'] = $insertar->insert_id;
                 $_SESSION['usuario_nombre'] = $nombre;
+
+                // Enviar correo electrónico al registrarse
+                $asunto = "¡Bienvenido a Resignificarte!";
+
+                // Puedes usar HTML básico para hacerlo más bonito
+                $mensaje = "
+                <html>
+                <head><title>Bienvenido</title></head>
+                <body>
+                    <h2>¡Hola $nombre!</h2>
+                    <p>Gracias por registrarte en <b>Resignificarte</b> usando tu cuenta de Google.</p>
+                    <p>Estamos muy felices de tenerte con nosotros.</p>
+                    <br>
+                    <p>Un abrazo,</p>
+                    <p>El equipo de Resignificarte</p>
+                </body>
+                </html>
+                ";
+
+                // Cabeceras para que el correo se lea como HTML y tenga remitente
+                $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+                $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+                $cabeceras .= 'From: Resignificarte <hola@tudominio.com>' . "\r\n";
+
+                // Enviamos el correo
+                mail($email, $asunto, $mensaje, $cabeceras);
+                // ------------------------------------------
+
                 header("Location: ../homepage_usuario_registrado.php?registro=google_exito");
                 exit();
             } else {

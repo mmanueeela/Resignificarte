@@ -1,7 +1,8 @@
 <?php
 
 function obtenerDatosUsuario($conexion, $usuario_id) {
-    $consulta = "SELECT nombre, apellidos, email, pais, fecha_nacimiento FROM usuarios WHERE id = ?";
+    // Añadimos 'foto_perfil' a la consulta
+    $consulta = "SELECT nombre, apellidos, email, pais, fecha_nacimiento, foto_perfil FROM usuarios WHERE id = ?";
     $stmt = $conexion->prepare($consulta);
     $stmt->bind_param("i", $usuario_id);
     $stmt->execute();

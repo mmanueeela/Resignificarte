@@ -68,10 +68,16 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
         <div class="perfil-cabecera">
             <div class="perfil-info">
                 <?php
-                // Comprobamos si hay foto en la base de datos. Si no hay, usamos la de por defecto.
-                $ruta_foto = !empty($usuario['foto_perfil']) ? $usuario['foto_perfil'] : 'src/iconos/usuario.png';
+                // Limpiamos espacios y comprobamos si está vacío o si pone literalmente la palabra "NULL"
+                $foto_bd = trim(isset($usuario['foto_perfil']) ? $usuario['foto_perfil'] : '');
+
+                if (empty($foto_bd) || $foto_bd === 'NULL') {
+                    $ruta_foto = 'src/iconos/usuario.png';
+                } else {
+                    $ruta_foto = $foto_bd;
+                }
                 ?>
-                <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Avatar del usuario" class="avatar">
+                <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Avatar del usuario" class="avatar" style="object-fit: cover;">
                 <div class="perfil-textos">
                     <h2><?php echo htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellidos']); ?></h2>
                     <p class="rol-usuario">Miembro de Resignificarte</p>

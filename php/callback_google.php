@@ -19,6 +19,9 @@ if (isset($_GET['code'])) {
         $nombre = $info_usuario->givenName;
         $apellidos = isset($info_usuario->familyName) ? $info_usuario->familyName : '';
 
+        // ¡NUEVO! Capturamos la foto de perfil que nos manda Google
+        $foto_perfil = $info_usuario->picture;
+
         // 4. Comprobar si este correo ya existe en nuestra base de datos
         $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE email = ?");
         $consulta->bind_param("s", $email);
@@ -30,6 +33,11 @@ if (isset($_GET['code'])) {
             $usuario = $resultado->fetch_assoc();
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['usuario_nombre'] = $nombre;
+
+            // ¡NUEVO! Actualizamos la foto de perfil en la BD por si la ha cambiado en Google
+            $update_foto = $conexion->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
+            $update_foto->bind_param("si", $foto_perfil, $usuario['id']);
+            $update_foto->execute();
 
             // Redirigir al panel principal o homepage
             header("Location: ../homepage_usuario_registrado.php?login=exito");
@@ -44,9 +52,10 @@ if (isset($_GET['code'])) {
             // Contraseña aleatoria e imposible de adivinar (entrará siempre por Google)
             $password_aleatoria = password_hash(bin2hex(random_bytes(10)), PASSWORD_DEFAULT);
 
-            // Añadimos el campo metodo_registro y el valor 'google' al final
-            $insertar = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password, metodo_registro) VALUES (?, ?, ?, ?, ?, ?, 'google')");
-            $insertar->bind_param("ssssss", $nombre, $apellidos, $pais_generico, $fecha_generica, $email, $password_aleatoria);
+            // ¡NUEVO! Añadimos el campo foto_perfil a la consulta INSERT
+            $insertar = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password, metodo_registro, foto_perfil) VALUES (?, ?, ?, ?, ?, ?, 'google', ?)");
+            // Ahora pasamos 7 variables 's' (strings) en el bind_param
+            $insertar->bind_param("sssssss", $nombre, $apellidos, $pais_generico, $fecha_generica, $email, $password_aleatoria, $foto_perfil);
 
             if ($insertar->execute()) {
                 // Registro exitoso, iniciamos sesión
@@ -74,7 +83,7 @@ if (isset($_GET['code'])) {
                 // Cabeceras para que el correo se lea como HTML y tenga remitente
                 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
                 $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-                $cabeceras .= 'From: Resignificarte <hola@tudominio.com>' . "\r\n";
+                $cabeceras .= 'From: Resignificarte <hola@resignificarte.com>' . "\r\n";
 
                 // Enviamos el correo
                 mail($email, $asunto, $mensaje, $cabeceras);

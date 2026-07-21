@@ -4,8 +4,7 @@
 // 1. Incluimos el archivo que verifica la sesión y la cookie
 require_once 'php/verificar_sesion.php';
 
-// 2. Si después de verificar, no hay ID de usuario en la sesión, ¡es un intruso!
-// Lo redirigimos inmediatamente al login.
+// 2. Si después de verificar, no hay ID de usuario en la sesión, lo redirigimos inmediatamente al login.
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.html");
     exit();
@@ -28,7 +27,7 @@ $nombre_usuario = isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre
     <link rel="stylesheet" href="css/homepage_usuario_registrado.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
-    <script src="js/abrir_popup_homepage_usuario_registrado.js"></script>
+    <script src="js/abrir_popup_homepage_usuario_registrado.js" defer></script>
 </head>
 <body>
 

@@ -26,16 +26,18 @@
 .dropdown-menu {
     display: none; /* Oculto hasta que hagas clic */
     position: absolute;
-    top: 130%; /* Baja el menú un poco por debajo del botón */
-    right: 0;  /* Lo alinea a la derecha para que no se salga de la pantalla */
+    top: 130%;
+    right: 0;
 
-    /* Tu estilo cristal característico */
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    /* Nuevo estilo: Morado #3c225a con 95% de opacidad y desenfoque */
+    background: rgba(60, 34, 90, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Bordes y sombras adaptados al tono oscuro */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 
     min-width: 160px;
     z-index: 1000;
@@ -65,13 +67,18 @@
     transition: background 0.3s ease;
 }
 
-/* Efecto al pasar el ratón */
+/* Efecto sutil al pasar el ratón */
 .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 /* Separador para cerrar sesión */
 .cerrar-sesion {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffcccc; /* Un tono rojizo sutil */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fd6969;
+}
+
+/* Toque rojizo extra al pasar el ratón por Cerrar Sesión */
+.cerrar-sesion:hover {
+    background: rgba(255, 77, 77, 0.15);
 }

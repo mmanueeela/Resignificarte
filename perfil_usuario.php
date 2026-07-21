@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     $actualizado = actualizarPerfilUsuario($conexion, $usuario_id, $_POST);
 
     if ($actualizado) {
+        // Actualizamos el dato del nombre de la sesión
+        $_SESSION['usuario_nombre'] = $_POST['nombre'];
+
         header("Location: perfil_usuario.php?actualizado=1");
         exit();
     }

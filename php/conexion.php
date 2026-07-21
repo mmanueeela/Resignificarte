@@ -1,8 +1,8 @@
 <?php
 // 1. Datos de conexión a la base de datos
 $servidor   = "localhost";
-$usuario    = "root";
-$contrasena = "";
+$usuario    = "manuela";
+$contrasena = "elena2009plesk@";
 $base_datos = "resignificarte";
 
 // 2. Crear la conexión

@@ -28,8 +28,12 @@ function registrarUsuario($conexion, $nombre, $apellidos, $pais, $fecha_nacimien
     $stmt_insert->bind_param("ssssss", $nombre, $apellidos, $pais, $fecha_nacimiento, $email, $password_encriptada);
 
     if ($stmt_insert->execute()) {
+        // Obtenemos el ID que la base de datos le acaba de asignar
+        $nuevo_id = $stmt_insert->insert_id;
         $stmt_insert->close();
-        return ["exito" => true, "mensaje" => "Registro completado con éxito."];
+
+        // Devolvemos el ID junto con el éxito
+        return ["exito" => true, "mensaje" => "Registro completado con éxito.", "id" => $nuevo_id];
     } else {
         $error = $conexion->error;
         $stmt_insert->close();

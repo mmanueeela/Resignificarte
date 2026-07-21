@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Definimos esta constante para que 'crearUsuario.php' sepa que está siendo llamado legalmente
 define('ACCESO_PERMITIDO', true);
 
@@ -49,8 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 4. Actuamos en base al resultado
     if ($resultado['exito']) {
-        // Si todo va bien, redirigimos al login
-        header("Location: ../login.html?registro=exito");
+        // LOGIN AUTOMÁTICO: Guardamos sus datos en la sesión
+        $_SESSION['usuario_id']     = $resultado['id'];
+        $_SESSION['usuario_nombre'] = $nombre;
+
+        // Lo enviamos directo a su homepage
+        header("Location: ../homepage_usuario_registrado.php");
         exit();
     } else {
         // Si falla (ej. correo duplicado), mostramos el error

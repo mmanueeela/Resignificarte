@@ -37,6 +37,10 @@ main {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
+#form-login {
+    width: 100%;
+}
+
 /* --- ESTILOS INTERNOS DEL FORMULARIO --- */
 
 .placeholders {
@@ -252,4 +256,25 @@ main {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color 0.3s;
+}
+
+/*  MENSAJE DE ERROR DEL FORMULARIO */
+.mensaje-error {
+    display: none;
+    background-color: rgba(255, 77, 77, 0.2);
+    border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #fce1e1;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    animation: aparecer 0.3s ease-in-out;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }

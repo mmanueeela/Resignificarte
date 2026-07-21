@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/registro.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
     <script src="js/registro.js" defer></script>
 </head>
@@ -110,7 +111,7 @@
 
             </div> <!-- Cierre de placeholders -->
 
-            <div id="mensaje-error" class="mensaje-error" style="display: none;"></div>
+            <div id="mensaje-error" class="mensaje-error"></div>
 
             <!-- Zona de aceptar términos -->
             <div class="terminos-condiciones" id="abrir-popup">
@@ -131,10 +132,13 @@
             <span></span>
         </div>
 
-        <button type="button" class="btn-google">
-            <img src="src/iconos/google.png" alt="Icono de Google">
-            Regístrate con Google
-        </button>
+        <!-- Botón de Google (Ahora es un enlace) -->
+        <a href="php/login_google.php" style="text-decoration: none; width: 100%;">
+            <button type="button" class="btn-google">
+                <img src="src/iconos/google.png" alt="Icono de Google">
+                Regístrate con Google
+            </button>
+        </a>
 
         <div class="registro-link">
             ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>

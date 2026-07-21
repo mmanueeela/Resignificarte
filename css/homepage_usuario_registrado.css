@@ -1,0 +1,77 @@
+/* --- CONTENEDOR DEL DROPDOWN --- */
+.area-usuario-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* El botón transparente para que parezca texto normal */
+.area-usuario-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Separación entre nombre e icono */
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif; /* Tu fuente habitual */
+    color: white;
+}
+
+.area-usuario-btn img {
+    height: 30px; /* Ajusta según el tamaño de tu icono */
+    width: auto;
+}
+
+/* --- EL MENÚ FLOTANTE --- */
+.dropdown-menu {
+    display: none; /* Oculto hasta que hagas clic */
+    position: absolute;
+    top: 130%; /* Baja el menú un poco por debajo del botón */
+    right: 0;  /* Lo alinea a la derecha para que no se salga de la pantalla */
+
+    /* Tu estilo cristal característico */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+    min-width: 160px;
+    z-index: 1000;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* La clase que JS añadirá para mostrar el menú */
+.dropdown-menu.show {
+    display: flex;
+    animation: aparecer 0.2s ease forwards;
+}
+
+/* Efecto suave al aparecer */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- LOS ENLACES DENTRO DEL MENÚ --- */
+.dropdown-item {
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+/* Efecto al pasar el ratón */
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Separador para cerrar sesión */
+.cerrar-sesion {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffcccc; /* Un tono rojizo sutil */
+}

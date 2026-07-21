@@ -1,4 +1,6 @@
 <?php
+
+
 // 1. Incluimos el archivo que verifica la sesión y la cookie
 require_once 'php/verificar_sesion.php';
 
@@ -8,60 +10,66 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.html");
     exit();
 }
+
+$nombre_usuario = isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre'] : 'Usuario';
+
+
 ?>
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inicio - Resignificarte</title>
-    <!-- He añadido un poco de CSS en línea temporal para que se vea bonito el mensaje -->
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(to bottom, #200B30, #a486c9);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .bienvenida-container {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            padding: 40px 60px;
-            border-radius: 25px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-        .btn-logout {
-            margin-top: 20px;
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #523479;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: transform 0.2s;
-        }
-        .btn-logout:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilos_comunes.css">
+    <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="css/homepage_usuario_registrado.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="js/retardo_cambio_pagina.js" defer></script>
+    <script src="js/abrir_popup_homepage_usuario_registrado.js"></script>
 </head>
 <body>
 
-<div class="bienvenida-container">
-    <!-- Usamos htmlspecialchars por seguridad, para limpiar caracteres raros -->
-    <h1>¡Hola, <?php echo htmlspecialchars($_SESSION['usuario_nombre']); ?>! 💜</h1>
-    <p>Has iniciado sesión correctamente y el sistema te reconoce.</p>
+<header>
+    <!-- Logo -->
+    <div class="logo-container">
+        <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+    </div>
 
-    <!-- Enlace para probar a cerrar sesión -->
-    <a href="php/cerrar_sesion.php" class="btn-logout">Cerrar sesión</a>
-</div>
+    <!-- Menú principal -->
+    <nav class="menu-navegacion">
+        <ul>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Área de usuario con Dropdown -->
+    <div class="area-usuario-dropdown">
+        <!-- El botón que activa el menú -->
+        <button class="area-usuario-btn" id="btn-usuario">
+            <span class="enlace-acceder"><?php echo htmlspecialchars($nombre_usuario); ?></span>
+            <img src="src/iconos/usuario.png" alt="Icono de usuario">
+        </button>
+
+        <!-- El pequeño popup flotante -->
+        <div class="dropdown-menu" id="dropdown-usuario">
+            <a href="perfil_usuario.php" class="dropdown-item">Ver perfil</a>
+            <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">Cerrar Sesión</a>
+        </div>
+    </div>
+</header>
+
+<main>
+
+</main>
+
+<footer>
+    <p>Todos los derechos reservados. 2026 &copy;</p>
+</footer>
 
 </body>
 </html>

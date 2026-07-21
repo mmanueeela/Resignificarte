@@ -48,8 +48,7 @@ $nombre_usuario = isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre
 
     <!-- Área de usuario con Dropdown -->
     <div class="area-usuario-dropdown">
-        <!-- El botón que activa el menú -->
-        <button class="area-usuario-btn" id="btn-usuario">
+        <button class="area-usuario area-usuario-btn" id="btn-usuario">
             <span class="enlace-acceder"><?php echo htmlspecialchars($nombre_usuario); ?></span>
             <img src="src/iconos/usuario.png" alt="Icono de usuario">
         </button>

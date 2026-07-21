@@ -5,36 +5,35 @@
 }
 
 /* El botón transparente para que parezca texto normal */
-.area-usuario-btn {
+button.area-usuario-btn {
     background: none;
     border: none;
     display: flex;
     align-items: center;
-    gap: 10px; /* Separación entre nombre e icono */
+    gap: 10px;
     cursor: pointer;
     padding: 0;
-    font-family: 'Montserrat', sans-serif; /* Tu fuente habitual */
-    color: white;
+    font: inherit;
+    color: inherit;
+    outline: none;
 }
 
 .area-usuario-btn img {
-    height: 30px; /* Ajusta según el tamaño de tu icono */
+    height: 30px;
     width: auto;
 }
 
 /* --- EL MENÚ FLOTANTE --- */
 .dropdown-menu {
-    display: none; /* Oculto hasta que hagas clic */
+    display: none;
     position: absolute;
     top: 130%;
     right: 0;
 
-    /* Nuevo estilo: Morado #3c225a con 95% de opacidad y desenfoque */
     background: rgba(60, 34, 90, 0.95);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 
-    /* Bordes y sombras adaptados al tono oscuro */
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
@@ -45,7 +44,6 @@
     overflow: hidden;
 }
 
-/* La clase que JS añadirá para mostrar el menú */
 .dropdown-menu.show {
     display: flex;
     animation: aparecer 0.2s ease forwards;
@@ -67,7 +65,6 @@
     transition: background 0.3s ease;
 }
 
-/* Efecto sutil al pasar el ratón */
 .dropdown-item:hover {
     background: rgba(255, 255, 255, 0.08);
 }

@@ -3,68 +3,115 @@
     max-width: 900px;
     margin: 50px auto;
     background: #ffffff;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     font-family: 'Montserrat', sans-serif;
+    overflow: hidden; /* Para que el banner superior no se salga de las esquinas redondeadas */
 }
 
-/* CABECERA (Foto, Nombre y Botón Edit) */
+/* BANNER SUPERIOR ALEGRE */
+.perfil-banner {
+    height: 120px;
+    background: linear-gradient(135deg, #3c225a 0%, #764ba2 50%, #667eea 100%);
+    width: 100%;
+}
+
+/* CABECERA (Foto, Nombre y Botones) */
 .perfil-cabecera {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+    align-items: flex-end;
+    padding: 0 40px;
+    margin-top: -40px; /* Sube la foto para que pise el banner */
+    margin-bottom: 30px;
 }
 
 .perfil-info {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 20px;
 }
 
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    background-color: #f0f0f0;
-    border: 2px solid #e0e0e0;
+    background-color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.perfil-textos {
+    padding-bottom: 5px;
 }
 
 .perfil-textos h2 {
     margin: 0 0 5px 0;
-    font-size: 22px;
+    font-size: 26px;
     color: #333;
 }
 
-.perfil-textos p {
+.rol-usuario {
     margin: 0;
-    color: #888;
+    color: #764ba2; /* Tono morado vivo */
     font-size: 14px;
+    font-weight: 600;
+}
+
+/* BOTONES DE ACCIÓN */
+.botones-accion {
+    padding-bottom: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
 }
 
 .btn-editar {
-    background-color: #4a8cff;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
+    background-color: #f0edff;
+    color: #3c225a;
 }
-
 .btn-editar:hover {
-    background-color: #357ae8;
+    background-color: #e0d8ff;
 }
 
-/* FORMULARIO Y GRID (2 Columnas) */
+.btn-guardar {
+    background-color: #4cd137;
+    color: white;
+}
+.btn-guardar:hover {
+    background-color: #44bd32;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(76, 209, 55, 0.3);
+}
+
+.btn-cancelar {
+    background-color: #ff4757;
+    color: white;
+}
+.btn-cancelar:hover {
+    background-color: #ff3344;
+}
+
+/* FORMULARIO Y CAMPOS */
+.perfil-formulario {
+    padding: 0 40px 40px 40px;
+}
+
 .grid-2-columnas {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .grupo-input {
@@ -74,91 +121,108 @@
 }
 
 .grupo-input label {
-    font-size: 14px;
-    color: #555;
-    font-weight: 500;
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+/* Estilos de los inputs según si están bloqueados o no */
 .grupo-input input, .grupo-input select {
-    padding: 12px 15px;
-    border: 1px solid transparent;
-    background-color: #f9f9f9;
+    padding: 14px 15px;
+    border: 1px solid transparent; /* Sin borde de serie */
+    background-color: transparent;
     border-radius: 8px;
     font-family: inherit;
-    font-size: 14px;
-    color: #555;
-    transition: border 0.3s;
-}
-
-.grupo-input input:focus {
-    outline: none;
-    border-color: #4a8cff;
-    background-color: #fff;
-}
-
-/* SECCIÓN DE EMAIL INFERIOR */
-.seccion-email h3 {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.email-actual {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.icono-email {
-    width: 40px;
-    height: 40px;
-    background-color: #e6f0ff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.textos-email p {
-    margin: 0;
-}
-
-.email-direccion {
+    font-size: 15px;
     color: #333;
     font-weight: 500;
+    transition: all 0.3s;
+    appearance: none; /* Quita la flecha del select si está bloqueado */
+}
+
+/* Cuando el modo edición está activo */
+.modo-edicion input:not([disabled]),
+.modo-edicion select:not([disabled]) {
+    background-color: #f9f9fb;
+    border: 1px solid #dcdde1;
+    appearance: auto; /* Vuelve a mostrar la flecha en el select */
+}
+
+.modo-edicion input:not([disabled]):focus,
+.modo-edicion select:not([disabled]):focus {
+    outline: none;
+    border-color: #764ba2;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+}
+
+/* SELECTS DE FECHA (Los 3 en línea) */
+.grupo-fecha {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+/* SEPARADOR */
+.separador {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 30px 0;
+}
+
+/* SECCIÓN EMAIL */
+.seccion-email h3 {
+    margin: 0 0 5px 0;
+    color: #3c225a;
+    font-size: 18px;
+}
+
+.email-descripcion {
+    margin: 0 0 20px 0;
+    color: #888;
     font-size: 14px;
 }
 
-.email-tiempo {
-    color: #999;
-    font-size: 12px;
-    margin-top: 3px !important;
+.input-email-destacado {
+    font-size: 16px !important;
+    color: #3c225a !important;
 }
 
-.btn-add-email {
-    background-color: #e6f0ff;
-    color: #4a8cff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-add-email:hover {
-    background-color: #d0e3ff;
+/* Mensaje de éxito al guardar */
+.alerta-exito {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 0 40px 20px 40px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
 }
 
 /* Diseño responsivo para móviles */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     .grid-2-columnas {
         grid-template-columns: 1fr;
     }
     .perfil-cabecera {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
+        align-items: center;
+        text-align: center;
+        padding: 0 20px;
+    }
+    .perfil-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .botones-accion {
+        margin-top: 20px;
+    }
+    .perfil-formulario {
+        padding: 0 20px 30px 20px;
     }
 }

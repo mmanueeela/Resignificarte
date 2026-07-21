@@ -1,0 +1,164 @@
+/* CONTENEDOR PRINCIPAL */
+.perfil-contenedor {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* CABECERA (Foto, Nombre y Botón Edit) */
+.perfil-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.perfil-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f0f0f0;
+    border: 2px solid #e0e0e0;
+}
+
+.perfil-textos h2 {
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.perfil-textos p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+}
+
+.btn-editar {
+    background-color: #4a8cff;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-editar:hover {
+    background-color: #357ae8;
+}
+
+/* FORMULARIO Y GRID (2 Columnas) */
+.grid-2-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-input label {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+.grupo-input input, .grupo-input select {
+    padding: 12px 15px;
+    border: 1px solid transparent;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #555;
+    transition: border 0.3s;
+}
+
+.grupo-input input:focus {
+    outline: none;
+    border-color: #4a8cff;
+    background-color: #fff;
+}
+
+/* SECCIÓN DE EMAIL INFERIOR */
+.seccion-email h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.email-actual {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.icono-email {
+    width: 40px;
+    height: 40px;
+    background-color: #e6f0ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textos-email p {
+    margin: 0;
+}
+
+.email-direccion {
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.email-tiempo {
+    color: #999;
+    font-size: 12px;
+    margin-top: 3px !important;
+}
+
+.btn-add-email {
+    background-color: #e6f0ff;
+    color: #4a8cff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-add-email:hover {
+    background-color: #d0e3ff;
+}
+
+/* Diseño responsivo para móviles */
+@media (max-width: 600px) {
+    .grid-2-columnas {
+        grid-template-columns: 1fr;
+    }
+    .perfil-cabecera {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}

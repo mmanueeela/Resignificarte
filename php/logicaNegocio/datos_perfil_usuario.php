@@ -24,19 +24,25 @@ function actualizarPerfilUsuario($conexion, $usuario_id, $datos_post, $archivo_f
 
     // --- PROCESAR LA IMAGEN SI SE HA SUBIDO UNA NUEVA ---
     if ($archivo_foto && $archivo_foto['error'] === UPLOAD_ERR_OK) {
-        // 1. Validaciones de seguridad backend
         $permitidos = ['image/jpeg', 'image/png', 'image/webp'];
-        if (in_array($archivo_foto['type'], $permitidos) && $archivo_foto['size'] <= 2097152) { // 2MB max
 
-            // 2. Extraer extensión y generar nombre único para evitar sobreescribir fotos (ej: user_5_168430.jpg)
+        if (in_array($archivo_foto['type'], $permitidos) && $archivo_foto['size'] <= 2097152) {
+
             $extension = pathinfo($archivo_foto['name'], PATHINFO_EXTENSION);
             $nombre_archivo = "user_" . $usuario_id . "_" . time() . "." . $extension;
 
-            // 3. Ruta de destino
-            $ruta_fisica = __DIR__ . '/../../src/uploads/perfiles/' . $nombre_archivo;
+            // 1. Definimos la ruta de la carpeta destino
+            $directorio_destino = __DIR__ . '/../../src/uploads/perfiles/';
+
+            // 2. ¡MAGIA! Si la carpeta no existe, le decimos a PHP que la cree con permisos
+            if (!file_exists($directorio_destino)) {
+                mkdir($directorio_destino, 0777, true);
+            }
+
+            $ruta_fisica = $directorio_destino . $nombre_archivo;
             $ruta_db = 'src/uploads/perfiles/' . $nombre_archivo;
 
-            // 4. Movemos el archivo de la memoria temporal a nuestra carpeta
+            // 3. Movemos el archivo
             if (move_uploaded_file($archivo_foto['tmp_name'], $ruta_fisica)) {
                 $ruta_foto_final = $ruta_db;
             }

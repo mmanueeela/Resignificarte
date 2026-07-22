@@ -87,9 +87,6 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
                     <div class="avatar-overlay" id="avatar-overlay">
                         <span>📷 Cambiar</span>
                     </div>
-
-                    <!-- Input de archivo (oculto). Le ponemos form="form-perfil" para que se envíe con tu formulario aunque esté fuera de él -->
-                    <input type="file" name="nueva_foto" id="input-foto" accept="image/jpeg, image/png, image/webp" style="display: none;" form="form-perfil">
                 </div>
 
                 <div class="perfil-textos">
@@ -111,6 +108,9 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
 
         <!-- FORMULARIO DE DATOS -->
         <form class="perfil-formulario" id="form-perfil" method="POST" action="perfil_usuario.php" autocomplete="off" enctype="multipart/form-data">
+
+            <input type="file" name="nueva_foto" id="input-foto" accept="image/jpeg, image/png, image/webp" style="display: none;">
+
             <input type="hidden" name="accion" value="actualizar">
 
             <div class="grid-2-columnas">

@@ -71,12 +71,15 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
         <div class="perfil-cabecera">
             <div class="perfil-info">
                 <?php
-                // Limpiamos espacios y comprobamos si está vacío o si pone literalmente la palabra "NULL"
-                $foto_bd = trim(isset($usuario['foto_perfil']) ? $usuario['foto_perfil'] : '');
+                // 1. Obtenemos el valor de la base de datos y limpiamos los espacios
+                $foto_bd = isset($usuario['foto_perfil']) ? trim($usuario['foto_perfil']) : '';
 
-                if (empty($foto_bd) || $foto_bd === 'NULL') {
+                // 2. Comprobamos si está vacío o si es la palabra "null"
+                if (empty($foto_bd) || strtolower($foto_bd) === 'null') {
+                    // Si no tiene foto válida, ponemos la de por defecto
                     $ruta_foto = 'src/iconos/usuario.png';
                 } else {
+                    // Si tiene foto (ej. la de Google), usamos esa
                     $ruta_foto = $foto_bd;
                 }
                 ?>

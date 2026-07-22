@@ -17,8 +17,9 @@ $stmt->close();
 // 3. Preparamos el nombre y la foto para mostrarlos en el HTML
 $nombre_usuario = !empty($usuario_bd['nombre']) ? $usuario_bd['nombre'] : 'Usuario';
 
-$foto_bd = trim(isset($usuario_bd['foto_perfil']) ? $usuario_bd['foto_perfil'] : '');
-if (empty($foto_bd) || $foto_bd === 'NULL') {
+$foto_bd = isset($usuario_bd['foto_perfil']) ? trim($usuario_bd['foto_perfil']) : '';
+
+if (empty($foto_bd) || strtolower($foto_bd) === 'null') {
     $ruta_foto = 'src/iconos/usuario.png';
 } else {
     $ruta_foto = $foto_bd;

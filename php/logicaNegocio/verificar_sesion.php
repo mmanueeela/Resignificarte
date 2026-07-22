@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once 'conexion.php';
+require_once __DIR__ . '/../conexion.php';
 
 // 1. Si no hay sesión activa, pero SÍ hay una cookie de recuérdame...
 if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {

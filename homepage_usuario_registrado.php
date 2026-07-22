@@ -1,6 +1,6 @@
 <?php
 
-require_once 'php/verificar_sesion.php';
+require_once 'php/logicaNegocio/verificar_sesion.php';
 require_once 'php/conexion.php';
 
 $usuario_id = $_SESSION['usuario_id'];

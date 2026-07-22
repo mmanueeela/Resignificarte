@@ -1,5 +1,5 @@
 <?php
-require_once 'php/verificar_sesion.php';
+require_once 'php/logicaNegocio/verificar_sesion.php';
 require_once 'php/conexion.php';
 require_once 'php/logicaNegocio/datos_perfil_usuario.php'; // Importamos las funciones de lógica de negocio
 

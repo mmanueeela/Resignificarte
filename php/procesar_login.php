@@ -28,14 +28,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // --- LÓGICA DE RECUÉRDAME ---
         if (isset($_POST['remember'])) {
-            // Generamos un token seguro y aleatorio de 64 caracteres
             $token = bin2hex(random_bytes(32));
 
-            // Lo guardamos en la base de datos
-            guardarTokenRecuerdame($conexion, $resultado['id'], $token);
+            // Guardamos el HASH en la base de datos, NO el token plano
+            $token_hasheado = hash('sha256', $token);
+            guardarTokenRecuerdame($conexion, $resultado['id'], $token_hasheado);
 
-            // Creamos la cookie en el navegador del usuario (Dura 30 días)
-            setcookie("recuerdame_token", $token, time() + (86400 * 30), "/");
+            // Creamos la cookie segura en el navegador con el token plano
+            setcookie("recuerdame_token", $token, [
+                'expires' => time() + (86400 * 30),
+                'path' => '/',
+                'secure' => true,     // Solo HTTPS
+                'httponly' => true,   // Inaccesible desde JavaScript (Evita XSS)
+                'samesite' => 'Lax'   // Protege contra ataques CSRF
+            ]);
         }
 
         // Lo mandamos a la pantalla de inicio

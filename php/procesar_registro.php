@@ -55,6 +55,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario_id']     = $resultado['id'];
         $_SESSION['usuario_nombre'] = $nombre;
 
+        // --- INICIO LÓGICA DE RECUÉRDAME AUTOMÁTICO ---
+        $token_cookie = bin2hex(random_bytes(32));
+        $token_hasheado = hash('sha256', $token_cookie);
+
+        $update_token = $conexion->prepare("UPDATE usuarios SET remember_token = ? WHERE id = ?");
+        if ($update_token) {
+            $update_token->bind_param("si", $token_hasheado, $resultado['id']);
+            $update_token->execute();
+            $update_token->close();
+        }
+
+        setcookie("recuerdame_token", $token_cookie, [
+            'expires' => time() + (86400 * 30),
+            'path' => '/',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
+        // --- FIN LÓGICA DE RECUÉRDAME AUTOMÁTICO ---
+
         // Lo enviamos directo a su homepage
         header("Location: ../homepage_usuario_registrado.php");
         exit();

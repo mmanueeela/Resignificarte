@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
     // Si alguien intenta entrar directamente a esta URL sin enviar formulario
-    header("Location: ../registro.html");
+    header("Location: ../registro.php");
     exit();
 }
 ?>

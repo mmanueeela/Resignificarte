@@ -5,7 +5,7 @@ require_once 'php/logicaNegocio/datos_perfil_usuario.php'; // Importamos las fun
 
 // Proteger la página
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.html");
+    header("Location: login.php");
     exit();
 }
 

@@ -100,7 +100,7 @@ if (isset($_GET['code'])) {
     }
 } else {
     // Si intentan entrar aquí sin código, los devolvemos al login
-    header("Location: ../login.html");
+    header("Location: ../login.php");
     exit();
 }
 ?>

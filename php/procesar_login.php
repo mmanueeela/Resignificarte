@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que no estén vacíos
     if (empty($email) || empty($password)) {
-        header("Location: ../login.html?error=Por favor, rellena todos los campos.");
+        header("Location: ../login.php?error=Por favor, rellena todos los campos.");
         exit();
     }
 
@@ -54,12 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // LOGIN FALLIDO: Lo devolvemos al login pasándole el error por la URL
         $error_codificado = urlencode($resultado['mensaje']);
-        header("Location: ../login.html?error=" . $error_codificado);
+        header("Location: ../login.php?error=" . $error_codificado);
         exit();
     }
 
 } else {
-    header("Location: ../login.html");
+    header("Location: ../login.php");
     exit();
 }
 ?>

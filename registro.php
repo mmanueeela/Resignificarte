@@ -1,3 +1,6 @@
+<?php
+require_once 'php/logicaNegocio/redireccion_logeado.php'
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -19,7 +22,7 @@
     <div class="login-container">
         <!-- Logo -->
         <div class="logo-container">
-            <a href="homepage.html"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+            <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
         </div>
 
         <!-- Formulario usuarios -->
@@ -141,7 +144,7 @@
         </a>
 
         <div class="registro-link">
-            ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+            ¿Ya tienes cuenta? <a href="login.php">Inicia sesión</a>
         </div>
     </div>
 

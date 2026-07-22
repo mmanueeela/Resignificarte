@@ -1,3 +1,6 @@
+<?php
+require_once 'php/logicaNegocio/redireccion_logeado.php'
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -18,7 +21,7 @@
     <div class="login-container">
         <!-- Logo -->
         <div class="logo-container">
-            <a href="homepage.html"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+            <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
         </div>
 
         <!-- INICIO DEL FORMULARIO DE LOGIN -->
@@ -50,7 +53,7 @@
                     <input type="checkbox" id="remember-me" name="remember">
                     Recuérdame
                 </label>
-                <a href="contraseña_olvidada.html" class="forgot-link">¿Contraseña olvidada?</a>
+                <a href="contraseña_olvidada.php" class="forgot-link">¿Contraseña olvidada?</a>
             </div>
 
             <!-- Botón -->
@@ -75,7 +78,7 @@
 
         <!-- Enlace para registrarse -->
         <div class="registro-link">
-            ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+            ¿No tienes cuenta? <a href="registro.php">Regístrate</a>
         </div>
     </div>
 </main>

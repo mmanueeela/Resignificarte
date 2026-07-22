@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {
 
 // 2. Si no tiene sesión lo llevamos al login
 if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.html?error=" . urlencode("Debes iniciar sesión para acceder."));
+    header("Location: login.php?error=" . urlencode("Debes iniciar sesión para acceder."));
     exit();
 }
 ?>

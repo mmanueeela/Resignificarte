@@ -26,7 +26,7 @@ if (isset($_GET['code'])) {
         $foto_perfil = $info_usuario->picture;
 
         // 4. Comprobar si este correo ya existe en nuestra base de datos
-        $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE email = ?");
+        $consulta = $conexion->prepare("SELECT id, foto_perfil FROM usuarios WHERE email = ?");
         $consulta->bind_param("s", $email);
         $consulta->execute();
         $resultado = $consulta->get_result();
@@ -39,14 +39,22 @@ if (isset($_GET['code'])) {
 
             $usuario = $resultado->fetch_assoc();
             $id_usuario = $usuario['id'];
+            $foto_actual = isset($usuario['foto_perfil']) ? $usuario['foto_perfil'] : '';
 
             $_SESSION['usuario_id'] = $id_usuario;
             $_SESSION['usuario_nombre'] = $nombre;
 
-            // Actualizamos la foto de perfil
-            $update_foto = $conexion->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
-            $update_foto->bind_param("si", $foto_perfil, $id_usuario);
-            $update_foto->execute();
+            // ¡AQUÍ ESTÁ EL CAMBIO!
+            // Solo actualizamos la foto con la de Google si el usuario NO ha subido una propia.
+            // (Si no encuentra 'src/uploads/perfiles/' en su foto actual, entonces la actualiza).
+            if (strpos($foto_actual, 'src/uploads/perfiles/') === false) {
+                $update_foto = $conexion->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
+                if ($update_foto) {
+                    $update_foto->bind_param("si", $foto_perfil, $id_usuario);
+                    $update_foto->execute();
+                    $update_foto->close();
+                }
+            }
 
             // --- LÓGICA DE RECUÉRDAME ---
             $token_cookie = bin2hex(random_bytes(32));

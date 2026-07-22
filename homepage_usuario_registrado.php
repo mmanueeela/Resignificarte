@@ -1,17 +1,11 @@
 <?php
-// 1. Incluimos la sesión y la conexión a la base de datos
+
 require_once 'php/verificar_sesion.php';
 require_once 'php/conexion.php';
 
-// 2. Si no hay ID de usuario en la sesión, al login
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.html");
-    exit();
-}
-
 $usuario_id = $_SESSION['usuario_id'];
 
-// 3. Consultamos SIEMPRE la base de datos para tener los datos 100% reales
+// 2. Consultamos SIEMPRE la base de datos para tener los datos reales (nombre, foto)
 $consulta = "SELECT nombre, foto_perfil FROM usuarios WHERE id = ?";
 $stmt = $conexion->prepare($consulta);
 $stmt->bind_param("i", $usuario_id);
@@ -20,7 +14,7 @@ $resultado = $stmt->get_result();
 $usuario_bd = $resultado->fetch_assoc();
 $stmt->close();
 
-// 4. Preparamos el nombre y la foto para mostrarlos en el HTML
+// 3. Preparamos el nombre y la foto para mostrarlos en el HTML
 $nombre_usuario = !empty($usuario_bd['nombre']) ? $usuario_bd['nombre'] : 'Usuario';
 
 $foto_bd = trim(isset($usuario_bd['foto_perfil']) ? $usuario_bd['foto_perfil'] : '');

@@ -1,5 +1,4 @@
 <?php
-// Arrancamos el motor de sesiones de PHP (¡Imprescindible para mantener al usuario logueado!)
 session_start();
 
 define('ACCESO_PERMITIDO', true);
@@ -22,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultado = verificarLogin($conexion, $email, $password);
 
     if ($resultado['exito']) {
+
+        // Genera un nuevo ID de sesión seguro y borra el antiguo
+        session_regenerate_id(true);
+        // -------------------------------------------------
+
         // LOGIN CORRECTO: Guardamos sus datos en la sesión
         $_SESSION['usuario_id']     = $resultado['id'];
         $_SESSION['usuario_nombre'] = $resultado['nombre'];

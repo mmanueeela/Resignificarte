@@ -14,7 +14,7 @@ $usuario_id = $_SESSION['usuario_id'];
 // --- PROCESAR LA ACTUALIZACIÓN ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'actualizar') {
     // Llamamos a la función de la lógica de negocio
-    $actualizado = actualizarPerfilUsuario($conexion, $usuario_id, $_POST);
+    $actualizado = actualizarPerfilUsuario($conexion, $usuario_id, $_POST, isset($_FILES['nueva_foto']) ? $_FILES['nueva_foto'] : null);
 
     if ($actualizado) {
         // Actualizamos el dato del nombre de la sesión
@@ -71,19 +71,27 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
         <div class="perfil-cabecera">
             <div class="perfil-info">
                 <?php
-                // 1. Obtenemos el valor de la base de datos y limpiamos los espacios
                 $foto_bd = isset($usuario['foto_perfil']) ? trim($usuario['foto_perfil']) : '';
-
-                // 2. Comprobamos si está vacío o si es la palabra "null"
                 if (empty($foto_bd) || strtolower($foto_bd) === 'null') {
-                    // Si no tiene foto válida, ponemos la de por defecto
                     $ruta_foto = 'src/iconos/usuario.png';
                 } else {
-                    // Si tiene foto (ej. la de Google), usamos esa
                     $ruta_foto = $foto_bd;
                 }
                 ?>
-                <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Avatar del usuario" class="avatar" style="object-fit: cover;">
+
+                <!-- Contenedor del avatar con el efecto hover y el input oculto -->
+                <div class="avatar-container" id="avatar-container" title="Haz clic en Editar Perfil para cambiar tu foto">
+                    <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Avatar del usuario" class="avatar" id="avatar-preview" style="object-fit: cover;">
+
+                    <!-- El overlay que aparecerá al pasar el ratón (solo en modo edición) -->
+                    <div class="avatar-overlay" id="avatar-overlay">
+                        <span>📷 Cambiar</span>
+                    </div>
+
+                    <!-- Input de archivo (oculto). Le ponemos form="form-perfil" para que se envíe con tu formulario aunque esté fuera de él -->
+                    <input type="file" name="nueva_foto" id="input-foto" accept="image/jpeg, image/png, image/webp" style="display: none;" form="form-perfil">
+                </div>
+
                 <div class="perfil-textos">
                     <h2><?php echo htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellidos']); ?></h2>
                     <p class="rol-usuario">Miembro de Resignificarte</p>
@@ -102,7 +110,7 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
         <?php endif; ?>
 
         <!-- FORMULARIO DE DATOS -->
-        <form class="perfil-formulario" id="form-perfil" method="POST" action="perfil_usuario.php" autocomplete="off">
+        <form class="perfil-formulario" id="form-perfil" method="POST" action="perfil_usuario.php" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="actualizar">
 
             <div class="grid-2-columnas">

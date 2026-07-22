@@ -42,6 +42,42 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* Contenedor relativo para posicionar el overlay */
+.avatar-container {
+    position: relative;
+    width: fit-content;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* El efecto oscuro con el texto, oculto por defecto */
+.avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: default; /* Por defecto no parece clickeable */
+}
+
+/* Clases dinámicas que controlaremos con JavaScript */
+.avatar-container.modo-edicion .avatar-overlay {
+    cursor: pointer;
+}
+
+.avatar-container.modo-edicion:hover .avatar-overlay {
+    opacity: 1;
+}
+
 .perfil-textos {
     padding-bottom: 5px;
 }

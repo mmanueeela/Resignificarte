@@ -4,8 +4,12 @@
     box-sizing: border-box;
 }
 
-body {
+/* AQUÍ ESTÁ LA MAGIA: Hacemos que todo el documento base sea negro y bloqueamos el scroll */
+html, body {
     background-color: #000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evita que aparezcan barras de desplazamiento o líneas fantasma por abajo */
 }
 
 .logo-contenedor {
@@ -27,6 +31,8 @@ body {
     max-width: 800px;
     height: auto;
     display: block;
+    border: none;   /* Por si el navegador intenta ponerle borde */
+    outline: none;  /* Por si el navegador intenta enfocarlo */
 }
 
 /* Esta clase se la inyectamos con JavaScript al terminar el video */

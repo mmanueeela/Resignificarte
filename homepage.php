@@ -8,7 +8,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Inicio - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">

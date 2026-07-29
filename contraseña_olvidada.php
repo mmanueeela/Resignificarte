@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php'
+// require_once 'php/logicaNegocio/redireccion_logeado.php'
 ?>
 <!doctype html>
 <html lang="es">
@@ -8,9 +8,43 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Restablecer contraseña - Resignificarte</title>
+    <link rel="stylesheet" href="css/estilos_comunes.css">
+    <link rel="stylesheet" href="css/contrasena_olvidada.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="js/retardo_cambio_pagina.js" defer></script>
 </head>
 <body>
+
+<header>
+    <!-- Logo -->
+    <div class="logo-container">
+        <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+    </div>
+
+    <!-- Menú principal -->
+    <nav class="menu-navegacion">
+        <ul>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Área de usuario -->
+    <a href="login.php" class="area-usuario">
+        <span class="enlace-acceder">Acceder</span>
+        <img src="src/iconos/usuario.png" alt="Icono de usuario">
+    </a>
+</header>
+
+<main>
+
+</main>
+
+<footer>
+    <p>Todos los derechos reservados. 2026 &copy;</p>
+</footer>
 
 </body>
 </html>

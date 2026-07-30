@@ -6,8 +6,8 @@ $asunto = "Prueba Resignificarte";
 
 $mensaje = "Este es un correo de prueba.";
 
-$headers = "From: hola@mzazzaro.epsg.upv.es\r\n";
-$headers .= "Reply-To: hola@mzazzaro.epsg.upv.es\r\n";
+$headers = "From: mzazzar@epsg.upv.es\r\n";
+$headers .= "Reply-To: mzazzar@epsg.upv.es\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 $resultado = mail(
@@ -15,7 +15,7 @@ $resultado = mail(
     $asunto,
     $mensaje,
     $headers,
-    "-f hola@mzazzaro.epsg.edu.es"
+    "-f mzazzar@epsg.upv.es"
 );
 
 var_dump($resultado);

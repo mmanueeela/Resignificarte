@@ -95,9 +95,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
         $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $cabeceras .= 'From: Resignificarte <hola@mzazzar.epsg.upv.es>' . "\r\n";
+        $cabeceras .= 'From: Resignificarte <hola@mzazzar.upv.edu.es>' . "\r\n";
 
-        mail($email, $asunto, $mensaje, $cabeceras);
+        // Comprobación detallada del envío
+        $enviado = mail($email, $asunto, $mensaje, $cabeceras);
+
+        if (!$enviado) {
+            // Si la función mail() devuelve false, detenemos la ejecución y nos lo muestra en pantalla
+            die("ERROR CRÍTICO: La función mail() ha fallado y el servidor ha bloqueado el envío.");
+        }
         // ==========================================
 
         // Lo enviamos directo a su homepage

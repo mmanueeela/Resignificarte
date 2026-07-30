@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 header('Content-Type: application/json');
 
 // 1. Incluimos la conexión (como están en la misma carpeta 'php')
@@ -39,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     } catch (\Exception $e) {
-        // Esto devolverá el error real en la respuesta JSON para que lo veamos en pantalla o en consola
-        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        echo json_encode(['success' => false, 'message' => 'Error interno en el servidor.']);
     }
 }

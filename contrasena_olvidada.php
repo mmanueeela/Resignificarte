@@ -21,7 +21,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <div class="forgot-container">
         <!-- Logo -->
         <div class="logo-container">
-            <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+            <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
         </div>
         <!-- Formulario login -->
         <form id="forgotForm">

@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
+// 1. Incluimos la conexión
+require_once __DIR__ . '/conexion.php';
 // Requerimos las funciones de la lógica de negocio
 require_once 'php/logicaNegocio/envio_email_contrasena_olvidada.php';
 

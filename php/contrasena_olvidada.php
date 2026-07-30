@@ -28,17 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = generarTokenRecuperacion($conexion, $email);
         $enviado = enviarCorreoRecuperacion($email, $token);
 
-        // Enlace directo en pantalla para testear sin depender del servidor de correo
-        $enlace_prueba = "https://mzazzar.upv.edu.es/restablecer_contrasena.php?token=" . $token;
-
-        echo json_encode([
-            'success' => true,
-            'message' => 'Token generado correctamente. <br><br><a href="' . $enlace_prueba . '" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Haz clic aquí para cambiar tu contraseña</a>'
-        ]);
-        exit;
+        if ($enviado) {
+            echo json_encode(['success' => true, 'message' => 'Si el correo está registrado, recibirás las instrucciones en breve.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al enviar el correo. Inténtalo más tarde.']);
+        }
 
     } catch (\Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Error interno en el servidor: ' . $e->getMessage()]);
+        echo json_encode(['success' => false, 'message' => 'Error interno en el servidor.']);
     }
 }
-?>

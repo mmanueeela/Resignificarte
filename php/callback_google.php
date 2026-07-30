@@ -135,8 +135,8 @@ if (isset($_GET['code'])) {
 
                 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
                 $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-                $cabeceras .= 'From: Resignificarte <hola@tudominio.com>' . "\r\n";
-                
+                $cabeceras .= 'From: Resignificarte <hola@mzazzar.upv.edu.es>' . "\r\n";
+
                 mail($email, $asunto, $mensaje, $cabeceras);
 
                 header("Location: ../homepage_usuario_registrado.php?registro=google_exito");

@@ -62,7 +62,7 @@ function enviarCorreoRecuperacion($email, $token) {
 
     $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
     $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $cabeceras .= 'From: Resignificarte <hola@mzazzaro.epsg.upv.es>' . "\r\n";
+    $cabeceras .= 'From: Resignificarte <mzazzar@epsg.upv.es>' . "\r\n";
 
     return mail($email, $asunto, $mensaje, $cabeceras);
 }

@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     } catch (\Exception $e) {
-    // Muestra el mensaje real del error para depurar
-    echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-}
+        echo json_encode(['success' => false, 'message' => 'Error interno en el servidor.']);
+    }
 }

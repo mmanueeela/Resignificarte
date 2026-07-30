@@ -9,26 +9,31 @@ require_once __DIR__ . '/../conexion.php';
 if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {
 
     $token_cookie = $_COOKIE['recuerdame_token'];
-
-    // Convertimos el token de la cookie a hash para poder compararlo con la BD
     $token_hasheado = hash('sha256', $token_cookie);
 
-    // Buscamos a quién le pertenece este token usando el HASH
-    $consulta = "SELECT id, nombre FROM usuarios WHERE remember_token = ?";
+    // Buscamos el token en 'usuarios_credenciales' y unimos con 'usuarios'
+    $consulta = "SELECT u.id, u.nombre 
+                 FROM usuarios_credenciales c
+                 JOIN usuarios u ON c.usuario_id = u.id
+                 WHERE c.remember_token = ?";
     $stmt = $conexion->prepare($consulta);
-    $stmt->bind_param("s", $token_hasheado);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
 
-    // Si el token es válido y coincide con un usuario
-    if ($resultado->num_rows === 1) {
-        $usuario = $resultado->fetch_assoc();
+    if ($stmt) {
+        $stmt->bind_param("s", $token_hasheado);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-        // Le iniciamos la sesión automáticamente
-        $_SESSION['usuario_id']     = $usuario['id'];
-        $_SESSION['usuario_nombre'] = $usuario['nombre'];
+        if ($resultado->num_rows === 1) {
+            $usuario = $resultado->fetch_assoc();
+
+            $_SESSION['usuario_id']     = $usuario['id'];
+            $_SESSION['usuario_nombre'] = $usuario['nombre'];
+
+            header("Location: homepage_usuario_registrado.php");
+            exit();
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 
 // 2. Si no tiene sesión lo llevamos al login

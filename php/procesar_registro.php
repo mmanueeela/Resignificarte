@@ -59,8 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $token_cookie = bin2hex(random_bytes(32));
         $token_hasheado = hash('sha256', $token_cookie);
 
-        $update_token = $conexion->prepare("UPDATE usuarios SET remember_token = ? WHERE id = ?");
-        if ($update_token) {
+        $update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");        if ($update_token) {
             $update_token->bind_param("si", $token_hasheado, $resultado['id']);
             $update_token->execute();
             $update_token->close();

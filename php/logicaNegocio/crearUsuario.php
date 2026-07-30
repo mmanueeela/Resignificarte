@@ -1,13 +1,12 @@
 <?php
-// Evita que este archivo se pueda ejecutar directamente desde el navegador
 if (!defined('ACCESO_PERMITIDO')) {
     die('Acceso directo denegado');
 }
 
 function registrarUsuario($conexion, $nombre, $apellidos, $pais, $fecha_nacimiento, $email, $password) {
 
-    // 1. Verificar si el correo electrónico ya está registrado
-    $consulta_email = "SELECT id FROM usuarios WHERE email = ?";
+    // 1. Verificar si el correo electrónico ya está registrado en credenciales
+    $consulta_email = "SELECT id FROM usuarios_credenciales WHERE email = ?";
     $stmt = $conexion->prepare($consulta_email);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -21,23 +20,32 @@ function registrarUsuario($conexion, $nombre, $apellidos, $pais, $fecha_nacimien
     // 2. Encriptar la contraseña
     $password_encriptada = password_hash($password, PASSWORD_DEFAULT);
 
-    // 3. Insertar el nuevo usuario
-    $consulta_insert = "INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt_insert = $conexion->prepare($consulta_insert);
+    // 3. Insertar datos en la tabla `usuarios`
+    $consulta_insert_user = "INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento) VALUES (?, ?, ?, ?)";
+    $stmt_user = $conexion->prepare($consulta_insert_user);
+    $stmt_user->bind_param("ssss", $nombre, $apellidos, $pais, $fecha_nacimiento);
 
-    $stmt_insert->bind_param("ssssss", $nombre, $apellidos, $pais, $fecha_nacimiento, $email, $password_encriptada);
+    if (!$stmt_user->execute()) {
+        $error = $conexion->error;
+        $stmt_user->close();
+        return ["exito" => false, "mensaje" => "Error al guardar el usuario: " . $error];
+    }
 
-    if ($stmt_insert->execute()) {
-        // Obtenemos el ID que la base de datos le acaba de asignar
-        $nuevo_id = $stmt_insert->insert_id;
-        $stmt_insert->close();
+    $nuevo_id = $stmt_user->insert_id;
+    $stmt_user->close();
 
-        // Devolvemos el ID junto con el éxito
+    // 4. Insertar datos en la tabla `usuarios_credenciales` usando el ID anterior
+    $consulta_insert_cred = "INSERT INTO usuarios_credenciales (usuario_id, email, password) VALUES (?, ?, ?)";
+    $stmt_cred = $conexion->prepare($consulta_insert_cred);
+    $stmt_cred->bind_param("iss", $nuevo_id, $email, $password_encriptada);
+
+    if ($stmt_cred->execute()) {
+        $stmt_cred->close();
         return ["exito" => true, "mensaje" => "Registro completado con éxito.", "id" => $nuevo_id];
     } else {
         $error = $conexion->error;
-        $stmt_insert->close();
-        return ["exito" => false, "mensaje" => "Error interno al guardar: " . $error];
+        $stmt_cred->close();
+        return ["exito" => false, "mensaje" => "Error al guardar credenciales: " . $error];
     }
 }
 ?>

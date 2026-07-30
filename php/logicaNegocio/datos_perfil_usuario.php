@@ -1,8 +1,11 @@
 <?php
 
 function obtenerDatosUsuario($conexion, $usuario_id) {
-    // Añadimos 'foto_perfil' a la consulta
-    $consulta = "SELECT nombre, apellidos, email, pais, fecha_nacimiento, foto_perfil FROM usuarios WHERE id = ?";
+    // Unimos las dos tablas para recoger toda la info del perfil
+    $consulta = "SELECT u.nombre, u.apellidos, c.email, u.pais, u.fecha_nacimiento, u.foto_perfil 
+                 FROM usuarios u
+                 JOIN usuarios_credenciales c ON u.id = c.usuario_id
+                 WHERE u.id = ?";
     $stmt = $conexion->prepare($consulta);
     $stmt->bind_param("i", $usuario_id);
     $stmt->execute();
@@ -22,19 +25,14 @@ function actualizarPerfilUsuario($conexion, $usuario_id, $datos_post, $archivo_f
 
     $ruta_foto_final = null;
 
-    // --- PROCESAR LA IMAGEN SI SE HA SUBIDO UNA NUEVA ---
     if ($archivo_foto && $archivo_foto['error'] === UPLOAD_ERR_OK) {
         $permitidos = ['image/jpeg', 'image/png', 'image/webp'];
 
         if (in_array($archivo_foto['type'], $permitidos) && $archivo_foto['size'] <= 2097152) {
-
             $extension = pathinfo($archivo_foto['name'], PATHINFO_EXTENSION);
             $nombre_archivo = "user_" . $usuario_id . "_" . time() . "." . $extension;
-
-            // 1. Definimos la ruta de la carpeta destino
             $directorio_destino = __DIR__ . '/../../src/uploads/perfiles/';
 
-            // 2. ¡MAGIA! Si la carpeta no existe, le decimos a PHP que la cree con permisos
             if (!file_exists($directorio_destino)) {
                 mkdir($directorio_destino, 0777, true);
             }
@@ -42,26 +40,29 @@ function actualizarPerfilUsuario($conexion, $usuario_id, $datos_post, $archivo_f
             $ruta_fisica = $directorio_destino . $nombre_archivo;
             $ruta_db = 'src/uploads/perfiles/' . $nombre_archivo;
 
-            // 3. Movemos el archivo
             if (move_uploaded_file($archivo_foto['tmp_name'], $ruta_fisica)) {
                 $ruta_foto_final = $ruta_db;
             }
         }
     }
 
-    // --- ACTUALIZAR LA BASE DE DATOS ---
+    // --- ACTUALIZAR LA BASE DE DATOS (En ambas tablas) ---
+    // 1. Actualizamos los datos personales en la tabla 'usuarios'
     if ($ruta_foto_final) {
-        // Si hay foto nueva, actualizamos todo incluyendo la foto
-        $update = $conexion->prepare("UPDATE usuarios SET nombre=?, apellidos=?, pais=?, fecha_nacimiento=?, email=?, foto_perfil=? WHERE id=?");
-        $update->bind_param("ssssssi", $nuevo_nombre, $nuevo_apellidos, $nuevo_pais, $nueva_fecha, $nuevo_email, $ruta_foto_final, $usuario_id);
+        $update_user = $conexion->prepare("UPDATE usuarios SET nombre=?, apellidos=?, pais=?, fecha_nacimiento=?, foto_perfil=? WHERE id=?");
+        $update_user->bind_param("sssssi", $nuevo_nombre, $nuevo_apellidos, $nuevo_pais, $nueva_fecha, $ruta_foto_final, $usuario_id);
     } else {
-        // Si no subió foto, actualizamos solo los datos de texto (dejando la foto intacta)
-        $update = $conexion->prepare("UPDATE usuarios SET nombre=?, apellidos=?, pais=?, fecha_nacimiento=?, email=? WHERE id=?");
-        $update->bind_param("sssssi", $nuevo_nombre, $nuevo_apellidos, $nuevo_pais, $nueva_fecha, $nuevo_email, $usuario_id);
+        $update_user = $conexion->prepare("UPDATE usuarios SET nombre=?, apellidos=?, pais=?, fecha_nacimiento=? WHERE id=?");
+        $update_user->bind_param("ssssi", $nuevo_nombre, $nuevo_apellidos, $nuevo_pais, $nueva_fecha, $usuario_id);
     }
+    $update_user->execute();
+    $update_user->close();
 
-    $exito = $update->execute();
-    $update->close();
+    // 2. Actualizamos el email en la tabla 'usuarios_credenciales'
+    $update_cred = $conexion->prepare("UPDATE usuarios_credenciales SET email=? WHERE usuario_id=?");
+    $update_cred->bind_param("si", $nuevo_email, $usuario_id);
+    $exito = $update_cred->execute();
+    $update_cred->close();
 
     return $exito;
 }

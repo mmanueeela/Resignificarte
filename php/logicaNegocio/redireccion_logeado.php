@@ -19,7 +19,11 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {
     $token_cookie = $_COOKIE['recuerdame_token'];
     $token_hasheado = hash('sha256', $token_cookie);
 
-    $consulta = "SELECT id, nombre FROM usuarios WHERE remember_token = ?";
+    // Buscamos el token en 'usuarios_credenciales' y unimos con 'usuarios'
+    $consulta = "SELECT u.id, u.nombre 
+                 FROM usuarios_credenciales c
+                 JOIN usuarios u ON c.usuario_id = u.id
+                 WHERE c.remember_token = ?";
     $stmt = $conexion->prepare($consulta);
 
     if ($stmt) {

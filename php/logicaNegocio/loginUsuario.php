@@ -5,8 +5,11 @@ if (!defined('ACCESO_PERMITIDO')) {
 
 function verificarLogin($conexion, $email, $password_ingresada) {
 
-    // 1. Buscamos al usuario, pidiendo también su metodo_registro
-    $consulta = "SELECT id, nombre, password, metodo_registro FROM usuarios WHERE email = ?";
+    // 1. Buscamos al usuario uniendo ambas tablas
+    $consulta = "SELECT u.id, u.nombre, c.password, c.metodo_registro 
+                 FROM usuarios_credenciales c
+                 JOIN usuarios u ON c.usuario_id = u.id
+                 WHERE c.email = ?";
     $stmt = $conexion->prepare($consulta);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -15,14 +18,11 @@ function verificarLogin($conexion, $email, $password_ingresada) {
     if ($resultado->num_rows === 1) {
         $usuario = $resultado->fetch_assoc();
 
-        // --- NUEVO: COMPROBAR SI ES USUARIO DE GOOGLE ---
         if ($usuario['metodo_registro'] === 'google') {
             $stmt->close();
             return ["exito" => false, "mensaje" => "Esta cuenta se creó con Google. Por favor, usa el botón de 'Continuar con Google' para entrar."];
         }
-        // ------------------------------------------------
 
-        // 3. Comparamos la contraseña normal
         if (password_verify($password_ingresada, $usuario['password'])) {
             $stmt->close();
             return ["exito" => true, "id" => $usuario['id'], "nombre" => $usuario['nombre']];
@@ -37,7 +37,8 @@ function verificarLogin($conexion, $email, $password_ingresada) {
 }
 
 function guardarTokenRecuerdame($conexion, $id_usuario, $token) {
-    $consulta = "UPDATE usuarios SET remember_token = ? WHERE id = ?";
+    // El token de recuerdo ahora vive en 'usuarios_credenciales'
+    $consulta = "UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?";
     $stmt = $conexion->prepare($consulta);
     $stmt->bind_param("si", $token, $id_usuario);
     $stmt->execute();

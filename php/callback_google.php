@@ -1,5 +1,4 @@
 <?php
-// ¡IMPORTANTE! Añadimos session_start() para que el login funcione correctamente
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -7,16 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once 'conexion.php';
 require_once 'config_google.php';
 
-// 1. Verificar si Google nos devolvió un código de éxito
 if (isset($_GET['code'])) {
-
-    // 2. Intercambiar el código por un token de acceso real
     $token = $cliente->fetchAccessTokenWithAuthCode($_GET['code']);
 
     if (!isset($token['error'])) {
         $cliente->setAccessToken($token['access_token']);
 
-        // 3. Obtener los datos del perfil de Google
         $servicio_oauth = new Google\Service\Oauth2($cliente);
         $info_usuario = $servicio_oauth->userinfo->get();
 
@@ -25,17 +20,22 @@ if (isset($_GET['code'])) {
         $apellidos = isset($info_usuario->familyName) ? $info_usuario->familyName : '';
         $foto_perfil = $info_usuario->picture;
 
-        // 4. Comprobar si este correo ya existe en nuestra base de datos
-        $consulta = $conexion->prepare("SELECT id, foto_perfil FROM usuarios WHERE email = ?");
+        // 1. Comprobar si este correo ya existe uniendo ambas tablas
+        $consulta = $conexion->prepare("
+            SELECT u.id, u.foto_perfil 
+            FROM usuarios u 
+            JOIN usuarios_credenciales c ON u.id = c.usuario_id 
+            WHERE c.email = ?
+        ");
         $consulta->bind_param("s", $email);
         $consulta->execute();
         $resultado = $consulta->get_result();
 
         if ($resultado->num_rows > 0) {
             // ==========================================
-            // EL USUARIO YA EXISTE -> Le hacemos LOGIN directo
+            // EL USUARIO YA EXISTE -> Login directo
             // ==========================================
-            session_regenerate_id(true); // Seguridad
+            session_regenerate_id(true);
 
             $usuario = $resultado->fetch_assoc();
             $id_usuario = $usuario['id'];
@@ -44,9 +44,6 @@ if (isset($_GET['code'])) {
             $_SESSION['usuario_id'] = $id_usuario;
             $_SESSION['usuario_nombre'] = $nombre;
 
-            // ¡AQUÍ ESTÁ EL CAMBIO!
-            // Solo actualizamos la foto con la de Google si el usuario NO ha subido una propia.
-            // (Si no encuentra 'src/uploads/perfiles/' en su foto actual, entonces la actualiza).
             if (strpos($foto_actual, 'src/uploads/perfiles/') === false) {
                 $update_foto = $conexion->prepare("UPDATE usuarios SET foto_perfil = ? WHERE id = ?");
                 if ($update_foto) {
@@ -56,13 +53,14 @@ if (isset($_GET['code'])) {
                 }
             }
 
-            // --- LÓGICA DE RECUÉRDAME ---
+            // Lógica de Recuérdame (en usuarios_credenciales)
             $token_cookie = bin2hex(random_bytes(32));
             $token_hasheado = hash('sha256', $token_cookie);
 
-            $update_token = $conexion->prepare("UPDATE usuarios SET remember_token = ? WHERE id = ?");
+            $update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");
             $update_token->bind_param("si", $token_hasheado, $id_usuario);
             $update_token->execute();
+            $update_token->close();
 
             setcookie("recuerdame_token", $token_cookie, [
                 'expires' => time() + (86400 * 30),
@@ -71,37 +69,45 @@ if (isset($_GET['code'])) {
                 'httponly' => true,
                 'samesite' => 'Lax'
             ]);
-            // -----------------------------
 
             header("Location: ../homepage_usuario_registrado.php?login=exito");
             exit();
 
         } else {
             // ==========================================
-            // EL USUARIO NO EXISTE -> Lo REGISTRAMOS
+            // EL USUARIO NO EXISTE -> Lo registramos
             // ==========================================
             $pais_generico = "ND";
             $fecha_generica = "2000-01-01";
             $password_aleatoria = password_hash(bin2hex(random_bytes(10)), PASSWORD_DEFAULT);
 
-            $insertar = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, email, password, metodo_registro, foto_perfil) VALUES (?, ?, ?, ?, ?, ?, 'google', ?)");
-            $insertar->bind_param("sssssss", $nombre, $apellidos, $pais_generico, $fecha_generica, $email, $password_aleatoria, $foto_perfil);
+            // A. Insertar en tabla 'usuarios'
+            $insertar_user = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, foto_perfil) VALUES (?, ?, ?, ?, ?)");
+            $insertar_user->bind_param("sssss", $nombre, $apellidos, $pais_generico, $fecha_generica, $foto_perfil);
 
-            if ($insertar->execute()) {
-                session_regenerate_id(true); // Seguridad
+            if ($insertar_user->execute()) {
+                $nuevo_id = $insertar_user->insert_id;
+                $insertar_user->close();
 
-                $nuevo_id = $insertar->insert_id;
+                // B. Insertar en tabla 'usuarios_credenciales'
+                $insertar_cred = $conexion->prepare("INSERT INTO usuarios_credenciales (usuario_id, email, password, metodo_registro) VALUES (?, ?, ?, 'google')");
+                $insertar_cred->bind_param("iss", $nuevo_id, $email, $password_aleatoria);
+                $insertar_cred->execute();
+                $insertar_cred->close();
+
+                session_regenerate_id(true);
 
                 $_SESSION['usuario_id'] = $nuevo_id;
                 $_SESSION['usuario_nombre'] = $nombre;
 
-                // --- LÓGICA DE RECUÉRDAME ---
+                // C. Lógica de Recuérdame
                 $token_cookie = bin2hex(random_bytes(32));
                 $token_hasheado = hash('sha256', $token_cookie);
 
-                $update_token = $conexion->prepare("UPDATE usuarios SET remember_token = ? WHERE id = ?");
+                $update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");
                 $update_token->bind_param("si", $token_hasheado, $nuevo_id);
                 $update_token->execute();
+                $update_token->close();
 
                 setcookie("recuerdame_token", $token_cookie, [
                     'expires' => time() + (86400 * 30),
@@ -110,24 +116,10 @@ if (isset($_GET['code'])) {
                     'httponly' => true,
                     'samesite' => 'Lax'
                 ]);
-                // -----------------------------
 
-                // Enviar correo electrónico al registrarse
+                // Correo de bienvenida
                 $asunto = "¡Bienvenido a Resignificarte!";
-                $mensaje = "
-                <html>
-                <head><title>Bienvenido</title></head>
-                <body>
-                    <h2>¡Hola $nombre!</h2>
-                    <p>Gracias por registrarte en <b>Resignificarte</b> usando tu cuenta de Google.</p>
-                    <p>Estamos muy felices de tenerte con nosotros.</p>
-                    <br>
-                    <p>Un abrazo,</p>
-                    <p>El equipo de Resignificarte</p>
-                </body>
-                </html>
-                ";
-
+                $mensaje = "<html><body><h2>¡Hola $nombre!</h2><p>Gracias por registrarte en <b>Resignificarte</b> con Google.</p></body></html>";
                 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
                 $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
                 $cabeceras .= 'From: Resignificarte <hola@resignificarte.com>' . "\r\n";

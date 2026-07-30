@@ -53,7 +53,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
                     <input type="checkbox" id="remember-me" name="remember">
                     Recuérdame
                 </label>
-                <a href="contraseña_olvidada.php" class="forgot-link">¿Contraseña olvidada?</a>
+                <a href="contrasena_olvidada.php" class="forgot-link">¿Contraseña olvidada?</a>
             </div>
 
             <!-- Botón -->

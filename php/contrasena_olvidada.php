@@ -1,13 +1,14 @@
 <?php
 header('Content-Type: application/json');
 
-// 1. Incluimos la conexión
+// 1. Incluimos la conexión (como están en la misma carpeta 'php')
 require_once __DIR__ . '/conexion.php';
-// Requerimos las funciones de la lógica de negocio
-require_once 'php/logicaNegocio/envio_email_contrasena_olvidada.php';
+
+// 2. Incluimos la lógica de negocio bajando directamente a logicaNegocio
+require_once __DIR__ . '/logicaNegocio/envio_email_contrasena_olvidada.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = filter_var(trim(isset($_POST['email']) ? $_POST['email'] : ''), FILTER_SANITIZE_EMAIL);
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(['success' => false, 'message' => 'Correo electrónico no válido.']);
@@ -15,12 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // La variable global $conexion ya viene creada desde tu conexion.php incluido en las funciones
         global $conexion;
 
         $usuario = buscarUsuarioPorEmail($conexion, $email);
 
-        // Seguridad: Si el usuario no existe, respondemos con éxito genérico para evitar que descubran qué emails están registrados
         if (!$usuario) {
             echo json_encode(['success' => true, 'message' => 'Si el correo está registrado, recibirás las instrucciones en breve.']);
             exit;

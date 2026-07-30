@@ -79,29 +79,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ENVIAR CORREO DE BIENVENIDA (REGISTRO MANUAL)
         // ==========================================
         $asunto = "¡Bienvenido a Resignificarte!";
-        $mensaje = "
+        $mensaje = '
         <html>
-        <head><title>Bienvenido</title></head>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+                .container { background-color: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+                .footer { font-size: 12px; color: #777777; margin-top: 30px; }
+            </style>
+        </head>
         <body>
-            <h2>¡Hola $nombre!</h2>
-            <p>Gracias por registrarte en <b>Resignificarte</b>.</p>
-            <p>Estamos muy felices de tenerte con nosotros.</p>
-            <br>
-            <p>Un abrazo,</p>
-            <p>El equipo de Resignificarte</p>
+            <div class="container">
+                <h2>¡Hola ' . htmlspecialchars($nombre) . '!</h2>
+                <p>Gracias por registrarte en <b>Resignificarte</b>.</p>
+                <p>Estamos muy felices de tenerte con nosotros.</p>
+                <br>
+                <p>Un abrazo,</p>
+                <p>El equipo de Resignificarte</p>
+                <div class="footer">Este es un mensaje automático, por favor no respondas a este correo.</div>
+            </div>
         </body>
         </html>
-        ";
+        ';
 
-        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-        $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $cabeceras .= 'From: Resignificarte <manussupv@gmail.com>' . "\r\n";
+        $cabeceras  = "MIME-Version: 1.0\r\n";
+        $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $cabeceras .= "From: mzazzar@epsg.upv.es\r\n";
+        $cabeceras .= "Reply-To: mzazzar@epsg.upv.es\r\n";
 
-        // Comprobación detallada del envío
-        $enviado = mail($email, $asunto, $mensaje, $cabeceras);
+        // Comprobación detallada del envío con el parámetro -f incluido
+        $enviado = mail(
+            $email,
+            $asunto,
+            $mensaje,
+            $cabeceras,
+            "-f mzazzar@epsg.upv.es"
+        );
 
         if (!$enviado) {
-            // Si la función mail() devuelve false, detenemos la ejecución y nos lo muestra en pantalla
             die("ERROR CRÍTICO: La función mail() ha fallado y el servidor ha bloqueado el envío.");
         }
         // ==========================================

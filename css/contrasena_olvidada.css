@@ -1,0 +1,164 @@
+.logo-container {
+    display: flex;
+    margin: auto auto;
+}
+
+.logo-container a img {
+    filter: saturate(200%);
+}
+
+.logo-container a {
+    margin-bottom: 25px;
+}
+
+main {
+    background: linear-gradient(to bottom, #200B30, #a486c9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.forgot-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: 400px;
+    padding: 30px 40px;
+    border-radius: 35px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    margin: auto auto;
+}
+
+.forgot-container h2 {
+    margin-bottom: 10px;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.forgot-container p {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#forgotForm {
+    width: 100%;
+}
+
+/* Estilo unificado para los grupos de input (línea inferior) */
+.forgot-container .input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 8px;
+    flex-direction: row;
+}
+
+/* Estilo exacto del icono del login */
+.forgot-container .input-group .input-icon {
+    height: auto;
+    width: 18px;
+    margin: auto 15px auto auto;
+    opacity: 0.8;
+}
+
+/* Ocultar etiqueta visualmente pero mantenerla accesible */
+.forgot-container label {
+    display: none;
+}
+
+/* Campos de texto estilo login */
+.forgot-container input[type="email"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    font-family: Montserrat, sans-serif;
+    padding: 0;
+}
+
+/* Color del texto del placeholder idéntico al login */
+.forgot-container input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Botón unificado con el estilo .btn-login */
+.forgot-container .btn-login {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background-color: #523479;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+.forgot-container .btn-login:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Mensajes de éxito y error */
+.forgot-container .message {
+    display: none; /* Se activa desde el JS cuando hay respuesta */
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    animation: aparecer 0.3s ease-in-out;
+}
+
+/* Estilo específico para cuando es error */
+.forgot-container .message.error {
+    display: block;
+    background-color: rgba(255, 77, 77, 0.2);
+    border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #fce1e1;
+}
+
+/* Estilo específico para cuando es éxito */
+.forgot-container .message.success {
+    display: block;
+    background-color: rgba(77, 255, 145, 0.2);
+    border: 1px solid rgba(77, 255, 145, 0.5);
+    color: #e1fce1;
+}
+
+/* Corrección del autocompletado para mantener la transparencia */
+.forgot-container input[type="email"]:-webkit-autofill,
+.forgot-container input[type="email"]:-webkit-autofill:hover,
+.forgot-container input[type="email"]:-webkit-autofill:focus,
+.forgot-container input[type="email"]:-webkit-autofill:active {
+    -webkit-text-fill-color: white !important;
+    font-family: Montserrat, sans-serif !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

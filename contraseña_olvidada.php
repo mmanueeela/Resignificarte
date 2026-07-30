@@ -13,38 +13,33 @@
     <link rel="stylesheet" href="css/contrasena_olvidada.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
+    <script src="js/contrasena_olvidada.js" defer></script>
 </head>
 <body>
 
-<header>
-    <!-- Logo -->
-    <div class="logo-container">
-        <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
-    </div>
-
-    <!-- Menú principal -->
-    <nav class="menu-navegacion">
-        <ul>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Nosotros</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </nav>
-
-    <!-- Área de usuario -->
-    <a href="login.php" class="area-usuario">
-        <span class="enlace-acceder">Acceder</span>
-        <img src="src/iconos/usuario.png" alt="Icono de usuario">
-    </a>
-</header>
-
 <main>
+    <div class="forgot-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        </div>
+        <!-- Formulario login -->
+        <form id="forgotForm">
+            <h2>¿Has olvidado tu contraseña?</h2>
+            <p>Introduce tu correo electrónico y te enviaremos las instrucciones para restablecerla.</p>
 
+            <div class="input-group">
+                <img src="src/iconos/email_login.png" alt="Icono email" class="input-icon">
+                <label for="email">Correo electrónico</label>
+                <input type="email" placeholder="Introduce tu email" id="email" name="email">
+            </div>
+
+            <p id="responseMessage" class="message"></p>
+
+            <button type="submit" id="submitBtn" class="btn-login">ENVIAR ENLACE</button>
+        </form>
+    </div>
 </main>
-
-<footer>
-    <p>Todos los derechos reservados. 2026 &copy;</p>
-</footer>
 
 </body>
 </html>

@@ -178,27 +178,6 @@ main {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-/* --- SEPARADOR "O" --- */
-.separador {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 25px 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-family: Montserrat, sans-serif;
-    font-size: 14px;
-}
-
-.separador span {
-    flex: 1;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-.separador p {
-    margin: 0 15px;
-}
-
 /* --- BOTÓN DE GOOGLE --- */
 .btn-google {
     display: flex;
@@ -256,25 +235,4 @@ main {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color 0.3s;
-}
-
-/*  MENSAJE DE ERROR DEL FORMULARIO */
-.mensaje-error {
-    display: none;
-    background-color: rgba(255, 77, 77, 0.2);
-    border: 1px solid rgba(255, 77, 77, 0.5);
-    color: #fce1e1;
-    padding: 12px 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-family: Montserrat, sans-serif;
-    font-size: 14px;
-    text-align: center;
-    backdrop-filter: blur(5px);
-    animation: aparecer 0.3s ease-in-out;
-}
-
-@keyframes aparecer {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
 }

@@ -14,10 +14,13 @@ function buscarUsuarioPorEmail($conexion, $email) {
 }
 
 function generarTokenRecuperacion($conexion, $email) {
+    // Forzamos la zona horaria correcta de España
+    date_default_timezone_set('Europe/Madrid');
+
     $token = bin2hex(random_bytes(32));
+    // Fecha actual + 30 minutos en formato MySQL (YYYY-MM-DD HH:MM:SS)
     $expiracion = date("Y-m-d H:i:s", strtotime("+30 minutes"));
 
-    // Actualizamos en 'usuarios_credenciales'
     $stmt = $conexion->prepare("UPDATE usuarios_credenciales SET reset_token = ?, reset_expiracion = ? WHERE email = ?");
     $stmt->bind_param("sss", $token, $expiracion, $email);
     $stmt->execute();

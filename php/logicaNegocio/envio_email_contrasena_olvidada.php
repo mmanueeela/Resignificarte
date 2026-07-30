@@ -30,39 +30,100 @@ function generarTokenRecuperacion($conexion, $email) {
 }
 
 function enviarCorreoRecuperacion($email, $token) {
-    // URL exacta a la futura página de restablecimiento en tu servidor
-    $enlace = "https://mzazzar.upv.edu.es/restablecer_contrasena.php?token=" . $token;
+
+    $enlace = "https://mzazzar.upv.edu.es/restablecer_contrasena.php?token=" . urlencode($token);
 
     $asunto = "Restablecer contraseña - Resignificarte";
 
     $mensaje = '
     <html>
     <head>
+        <meta charset="UTF-8">
         <style>
-            body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-            .container { background-color: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-            .btn { display: inline-block; padding: 12px 20px; background-color: #6c5ce7; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
-            .footer { font-size: 12px; color: #777777; margin-top: 30px; }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                padding: 20px;
+            }
+
+            .container {
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 8px;
+                max-width: 600px;
+                margin: auto;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+
+            .btn {
+                display: inline-block;
+                padding: 12px 20px;
+                background-color: #6c5ce7;
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+
+            .footer {
+                font-size: 12px;
+                color: #777777;
+                margin-top: 30px;
+            }
         </style>
     </head>
+
     <body>
+
         <div class="container">
+
             <h2>¿Has solicitado restablecer tu contraseña?</h2>
+
             <p>Hola,</p>
-            <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en <b>Resignificarte</b>.</p>
-            <p>Haz clic en el siguiente botón para crear una nueva contraseña:</p>
-            <a href="' . $enlace . '" class="btn">Restablecer contraseña</a>
-            <p style="margin-top: 20px;">Si el botón no funciona, copia y pega este enlace en tu navegador:</p>
-            <p><small>' . $enlace . '</small></p>
-            <p class="footer">Este enlace expirará en 30 minutos. Si no solicitaste este cambio, puedes ignorar este mensaje de forma segura.</p>
+
+            <p>
+                Hemos recibido una solicitud para restablecer la contraseña
+                de tu cuenta en <b>Resignificarte</b>.
+            </p>
+
+            <p>
+                Haz clic en el siguiente botón para crear una nueva contraseña:
+            </p>
+
+            <a href="' . $enlace . '" class="btn">
+                Restablecer contraseña
+            </a>
+
+            <p style="margin-top: 20px;">
+                Si el botón no funciona, copia y pega este enlace en tu navegador:
+            </p>
+
+            <p>
+                <small>' . $enlace . '</small>
+            </p>
+
+            <p class="footer">
+                Este enlace expirará en 30 minutos.
+                Si no solicitaste este cambio, puedes ignorar este mensaje de forma segura.
+            </p>
+
         </div>
+
     </body>
     </html>
     ';
 
-    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-    $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $cabeceras .= 'From: Resignificarte <mzazzar@epsg.upv.es>' . "\r\n";
+    $cabeceras  = "MIME-Version: 1.0\r\n";
+    $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $cabeceras .= "From: mzazzar@epsg.upv.es\r\n";
+    $cabeceras .= "Reply-To: mzazzar@epsg.upv.es\r\n";
 
-    return mail($email, $asunto, $mensaje, $cabeceras);
+    return mail(
+        $email,
+        $asunto,
+        $mensaje,
+        $cabeceras,
+        "-f mzazzar@epsg.upv.es"
+    );
 }

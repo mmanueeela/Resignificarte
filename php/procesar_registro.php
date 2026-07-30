@@ -59,7 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $token_cookie = bin2hex(random_bytes(32));
         $token_hasheado = hash('sha256', $token_cookie);
 
-        $update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");        if ($update_token) {
+        $update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");
+        if ($update_token) {
             $update_token->bind_param("si", $token_hasheado, $resultado['id']);
             $update_token->execute();
             $update_token->close();
@@ -73,6 +74,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'samesite' => 'Lax'
         ]);
         // --- FIN LÓGICA DE RECUÉRDAME AUTOMÁTICO ---
+
+        // ==========================================
+        // ENVIAR CORREO DE BIENVENIDA (REGISTRO MANUAL)
+        // ==========================================
+        $asunto = "¡Bienvenido a Resignificarte!";
+        $mensaje = "
+        <html>
+        <head><title>Bienvenido</title></head>
+        <body>
+            <h2>¡Hola $nombre!</h2>
+            <p>Gracias por registrarte en <b>Resignificarte</b>.</p>
+            <p>Estamos muy felices de tenerte con nosotros.</p>
+            <br>
+            <p>Un abrazo,</p>
+            <p>El equipo de Resignificarte</p>
+        </body>
+        </html>
+        ";
+
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $cabeceras .= 'From: Resignificarte <no-reply@mzazzar.upv.edu.es>' . "\r\n";
+
+        mail($email, $asunto, $mensaje, $cabeceras);
+        // ==========================================
 
         // Lo enviamos directo a su homepage
         header("Location: ../homepage_usuario_registrado.php");

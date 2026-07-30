@@ -117,12 +117,25 @@ if (isset($_GET['code'])) {
                     'samesite' => 'Lax'
                 ]);
 
-                // Correo de bienvenida
+                // Correo electrónico al registrarse con Google
                 $asunto = "¡Bienvenido a Resignificarte!";
-                $mensaje = "<html><body><h2>¡Hola $nombre!</h2><p>Gracias por registrarte en <b>Resignificarte</b> con Google.</p></body></html>";
+                $mensaje = "
+                <html>
+                <head><title>Bienvenido</title></head>
+                <body>
+                    <h2>¡Hola $nombre!</h2>
+                    <p>Gracias por registrarte en <b>Resignificarte</b> usando tu cuenta de Google.</p>
+                    <p>Estamos muy felices de tenerte con nosotros.</p>
+                    <br>
+                    <p>Un abrazo,</p>
+                    <p>El equipo de Resignificarte</p>
+                </body>
+                </html>
+                ";
+
                 $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
                 $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-                $cabeceras .= 'From: Resignificarte <hola@resignificarte.com>' . "\r\n";
+                $cabeceras .= 'From: Resignificarte <no-reply@mzazzar.upv.edu.es>' . "\r\n";
 
                 mail($email, $asunto, $mensaje, $cabeceras);
 

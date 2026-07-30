@@ -10,7 +10,7 @@ document.getElementById('forgotForm').addEventListener('submit', async function(
     submitBtn.disabled = true;
 
     try {
-        const response = await fetch('forgot-password.php', {
+        const response = await fetch('contrasena_olvidada.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

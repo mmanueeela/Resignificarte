@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
         $cabeceras .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $cabeceras .= 'From: Resignificarte <hola@mzazzar.upv.edu.es>' . "\r\n";
+        $cabeceras .= 'From: Resignificarte <manussupv@gmail.com>' . "\r\n";
 
         // Comprobación detallada del envío
         $enviado = mail($email, $asunto, $mensaje, $cabeceras);

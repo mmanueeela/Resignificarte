@@ -1,5 +1,5 @@
 <?php
-require_once 'php/conexion.php';
+require_once 'conexion.php';
 
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 $valido = false;

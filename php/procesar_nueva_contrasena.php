@@ -39,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($update->execute()) {
             $update->close();
             // Redirigir al login con éxito
-            header("Location: ../login.php?error=" . urlencode("Contraseña actualizada con éxito. Ya puedes iniciar sesión."));
-            exit();
+            header("Location: ../login.php?exito=" . urlencode("Contraseña actualizada con éxito. Ya puedes iniciar sesión."));            exit();
         } else {
             die("Error al actualizar la contraseña en la base de datos.");
         }

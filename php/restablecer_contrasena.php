@@ -26,37 +26,51 @@ if (!empty($token)) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restablecer Contraseña - Resignificarte</title>
     <link rel="stylesheet" href="../css/estilos_comunes.css">
+    <link rel="stylesheet" href="../css/restablecer_contrasena.css">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <script src="../js/retardo_cambio_pagina.js" defer></script>
 </head>
 <body>
-<div class="container-auth">
-    <h2>Nueva Contraseña</h2>
 
-    <?php if ($valido): ?>
-        <form action="procesar_nueva_contrasena.php" method="POST">
-            <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+<main>
+    <div class="forgot-container">
 
-            <div class="form-group">
-                <label for="password">Introduce tu nueva contraseña:</label>
-                <input type="password" id="password" name="password" required minlength="8">
-            </div>
-
-            <div class="form-group">
-                <label for="confirm_password">Repite la contraseña:</label>
-                <input type="password" id="confirm_password" name="confirm_password" required minlength="8">
-            </div>
-
-            <button type="submit" class="btn-submit">Actualizar contraseña</button>
-        </form>
-    <?php else: ?>
-        <div class="message error" style="display:block;">
-            <?php echo $mensaje_error; ?>
+        <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
+            <a href="../homepage.php"><img src="../src/logo/logo_con_inifito.png" alt="Logo" style="width: 80px;"></a>
         </div>
-        <p><a href="../login.php">Volver al inicio de sesión</a></p>
-    <?php endif; ?>
-</div>
+
+        <h2>Nueva Contraseña</h2>
+        <p>Introduce tu nueva clave de acceso.</p>
+
+        <?php if ($valido): ?>
+            <form action="procesar_nueva_contrasena.php" method="POST">
+                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+
+                <div class="input-group">
+                    <img src="../src/iconos/candado_login.png" alt="Icono candado" class="input-icon">
+                    <input type="password" id="password" name="password" placeholder="Nueva contraseña" required minlength="8">
+                </div>
+
+                <div class="input-group">
+                    <img src="../src/iconos/candado_login.png" alt="Icono candado" class="input-icon">
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Repite la contraseña" required minlength="8">
+                </div>
+
+                <button type="submit" class="btn-login">Actualizar contraseña</button>
+            </form>
+        <?php else: ?>
+            <div class="message error">
+                <?php echo $mensaje_error; ?>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="../login.php" style="color: white; text-decoration: underline; font-family: Montserrat, sans-serif;">Volver al inicio de sesión</a>
+            </div>
+        <?php endif; ?>
+    </div>
+</main>
+
 </body>
 </html>

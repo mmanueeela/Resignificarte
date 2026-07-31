@@ -131,3 +131,27 @@ form {
     border: 1px solid rgba(255, 77, 77, 0.5);
     color: #fce1e1;
 }
+
+/* Estilo para los grupos con ojito */
+.forgot-container .password-group {
+    position: relative;
+}
+
+/* Icono del ojo para ver contraseña */
+.forgot-container .toggle-password {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: 10px;
+    transition: opacity 0.2s;
+}
+
+.forgot-container .toggle-password:hover {
+    opacity: 1;
+}
+
+/* Ajustes de margen para los errores dinámicos */
+.forgot-container .message.error {
+    margin-bottom: 15px;
+}

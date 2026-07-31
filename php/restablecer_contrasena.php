@@ -32,6 +32,7 @@ if (!empty($token)) {
     <link rel="stylesheet" href="../css/restablecer_contrasena.css">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <script src="../js/retardo_cambio_pagina.js" defer></script>
+    <script src="../js/restablecer_contrasena.js" defer></script>
 </head>
 <body>
 
@@ -46,18 +47,22 @@ if (!empty($token)) {
         <p>Introduce tu nueva clave de acceso.</p>
 
         <?php if ($valido): ?>
-            <form action="procesar_nueva_contrasena.php" method="POST">
+            <form action="procesar_nueva_contrasena.php" method="POST" id="form-nueva-password" novalidate>
                 <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
 
-                <div class="input-group">
+                <div class="input-group password-group">
                     <img src="../src/iconos/candado_login.png" alt="Icono candado" class="input-icon">
-                    <input type="password" id="password" name="password" placeholder="Nueva contraseña" required minlength="8">
+                    <input type="password" id="password" name="password" placeholder="Nueva contraseña" required>
+                    <img src="../src/iconos/ojo-cerrado.png" alt="Ver contraseña" class="toggle-password" data-target="password">
                 </div>
 
-                <div class="input-group">
+                <div class="input-group password-group">
                     <img src="../src/iconos/candado_login.png" alt="Icono candado" class="input-icon">
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Repite la contraseña" required minlength="8">
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Repite la contraseña" required>
+                    <img src="../src/iconos/ojo-cerrado.png" alt="Ver contraseña" class="toggle-password" data-target="confirm_password">
                 </div>
+
+                <div id="mensaje-error" class="message error" style="display: none;"></div>
 
                 <button type="submit" class="btn-login">Actualizar contraseña</button>
             </form>

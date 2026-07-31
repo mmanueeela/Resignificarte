@@ -76,7 +76,6 @@ btnAceptarPopup.addEventListener('click', () => {
 });
 
 
-
 // --- VALIDACIÓN DEL FORMULARIO DE REGISTRO ---
 const formRegistro = document.getElementById('form-registro');
 const msjError = document.getElementById('mensaje-error');
@@ -96,6 +95,9 @@ formRegistro.addEventListener('submit', function(e) {
     const confirmPassword = document.getElementById('confirm-password').value;
     const terminos = document.getElementById('accept-terms').checked;
 
+    // Regex para validar contraseña: Mínimo 8 caracteres, al menos una mayúscula y al menos un número
+    const regexPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     // Regla 1: Todos los campos obligatorios
     if (!nombre || !apellidos || !pais || !dia || !mes || !anyo || !email || !password || !confirmPassword) {
         error = "Por favor, rellena todos los campos.";
@@ -104,19 +106,15 @@ formRegistro.addEventListener('submit', function(e) {
     else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
         error = "Introduce un email válido (ej: usuario@correo.com).";
     }
-    // Regla 3: Longitud de la contraseña (Mínimo 8 caracteres)
-    else if (password.length < 8) {
-        error = "La contraseña debe tener al menos 8 caracteres.";
+    // Regla 3: Unificado para la contraseña (8 caracteres, mayúscula y número)
+    else if (!regexPassword.test(password)) {
+        error = "La contraseña debe tener al menos 8 caracteres y una letra mayúscula.";
     }
-    // Regla 4: Al menos una mayúscula en la contraseña
-    else if (!/[A-Z]/.test(password)) {
-        error = "La contraseña debe contener al menos una letra mayúscula.";
-    }
-    // Regla 5: Las contraseñas deben coincidir
+    // Regla 4: Las contraseñas deben coincidir
     else if (password !== confirmPassword) {
         error = "Las contraseñas no coinciden.";
     }
-    // Regla 6: Aceptar términos (Por si logran burlar el HTML)
+    // Regla 5: Aceptar términos
     else if (!terminos) {
         error = "Debes aceptar los Términos y condiciones.";
     }

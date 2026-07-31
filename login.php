@@ -37,10 +37,10 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
                 </div>
 
                 <!-- Grupo Contraseña -->
-                <div class="input-group">
+                <div class="input-group password-group">
                     <img src="src/iconos/candado_login.png" alt="Icono contraseña" class="input-icon">
-                    <!-- Añadido name="password" -->
                     <input type="password" placeholder="Introduce tu contraseña" id="password" name="password">
+                    <img src="src/iconos/ojo-cerrado.png" alt="Ver contraseña" class="toggle-password" data-target="password">
                 </div>
             </div>
 

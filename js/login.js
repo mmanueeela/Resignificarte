@@ -2,6 +2,26 @@ const formLogin = document.getElementById('form-login');
 const msjErrorCaja = document.getElementById('mensaje-error');
 
 // ---------------------------------------------------------
+// 0. LÓGICA PARA MOSTRAR/OCULTAR CONTRASEÑA (EL OJITO)
+// ---------------------------------------------------------
+const toggleIcons = document.querySelectorAll('.toggle-password');
+
+toggleIcons.forEach(icon => {
+    icon.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.src = 'src/iconos/ojo-abierto.png';
+        } else {
+            input.type = 'password';
+            this.src = 'src/iconos/ojo-cerrado.png';
+        }
+    });
+});
+
+// ---------------------------------------------------------
 // 1. LEER ERRORES DESDE PHP (Ej: "Contraseña incorrecta")
 // ---------------------------------------------------------
 const parametrosURL = new URLSearchParams(window.location.search);

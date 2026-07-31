@@ -31,7 +31,7 @@ function generarTokenRecuperacion($conexion, $email) {
 
 function enviarCorreoRecuperacion($email, $token) {
 
-    $enlace = "https://mzazzar.upv.edu.es/restablecer_contrasena.php?token=" . urlencode($token);
+    $enlace = "https://mzazzar.upv.edu.es/php/restablecer_contrasena.php?token=" . urlencode($token);
 
     $asunto = "Restablecer contraseña - Resignificarte";
 

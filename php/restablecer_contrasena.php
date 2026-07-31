@@ -39,7 +39,7 @@ if (!empty($token)) {
     <div class="forgot-container">
 
         <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
-            <a href="../homepage.php"><img src="../src/logo/logo_con_inifito.png" alt="Logo" style="width: 80px;"></a>
+            <a href="../homepage.php"><img src="../src/logo/logo_con_inifito.png" alt="Logo"></a>
         </div>
 
         <h2>Nueva Contraseña</h2>

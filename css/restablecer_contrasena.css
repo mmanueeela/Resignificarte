@@ -90,6 +90,28 @@ form {
     color: rgba(255, 255, 255, 0.7);
 }
 
+/* Forzar que el input mantenga el fondo transparente y texto blanco cuando es de tipo text (ojo abierto) */
+.forgot-container input[type="text"] {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: white !important;
+    font-size: 16px;
+    width: 100%;
+    font-family: Montserrat, sans-serif;
+    padding: 0;
+    -webkit-text-fill-color: white !important;
+}
+
+/* Evitar autocompletados blancos nativos del navegador */
+.forgot-container input[type="text"]:-webkit-autofill,
+.forgot-container input[type="text"]:-webkit-autofill:hover,
+.forgot-container input[type="text"]:-webkit-autofill:focus {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Botón idéntico al login */
 .forgot-container .btn-login {
     width: 100%;

@@ -22,16 +22,29 @@ toggleIcons.forEach(icon => {
 });
 
 // ---------------------------------------------------------
-// 1. LEER ERRORES DESDE PHP (Ej: "Contraseña incorrecta")
+// 1. LEER MENSAJES DESDE PHP (Errores o Éxito)
 // ---------------------------------------------------------
 const parametrosURL = new URLSearchParams(window.location.search);
 const mensajeErrorURL = parametrosURL.get('error');
+const mensajeExitoURL = parametrosURL.get('exito');
 
 if (mensajeErrorURL) {
     msjErrorCaja.textContent = mensajeErrorURL;
     msjErrorCaja.style.display = 'block';
+    msjErrorCaja.style.backgroundColor = 'rgba(255, 77, 77, 0.2)'; // Fondo rojo claro
+    msjErrorCaja.style.border = '1px solid rgba(255, 77, 77, 0.5)';
+    msjErrorCaja.style.color = '#fce1e1';
 
-    // Limpiamos la URL para que el error no se quede ahí al recargar
+    // Limpiamos la URL para que el mensaje no se quede ahí al recargar
+    window.history.replaceState(null, null, window.location.pathname);
+} else if (mensajeExitoURL) {
+    msjErrorCaja.textContent = mensajeExitoURL;
+    msjErrorCaja.style.display = 'block';
+    msjErrorCaja.style.backgroundColor = 'rgba(77, 255, 145, 0.2)'; // Fondo verde claro de éxito
+    msjErrorCaja.style.border = '1px solid rgba(77, 255, 145, 0.5)';
+    msjErrorCaja.style.color = '#e1fce1';
+
+    // Limpiamos la URL para que el mensaje no se quede ahí al recargar
     window.history.replaceState(null, null, window.location.pathname);
 }
 
@@ -59,6 +72,9 @@ if (formLogin) {
             e.preventDefault(); // Detiene el formulario
             msjErrorCaja.textContent = error;
             msjErrorCaja.style.display = 'block';
+            msjErrorCaja.style.backgroundColor = 'rgba(255, 77, 77, 0.2)';
+            msjErrorCaja.style.border = '1px solid rgba(255, 77, 77, 0.5)';
+            msjErrorCaja.style.color = '#fce1e1';
         } else {
             // Si todo está perfecto, ocultamos errores y dejamos que siga hacia procesar_login.php
             msjErrorCaja.style.display = 'none';

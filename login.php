@@ -44,7 +44,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
                 </div>
             </div>
 
-            <!-- Caja para mostrar errores (Oculta por defecto) -->
+            <!-- Mensajes de error o exito -->
             <div id="mensaje-error" class="mensaje-error"></div>
 
             <!-- Zona de recordar usuario y contraseña olvidada -->

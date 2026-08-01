@@ -10,8 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Por favor, completa todos los campos.");
     }
 
-    if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password)) {
-        die("La contraseña debe tener al menos 8 caracteres y una letra mayúscula.");
+    if (
+        strlen($password) < 8 ||
+        !preg_match('/[A-Z]/', $password) ||
+        !preg_match('/[0-9]/', $password)
+    ) {
+        die("La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.");
     }
 
     if ($password !== $confirm_password) {

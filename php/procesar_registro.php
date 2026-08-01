@@ -84,25 +84,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ==========================================
         $asunto = "¡Bienvenido a Resignificarte!";
         $mensaje = '
-        <html>
+        <!DOCTYPE html>
+        <html lang="es">
         <head>
             <meta charset="UTF-8">
-            <style>
-                body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-                .container { background-color: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-                .footer { font-size: 12px; color: #777777; margin-top: 30px; }
-            </style>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Bienvenido a Resignificarte</title>
         </head>
-        <body>
-            <div class="container">
-                <h2>¡Hola ' . htmlspecialchars($nombre) . '!</h2>
-                <p>Gracias por registrarte en <b>Resignificarte</b>.</p>
-                <p>Estamos muy felices de tenerte con nosotros.</p>
-                <br>
-                <p>Un abrazo,</p>
-                <p>El equipo de Resignificarte</p>
-                <div class="footer">Este es un mensaje automático, por favor no respondas a este correo.</div>
-            </div>
+        <body style="margin: 0; padding: 0; background-color: #f4f1f8; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f1f8; padding: 40px 15px;">
+            <tr>
+                <td align="center">
+                    <!-- TARJETA PRINCIPAL -->
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
+                        <!-- CABECERA -->
+                        <tr>
+                            <td align="center" style="background: linear-gradient(135deg, #6f42c1, #9b6de3); padding: 35px 30px;">
+                                <img src="../src/logo/logo_con_inifito.png" alt="Logo de la pagina">
+                            </td>
+                        </tr>
+                        <!-- CONTENIDO -->
+                        <tr>
+                            <td style="padding: 40px 40px 30px 40px;">
+                                <h1 style="margin: 0 0 20px 0; font-size: 26px; line-height: 1.3; color: #333333; font-weight: 600;">
+                                    ¡Hola ' . htmlspecialchars($nombre) . '!
+                                </h1>
+                                <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #555555;">
+                                    Gracias por registrarte en <strong style="color: #6f42c1;">Resignificarte</strong>.
+                                </p>
+                                <p style="margin: 0 0 25px 0; font-size: 16px; line-height: 1.7; color: #555555;">
+                                    Estamos muy felices de tenerte con nosotros.
+                                </p>
+                                <!-- SEPARADOR -->
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td style="border-top: 1px solid #eeeeee; font-size: 1px; line-height: 1px;">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p style="margin: 25px 0 5px 0; font-size: 16px; line-height: 1.6; color: #555555;">
+                                    Un abrazo,
+                                </p>
+                                <p style="margin: 0; font-size: 16px; font-weight: bold; color: #6f42c1;">
+                                    El equipo de Resignificarte
+                                </p>
+                            </td>
+                        </tr>
+                        <!-- PIE -->
+                        <tr>
+                            <td align="center" style="background-color: #faf9fc; padding: 22px 30px; border-top: 1px solid #eeeeee;">
+                                <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #999999;">
+                                    Este es un mensaje automático, por favor no respondas a este correo.
+                                </p>
+                                <p style="margin: 8px 0 0 0; font-size: 12px; color: #b0b0b0;">
+                                    © ' . date("Y") . ' Resignificarte
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
         </body>
         </html>
         ';

@@ -31,20 +31,17 @@ const mensajeExitoURL = parametrosURL.get('exito');
 if (mensajeErrorURL) {
     msjErrorCaja.textContent = mensajeErrorURL;
     msjErrorCaja.style.display = 'block';
-    msjErrorCaja.style.backgroundColor = 'rgba(255, 77, 77, 0.2)'; // Fondo rojo claro
+    msjErrorCaja.style.backgroundColor = 'rgba(255, 77, 77, 0.2)';
     msjErrorCaja.style.border = '1px solid rgba(255, 77, 77, 0.5)';
     msjErrorCaja.style.color = '#fce1e1';
-
-    // Limpiamos la URL para que el mensaje no se quede ahí al recargar
     window.history.replaceState(null, null, window.location.pathname);
 } else if (mensajeExitoURL) {
     msjErrorCaja.textContent = mensajeExitoURL;
     msjErrorCaja.style.display = 'block';
-    msjErrorCaja.style.backgroundColor = 'rgba(77, 255, 145, 0.2)'; // Fondo verde claro de éxito
+    // Estilos dinámicos en verde translúcido para el éxito
+    msjErrorCaja.style.backgroundColor = 'rgba(77, 255, 145, 0.2)';
     msjErrorCaja.style.border = '1px solid rgba(77, 255, 145, 0.5)';
     msjErrorCaja.style.color = '#e1fce1';
-
-    // Limpiamos la URL para que el mensaje no se quede ahí al recargar
     window.history.replaceState(null, null, window.location.pathname);
 }
 
@@ -67,16 +64,15 @@ if (formLogin) {
             error = "Introduce un email válido (ej: usuario@correo.com).";
         }
 
-        // Si detectamos un fallo, bloqueamos el envío y mostramos el error
+        // Si detectamos un fallo, bloqueamos el envío y mostramos el error en rojo
         if (error !== '') {
-            e.preventDefault(); // Detiene el formulario
+            e.preventDefault();
             msjErrorCaja.textContent = error;
             msjErrorCaja.style.display = 'block';
             msjErrorCaja.style.backgroundColor = 'rgba(255, 77, 77, 0.2)';
             msjErrorCaja.style.border = '1px solid rgba(255, 77, 77, 0.5)';
             msjErrorCaja.style.color = '#fce1e1';
         } else {
-            // Si todo está perfecto, ocultamos errores y dejamos que siga hacia procesar_login.php
             msjErrorCaja.style.display = 'none';
         }
     });

@@ -99,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
                         <!-- CABECERA -->
                         <tr>
-                            <td align="center" style="background: linear-gradient(135deg, #6f42c1, #9b6de3); padding: 35px 30px;">
-                                <img src="../src/logo/logo_con_inifito.png" alt="Logo de la pagina">
+                            <td align="center" style="background-color: #9b6de3; padding: 35px 30px;">
+                                <img src="https://mzazzar.upv.edu.es/src/logo/logo_con_inifito.png" alt="Logo de la pagina">
                             </td>
                         </tr>
                         <!-- CONTENIDO -->

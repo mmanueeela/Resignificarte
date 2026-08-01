@@ -108,7 +108,7 @@ formRegistro.addEventListener('submit', function(e) {
     }
     // Regla 3: Unificado para la contraseña (8 caracteres, mayúscula y número)
     else if (!regexPassword.test(password)) {
-        error = "La contraseña debe tener al menos 8 caracteres y una letra mayúscula.";
+        error = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.";
     }
     // Regla 4: Las contraseñas deben coincidir
     else if (password !== confirmPassword) {

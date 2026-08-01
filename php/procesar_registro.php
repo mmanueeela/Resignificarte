@@ -39,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error: La contraseña debe tener al menos una letra mayúscula.");
     }
 
+    if (!preg_match('/[0-9]/', $password)) {
+        die("Error: La contraseña debe tener al menos un número.");
+    }
+
     if ($password !== $confirm_password) {
         die("Error: Las contraseñas no coinciden.");
     }

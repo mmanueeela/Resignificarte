@@ -130,16 +130,12 @@ if (isset($_GET['code'])) {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Bienvenido a Resignificarte</title>
                 </head>
-
                 <body style="margin: 0; padding: 0; background-color: #f4f1f8; font-family: Arial, Helvetica, sans-serif; color: #333333;">
-
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f1f8; padding: 40px 15px;">
                     <tr>
                         <td align="center">
-
                             <!-- TARJETA PRINCIPAL -->
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
-
                                 <!-- CABECERA -->
                                 <tr>
                                     <td align="center" style="padding:0;">
@@ -151,23 +147,14 @@ if (isset($_GET['code'])) {
                                         >
                                     </td>
                                 </tr>
-
                                 <!-- CONTENIDO -->
                                 <tr>
                                     <td style="padding: 40px 40px 30px 40px;">
-
-                                        <h1 style="margin: 0 0 20px 0; font-size: 26px; line-height: 1.3; color: #333333; font-weight: 600;">
-                                            ¡Hola ' . htmlspecialchars($nombre) . '!
-                                        </h1>
-
-                                        <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #555555;">
-                                            Gracias por registrarte en <strong style="color: #6f42c1;">Resignificarte</strong> usando tu cuenta de Google.
-                                        </p>
-
+                                        <h1 style="margin: 0 0 20px 0; font-size: 26px; line-height: 1.3; color: #333333; font-weight: 600;">¡Hola ' . htmlspecialchars($nombre) . '!</h1>
+                                        <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #555555;">Gracias por registrarte en <strong style="color: #6f42c1;">Resignificarte</strong> usando tu cuenta de Google.</p>
                                         <p style="margin: 0 0 25px 0; font-size: 16px; line-height: 1.7; color: #555555;">
                                             Estamos muy felices de tenerte con nosotros.
                                         </p>
-
                                         <!-- SEPARADOR -->
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                             <tr>
@@ -184,31 +171,23 @@ if (isset($_GET['code'])) {
                                         <p style="margin: 0; font-size: 16px; font-weight: bold; color: #6f42c1;">
                                             El equipo de Resignificarte
                                         </p>
-
                                     </td>
                                 </tr>
-
                                 <!-- PIE -->
                                 <tr>
                                     <td align="center" style="background-color: #faf9fc; padding: 22px 30px; border-top: 1px solid #eeeeee;">
-
                                         <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #999999;">
                                             Este es un mensaje automático, por favor no respondas a este correo.
                                         </p>
-
                                         <p style="margin: 8px 0 0 0; font-size: 12px; color: #b0b0b0;">
                                             © ' . date("Y") . ' Resignificarte
                                         </p>
-
                                     </td>
                                 </tr>
-
                             </table>
-
                         </td>
                     </tr>
                 </table>
-
                 </body>
                 </html>
                 ';

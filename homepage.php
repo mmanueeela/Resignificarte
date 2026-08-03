@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php'
+// require_once 'php/logicaNegocio/redireccion_logeado.php'
 ?>
 <!doctype html>
 <html lang="es">
@@ -25,9 +25,9 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <!-- Menú principal -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Nosotros</a></li>
-            <li><a href="#">Contacto</a></li>
+            <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
+            <li><a href="obras.html">OBRAS</a></li>
+            <li><a href="contacto.php">CONTACTO</a></li>
         </ul>
     </nav>
 
@@ -39,11 +39,15 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
 </header>
 
 <main>
-
+    <img src="src/images/img_fondo.png" alt="imagen de fondo">
+    <div class="info_principal">
+        <h2>Lo hermoso del arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿ qué te dice?</span></h2>
+        <a href="obras.html">Descubre las obras</a>
+    </div>
 </main>
 
 <footer>
-    <p>Todos los derechos reservados. 2026 &copy;</p>
+    <p>&copy; Todos los derechos reservados. 2026</p>
 </footer>
 
 </body>

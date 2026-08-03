@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
+    <script src="js/homepage.js" defer></script>
 </head>
 <body>
 
@@ -44,7 +45,20 @@
         <h2>Lo hermoso del arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿ qué te dice?</span></h2>
         <a href="obras.html">Descubre las obras</a>
     </div>
+
+    <!-- Flecha para bajar -->
+    <a href="#siguiente-seccion" class="btn-bajar" title="Bajar">
+        <img src="src/iconos/down_arrow.png" alt="Bajar">
+    </a>
+
+    <div class="hola" id="siguiente-seccion">
+        asjdfjlajslfñ
+    </div>
 </main>
+
+<a href="#" class="btn-volver-arriba" title="Volver arriba">
+    <img src="src/iconos/up_arrow.png" alt="Subir">
+</a>
 
 <footer>
     <p>&copy; Todos los derechos reservados. 2026</p>

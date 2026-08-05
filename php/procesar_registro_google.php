@@ -247,15 +247,15 @@ $mensaje = '
 
 $cabeceras  = "MIME-Version: 1.0\r\n";
 $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
-$cabeceras .= "From: mzazzar@epsg.upv.es\r\n";
-$cabeceras .= "Reply-To: mzazzar@epsg.upv.es\r\n";
+$cabeceras .= "From: resignificarte@gmail.com\r\n";
+$cabeceras .= "Reply-To: resignificarte@gmail.com\r\n";
 
 mail(
     $email,
     $asunto,
     $mensaje,
     $cabeceras,
-    "-f mzazzar@epsg.upv.es"
+    "-f resignificarte@gmail.com"
 );
 
 // ==========================================

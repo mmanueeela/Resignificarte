@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php'
+// require_once 'php/logicaNegocio/redireccion_logeado.php'
 ?>
 <!doctype html>
 <html lang="es">
@@ -92,9 +92,16 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
                 </div>
 
                 <!-- Fila 4: Email -->
-                <div class="input-group">
-                    <img src="src/iconos/email_login.png" alt="Icono email" class="input-icon">
-                    <input type="email" placeholder="Introduce tu email" id="email" name="email" required>
+                <div class="fila-doble">
+                    <div class="input-group">
+                        <img src="src/iconos/email_login.png" alt="Icono email" class="input-icon">
+                        <input type="email" placeholder="Introduce tu email" id="email" name="email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <img src="src/iconos/telefono.png" alt="Icono telefono" class="input-icon">
+                        <input type="tel" placeholder="Teléfono" id="telefono" name="telefono" autocomplete="tel" required>
+                    </div>
                 </div>
 
                 <!-- Fila 5: Contraseñas con ojito -->

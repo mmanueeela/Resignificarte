@@ -42,7 +42,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
 <main>
     <img src="src/images/img_fondo.png" alt="imagen de fondo">
     <div class="info_principal">
-        <h2>Lo hermoso del arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿ qué te dice?</span></h2>
+        <h2>El arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
         <a href="obras.html">Descubre las obras</a>
     </div>
 

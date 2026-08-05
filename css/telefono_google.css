@@ -1,0 +1,220 @@
+/* ==========================================
+   PÁGINA TELÉFONO GOOGLE
+   ========================================== */
+
+.logo-container {
+    display: flex;
+    margin: auto auto;
+}
+
+.logo-container a img {
+    filter: saturate(200%);
+}
+
+.logo-container a {
+    margin-bottom: 25px;
+}
+
+/* ==========================================
+   FONDO
+   ========================================== */
+
+main {
+    background: linear-gradient(to bottom, #200B30, #a486c9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
+
+.forgot-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px 40px;
+    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    margin: auto auto;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   TÍTULO
+   ========================================== */
+
+.forgot-container h2 {
+    margin: 0 0 10px 0;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ==========================================
+   TEXTO
+   ========================================== */
+
+.forgot-container > p {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 25px 0;
+    text-align: center;
+}
+
+/* ==========================================
+   FORMULARIO
+   ========================================== */
+
+#form-telefono-google {
+    width: 100%;
+}
+
+/* ==========================================
+   INPUT
+   ========================================== */
+
+.forgot-container .input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 8px;
+    flex-direction: row;
+}
+
+.forgot-container .input-group .input-icon {
+    height: auto;
+    width: 18px;
+    margin: auto 15px auto auto;
+    opacity: 0.8;
+}
+
+.forgot-container input[type="tel"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    font-family: Montserrat, sans-serif;
+    padding: 0;
+}
+
+.forgot-container input[type="tel"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================
+   AUTOCOMPLETADO
+   ========================================== */
+
+.forgot-container input[type="tel"]:-webkit-autofill,
+.forgot-container input[type="tel"]:-webkit-autofill:hover,
+.forgot-container input[type="tel"]:-webkit-autofill:focus,
+.forgot-container input[type="tel"]:-webkit-autofill:active {
+    -webkit-text-fill-color: white !important;
+    font-family: Montserrat, sans-serif !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ==========================================
+   MENSAJE DE ERROR
+   ========================================== */
+
+.forgot-container .message {
+    display: none;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    animation: aparecer 0.3s ease-in-out;
+}
+
+.forgot-container .message.error {
+    display: block;
+    background-color: rgba(255, 77, 77, 0.2);
+    border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #fce1e1;
+}
+
+/* ==========================================
+   BOTÓN
+   ========================================== */
+
+.forgot-container .btn-login {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background-color: #523479;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+.forgot-container .btn-login:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* ==========================================
+   ENLACE
+   ========================================== */
+
+.forgot-container .registro-link {
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+.forgot-container .registro-link a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.forgot-container .registro-link a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 500px) {
+    .forgot-container {
+        width: calc(100% - 40px);
+        padding: 30px 25px;
+        border-radius: 30px;
+    }
+}

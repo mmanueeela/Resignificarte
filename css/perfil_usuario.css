@@ -227,6 +227,27 @@ button {
     color: #3c225a !important;
 }
 
+/* Grupo telefono */
+
+.grupo-telefono {
+    margin-top: 20px;
+}
+
+.input-telefono {
+    width: 100%;
+}
+
+.telefono-descripcion {
+    margin: 7px 0 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #777;
+}
+
+.grupo-telefono input:disabled {
+    cursor: default;
+}
+
 /* Mensaje de éxito al guardar */
 .alerta-exito {
     background-color: #d4edda;

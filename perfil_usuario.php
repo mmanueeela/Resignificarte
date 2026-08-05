@@ -180,6 +180,12 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
                     <label>Dirección de Correo Electrónico</label>
                     <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" disabled required class="input-email-destacado">
                 </div>
+
+                <div class="grupo-input grupo-telefono">
+                    <label>Número de teléfono</label>
+                    <input type="tel" name="telefono" value="<?php echo htmlspecialchars(isset($usuario['telefono']) ? $usuario['telefono'] : ''); ?>" maxlength="20" autocomplete="tel" class="input-telefono" disabled>
+                    <p class="telefono-descripcion">Este número se utilizará para iniciar sesión en tu experiencia de realidad virtual.</p>
+                </div>
             </div>
 
         </form>

@@ -210,15 +210,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $cabeceras  = "MIME-Version: 1.0\r\n";
         $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
-        $cabeceras .= "From: resiignificaarte@gmail.com\r\n";
-        $cabeceras .= "Reply-To: resiignificaarte@gmail.com\r\n";
+        $cabeceras .= "From: mzazzar@epsg.upv.es\r\n";
+        $cabeceras .= "Reply-To: mzazzar@epsg.upv.es\r\n";
 
         $enviado = mail(
             $email,
             $asunto,
             $mensaje,
             $cabeceras,
-            "-f resiignificaarte@gmail.com"
+            "-f mzazzar@epsg.upv.es"
         );
 
         if (!$enviado) {

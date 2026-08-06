@@ -42,32 +42,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         empty($telefono) ||
         empty($password)
     ) {
-        volverConError("Error: Todos los campos son obligatorios.");
+        volverConError("Todos los campos son obligatorios.");
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        volverConError("Error: El formato del correo no es válido.");
+        volverConError("El formato del correo no es válido.");
     }
 
     // Validación básica del teléfono
     if (!preg_match('/^[0-9+\s()-]{7,20}$/', $telefono)) {
-        volverConError("Error: El número de teléfono no es válido.");
+        volverConError("El número de teléfono no es válido.");
     }
 
     if (strlen($password) < 8) {
-        volverConError("Error: La contraseña debe tener al menos 8 caracteres.");
+        volverConError("La contraseña debe tener al menos 8 caracteres.");
     }
 
     if (!preg_match('/[A-Z]/', $password)) {
-        volverConError("Error: La contraseña debe tener al menos una letra mayúscula.");
+        volverConError("La contraseña debe tener al menos una letra mayúscula.");
     }
 
     if (!preg_match('/[0-9]/', $password)) {
-        volverConError("Error: La contraseña debe tener al menos un número.");
+        volverConError("La contraseña debe tener al menos un número.");
     }
 
     if ($password !== $confirm_password) {
-        volverConError("Error: Las contraseñas no coinciden.");
+        volverConError("Las contraseñas no coinciden.");
     }
 
     // Unimos los 3 campos de fecha en el formato de base de datos (YYYY-MM-DD)

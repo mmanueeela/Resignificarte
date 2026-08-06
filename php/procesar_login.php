@@ -6,59 +6,67 @@ define('ACCESO_PERMITIDO', true);
 require_once 'conexion.php';
 require_once 'logicaNegocio/loginUsuario.php';
 
+// Redirige al formulario de login mostrando un mensaje de error
+function volverConError($mensaje) {
+    header("Location: ../login.php?error=" . urlencode($mensaje));
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Recogemos y limpiamos los datos
     $email    = trim(isset($_POST['email']) ? $_POST['email'] : '');
     $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-    // Validar que no estén vacíos
+    // Validación de seguridad
     if (empty($email) || empty($password)) {
-        header("Location: ../login.php?error=Por favor, rellena todos los campos.");
-        exit();
+        volverConError("Por favor, rellena todos los campos.");
     }
 
-    // Llamamos a la lógica
+    // Comprobamos el login
     $resultado = verificarLogin($conexion, $email, $password);
 
     if ($resultado['exito']) {
 
-        // Genera un nuevo ID de sesión seguro y borra el antiguo
+        // Evita ataques de Session Fixation
         session_regenerate_id(true);
-        // -------------------------------------------------
 
-        // LOGIN CORRECTO: Guardamos sus datos en la sesión
-        $_SESSION['usuario_id']     = $resultado['id'];
+        // Guardamos los datos del usuario en la sesión
+        $_SESSION['usuario_id'] = $resultado['id'];
         $_SESSION['usuario_nombre'] = $resultado['nombre'];
 
         // --- LÓGICA DE RECUÉRDAME ---
         if (isset($_POST['remember'])) {
+
             $token = bin2hex(random_bytes(32));
 
-            // Guardamos el HASH en la base de datos, NO el token plano
+            // Guardamos el hash del token en la base de datos
             $token_hasheado = hash('sha256', $token);
             guardarTokenRecuerdame($conexion, $resultado['id'], $token_hasheado);
 
-            // Creamos la cookie segura en el navegador con el token plano
+            // Creamos la cookie segura
             setcookie("recuerdame_token", $token, [
-                'expires' => time() + (86400 * 30),
-                'path' => '/',
-                'secure' => true,     // Solo HTTPS
-                'httponly' => true,   // Inaccesible desde JavaScript (Evita XSS)
-                'samesite' => 'Lax'   // Protege contra ataques CSRF
+                'expires'  => time() + (86400 * 30), // 30 días
+                'path'     => '/',
+                'secure'   => true,
+                'httponly' => true,
+                'samesite' => 'Lax'
             ]);
         }
 
-        // Lo mandamos a la pantalla de inicio
+        // Login correcto
         header("Location: ../homepage_usuario_registrado.php");
         exit();
+
     } else {
-        // LOGIN FALLIDO: Lo devolvemos al login pasándole el error por la URL
-        $error_codificado = urlencode($resultado['mensaje']);
-        header("Location: ../login.php?error=" . $error_codificado);
-        exit();
+
+        // Login incorrecto
+        volverConError($resultado['mensaje']);
     }
 
 } else {
+
+    // Si intentan acceder directamente al archivo
     header("Location: ../login.php");
     exit();
 }

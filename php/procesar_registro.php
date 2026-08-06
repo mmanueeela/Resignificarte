@@ -9,6 +9,12 @@ define('ACCESO_PERMITIDO', true);
 require_once 'conexion.php';
 require_once 'logicaNegocio/crearUsuario.php';
 
+// Redirige al formulario de registro mostrando un mensaje de error
+function volverConError($mensaje) {
+    header("Location: ../registro.php?error=" . urlencode($mensaje));
+    exit();
+}
+
 // 2. Comprobamos que el formulario se ha enviado por POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -36,32 +42,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         empty($telefono) ||
         empty($password)
     ) {
-        die("Error: Todos los campos son obligatorios.");
+        volverConError("Error: Todos los campos son obligatorios.");
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Error: El formato del correo no es válido.");
+        volverConError("Error: El formato del correo no es válido.");
     }
 
     // Validación básica del teléfono
     if (!preg_match('/^[0-9+\s()-]{7,20}$/', $telefono)) {
-        die("Error: El número de teléfono no es válido.");
+        volverConError("Error: El número de teléfono no es válido.");
     }
 
     if (strlen($password) < 8) {
-        die("Error: La contraseña debe tener al menos 8 caracteres.");
+        volverConError("Error: La contraseña debe tener al menos 8 caracteres.");
     }
 
     if (!preg_match('/[A-Z]/', $password)) {
-        die("Error: La contraseña debe tener al menos una letra mayúscula.");
+        volverConError("Error: La contraseña debe tener al menos una letra mayúscula.");
     }
 
     if (!preg_match('/[0-9]/', $password)) {
-        die("Error: La contraseña debe tener al menos un número.");
+        volverConError("Error: La contraseña debe tener al menos un número.");
     }
 
     if ($password !== $confirm_password) {
-        die("Error: Las contraseñas no coinciden.");
+        volverConError("Error: Las contraseñas no coinciden.");
     }
 
     // Unimos los 3 campos de fecha en el formato de base de datos (YYYY-MM-DD)
@@ -221,10 +227,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "-f mzazzar@epsg.upv.es"
         );
 
-        if (!$enviado) {
-            die("ERROR CRÍTICO: La función mail() ha fallado y el servidor ha bloqueado el envío.");
-        }
-
         // Redirigimos a la homepage
         header("Location: ../homepage_usuario_registrado.php");
         exit();
@@ -232,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         // Si falla (ej. correo duplicado), mostramos el error
-        echo "Error: " . $resultado['mensaje'];
+        volverConError($resultado['mensaje']);
     }
 
 } else {

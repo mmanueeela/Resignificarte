@@ -80,6 +80,18 @@ btnAceptarPopup.addEventListener('click', () => {
 const formRegistro = document.getElementById('form-registro');
 const msjError = document.getElementById('mensaje-error');
 
+// Mostrar errores que llegan desde PHP
+const params = new URLSearchParams(window.location.search);
+const errorServidor = params.get("error");
+
+if (errorServidor) {
+    msjError.textContent = errorServidor;
+    msjError.style.display = "block";
+
+    // Limpia la URL para que al refrescar no vuelva a salir
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+
 formRegistro.addEventListener('submit', function(e) {
     let error = '';
 
@@ -90,6 +102,7 @@ formRegistro.addEventListener('submit', function(e) {
     const dia = document.getElementById('dia').value;
     const mes = document.getElementById('mes').value;
     const anyo = document.getElementById('anyo').value;
+    const telefono = document.getElementById('telefono').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
@@ -99,7 +112,7 @@ formRegistro.addEventListener('submit', function(e) {
     const regexPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     // Regla 1: Todos los campos obligatorios
-    if (!nombre || !apellidos || !pais || !dia || !mes || !anyo || !email || !password || !confirmPassword) {
+    if (!nombre || !apellidos || !pais || !dia || !mes || !anyo || !email || !telefono || !password || !confirmPassword) {
         error = "Por favor, rellena todos los campos.";
     }
     // Regla 2: Formato de email válido (texto@texto.dominio)

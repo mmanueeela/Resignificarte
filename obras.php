@@ -30,10 +30,36 @@ require_once 'php/logicaNegocio/header_usuario.php';
     </nav>
 
     <!-- Área de usuario -->
-    <a href="login.php" class="area-usuario">
-        <span class="enlace-acceder">Acceder</span>
-        <img src="src/iconos/usuario.png" alt="Icono de usuario">
-    </a>
+    <?php if ($usuario_logeado): ?>
+        <div class="area-usuario-dropdown">
+            <button class="area-usuario area-usuario-btn" id="btn-usuario">
+            <span class="enlace-acceder">
+                <?= htmlspecialchars($nombre_usuario) ?>
+            </span>
+                <img
+                        src="<?= htmlspecialchars($ruta_foto) ?>"
+                        alt="Usuario"
+                        style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"
+                >
+            </button>
+
+            <div class="dropdown-menu" id="dropdown-usuario">
+                <a href="perfil_usuario.php" class="dropdown-item">
+                    Ver perfil
+                </a>
+                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </div>
+    <?php else: ?>
+        <a href="login.php" class="area-usuario">
+        <span class="enlace-acceder">
+            Acceder
+        </span>
+            <img src="src/iconos/usuario.png" alt="Icono de usuario">
+        </a>
+    <?php endif; ?>
 </header>
 <main>
     <!-- PARTE SUPERIOR -->

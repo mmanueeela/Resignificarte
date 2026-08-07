@@ -15,14 +15,13 @@
 <header>
     <!-- Logo -->
     <div class="logo-container">
-        <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
     </div>
 
     <!-- Menú principal -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
-            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="#">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
         </ul>
     </nav>

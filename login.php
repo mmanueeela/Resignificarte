@@ -19,13 +19,12 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
 
 <main>
     <div class="login-container">
-        <!-- Logo -->
-        <div class="logo-container">
-            <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
-        </div>
-
         <!-- INICIO DEL FORMULARIO DE LOGIN -->
         <form action="php/procesar_login.php" method="POST" id="form-login">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+            </div>
 
             <!-- Zona de inputs -->
             <div class="placeholders">

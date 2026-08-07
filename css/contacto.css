@@ -1,4 +1,21 @@
 /* ---------------------------------------------------------
+   LOGO
+--------------------------------------------------------- */
+.logo-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.logo-container a img {
+    filter: saturate(200%);
+}
+
+.logo-container a {
+    margin-bottom: 40px;
+}
+
+/* ---------------------------------------------------------
    CONTACTO
 --------------------------------------------------------- */
 
@@ -113,4 +130,50 @@ main {
 .contacto-container button:hover {
     transform: scale(1.02);
     opacity: 0.9;
+}
+
+/* ---------------------------------------------------------
+   MENSAJES DE CONTACTO
+--------------------------------------------------------- */
+#mensaje-contacto {
+    display: none;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    backdrop-filter: blur(5px);
+    animation: aparecer 0.3s ease-in-out;
+}
+
+
+/* Mensaje correcto */
+#mensaje-contacto.exito {
+    display: block;
+    background-color: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    color: #d8ffd8;
+}
+
+
+/* Mensaje error */
+#mensaje-contacto.error {
+    display: block;
+    background-color: rgba(255, 77, 77, 0.2);
+    border: 1px solid rgba(255, 77, 77, 0.5);
+    color: #fce1e1;
+}
+
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -1,33 +1,4 @@
-<?php
-session_start();
 
-require_once "php/conexion.php";
-
-$nombreUsuario = "";
-$emailUsuario = "";
-
-if(isset($_SESSION['usuario_id'])) {
-
-    $usuario_id = $_SESSION['usuario_id'];
-
-    $stmt = $conexion->prepare("
-        SELECT nombre, email 
-        FROM usuarios_credenciales
-        WHERE usuario_id = ?
-    ");
-
-    $stmt->bind_param("i", $usuario_id);
-    $stmt->execute();
-
-    $resultado = $stmt->get_result();
-
-    if($usuario = $resultado->fetch_assoc()) {
-        $nombreUsuario = $usuario['nombre'];
-        $emailUsuario = $usuario['email'];
-    }
-    $stmt->close();
-}
-?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -44,7 +15,10 @@ if(isset($_SESSION['usuario_id'])) {
 <body>
 <main>
     <div class="contacto-container">
-        <h1>CONTACTO</h1>
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        </div>
 
         <p class="contacto-descripcion">
             ¿Tienes alguna duda o quieres ponerte en contacto con nosotros?

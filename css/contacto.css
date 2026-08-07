@@ -1,0 +1,116 @@
+/* ---------------------------------------------------------
+   CONTACTO
+--------------------------------------------------------- */
+
+main {
+    background: linear-gradient(to bottom, #200B30, #a486c9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caja cristal */
+.contacto-container {
+    width: 100%;
+    max-width: 550px;
+    padding: 40px;
+    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.contacto-container h1 {
+    margin: 0 0 20px;
+    text-align: center;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 40px;
+}
+
+/* Texto */
+.contacto-descripcion {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+/* Inputs */
+.contacto-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.contacto-input img {
+    width: 18px;
+    margin-right: 15px;
+    opacity: 0.8;
+}
+
+.contacto-input img.icono-asunto {
+    width: 22px;
+    margin-left: -2px;
+    margin-right: 12px;
+}
+
+.contacto-input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+}
+
+.contacto-input input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Mensaje */
+.contacto-container textarea {
+    width: 100%;
+    height: 130px;
+    resize: none;
+    padding: 15px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.contacto-container textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Botón */
+.contacto-container button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #523479;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contacto-container button:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}

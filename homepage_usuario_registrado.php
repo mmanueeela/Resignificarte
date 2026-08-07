@@ -33,8 +33,8 @@ if (empty($foto_bd) || strtolower($foto_bd) === 'null') {
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="stylesheet" href="css/homepage_usuario_registrado.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
     <script src="js/retardo_cambio_pagina.js" defer></script>
+    <script src="js/homepage.js" defer></script>
     <script src="js/abrir_popup_homepage_usuario_registrado.js" defer></script>
 </head>
 <body>

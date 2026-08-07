@@ -1,6 +1,6 @@
 .logo-container {
     display: flex;
-    margin: auto auto;
+    justify-content: center;
 }
 
 .logo-container a img {

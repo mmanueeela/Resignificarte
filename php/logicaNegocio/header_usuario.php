@@ -4,6 +4,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+echo "HEADER FUNCIONANDO";
+
 $usuario_logeado = false;
 $nombre_usuario = "";
 $ruta_foto = "src/iconos/usuario.png";

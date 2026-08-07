@@ -1,5 +1,4 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php';
 require_once 'php/logicaNegocio/header_usuario.php';
 ?>
 <!doctype html>

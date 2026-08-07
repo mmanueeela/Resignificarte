@@ -1,3 +1,6 @@
+<?php
+require_once 'php/logicaNegocio/header_usuario.php';
+?>
 <!doctype html>
 <html lang="es">
 <head>

@@ -1,48 +1,91 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php'
+require_once 'php/logicaNegocio/header_usuario.php';
 ?>
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inicio - Resignificarte</title>
+
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <script src="js/retardo_cambio_pagina.js" defer></script>
     <script src="js/homepage.js" defer></script>
+    <script src="js/abrir_popup_homepage_usuario_registrado.js" defer></script>
 </head>
 <body>
 
 <header>
     <!-- Logo -->
     <div class="logo-container">
-        <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        <a href="#">
+            <img src="src/logo/logo_con_inifito.png" alt="Imagen del logo">
+        </a>
     </div>
 
     <!-- Menú principal -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
-            <li><a href="obras.php">OBRAS</a></li>
-            <li><a href="contacto.php">CONTACTO</a></li>
+            <li>
+                <a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a>
+            </li>
+            <li>
+                <a href="obras.php">OBRAS</a>
+            </li>
+            <li>
+                <a href="contacto.php">CONTACTO</a>
+            </li>
         </ul>
     </nav>
 
     <!-- Área de usuario -->
-    <a href="login.php" class="area-usuario">
-        <span class="enlace-acceder">Acceder</span>
-        <img src="src/iconos/usuario.png" alt="Icono de usuario">
-    </a>
+    <?php if ($usuario_logeado): ?>
+        <div class="area-usuario-dropdown">
+
+            <button class="area-usuario area-usuario-btn" id="btn-usuario">
+                <span class="enlace-acceder">
+                    <?= htmlspecialchars($nombre_usuario) ?>
+                </span>
+                <img
+                        src="<?= htmlspecialchars($ruta_foto) ?>"
+                        alt="Usuario"
+                        style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"
+                >
+            </button>
+
+            <div class="dropdown-menu" id="dropdown-usuario">
+                <a href="perfil_usuario.php" class="dropdown-item">
+                    Ver perfil
+                </a>
+                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">
+                    Cerrar Sesión
+                </a>
+            </div>
+
+        </div>
+    <?php else: ?>
+        <a href="login.php" class="area-usuario">
+            <span class="enlace-acceder">
+                Acceder
+            </span>
+            <img src="src/iconos/usuario.png" alt="Icono de usuario">
+        </a>
+    <?php endif; ?>
 </header>
 
 <main>
     <img src="src/images/img_fondo.png" alt="imagen de fondo">
+
     <div class="info_principal">
-        <h2>El arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
+        <h2>
+            El arte es que jamás le habla a <br>
+            dos personas de la misma forma. <br>
+            <span>Y a ti, ¿qué te dice?</span>
+        </h2>
         <a href="obras.php">Descubre las obras</a>
     </div>
 

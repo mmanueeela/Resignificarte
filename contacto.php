@@ -1,4 +1,6 @@
-
+<?php
+require_once 'php/logicaNegocio/header_usuario.php';
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -11,6 +13,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
     <script src="js/contacto.js" defer></script>
+    <script src="js/abrir_popup_homepage_usuario_registrado.js" defer></script>
 </head>
 <body>
 <main>

@@ -27,7 +27,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <nav class="menu-navegacion">
         <ul>
             <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
-            <li><a href="obras.html">OBRAS</a></li>
+            <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
         </ul>
     </nav>
@@ -43,7 +43,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <img src="src/images/img_fondo.png" alt="imagen de fondo">
     <div class="info_principal">
         <h2>El arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
-        <a href="obras.html">Descubre las obras</a>
+        <a href="obras.php">Descubre las obras</a>
     </div>
 
     <!-- Flecha para bajar -->

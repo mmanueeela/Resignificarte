@@ -1,0 +1,184 @@
+/* ---------------------------------------------------------
+   CONTENIDO PRINCIPAL
+--------------------------------------------------------- */
+
+main {
+    min-height: calc(100vh - 140px);
+    background-color: #d5c4e6;
+}
+
+/* ---------------------------------------------------------
+   PARTE SUPERIOR: TITULO + BUSCADOR
+--------------------------------------------------------- */
+
+.contenido-inicial {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px;
+    height: 135px;
+}
+
+/* Título */
+.contenido-inicial h1 {
+    margin: 0;
+    color: #523479;
+    font-size: 58px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+}
+
+/* ---------------------------------------------------------
+   BUSCADOR
+--------------------------------------------------------- */
+.buscador {
+    position: relative;
+    width: 360px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+
+/* Input */
+.buscador input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 0 75px 0 25px;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+}
+
+/* Placeholder */
+.buscador input::placeholder {
+    color: #777;
+    opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   BOTÓN DE LA LUPA
+--------------------------------------------------------- */
+.boton-busqueda {
+    position: absolute;
+    right: 8px;
+
+    /* Nuevo método de centrado vertical sin usar transform */
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background-color: #523479;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+
+    /* Ahora la transición solo se preocupa por la escala y el color */
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* Lupa */
+.boton-busqueda img {
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
+}
+
+/* ---------------------------------------------------------
+   HOVER
+--------------------------------------------------------- */
+.boton-busqueda:hover {
+    transform: scale(1.08);
+    background-color: #674593;
+}
+
+/* ---------------------------------------------------------
+   EXPERIENCIA
+--------------------------------------------------------- */
+.experiencia-1 {
+    width: 100%;
+    height: 155px;
+    background-color: #7a6689;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* Imagen + textos */
+.contenedor-imagen-mas-texto {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Imagen circular */
+.contenedor-imagen-mas-texto > img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* ---------------------------------------------------------
+   TEXTO EXPERIENCIA
+--------------------------------------------------------- */
+.contenedor-texto h2 {
+    margin: 0;
+    color: white;
+    font-family: "Brush Script MT", cursive;
+    font-size: 65px;
+    font-weight: normal;
+    line-height: 65px;
+}
+
+/* Línea inferior */
+.contenedor-texto p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 5px 0 0 5px;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+}
+
+/* Bandera */
+.contenedor-texto p img {
+    width: 32px;
+    height: auto;
+}
+
+/* ---------------------------------------------------------
+   BOTÓN VER OBRAS
+--------------------------------------------------------- */
+.experiencia-1 > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 50px;
+    background-color: #523479;
+    border-radius: 25px;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.experiencia-1 > a:hover {
+    transform: scale(1.05);
+    background-color: #674593;
+}

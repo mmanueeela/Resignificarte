@@ -31,12 +31,12 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
         <form action="php/procesar_contacto.php" method="POST" id="form-contacto">
             <div class="contacto-input">
                 <img src="src/iconos/cara_mujer.png" alt="Nombre">
-                <input type="text" name="nombre" placeholder="Introduce tu nombre" value="<?= htmlspecialchars($nombreUsuario) ?>" required>
+                <input type="text" name="nombre" placeholder="Introduce tu nombre" value="<?= htmlspecialchars($nombre_usuario) ?>" required>
             </div>
 
             <div class="contacto-input">
                 <img src="src/iconos/email_login.png" alt="Email">
-                <input type="email" name="email" placeholder="Introduce tu email" value="<?= htmlspecialchars($emailUsuario) ?>" required>
+                <input type="email" name="email" placeholder="Introduce tu email" value="<?= htmlspecialchars($email_usuario) ?>" required>
             </div>
 
             <div class="contacto-input">

@@ -177,3 +177,18 @@ main {
         transform: translateY(0);
     }
 }
+
+/* --- CORRECCIÓN DEL AUTOCOMPLETADO DEL NAVEGADOR --- */
+.contacto-input input:-webkit-autofill,
+.contacto-input input:-webkit-autofill:hover,
+.contacto-input input:-webkit-autofill:focus,
+.contacto-input input:-webkit-autofill:active {
+    /* Fuerza el color del texto a blanco */
+    -webkit-text-fill-color: white !important;
+
+    /* Mantiene la fuente correcta */
+    font-family: inherit !important;
+
+    /* Retrasa el cambio de color de fondo, manteniendo el fondo transparente */
+    transition: background-color 5000s ease-in-out 0s;
+}

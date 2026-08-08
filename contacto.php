@@ -31,26 +31,32 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
         <form action="php/procesar_contacto.php" method="POST" id="form-contacto">
             <div class="contacto-input">
                 <img src="src/iconos/cara_mujer.png" alt="Nombre">
-                <input type="text" name="nombre" placeholder="Introduce tu nombre" value="<?= htmlspecialchars($nombre_usuario) ?>" required>
+                <!-- Se ha añadido id="nombre" -->
+                <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" value="<?= htmlspecialchars($nombre_usuario) ?>">
             </div>
 
             <div class="contacto-input">
                 <img src="src/iconos/email_login.png" alt="Email">
-                <input type="email" name="email" placeholder="Introduce tu email" value="<?= htmlspecialchars($email_usuario) ?>" required>
+                <!-- Se ha añadido id="email" -->
+                <input type="email" id="email" name="email" placeholder="Introduce tu email" value="<?= htmlspecialchars($email_usuario) ?>">
             </div>
 
             <div class="contacto-input">
                 <img src="src/iconos/asunto.png" alt="Asunto" class="icono-asunto">
-                <input type="text" name="asunto" placeholder="Asunto" required>
+                <!-- Se ha añadido id="asunto" -->
+                <input type="text" id="asunto" name="asunto" placeholder="Asunto">
             </div>
 
-            <textarea name="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+            <!-- Se ha añadido id="mensaje" -->
+            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..."></textarea>
+
+            <!-- CAJA DE MENSAJES DE ERROR/ÉXITO -->
+            <div id="mensaje-error" class="mensaje-error"></div>
 
             <button type="submit">
                 ENVIAR MENSAJE
             </button>
         </form>
-        <div id="mensaje-contacto"></div>
     </div>
 </main>
 </body>

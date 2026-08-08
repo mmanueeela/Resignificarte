@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Login correcto
-        header("Location: ../homepage_usuario_registrado.php");
+        header("Location: ../homepage.php");
         exit();
 
     } else {

@@ -4,7 +4,6 @@
 .logo-container {
     display: flex;
     justify-content: center;
-
 }
 
 .logo-container a img {
@@ -30,6 +29,7 @@ main {
 .contacto-container {
     width: 100%;
     max-width: 550px;
+    margin: 30px;
     padding: 40px;
     border-radius: 35px;
     background: rgba(255, 255, 255, 0.15);

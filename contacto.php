@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/cargar_usuario_header.php';
+// require_once 'php/logicaNegocio/cargar_usuario_header.php';
 ?>
 <!doctype html>
 <html lang="es">

@@ -261,6 +261,6 @@ mail(
 // ==========================================
 // IR A LA PÁGINA DEL USUARIO
 // ==========================================
-header("Location: ../homepage_usuario_registrado.php?registro=google_exito");
+header("Location: ../homepage.php?registro=google_exito");
 exit();
 ?>

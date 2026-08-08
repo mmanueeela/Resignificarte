@@ -116,7 +116,7 @@ if (isset($_GET['code'])) {
                 'samesite' => 'Lax'
             ]);
 
-            header("Location: ../homepage_usuario_registrado.php?login=exito");
+            header("Location: ../homepage.php?login=exito");
             exit();
 
         } else {

@@ -50,11 +50,11 @@ $dia_bd = isset($fecha_partes[2]) ? $fecha_partes[2] : '';
 
 <header>
     <div class="logo-container">
-        <a href="homepage_usuario_registrado.php"><img src="src/logo/logo_con_inifito.png" alt="Logo"></a>
+        <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Logo"></a>
     </div>
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="homepage_usuario_registrado.php">Inicio</a></li>
+            <li><a href="homepage.php">Inicio</a></li>
             <li><a href="#">Servicios</a></li>
         </ul>
     </nav>

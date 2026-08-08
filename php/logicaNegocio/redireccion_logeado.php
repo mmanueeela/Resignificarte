@@ -9,7 +9,7 @@ require_once __DIR__ . '/../conexion.php';
 
 // 1. Si YA tiene la sesión activa, lo mandamos directo a su homepage
 if (isset($_SESSION['usuario_id'])) {
-    header("Location: homepage_usuario_registrado.php");
+    header("Location: homepage.php");
     exit();
 }
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {
             $_SESSION['usuario_id']     = $usuario['id'];
             $_SESSION['usuario_nombre'] = $usuario['nombre'];
 
-            header("Location: homepage_usuario_registrado.php");
+            header("Location: homepage.php");
             exit();
         }
         $stmt->close();

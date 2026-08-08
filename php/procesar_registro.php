@@ -228,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         // Redirigimos a la homepage
-        header("Location: ../homepage_usuario_registrado.php");
+        header("Location: ../homepage.php");
         exit();
 
     } else {

@@ -29,7 +29,7 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['recuerdame_token'])) {
             $_SESSION['usuario_id']     = $usuario['id'];
             $_SESSION['usuario_nombre'] = $usuario['nombre'];
 
-            header("Location: homepage_usuario_registrado.php");
+            header("Location: homepage.php");
             exit();
         }
         $stmt->close();

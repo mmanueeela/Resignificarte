@@ -72,6 +72,90 @@ body {
         height: 35px;
         width: 32px;
     }
+
+    /* Estilos desplegable */
+
+    /* --- CONTENEDOR DEL DROPDOWN --- */
+    .area-usuario-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* El botón transparente para que parezca texto normal */
+    button.area-usuario-btn {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        padding: 0;
+        font: inherit;
+        color: inherit;
+        outline: none;
+    }
+
+    .area-usuario-btn img {
+        height: 30px;
+        width: auto;
+    }
+
+    /* --- EL MENÚ FLOTANTE --- */
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 130%;
+        right: 0;
+
+        background: rgba(60, 34, 90, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+        min-width: 160px;
+        z-index: 1000;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+        animation: aparecer 0.2s ease forwards;
+    }
+
+    /* Efecto suave al aparecer */
+    @keyframes aparecer {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- LOS ENLACES DENTRO DEL MENÚ --- */
+    .dropdown-item {
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        transition: background 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Separador para cerrar sesión */
+    .cerrar-sesion {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fd6969;
+    }
+
+    /* Toque rojizo extra al pasar el ratón por Cerrar Sesión */
+    .cerrar-sesion:hover {
+        background: rgba(255, 77, 77, 0.15);
+    }
 /* FIN HEADER */
 /**************/
 

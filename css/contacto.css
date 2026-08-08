@@ -186,8 +186,9 @@ main {
     /* Fuerza el color del texto a blanco */
     -webkit-text-fill-color: white !important;
 
-    /* Mantiene la fuente correcta */
-    font-family: inherit !important;
+    /* EN LUGAR DE INHERIT, PONEMOS LA FUENTE EXACTA */
+    font-family: Montserrat, sans-serif !important;
+    font-size: 16px !important;
 
     /* Retrasa el cambio de color de fondo, manteniendo el fondo transparente */
     transition: background-color 5000s ease-in-out 0s;

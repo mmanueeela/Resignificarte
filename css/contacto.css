@@ -174,3 +174,9 @@ main {
     /* Retrasa el cambio de color de fondo, manteniendo el fondo transparente */
     transition: background-color 5000s ease-in-out 0s;
 }
+
+@media (max-width: 560px) {
+ .responsive-texto {
+     display: none;
+ }
+}

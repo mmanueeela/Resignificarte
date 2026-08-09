@@ -24,7 +24,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
         </div>
 
         <p class="contacto-descripcion">
-            ¿Tienes alguna duda o quieres ponerte en contacto con nosotros?
+            ¿Tienes alguna duda<span class="responsive-texto"> o quieres ponerte en contacto con nosotros</span>?
             Escríbenos y te responderemos lo antes posible.
         </p>
 

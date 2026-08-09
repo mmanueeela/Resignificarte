@@ -179,7 +179,7 @@ main {
     .responsive-texto {
         display: none;
     }
-    .contacto-container textarea {
-        height: 100px;
+    .contacto-container {
+        margin: 15px;
     }
 }

@@ -176,7 +176,10 @@ main {
 }
 
 @media (max-width: 560px) {
- .responsive-texto {
-     display: none;
- }
+    .responsive-texto {
+        display: none;
+    }
+    .contacto-container textarea {
+        height: 100px;
+    }
 }

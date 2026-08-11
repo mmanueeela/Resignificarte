@@ -282,8 +282,8 @@ main {
 @media (max-width: 550px) {
     main {
         min-height: 100vh;
-        align-items: flex-start;
-        padding: 70px 20px;
+        align-items: center;
+        padding: 40px 20px;
         box-sizing: border-box;
     }
     .login-container {

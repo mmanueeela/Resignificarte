@@ -278,3 +278,19 @@ main {
     text-decoration: none;
     transition: color 0.3s;
 }
+
+@media (max-width: 550px) {
+    main {
+        min-height: 100vh;
+        align-items: flex-start;
+        padding: 100px 20px;
+        box-sizing: border-box;
+    }
+    .login-container {
+        padding: 30px 25px;
+        width: 100%;
+    }
+    .logo-container a {
+        margin-bottom: 25px;
+    }
+}

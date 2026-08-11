@@ -205,28 +205,3 @@
     color: white;
 }
 
-@media (max-width: 550px) {
-    main {
-        min-height: 100vh;
-        align-items: center;
-        padding: 40px 20px;
-        box-sizing: border-box;
-    }
-    .login-container {
-        padding: 30px 25px;
-        width: 100%;
-    }
-    .logo-container a {
-        margin-bottom: 25px;
-    }
-    .fila-doble {
-        flex-direction: column;
-    }
-    .fila-doble .input-group {
-        width: 100%;
-        margin-bottom: 40px;
-    }
-    .fila-doble .input-group:nth-child(1) {
-        margin-bottom: 0;
-    }
-}

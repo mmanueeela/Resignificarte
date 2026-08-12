@@ -40,12 +40,6 @@
     margin-bottom: 30px;
 }
 
-.fila-doble .input-group input::placeholder,
-.fila-triple .input-group select {
-    font-size: 14px;
-}
-
-
 /* --- 3. ETIQUETAS Y SEPARADORES SOLICITADOS --- */
 .label-fecha {
     display: block;
@@ -210,7 +204,7 @@
 @media (max-width: 550px) {
     main {
         min-height: 100vh;
-        align-items: start;
+        align-items: flex-start;
         padding: 60px 20px 40px;
         box-sizing: border-box;
     }
@@ -221,14 +215,16 @@
     .logo-container a {
         margin-bottom: 25px;
     }
-    .fila-doble {
+    /* Convertimos ambas filas (dobles y triples) en columnas simples */
+    .fila-doble,
+    .fila-triple {
         flex-direction: column;
+        gap: 0;
     }
-    .fila-doble .input-group {
+    /* Le damos a TODOS los inputs el mismo margen y ancho */
+    .fila-doble .input-group,
+    .fila-triple .input-group {
         width: 100%;
-        margin-bottom: 40px;
-    }
-    .fila-doble .input-group:nth-child(1) {
-        margin-bottom: 0;
+        margin-bottom: 30px;
     }
 }

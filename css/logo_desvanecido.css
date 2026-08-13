@@ -24,12 +24,11 @@ html, body {
 }
 
 .logo-contenedor video {
+    display: block;
     width: 100%;
     max-width: 800px;
     height: auto;
-    display: block;
-    border: none;
-    outline: none;
+    transform: scale(1.01);
 }
 
 /* Esta clase se la inyectamos con JavaScript al terminar el video */

@@ -25,10 +25,9 @@ html, body {
 
 .logo-contenedor video {
     width: 100%;
+    max-width: 800px;
     height: auto;
     display: block;
-    border: none;
-    outline: none;
 }
 
 /* Esta clase se la inyectamos con JavaScript al terminar el video */

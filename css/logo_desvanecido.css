@@ -4,26 +4,23 @@
     box-sizing: border-box;
 }
 
-/* AQUÍ ESTÁ LA MAGIA: Hacemos que todo el documento base sea negro y bloqueamos el scroll */
 html, body {
     background-color: #000;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Evita que aparezcan barras de desplazamiento o líneas fantasma por abajo */
+    overflow: hidden;
 }
 
 .logo-contenedor {
     width: 100%;
     height: 100vh;
 
-    /* Flexbox para centrar el video perfectamente */
     display: flex;
     justify-content: center;
     align-items: center;
 
-    /* Preparamos la transición de opacidad */
     opacity: 1;
-    transition: opacity 0.5s ease; /* Tarda medio segundo en desvanecerse */
+    transition: opacity 0.5s ease;
 }
 
 .logo-contenedor video {
@@ -31,11 +28,18 @@ html, body {
     max-width: 800px;
     height: auto;
     display: block;
-    border: none;   /* Por si el navegador intenta ponerle borde */
-    outline: none;  /* Por si el navegador intenta enfocarlo */
+    border: none;
+    outline: none;
 }
 
 /* Esta clase se la inyectamos con JavaScript al terminar el video */
 .desvanecer {
     opacity: 0;
+}
+
+@media (max-width: 550px) {
+    .logo-contenedor {
+        align-items: flex-start;
+        margin-top: 300px;
+    }
 }

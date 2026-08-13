@@ -21,14 +21,17 @@ html, body {
 
     opacity: 1;
     transition: opacity 0.5s ease;
+
+    background: blue;
 }
 
 .logo-contenedor video {
-    display: block;
     width: 100%;
     max-width: 800px;
     height: auto;
-    transform: scale(1.01);
+    display: block;
+    border: none;
+    outline: none;
 }
 
 /* Esta clase se la inyectamos con JavaScript al terminar el video */

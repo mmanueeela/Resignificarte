@@ -40,6 +40,6 @@ html, body {
 @media (max-width: 550px) {
     .logo-contenedor {
         align-items: flex-start;
-        margin-top: 300px;
+        margin-top: 100px;
     }
 }

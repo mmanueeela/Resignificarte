@@ -208,3 +208,60 @@ main > img {
         width: 50%;
     }
 }
+
+/* ==============================
+   MENÚ HAMBURGUESA
+   ============================== */
+
+header > button {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    /* Mostrar el botón solo en pantallas pequeñas */
+    header > button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border: 0;
+        background: transparent;
+        gap: 8px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    header > button > div {
+        background-color: #fff;
+        height: 2px;
+        width: 100%;
+        border-radius: 5px;
+        transition: all 0.4s ease-in-out;
+        transform-origin: center;
+    }
+
+    header > button:hover > div:first-child {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    header > button:hover > div:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    header > button:hover > div:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    .menu-navegacion { display: none; }
+    .area-usuario .enlace-acceder,
+    .area-usuario img {
+        display: none !important;
+    }
+
+    .area-usuario-dropdown,
+    a.area-usuario {
+        display: none !important;
+    }
+}

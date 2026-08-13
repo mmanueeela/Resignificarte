@@ -1,6 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/cargar_usuario_header.php';
-
+// require_once 'php/logicaNegocio/cargar_usuario_header.php';
 ?>
 <!doctype html>
 <html lang="es">
@@ -65,12 +64,19 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
             <img src="src/iconos/usuario.png" alt="Icono de usuario">
         </a>
     <?php endif; ?>
+
+    <!-- Menú hamburguesa -->
+    <button>
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
 </header>
 
 <main>
     <img src="src/images/img_fondo.png" alt="imagen de fondo">
     <div class="info_principal">
-        <h2>El arte es que jamás le habla a <br>dos personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
+        <h2>El arte jamás les habla a <br>las personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
         <a href="obras.php">Descubre las obras</a>
     </div>
 

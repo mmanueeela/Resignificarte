@@ -1,7 +1,18 @@
+/* ==============================
+   CARGA DE FUENTES LOCALES
+   ============================== */
+@font-face {
+    font-family: 'AnsteryScript';
+    src: url('fonts/AnsteryScript.ttf') format('truetype'),
+    url('fonts/AnsteryScript.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* ---------------------------------------------------------
    CONTENIDO PRINCIPAL
 --------------------------------------------------------- */
-
 main {
     min-height: calc(100vh - 140px);
     background-color: #d5c4e6;
@@ -142,10 +153,10 @@ main {
 .contenedor-texto h2 {
     margin: 0;
     color: white;
-    font-family: "Brush Script MT", cursive;
+    font-family: 'AnsteryScript', cursive;
     font-size: 65px;
     font-weight: normal;
-    line-height: 65px;
+    line-height: 1.1;
 }
 
 /* Línea inferior */

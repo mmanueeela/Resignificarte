@@ -253,7 +253,7 @@ header > button {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 2rem;
+        width: 3rem; /* Lo devolvemos a 3rem, en tu código estaba en 2rem y se veía muy estrecho */
         height: 3rem;
         border: 0;
         background: transparent;
@@ -309,8 +309,37 @@ header > button {
     }
 }
 
+/* ==============================
+   NUEVO: PUNTO DE CORTE PARA 600px (NUEVA IMAGEN)
+   ============================== */
+@media (max-width: 600px) {
+    /* Al cargar img_fondo_medio.jpeg, ajustamos su enfoque si es necesario.
+       Puedes cambiar este valor según cómo esté compuesta esta imagen específica */
+    main .img-fondo-container img {
+        object-position: center center; /* Por defecto la centramos, ajusta si hace falta */
+    }
+
+    .info_principal {
+        right: 5%;
+        width: 50%;
+        min-width: 240px;
+        padding: 22px 18px;
+        border-radius: 22px;
+    }
+
+    .info_principal h2 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .info_principal a {
+        font-size: 15px;
+        padding: 11px 18px;
+    }
+}
+
 @media (max-width: 550px) {
-    /* En móviles pequeños, la imagen se ancla totalmente a la izquierda (0%) */
+    /* En móviles muy pequeños, anclamos a la izquierda */
     main .img-fondo-container img {
         object-position: left center; /* Equivale a 0% center */
     }

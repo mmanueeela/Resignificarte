@@ -76,6 +76,7 @@
 <main>
     <!-- Etiqueta picture: cambia la imagen automáticamente según la pantalla -->
     <picture class="img-fondo-container">
+        <source media="(max-width: 600px)" srcset="src/images/img_fondo_medio.jpeg">
         <source media="(max-width: 1000px)" srcset="src/images/img_fondo_tablet-2.png">
         <img src="src/images/img_fondo.png" alt="imagen de fondo">
     </picture>

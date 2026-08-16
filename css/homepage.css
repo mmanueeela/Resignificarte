@@ -323,6 +323,10 @@ header > button {
         object-position: center center; /* Por defecto la centramos, ajusta si hace falta */
     }
 
+    header {
+        padding: 20px 30px;
+    }
+
     .info_principal {
         right: 5%;
         width: 50%;

@@ -333,22 +333,28 @@ header > button {
 
 /* --- TABLETS PEQUEÑAS Y MÓVILES GRANDES (800px) --- */
 @media (max-width: 800px) {
+    /* Hacemos el contenedor mucho más compacto */
     .experiencia-1 {
         flex-direction: column;
         height: auto;
-        padding: 35px 20px;
-        gap: 25px;
+        padding: 20px; /* Padding reducido a 20px */
+        gap: 15px; /* Menos espacio entre la parte de arriba y el botón */
         text-align: center;
     }
 
     .contenedor-imagen-mas-texto {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px; /* Menos espacio entre la foto y el texto */
     }
 
-    /* Centramos la bandera y el texto */
+    .contenedor-imagen-mas-texto > img {
+        width: 90px; /* Imagen exacta a 90px */
+        height: 90px;
+    }
+
     .contenedor-texto p {
         justify-content: center;
+        margin: 5px 0 0 0; /* Quitamos márgenes sobrantes para apretar el texto */
     }
 }
 
@@ -358,36 +364,35 @@ header > button {
     .contenido-inicial {
         flex-direction: column;
         height: auto;
-        padding: 25px 20px;
-        gap: 20px;
+        padding: 20px;
+        gap: 15px;
         justify-content: center;
     }
 
     .contenido-inicial h1 {
-        font-size: 40px;
+        font-size: 38px;
     }
 
-    /* El buscador ocupa todo el ancho del móvil */
     .buscador {
         width: 100%;
         max-width: 400px;
     }
 
-    /* Reducimos un poco más los textos de la experiencia */
+    /* Reducimos los textos de la experiencia para que encajen con la foto pequeña */
     .contenedor-texto h2 {
-        font-size: 42px;
-        line-height: 45px;
+        font-size: 38px; /* Título cursivo más pequeño */
+        line-height: 40px;
     }
 
     .contenedor-texto p {
-        font-size: 16px;
+        font-size: 15px;
     }
 
-    /* El botón también se adapta al ancho */
+    /* Botón más fino y compacto */
     .experiencia-1 > a {
         width: 100%;
-        max-width: 300px;
-        font-size: 18px;
-        height: 45px;
+        max-width: 250px;
+        font-size: 16px;
+        height: 40px;
     }
 }

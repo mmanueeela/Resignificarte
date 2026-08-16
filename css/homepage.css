@@ -253,7 +253,7 @@ header > button {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 3rem; /* Lo devolvemos a 3rem, en tu código estaba en 2rem y se veía muy estrecho */
+        width: 2rem;
         height: 3rem;
         border: 0;
         background: transparent;

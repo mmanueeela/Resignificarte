@@ -177,3 +177,36 @@ form {
 .forgot-container .message.error {
     margin-bottom: 15px;
 }
+
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE MÓVIL)
+   ============================== */
+
+@media (max-width: 550px) {
+    main {
+        min-height: 100vh;
+        align-items: flex-start;
+        padding: 100px 20px 40px;
+        box-sizing: border-box;
+    }
+
+    .forgot-container {
+        margin: 0 auto;
+        padding: 30px 25px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .logo-container a {
+        margin-bottom: 25px;
+    }
+
+    .forgot-container h2 {
+        font-size: 18px;
+    }
+
+    .forgot-container p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+}

@@ -172,11 +172,12 @@ main {
         min-height: 100vh;
         align-items: flex-start;
 
-        padding: 60px 20px 40px;
+        padding: 20px 20px 40px;
         box-sizing: border-box;
     }
 
     .forgot-container {
+        margin: 0 auto;
         padding: 30px 25px;
         width: 100%;
         box-sizing: border-box;

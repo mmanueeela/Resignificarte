@@ -25,7 +25,7 @@
     </div>
 
     <!-- Menú principal -->
-    <nav class="menu-navegacion">
+    <nav class="menu-navegacion" >
         <ul>
             <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
             <li><a href="obras.php">OBRAS</a></li>
@@ -66,11 +66,19 @@
     <?php endif; ?>
 
     <!-- Menú hamburguesa -->
-    <button>
+    <button id="btn-menu">
         <div></div>
         <div></div>
         <div></div>
     </button>
+
+    <nav class="menu-navegacion-mobile" id="menu-mobile">
+        <ul>
+            <li><a href="#">¿QUÉ ES RESIGNIFICARTE?</a></li>
+            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="contacto.php">CONTACTO</a></li>
+        </ul>
+    </nav>
 </header>
 
 <main>

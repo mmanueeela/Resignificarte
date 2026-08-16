@@ -228,6 +228,12 @@ header {
     font-weight: 500;
 }
 
+.menu-navegacion-mobile hr.separador-movil {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea blanca muy sutil */
+    margin: 25px 0;
+}
+
 /* ==============================
    ANIMACIÓN FLECHA
    ============================== */

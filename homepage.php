@@ -1,5 +1,5 @@
 <?php
-// require_once 'php/logicaNegocio/cargar_usuario_header.php';
+require_once 'php/logicaNegocio/cargar_usuario_header.php';
 ?>
 <!doctype html>
 <html lang="es">
@@ -72,11 +72,33 @@
         <div></div>
     </button>
 
+    <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
             <li><a href="#">¿QUÉ ES RESIGNIFICARTE?</a></li>
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
+
+            <!-- Separador visual -->
+            <hr class="separador-movil">
+
+            <!-- Área de usuario para móvil -->
+            <?php if ($usuario_logeado): ?>
+                <li>
+                    <a href="perfil_usuario.php">
+                        <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
+                        Mi perfil (<?= htmlspecialchars($nombre_usuario) ?>)
+                    </a>
+                </li>
+                <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
+            <?php else: ?>
+                <li>
+                    <a href="login.php">
+                        <img src="src/iconos/usuario.png" alt="Icono de usuario" style="width: 20px; vertical-align: middle; margin-right: 10px;">
+                        Acceder
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>

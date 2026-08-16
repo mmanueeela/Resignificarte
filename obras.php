@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/cargar_usuario_header.php';
+// require_once 'php/logicaNegocio/cargar_usuario_header.php';
 ?>
 <!doctype html>
 <html lang="es">
@@ -22,7 +22,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
         <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
     </div>
 
-    <!-- Menú principal -->
+    <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
             <li><a href="#">OBRAS</a></li>
@@ -61,6 +61,42 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
             <img src="src/iconos/usuario.png" alt="Icono de usuario">
         </a>
     <?php endif; ?>
+
+    <!-- Menú hamburguesa (Móvil) -->
+    <button id="btn-menu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+
+    <!-- Menú Desplegable (Móvil) -->
+    <nav class="menu-navegacion-mobile" id="menu-mobile">
+        <ul>
+            <li><a href="#">OBRAS</a></li>
+            <li><a href="contacto.php">CONTACTO</a></li>
+
+            <!-- Separador visual -->
+            <hr class="separador-movil">
+
+            <!-- Área de usuario para móvil -->
+            <?php if ($usuario_logeado): ?>
+                <li>
+                    <a href="perfil_usuario.php">
+                        <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
+                        Mi perfil (<?= htmlspecialchars($nombre_usuario) ?>)
+                    </a>
+                </li>
+                <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
+            <?php else: ?>
+                <li>
+                    <a href="login.php">
+                        <img src="src/iconos/usuario.png" alt="Icono de usuario" style="width: 20px; vertical-align: middle; margin-right: 10px;">
+                        Acceder
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
 </header>
 <main>
     <!-- PARTE SUPERIOR -->

@@ -182,18 +182,22 @@ main .img-fondo-container img {
 }
 
 /* ==============================
-   MENÚ DESPLEGABLE
+   MENÚ DESPLEGABLE MÓVIL
    ============================== */
+header {
+    position: relative; /* ESTO ES VITAL: Convierte al header en el ancla del menú móvil */
+}
 
 .menu-navegacion-mobile {
     position: absolute;
-    top: 100px;
+    top: 100%; /* CAMBIAR 100px por 100%: Así siempre colgará del borde inferior del header exacto */
     left: 0;
 
     width: 100%;
 
     background: rgba(32, 11, 48, 0.97);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 
     max-height: 0;
     overflow: hidden;
@@ -295,7 +299,14 @@ header > button {
 }
 
 @media (max-width: 1000px) {
+    /* 1. OCULTAR EL MENÚ Y USUARIO DE ESCRITORIO */
+    .menu-navegacion,
+    .area-usuario-dropdown,
+    a.area-usuario {
+        display: none !important;
+    }
 
+    /* 2. MOSTRAR EL BOTÓN HAMBURGUESA */
     header > button {
         display: flex;
         flex-direction: column;
@@ -306,7 +317,7 @@ header > button {
         background: transparent;
         gap: 8px;
         cursor: pointer;
-        z-index: 1001;
+        z-index: 1001; /* Asegura que esté por encima del menú desplegable */
     }
 
     header > button > div {
@@ -318,8 +329,7 @@ header > button {
         transform-origin: center;
     }
 
-    /* Flecha */
-
+    /* 3. ANIMACIÓN DEL BOTÓN (Forma de flecha) */
     #btn-menu.activo div:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
         width: 70%;
@@ -332,6 +342,11 @@ header > button {
     #btn-menu.activo div:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
         width: 70%;
+    }
+
+    /* 4. OCULTAR FLECHA DE BAJAR EN MÓVILES (Como pediste antes) */
+    .btn-bajar {
+        display: none !important;
     }
 }
 

@@ -24,8 +24,8 @@
         <a href="#"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
     </div>
 
-    <!-- Menú principal -->
-    <nav class="menu-navegacion" >
+    <!-- Menú principal (Escritorio) -->
+    <nav class="menu-navegacion">
         <ul>
             <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
             <li><a href="obras.php">OBRAS</a></li>
@@ -65,7 +65,7 @@
         </a>
     <?php endif; ?>
 
-    <!-- Menú hamburguesa -->
+    <!-- Menú hamburguesa (Móvil) -->
     <button id="btn-menu">
         <div></div>
         <div></div>
@@ -82,7 +82,7 @@
 </header>
 
 <main>
-    <!-- Etiqueta picture: cambia la imagen automáticamente según la pantalla -->
+    <!-- Etiqueta picture: cambia la imagen automáticamente según la pantalla (de menor a mayor) -->
     <picture class="img-fondo-container">
         <source media="(max-width: 500px)" srcset="src/images/img_fondo_movil.jpeg">
         <source media="(max-width: 600px)" srcset="src/images/img_fondo_medio.jpeg">

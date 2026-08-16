@@ -13,7 +13,7 @@ main {
     overflow: hidden;
 }
 
-main > img {
+main .img-fondo-container img {
     display: block;
     width: 100%;
     height: calc(100vh - 100px);
@@ -217,13 +217,43 @@ header > button {
     display: none;
 }
 
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================== */
+
+@media (max-width: 1500px) {
+    .info_principal {
+        width: 55%;
+    }
+}
+
+@media (max-width: 1200px) {
+    /* Empezamos a mover el enfoque de la imagen un poco a la izquierda (40%) */
+    main .img-fondo-container img {
+        object-position: 40% center;
+    }
+
+    .info_principal {
+        width: 45%;
+        min-height: 300px;
+        padding: 40px;
+    }
+    .info_principal h2 {
+        font-size: 26px;
+    }
+    .info_principal a {
+        font-size: 22px;
+        padding: 15px 25px;
+    }
+}
+
 @media (max-width: 1000px) {
-    /* Mostrar el botón solo en pantallas pequeñas */
+    /* MENÚ HAMBURGUESA */
     header > button {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 3rem;
+        width: 2rem;
         height: 3rem;
         border: 0;
         background: transparent;
@@ -241,27 +271,66 @@ header > button {
         transform-origin: center;
     }
 
-    header > button:hover > div:first-child {
-        transform: translateY(10px) rotate(45deg);
-    }
-
-    header > button:hover > div:nth-child(2) {
-        opacity: 0;
-        transform: scale(0);
-    }
-
-    header > button:hover > div:nth-child(3) {
-        transform: translateY(-10px) rotate(-45deg);
-    }
+    header > button:hover > div:first-child { transform: translateY(10px) rotate(45deg); }
+    header > button:hover > div:nth-child(2) { opacity: 0; transform: scale(0); }
+    header > button:hover > div:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 
     .menu-navegacion { display: none; }
-    .area-usuario .enlace-acceder,
-    .area-usuario img {
-        display: none !important;
+    .area-usuario-dropdown, a.area-usuario { display: none !important; }
+}
+
+@media (max-width: 800px) {
+    /* Movemos el enfoque de la imagen más a la izquierda (20%) */
+    main .img-fondo-container img {
+        object-position: 20% center;
     }
 
-    .area-usuario-dropdown,
-    a.area-usuario {
-        display: none !important;
+    /* TABLETS Y MÓVILES GRANDES */
+    .info_principal {
+        left: auto;
+        right: 5%;
+        transform: translateY(-40%);
+
+        width: 45%;
+        min-width: 260px;
+        min-height: auto;
+        padding: 25px 20px;
+        border-radius: 25px;
+    }
+
+    .info_principal h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .info_principal a {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    /* En móviles pequeños, la imagen se ancla totalmente a la izquierda (0%) */
+    main .img-fondo-container img {
+        object-position: left center; /* Equivale a 0% center */
+    }
+
+    .info_principal {
+        right: 5%;
+        width: 55%;
+        min-width: 220px;
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    .info_principal h2 {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .info_principal a {
+        font-size: 14px;
+        padding: 10px 15px;
+        border-radius: 10px;
     }
 }

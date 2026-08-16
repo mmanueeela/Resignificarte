@@ -74,7 +74,12 @@
 </header>
 
 <main>
-    <img src="src/images/img_fondo.png" alt="imagen de fondo">
+    <!-- Etiqueta picture: cambia la imagen automáticamente según la pantalla -->
+    <picture class="img-fondo-container">
+        <source media="(max-width: 1000px)" srcset="src/images/img_fondo_tablet-2.png">
+        <img src="src/images/img_fondo.png" alt="imagen de fondo">
+    </picture>
+
     <div class="info_principal">
         <h2>El arte jamás les habla a <br>las personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
         <a href="obras.php">Descubre las obras</a>

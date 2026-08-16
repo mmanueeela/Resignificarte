@@ -1,5 +1,5 @@
 <?php
-require_once 'php/logicaNegocio/redireccion_logeado.php'
+// require_once 'php/logicaNegocio/redireccion_logeado.php'
 ?>
 <!doctype html>
 <html lang="es">

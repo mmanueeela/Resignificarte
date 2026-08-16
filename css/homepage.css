@@ -185,24 +185,24 @@ main .img-fondo-container img {
    MENÚ DESPLEGABLE MÓVIL
    ============================== */
 header {
-    position: relative; /* ESTO ES VITAL: Convierte al header en el ancla del menú móvil */
+    position: relative;
 }
 
 .menu-navegacion-mobile {
     position: absolute;
-    top: 100%; /* CAMBIAR 100px por 100%: Así siempre colgará del borde inferior del header exacto */
+    top: 100%;
     left: 0;
 
     width: 100%;
 
-    background: rgba(32, 11, 48, 0.97);
+    background-color: #200B30;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
 
     max-height: 0;
     overflow: hidden;
 
-    transition: max-height 0.4s ease;
+    transition: max-height 0.9s ease-in-out;
 
     z-index: 999;
 }
@@ -275,7 +275,6 @@ header > button {
 }
 
 @media (max-width: 1200px) {
-    /* Empezamos a mover el enfoque de la imagen un poco a la izquierda (40%) */
     main .img-fondo-container img {
         object-position: 40% center;
     }
@@ -317,7 +316,7 @@ header > button {
         background: transparent;
         gap: 8px;
         cursor: pointer;
-        z-index: 1001; /* Asegura que esté por encima del menú desplegable */
+        z-index: 1001;
     }
 
     header > button > div {
@@ -344,14 +343,13 @@ header > button {
         width: 70%;
     }
 
-    /* 4. OCULTAR FLECHA DE BAJAR EN MÓVILES (Como pediste antes) */
+    /* 4. OCULTAR FLECHA DE BAJAR EN MÓVILES */
     .btn-bajar {
         display: none !important;
     }
 }
 
 @media (max-width: 800px) {
-    /* Movemos el enfoque de la imagen más a la izquierda (20%) */
     main .img-fondo-container img {
         object-position: 20% center;
     }
@@ -381,13 +379,11 @@ header > button {
 }
 
 /* ==============================
-   NUEVO: PUNTO DE CORTE PARA 600px (NUEVA IMAGEN)
+   NUEVO: PUNTO DE CORTE PARA 600px
    ============================== */
 @media (max-width: 600px) {
-    /* Al cargar img_fondo_medio.jpeg, ajustamos su enfoque si es necesario.
-       Puedes cambiar este valor según cómo esté compuesta esta imagen específica */
     main .img-fondo-container img {
-        object-position: center center; /* Por defecto la centramos, ajusta si hace falta */
+        object-position: center center;
     }
 
     header {
@@ -439,27 +435,22 @@ header > button {
 }
 
 @media (max-width: 500px) {
-    /* Al cargar img_fondo_movil.jpeg, centramos la imagen.
-       (Cámbialo a 'left center' o 'right center' si tu foto de móvil lo necesita) */
     main .img-fondo-container img {
         object-position: left center;
     }
 
     .info_principal {
-        /* En móviles pequeños, solemos centrar la caja o hacerla más ancha
-           para que el texto no quede muy aplastado */
         left: 50%;
         right: auto;
-        transform: translate(-50%, -40%); /* Lo volvemos a centrar horizontalmente */
-
-        width: 85%; /* Ocupa casi todo el ancho del móvil */
+        transform: translate(-50%, -40%);
+        width: 85%;
         min-width: 220px;
         padding: 20px 15px;
         border-radius: 20px;
     }
 
     .info_principal h2 {
-        font-size: 17px; /* Un pelín más grande para que sea legible en móvil */
+        font-size: 17px;
         line-height: 1.4;
     }
 

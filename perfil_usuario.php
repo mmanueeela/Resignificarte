@@ -40,7 +40,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Perfil - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
-    <link rel="stylesheet" href="css/perfil_2.css">
+    <link rel="stylesheet" href="css/perfil_usuario.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/perfil_usuario.js" defer></script>
 </head>
@@ -65,15 +65,15 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
 
         <!-- Zona Imagen -->
         <div class="contenedor-imagen-y-editar">
+            <!-- Icono de lápiz (oculto por defecto) -->
+            <div class="icono-editar-wrapper">
+                <img src="src/iconos/edit.svg" alt="Editar">
+            </div>
             <div class="avatar-wrapper">
                 <!-- El label envuelve la imagen para que al tocarla se abra el selector (solo si está habilitado) -->
                 <label for="input-foto" id="label-foto">
                     <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Imagen de perfil" id="avatar-preview" class="avatar-circular">
                 </label>
-                <!-- Icono de lápiz (oculto por defecto) -->
-                <div class="icono-editar-wrapper">
-                    <img src="src/iconos/edit.svg" alt="Editar">
-                </div>
             </div>
             <h4>FOTO DE PERFIL</h4>
             <input type="file" name="nueva_foto" id="input-foto" accept="image/jpeg, image/png, image/webp" disabled style="display: none;">

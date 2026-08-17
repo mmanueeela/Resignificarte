@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 form.classList.add('modo-edicion');
 
                 // Cambiamos el texto y el tipo del botón
-                btnAccion.textContent = "Save";
+                btnAccion.textContent = "Guardar";
                 btnAccion.type = "submit"; // Ahora el botón está listo para enviar los datos
 
                 // Habilitamos todos los campos de texto, selects y el input file de la foto

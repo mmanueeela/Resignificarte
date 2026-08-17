@@ -1,143 +1,81 @@
-const form = document.getElementById('form-perfil');
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById('form-perfil');
 
-// 1. Limpiamos cualquier caché residual que el navegador intente restaurar
-if (form) {
+    // Si no hay formulario en esta página, detenemos el script
+    if (!form) return;
+
+    // 1. Limpiamos cualquier caché residual que el navegador intente restaurar
     form.reset();
-}
 
-// 2. Seleccionar automáticamente el país del usuario
-const selectPais = document.getElementById('pais');
-if (selectPais) {
-    const paisGuardado = selectPais.getAttribute('data-pais-guardado');
-    if (paisGuardado) {
-        setTimeout(() => {
-            selectPais.value = paisGuardado.trim();
-        }, 50);
-    }
-}
+    // 2. Variables de elementos
+    const btnAccion = document.getElementById('btn-accion-perfil');
+    const inputFoto = document.getElementById('input-foto');
+    const avatarPreview = document.getElementById('avatar-preview');
 
-// 3. Variables para botones, inputs y avatar
-const btnEdit = document.getElementById('btn-edit');
-const btnSave = document.getElementById('btn-save');
-const btnCancel = document.getElementById('btn-cancel');
+    // Seleccionamos todos los campos que queremos habilitar al editar
+    // (Excluimos los inputs de tipo hidden que se usan para lógica interna)
+    const camposFormulario = form.querySelectorAll('input:not([type="hidden"]), select');
 
-// IMPORTANTE:
-// El email queda excluido de esta lista.
-// Por tanto, aunque pulsemos "Editar Perfil", seguirá estando bloqueado.
-const inputs = form
-    ? form.querySelectorAll('input:not([name="email"]):not([name="accion"]):not([type="file"]), select')
-    : [];
+    let enModoEdicion = false;
 
-const avatarContainer = document.getElementById('avatar-container');
-const inputFoto = document.getElementById('input-foto');
-const avatarPreview = document.getElementById('avatar-preview');
+    // ==========================================================
+    // LÓGICA DEL BOTÓN EDITAR / SAVE
+    // ==========================================================
+    if (btnAccion) {
+        btnAccion.addEventListener('click', (e) => {
+            if (!enModoEdicion) {
+                // --- 1. PASAR A MODO EDICIÓN ---
+                e.preventDefault(); // Evitamos que el formulario se envíe por accidente
+                enModoEdicion = true;
 
-// Guardamos la ruta original por si el usuario cancela
-let avatarOriginalSrc = '';
-if (avatarPreview) {
-    avatarOriginalSrc = avatarPreview.src;
-}
+                // Añadimos la clase para que el CSS muestre las flechas y el icono de foto
+                form.classList.add('modo-edicion');
 
-// Guardamos los datos originales de los campos editables
-let datosOriginales = {};
+                // Cambiamos el texto y el tipo del botón
+                btnAccion.textContent = "Save";
+                btnAccion.type = "submit"; // Ahora el botón está listo para enviar los datos
 
-// ==========================================================
-// LÓGICA DEL BOTÓN EDITAR
-// ==========================================================
-if (btnEdit) {
-    btnEdit.addEventListener('click', () => {
-        // Guardar valores originales y habilitar campos editables
-        inputs.forEach(input => {
-            datosOriginales[input.name] = input.value;
-            input.disabled = false;
-        });
+                // Habilitamos todos los campos de texto, selects y el input file de la foto
+                camposFormulario.forEach(campo => {
+                    campo.disabled = false;
+                });
 
-        // Cambiar botones
-        form.classList.add('modo-edicion');
-        btnEdit.style.display = 'none';
-        btnSave.style.display = 'inline-block';
-        btnCancel.style.display = 'inline-block';
-
-        // Activar edición del avatar
-        if (avatarContainer) {
-            avatarContainer.classList.add('modo-edicion');
-            avatarContainer.title = "Haz clic para cambiar tu foto";
-        }
-    });
-}
-
-// ==========================================================
-// LÓGICA DEL BOTÓN CANCELAR
-// ==========================================================
-if (btnCancel) {
-    btnCancel.addEventListener('click', () => {
-        // Restaurar valores originales
-        inputs.forEach(input => {
-            if (datosOriginales[input.name] !== undefined) {
-                input.value = datosOriginales[input.name];
+            } else {
+                // --- 2. GUARDAR DATOS ---
+                // Como el botón ya es type="submit", no hacemos e.preventDefault().
+                // El navegador se encargará de enviar los datos al archivo PHP.
             }
-            input.disabled = true;
         });
+    }
 
-        // Cambiar botones
-        form.classList.remove('modo-edicion');
-        btnEdit.style.display = 'inline-block';
-        btnSave.style.display = 'none';
-        btnCancel.style.display = 'none';
+    // ==========================================================
+    // LÓGICA DE SUBIDA DE IMAGEN Y PREVISUALIZACIÓN
+    // ==========================================================
+    if (inputFoto && avatarPreview) {
+        inputFoto.addEventListener('change', function (event) {
+            const archivo = event.target.files[0];
+            if (!archivo) return;
 
-        // Restaurar avatar
-        if (avatarContainer && avatarPreview && inputFoto) {
-            avatarContainer.classList.remove('modo-edicion');
-            avatarContainer.title = "Haz clic en Editar Perfil para cambiar tu foto";
-            avatarPreview.src = avatarOriginalSrc;
-            inputFoto.value = "";
-        }
-    });
-}
+            // Validación del formato (solo imágenes)
+            if (!archivo.type.startsWith('image/')) {
+                alert('Por favor, selecciona un archivo de imagen válido.');
+                inputFoto.value = "";
+                return;
+            }
 
-// ==========================================================
-// LÓGICA DE SUBIDA DE IMAGEN
-// ==========================================================
-if (avatarContainer && inputFoto && avatarPreview) {
-    // Al hacer clic en el avatar, si estamos editando, abrimos el selector
-    avatarContainer.addEventListener('click', () => {
-        if (avatarContainer.classList.contains('modo-edicion')) {
-            inputFoto.click();
-        }
-    });
+            // Validación del peso (Máximo 2MB)
+            if (archivo.size > 2 * 1024 * 1024) {
+                alert('La imagen es demasiado grande. El tamaño máximo permitido es de 2MB.');
+                inputFoto.value = "";
+                return;
+            }
 
-    // Cuando el usuario elige un archivo
-    inputFoto.addEventListener('change', function (event) {
-        const archivo = event.target.files[0];
-        if (!archivo) {
-            return;
-        }
-
-        // ==========================================
-        // VALIDACIÓN DEL FORMATO
-        // ==========================================
-        if (!archivo.type.startsWith('image/')) {
-            alert('Por favor, selecciona un archivo de imagen válido.');
-            inputFoto.value = "";
-            return;
-        }
-
-        // ==========================================
-        // VALIDACIÓN DEL PESO
-        // ==========================================
-        if (archivo.size > 2 * 1024 * 1024) {
-            alert('La imagen es demasiado grande. Máximo 2MB.');
-            inputFoto.value = "";
-            return;
-        }
-
-        // ==========================================
-        // PREVISUALIZACIÓN
-        // ==========================================
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            avatarPreview.src = e.target.result;
-        };
-        reader.readAsDataURL(archivo);
-    });
-}
+            // Previsualización instantánea de la imagen seleccionada
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                avatarPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(archivo);
+        });
+    }
+});

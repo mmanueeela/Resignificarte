@@ -1,24 +1,37 @@
-main {
-    margin-top: 50px;
-    background-color: white;
+/* ==============================
+   RESET Y BASE
+   ============================== */
+body {
+    background-color: #fff; /* Fondo totalmente blanco como en la foto */
+    margin: 0;
+    padding: 0;
 }
 
-/* Menú */
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    padding-bottom: 50px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ==============================
+   MENÚ SUPERIOR
+   ============================== */
 .menu {
-    height: 50px;
+    height: 60px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .menu > a {
-    font-family: Montserrat, sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: black;
-    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .menu a img {
@@ -26,32 +39,174 @@ main {
     height: 24px;
 }
 
-main > h2 {
-    font-family: Montserrat, sans-serif;
-    font-size: 32px;
+.btn-guardar {
+    font-family: inherit;
+    font-size: 16px;
     font-weight: 500;
-    margin: 20px 0 20px 30px;
+    color: #000;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
 
-/* Contenedor imagen perfil */
+.btn-guardar:hover {
+    opacity: 0.6;
+}
+
+/* ==============================
+   TÍTULO PRINCIPAL
+   ============================== */
+.titulo-pagina {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 10px 0 20px 20px;
+    color: #000;
+}
+
+/* ==============================
+   IMAGEN DE PERFIL Y EDICIÓN
+   ============================== */
 .contenedor-imagen-y-editar {
-    padding: 30px;
-    background-color: #ccc;
+    padding: 30px 20px;
+    background-color: #f9f9f9; /* Gris muy clarito como en la imagen */
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.avatar-circular {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.icono-editar-wrapper {
+    position: absolute;
+    top: 5px;
+    right: -20px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+    display: none; /* Oculto por defecto */
+}
+
+/* Muestra el lápiz solo en modo edición */
+.modo-edicion .icono-editar-wrapper {
+    display: block;
+}
+
+.contenedor-imagen-y-editar h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+/* Permitir clic en el label de la foto solo en edición */
+#label-foto {
+    cursor: default;
+}
+.modo-edicion #label-foto {
+    cursor: pointer;
+}
+
+/* ==============================
+   INFORMACIÓN DEL USUARIO (LISTA)
+   ============================== */
+.contenedor-info-usuario {
+    padding: 0 20px;
+    display: flex;
     flex-direction: column;
 }
 
-.img-mas-texto {
-    width: 100%;
+.campo-info {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea; /* Línea separadora */
 }
 
-.img-mas-texto h4 {
-    font-family: Montserrat sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+.campo-contenido {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-contenido h4 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
+}
+
+/* Estilos de inputs (transparentes siempre) */
+.campo-contenido input,
+.campo-contenido select {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 400;
+    color: #000;
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.campo-contenido input:disabled,
+.campo-contenido select:disabled {
+    color: #333; /* Texto oscuro aunque esté deshabilitado */
+    opacity: 1; /* Para iOS que difumina los disabled */
+}
+
+.campo-contenido input::placeholder {
+    color: #aaa;
+}
+
+/* Icono Flecha derecha */
+.icono-chevron {
+    width: 20px;
+    height: 20px;
+    color: #000;
+    opacity: 0.8;
+    display: none; /* Oculto por defecto */
+}
+
+/* MOSTRAR FLECHAS Y ESTILOS EN MODO EDICIÓN */
+.modo-edicion .icono-chevron {
+    display: block;
+}
+
+.modo-edicion .campo-contenido input,
+.modo-edicion .campo-contenido select {
+    color: #523479; /* Destacamos un poco el texto que se está editando */
+}
+
+/* ==============================
+   ALERTA DE ÉXITO
+   ============================== */
+.alerta-exito {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
 }

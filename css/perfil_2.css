@@ -1,0 +1,57 @@
+main {
+    margin-top: 50px;
+    background-color: white;
+}
+
+/* Menú */
+.menu {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.menu > a {
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+.menu a img {
+    width: 24px;
+    height: 24px;
+}
+
+main > h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin: 20px 0 20px 30px;
+}
+
+/* Contenedor imagen perfil */
+.contenedor-imagen-y-editar {
+    padding: 30px;
+    background-color: #ccc;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.img-mas-texto {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.img-mas-texto h4 {
+    font-family: Montserrat sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}

@@ -207,15 +207,14 @@ main {
     text-decoration: underline;
 }
 
-/* ==========================================
-   RESPONSIVE MÓVIL
-   ========================================== */
+/* ==============================
+   MEDIA QUERIES (RESPONSIVE MÓVIL)
+   ============================== */
 
 @media (max-width: 550px) {
     main {
         min-height: 100vh;
         align-items: flex-start;
-
         padding: 100px 20px 40px;
         box-sizing: border-box;
     }
@@ -235,7 +234,7 @@ main {
         font-size: 18px;
     }
 
-    .forgot-container > p {
+    .forgot-container p {
         font-size: 14px;
         margin-bottom: 20px;
     }

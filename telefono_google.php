@@ -1,4 +1,5 @@
 <?php
+/*
 session_start();
 
 // Comprobamos que el usuario realmente viene del registro con Google
@@ -10,6 +11,7 @@ if (!isset($_SESSION['registro_google'])) {
 $datos_google = $_SESSION['registro_google'];
 
 $nombre = htmlspecialchars($datos_google['nombre']);
+*/
 ?>
 <!doctype html>
 <html lang="es">

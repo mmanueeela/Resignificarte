@@ -28,7 +28,7 @@ main {
 }
 
 /* ==========================================
-   CONTENEDOR
+   CONTENEDOR (Modificado al 80% y max 600px)
    ========================================== */
 
 .forgot-container {
@@ -36,8 +36,10 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 400px;
+
+    width: 80%; /* Ancho solicitado */
+    max-width: 600px; /* Igualado al de registro.php */
+
     padding: 30px 40px;
     border-radius: 35px;
     background: rgba(255, 255, 255, 0.15);
@@ -50,7 +52,7 @@ main {
 }
 
 /* ==========================================
-   TÍTULO
+   TÍTULO Y TEXTO
    ========================================== */
 
 .forgot-container h2 {
@@ -62,10 +64,6 @@ main {
     text-align: center;
 }
 
-/* ==========================================
-   TEXTO
-   ========================================== */
-
 .forgot-container > p {
     color: rgba(255, 255, 255, 0.7);
     font-family: Montserrat, sans-serif;
@@ -76,16 +74,12 @@ main {
 }
 
 /* ==========================================
-   FORMULARIO
+   FORMULARIO E INPUTS
    ========================================== */
 
-#form-telefono-google {
+#form-completar-google {
     width: 100%;
 }
-
-/* ==========================================
-   INPUT
-   ========================================== */
 
 .forgot-container .input-group {
     display: flex;
@@ -121,25 +115,69 @@ main {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* ==========================================
-   AUTOCOMPLETADO
-   ========================================== */
-
 .forgot-container input[type="tel"]:-webkit-autofill,
 .forgot-container input[type="tel"]:-webkit-autofill:hover,
 .forgot-container input[type="tel"]:-webkit-autofill:focus,
-.forgot-container input[type="tel"]:-webkit-autofill:active,
 .forgot-container input[type="text"]:-webkit-autofill,
 .forgot-container input[type="text"]:-webkit-autofill:hover,
-.forgot-container input[type="text"]:-webkit-autofill:focus,
-.forgot-container input[type="text"]:-webkit-autofill:active {
+.forgot-container input[type="text"]:-webkit-autofill:focus {
     -webkit-text-fill-color: white !important;
     font-family: Montserrat, sans-serif !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
 /* ==========================================
-   MENSAJE DE ERROR
+   ESTRUCTURA DE FECHA Y SELECTS (De registro.php)
+   ========================================== */
+
+.fecha-container {
+    width: 100%;
+}
+
+.label-fecha {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.fila-triple {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.fila-triple .input-group {
+    width: 33.33%;
+    margin-bottom: 30px;
+}
+
+.select-transparente {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    padding: 0;
+    width: 100%;
+    cursor: pointer;
+    color-scheme: dark; /* Para mantener el UI oscuro nativo */
+}
+
+.select-transparente:invalid {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.select-transparente option {
+    background-color: #200B30;
+    color: white;
+}
+
+/* ==========================================
+   MENSAJE DE ERROR, BOTÓN Y ENLACES
    ========================================== */
 
 .forgot-container .message {
@@ -158,15 +196,10 @@ main {
 }
 
 .forgot-container .message.error {
-    display: block;
     background-color: rgba(255, 77, 77, 0.2);
     border: 1px solid rgba(255, 77, 77, 0.5);
     color: #fce1e1;
 }
-
-/* ==========================================
-   BOTÓN
-   ========================================== */
 
 .forgot-container .btn-login {
     width: 100%;
@@ -189,10 +222,6 @@ main {
     transform: scale(1.02);
 }
 
-/* ==========================================
-   ENLACE
-   ========================================== */
-
 .forgot-container .registro-link {
     margin-top: 25px;
     color: rgba(255, 255, 255, 0.7);
@@ -213,34 +242,6 @@ main {
     text-decoration: underline;
 }
 
-/* ==========================================
-   ESTILOS PARA SELECTS (PAÍS Y FECHA)
-   ========================================== */
-.select-transparente {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 16px;
-    font-family: Montserrat, sans-serif;
-    padding: 0;
-    width: 100%;
-    /* Quitamos la flechita nativa para que quede más minimalista */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
-}
-
-.select-transparente:invalid {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.select-transparente option {
-    color: #333;
-    background: #fff;
-}
-
 /* ==============================
    MEDIA QUERIES (RESPONSIVE MÓVIL)
    ============================== */
@@ -249,14 +250,14 @@ main {
     main {
         min-height: 100vh;
         align-items: flex-start;
-        padding: 100px 20px 40px;
+        padding: 60px 20px 40px; /* Igual que en registro.css */
         box-sizing: border-box;
     }
 
     .forgot-container {
         margin: 0 auto;
         padding: 30px 25px;
-        width: 100%;
+        width: 100%; /* Ocupa el 100% (menos el padding de main) en móviles */
         box-sizing: border-box;
     }
 
@@ -268,8 +269,19 @@ main {
         font-size: 18px;
     }
 
-    .forgot-container p {
+    .forgot-container > p {
         font-size: 14px;
         margin-bottom: 20px;
+    }
+
+    /* Convertimos la fecha en una columna vertical en móvil, como en registro */
+    .fila-triple {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .fila-triple .input-group {
+        width: 100%;
+        margin-bottom: 30px;
     }
 }

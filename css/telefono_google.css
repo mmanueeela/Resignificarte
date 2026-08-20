@@ -27,9 +27,9 @@ main {
     min-height: 100vh;
 }
 
-/* ==========================================
-   CONTENEDOR (Modificado al 80% y max 600px)
-   ========================================== */
+/* ====================
+   CONTENEDOR
+   ==================== */
 
 .forgot-container {
     display: flex;
@@ -37,8 +37,8 @@ main {
     justify-content: center;
     align-items: center;
 
-    width: 80%; /* Ancho solicitado */
-    max-width: 600px; /* Igualado al de registro.php */
+    width: 80%;
+    max-width: 500px;
 
     padding: 30px 40px;
     border-radius: 35px;
@@ -164,7 +164,7 @@ main {
     padding: 0;
     width: 100%;
     cursor: pointer;
-    color-scheme: dark; /* Para mantener el UI oscuro nativo */
+    color-scheme: dark;
 }
 
 .select-transparente:invalid {
@@ -250,14 +250,14 @@ main {
     main {
         min-height: 100vh;
         align-items: flex-start;
-        padding: 60px 20px 40px; /* Igual que en registro.css */
+        padding: 60px 20px 40px;
         box-sizing: border-box;
     }
 
     .forgot-container {
         margin: 0 auto;
         padding: 30px 25px;
-        width: 100%; /* Ocupa el 100% (menos el padding de main) en móviles */
+        width: 100%;
         box-sizing: border-box;
     }
 
@@ -274,7 +274,6 @@ main {
         margin-bottom: 20px;
     }
 
-    /* Convertimos la fecha en una columna vertical en móvil, como en registro */
     .fila-triple {
         flex-direction: column;
         gap: 0;

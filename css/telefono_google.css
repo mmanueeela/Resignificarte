@@ -104,7 +104,8 @@ main {
     opacity: 0.8;
 }
 
-.forgot-container input[type="tel"] {
+.forgot-container input[type="tel"],
+.forgot-container input[type="text"] {
     background: transparent;
     border: none;
     outline: none;
@@ -115,7 +116,8 @@ main {
     padding: 0;
 }
 
-.forgot-container input[type="tel"]::placeholder {
+.forgot-container input[type="tel"]::placeholder,
+.forgot-container input[type="text"]::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -126,7 +128,11 @@ main {
 .forgot-container input[type="tel"]:-webkit-autofill,
 .forgot-container input[type="tel"]:-webkit-autofill:hover,
 .forgot-container input[type="tel"]:-webkit-autofill:focus,
-.forgot-container input[type="tel"]:-webkit-autofill:active {
+.forgot-container input[type="tel"]:-webkit-autofill:active,
+.forgot-container input[type="text"]:-webkit-autofill,
+.forgot-container input[type="text"]:-webkit-autofill:hover,
+.forgot-container input[type="text"]:-webkit-autofill:focus,
+.forgot-container input[type="text"]:-webkit-autofill:active {
     -webkit-text-fill-color: white !important;
     font-family: Montserrat, sans-serif !important;
     transition: background-color 5000s ease-in-out 0s;
@@ -205,6 +211,34 @@ main {
 .forgot-container .registro-link a:hover {
     opacity: 0.8;
     text-decoration: underline;
+}
+
+/* ==========================================
+   ESTILOS PARA SELECTS (PAÍS Y FECHA)
+   ========================================== */
+.select-transparente {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    padding: 0;
+    width: 100%;
+    /* Quitamos la flechita nativa para que quede más minimalista */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-transparente:invalid {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.select-transparente option {
+    color: #333;
+    background: #fff;
 }
 
 /* ==============================

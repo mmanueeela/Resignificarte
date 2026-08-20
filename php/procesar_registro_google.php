@@ -1,99 +1,75 @@
 <?php
 session_start();
-
 require_once 'conexion.php';
 
 // ==========================================
-// COMPROBAR QUE VIENE DE GOOGLE
+// COMPROBAR QUE VIENE DE GOOGLE Y ES POST
 // ==========================================
-if (!isset($_SESSION['registro_google'])) {
+if (!isset($_SESSION['registro_google']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../login.php");
     exit();
 }
 
+$datos_google = $_SESSION['registro_google'];
+
 // ==========================================
-// COMPROBAR POST
+// RECOGER DATOS DEL FORMULARIO Y DE GOOGLE
 // ==========================================
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../telefono_google.php");
+$email = $datos_google['email'];
+$nombre = $datos_google['nombre'];
+$foto_perfil = $datos_google['foto_perfil'];
+
+// Si Google nos dio apellidos, los usamos. Si no, los cogemos del formulario.
+$apellidos = !empty(trim($datos_google['apellidos']))
+    ? $datos_google['apellidos']
+    : trim($_POST['apellidos'] ?? '');
+
+$telefono = trim($_POST['telefono'] ?? '');
+$pais = trim($_POST['pais'] ?? '');
+$dia = $_POST['dia'] ?? '';
+$mes = $_POST['mes'] ?? '';
+$ano = $_POST['ano'] ?? '';
+
+// Formatear la fecha (YYYY-MM-DD)
+$fecha_nacimiento = "$ano-$mes-$dia";
+
+// ==========================================
+// VALIDACIONES BÁSICAS
+// ==========================================
+
+// 1. Comprobar campos vacíos
+if (empty($telefono) || empty($pais) || empty($dia) || empty($mes) || empty($ano) || empty($apellidos)) {
+    header("Location: ../telefono_google.php?error=" . urlencode("Todos los campos son obligatorios."));
     exit();
 }
 
-// ==========================================
-// RECOGER TELÉFONO
-// ==========================================
-$telefono = trim(
-    isset($_POST['telefono'])
-        ? $_POST['telefono']
-        : ''
-);
-
-// ==========================================
-// VALIDAR TELÉFONO
-// ==========================================
-if (empty($telefono)) {
-    die("Error: El teléfono es obligatorio.");
+// 2. Comprobar que la fecha es real (ej. evitar 31 de Febrero)
+if (!checkdate((int)$mes, (int)$dia, (int)$ano)) {
+    header("Location: ../telefono_google.php?error=" . urlencode("La fecha de nacimiento no es válida."));
+    exit();
 }
 
-// Permitimos números, espacios, +, paréntesis y guiones
+// 3. Comprobar formato del teléfono
 if (!preg_match('/^[0-9+\s()-]{7,20}$/', $telefono)) {
-    die("Error: El número de teléfono no es válido.");
+    header("Location: ../telefono_google.php?error=" . urlencode("El número de teléfono no es válido."));
+    exit();
 }
 
-// ==========================================
-// RECUPERAR DATOS DE GOOGLE
-// ==========================================
-$datos_google = $_SESSION['registro_google'];
-
-$email = $datos_google['email'];
-$nombre = $datos_google['nombre'];
-$apellidos = $datos_google['apellidos'];
-$foto_perfil = $datos_google['foto_perfil'];
-
-// ==========================================
-// DATOS GENÉRICOS
-// ==========================================
-$pais_generico = "ND";
-$fecha_generica = "2000-01-01";
-
-// Generamos una contraseña aleatoria.
-// El usuario entra mediante Google, así que no
-// necesita conocer esta contraseña.
-$password_aleatoria = password_hash(
-    bin2hex(random_bytes(10)),
-    PASSWORD_DEFAULT
-);
+// Generamos contraseña aleatoria porque entra con Google
+$password_aleatoria = password_hash(bin2hex(random_bytes(10)), PASSWORD_DEFAULT);
 
 // ==========================================
 // INSERTAR USUARIO
 // ==========================================
 $insertar_user = $conexion->prepare("
-    INSERT INTO usuarios
-    (
-        nombre,
-        apellidos,
-        pais,
-        fecha_nacimiento,
-        foto_perfil
-    )
+    INSERT INTO usuarios (nombre, apellidos, pais, fecha_nacimiento, foto_perfil)
     VALUES (?, ?, ?, ?, ?)
 ");
-
-$insertar_user->bind_param(
-    "sssss",
-    $nombre,
-    $apellidos,
-    $pais_generico,
-    $fecha_generica,
-    $foto_perfil
-);
+$insertar_user->bind_param("sssss", $nombre, $apellidos, $pais, $fecha_nacimiento, $foto_perfil);
 
 if (!$insertar_user->execute()) {
-    $error = $conexion->error;
-    $insertar_user->close();
-    die("Error al registrar usuario: " . $error);
+    die("Error al registrar usuario: " . $conexion->error);
 }
-
 $nuevo_id = $insertar_user->insert_id;
 $insertar_user->close();
 
@@ -101,63 +77,28 @@ $insertar_user->close();
 // INSERTAR CREDENCIALES
 // ==========================================
 $insertar_cred = $conexion->prepare("
-    INSERT INTO usuarios_credenciales
-    (
-        usuario_id,
-        telefono,
-        email,
-        password,
-        metodo_registro
-    )
+    INSERT INTO usuarios_credenciales (usuario_id, telefono, email, password, metodo_registro)
     VALUES (?, ?, ?, ?, 'google')
 ");
-
-$insertar_cred->bind_param(
-    "isss",
-    $nuevo_id,
-    $telefono,
-    $email,
-    $password_aleatoria
-);
+$insertar_cred->bind_param("isss", $nuevo_id, $telefono, $email, $password_aleatoria);
 
 if (!$insertar_cred->execute()) {
-    $error = $conexion->error;
-    $insertar_cred->close();
-    die("Error al guardar las credenciales: " . $error);
+    die("Error al guardar credenciales: " . $conexion->error);
 }
-
 $insertar_cred->close();
 
 // ==========================================
-// LOGIN AUTOMÁTICO
+// LOGIN AUTOMÁTICO Y RECUÉRDAME
 // ==========================================
 session_regenerate_id(true);
-
 $_SESSION['usuario_id'] = $nuevo_id;
 $_SESSION['usuario_nombre'] = $nombre;
 
-// ==========================================
-// RECUÉRDAME
-// ==========================================
 $token_cookie = bin2hex(random_bytes(32));
+$token_hasheado = hash('sha256', $token_cookie);
 
-$token_hasheado = hash(
-    'sha256',
-    $token_cookie
-);
-
-$update_token = $conexion->prepare("
-    UPDATE usuarios_credenciales
-    SET remember_token = ?
-    WHERE usuario_id = ?
-");
-
-$update_token->bind_param(
-    "si",
-    $token_hasheado,
-    $nuevo_id
-);
-
+$update_token = $conexion->prepare("UPDATE usuarios_credenciales SET remember_token = ? WHERE usuario_id = ?");
+$update_token->bind_param("si", $token_hasheado, $nuevo_id);
 $update_token->execute();
 $update_token->close();
 
@@ -169,9 +110,7 @@ setcookie("recuerdame_token", $token_cookie, [
     'samesite' => 'Lax'
 ]);
 
-// ==========================================
-// BORRAR DATOS TEMPORALES DE GOOGLE
-// ==========================================
+// Borramos la sesión de registro temporal
 unset($_SESSION['registro_google']);
 
 // ==========================================
@@ -259,7 +198,7 @@ mail(
 );
 
 // ==========================================
-// IR A LA PÁGINA DEL USUARIO
+// REDIRECCIÓN FINAL
 // ==========================================
 header("Location: ../homepage.php?registro=google_exito");
 exit();

@@ -1,76 +1,93 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById('form-perfil');
-
-    // Si no hay formulario en esta página, detenemos el script
     if (!form) return;
 
-    // 1. Limpiamos cualquier caché residual que el navegador intente restaurar
     form.reset();
 
-    // 2. Variables de elementos
-    const btnAccion = document.getElementById('btn-accion-perfil');
+    const btnEditar = document.getElementById('btn-editar-perfil');
+    const btnCancelar = document.getElementById('btn-cancelar');
     const inputFoto = document.getElementById('input-foto');
     const avatarPreview = document.getElementById('avatar-preview');
 
-    // Seleccionamos todos los campos que queremos habilitar al editar
-    // (Excluimos los inputs de tipo hidden que se usan para lógica interna)
     const camposFormulario = form.querySelectorAll('input:not([type="hidden"]), select');
 
     let enModoEdicion = false;
+    let datosOriginales = {}; // Aquí guardaremos los datos por si le da a cancelar
+    let fotoOriginalSrc = avatarPreview.src;
 
     // ==========================================================
-    // LÓGICA DEL BOTÓN EDITAR / SAVE
+    // 1. ACTIVAR MODO EDICIÓN (LÁPIZ)
     // ==========================================================
-    if (btnAccion) {
-        btnAccion.addEventListener('click', (e) => {
-            if (!enModoEdicion) {
-                // --- 1. PASAR A MODO EDICIÓN ---
-                e.preventDefault(); // Evitamos que el formulario se envíe por accidente
-                enModoEdicion = true;
+    if (btnEditar) {
+        btnEditar.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (enModoEdicion) return;
 
-                // Añadimos la clase para que el CSS muestre las flechas y el icono de foto
-                form.classList.add('modo-edicion');
+            enModoEdicion = true;
+            form.classList.add('modo-edicion');
 
-                // Cambiamos el texto y el tipo del botón
-                btnAccion.textContent = "Guardar";
-                btnAccion.type = "submit"; // Ahora el botón está listo para enviar los datos
+            // Hacemos el lápiz transparente e intocable
+            btnEditar.disabled = true;
+            btnEditar.style.opacity = '0.4';
+            btnEditar.style.cursor = 'default';
 
-                // Habilitamos todos los campos de texto, selects y el input file de la foto
-                camposFormulario.forEach(campo => {
-                    campo.disabled = false;
-                });
-
-            } else {
-                // --- 2. GUARDAR DATOS ---
-                // Como el botón ya es type="submit", no hacemos e.preventDefault().
-                // El navegador se encargará de enviar los datos al archivo PHP.
-            }
+            // Guardamos los datos actuales y habilitamos los inputs
+            camposFormulario.forEach(campo => {
+                datosOriginales[campo.name] = campo.value;
+                campo.disabled = false;
+            });
         });
     }
 
     // ==========================================================
-    // LÓGICA DE SUBIDA DE IMAGEN Y PREVISUALIZACIÓN
+    // 2. CANCELAR EDICIÓN (BOTÓN ROJO X)
+    // ==========================================================
+    if (btnCancelar) {
+        btnCancelar.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            enModoEdicion = false;
+            form.classList.remove('modo-edicion');
+
+            // Devolvemos el lápiz a la normalidad
+            btnEditar.disabled = false;
+            btnEditar.style.opacity = '1';
+            btnEditar.style.cursor = 'pointer';
+
+            // Restauramos los textos originales y volvemos a bloquear
+            camposFormulario.forEach(campo => {
+                if (datosOriginales[campo.name] !== undefined) {
+                    campo.value = datosOriginales[campo.name];
+                }
+                campo.disabled = true;
+            });
+
+            // Restauramos la foto original
+            avatarPreview.src = fotoOriginalSrc;
+            inputFoto.value = "";
+        });
+    }
+
+    // ==========================================================
+    // 3. PREVISUALIZACIÓN DE IMAGEN
     // ==========================================================
     if (inputFoto && avatarPreview) {
         inputFoto.addEventListener('change', function (event) {
             const archivo = event.target.files[0];
             if (!archivo) return;
 
-            // Validación del formato (solo imágenes)
             if (!archivo.type.startsWith('image/')) {
                 alert('Por favor, selecciona un archivo de imagen válido.');
                 inputFoto.value = "";
                 return;
             }
 
-            // Validación del peso (Máximo 2MB)
             if (archivo.size > 2 * 1024 * 1024) {
                 alert('La imagen es demasiado grande. El tamaño máximo permitido es de 2MB.');
                 inputFoto.value = "";
                 return;
             }
 
-            // Previsualización instantánea de la imagen seleccionada
             const reader = new FileReader();
             reader.onload = function (e) {
                 avatarPreview.src = e.target.result;

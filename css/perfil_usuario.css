@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #200B30;
+    background-color: #200B30; /* Para evitar parpadeos blancos al cargar */
 }
 
 main {
@@ -37,7 +37,7 @@ main {
 }
 
 /* ==============================
-   MENÚ SUPERIOR (Flecha - Logo - Editar)
+   MENÚ SUPERIOR (Flecha - Logo - Lápiz)
    ============================== */
 .menu {
     height: 50px;
@@ -45,9 +45,10 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 30px; /* Separación con la foto */
 }
 
+/* El truco Flexbox para centrar perfectamente el logo */
 .btn-volver {
     flex: 1;
     display: flex;
@@ -66,31 +67,30 @@ main {
 }
 
 .logo-perfil img {
-    height: 60px;
+    height: 35px;
     object-fit: contain;
     filter: saturate(200%);
 }
 
-.btn-guardar {
+.icono-blanco {
+    filter: brightness(0) invert(1);
+}
+
+/* Botón del lápiz para editar */
+.btn-lapiz {
     flex: 1;
-    text-align: right;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
+    display: flex;
+    justify-content: flex-end;
     background: transparent;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
     padding: 0;
+    transition: opacity 0.3s;
 }
 
-.btn-guardar:hover {
-    opacity: 0.7;
-}
-
-.icono-blanco {
-    filter: brightness(0) invert(1);
+.btn-lapiz img {
+    width: 24px;
+    height: 24px;
 }
 
 /* ==============================
@@ -99,7 +99,7 @@ main {
 .contenedor-imagen-y-editar {
     position: relative;
     padding: 25px 20px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.15); /* Fondo oscuro sutil */
     border-radius: 25px;
     display: flex;
     flex-direction: column;
@@ -246,6 +246,53 @@ main {
 .modo-edicion .campo-contenido select {
     color: #fff;
     text-shadow: 0 0 5px rgba(255,255,255,0.3);
+}
+
+/* ==============================
+   BOTONES GUARDAR / CANCELAR (CIRCULARES)
+   ============================== */
+.acciones-edicion {
+    display: none; /* Ocultos por defecto */
+    justify-content: center;
+    gap: 30px;
+    padding: 25px 0 10px 0;
+    width: 100%;
+}
+
+.modo-edicion .acciones-edicion {
+    display: flex; /* Se muestran al activar el modo edición */
+}
+
+.btn-circulo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    color: white;
+    transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+}
+
+.btn-circulo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.btn-rojo {
+    background-color: #ff4757; /* Rojo coral */
+}
+
+.btn-verde {
+    background-color: #2ed573; /* Verde vibrante */
+}
+
+.btn-circulo svg {
+    width: 24px;
+    height: 24px;
 }
 
 /* ==============================

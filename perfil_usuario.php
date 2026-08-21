@@ -3,7 +3,6 @@ require_once 'php/logicaNegocio/verificar_sesion.php';
 require_once 'php/conexion.php';
 require_once 'php/logicaNegocio/datos_perfil_usuario.php';
 
-// Proteger la página
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +10,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuario_id = $_SESSION['usuario_id'];
 
-// --- PROCESAR LA ACTUALIZACIÓN ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'actualizar') {
     $actualizado = actualizarPerfilUsuario($conexion, $usuario_id, $_POST, isset($_FILES['nueva_foto']) ? $_FILES['nueva_foto'] : null);
     if ($actualizado) {
@@ -20,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
         exit();
     }
 }
-// ---------------------------------
 
 $usuario = obtenerDatosUsuario($conexion, $usuario_id);
 
@@ -54,7 +51,6 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
     <form id="form-perfil" class="perfil-container" method="POST" action="perfil_usuario.php" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" name="accion" value="actualizar">
 
-        <!-- Menú Superior (Flecha - Logo - Lápiz) -->
         <div class="menu">
             <a href="homepage.php" class="btn-volver">
                 <img src="src/iconos/atras.svg" alt="Atrás" class="icono-blanco">
@@ -67,7 +63,6 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
             </button>
         </div>
 
-        <!-- Zona Imagen -->
         <div class="contenedor-imagen-y-editar">
             <div class="icono-editar-wrapper">
                 <img src="src/iconos/edit.svg" alt="Editar foto" class="icono-blanco">
@@ -81,10 +76,9 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
             <input type="file" name="nueva_foto" id="input-foto" accept="image/jpeg, image/png, image/webp" disabled style="display: none;">
         </div>
 
-        <!-- Zona Info Usuario -->
         <div class="contenedor-info-usuario">
 
-            <!-- Nombre -->
+            <!-- 1. NOMBRE -->
             <div class="campo-info">
                 <div class="campo-contenido">
                     <h4>NOMBRE</h4>
@@ -93,7 +87,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- Apellidos -->
+            <!-- 2. APELLIDOS -->
             <div class="campo-info">
                 <div class="campo-contenido">
                     <h4>APELLIDOS</h4>
@@ -102,16 +96,24 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- Email -->
+            <!-- 3. EMAIL (Fijo/No editable) -->
+            <div class="campo-info campo-bloqueado">
+                <div class="campo-contenido">
+                    <h4>CORREO ELECTRÓNICO (No editable)</h4>
+                    <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" disabled>
+                </div>
+            </div>
+
+            <!-- 4. TELÉFONO -->
             <div class="campo-info">
                 <div class="campo-contenido">
-                    <h4>CORREO ELECTRÓNICO</h4>
-                    <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" disabled required>
+                    <h4>TELÉFONO</h4>
+                    <input type="tel" name="telefono" value="<?php echo htmlspecialchars(isset($usuario['telefono']) ? $usuario['telefono'] : ''); ?>" disabled placeholder="Añadir teléfono">
                 </div>
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- Fecha Nacimiento -->
+            <!-- 5. FECHA DE NACIMIENTO -->
             <div class="campo-info fecha-info">
                 <div class="campo-contenido" style="width: 100%;">
                     <h4>FECHA DE NACIMIENTO</h4>
@@ -151,7 +153,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 </div>
             </div>
 
-            <!-- País -->
+            <!-- 6. PAÍS -->
             <div class="campo-info">
                 <div class="campo-contenido">
                     <h4>UBICACIÓN</h4>
@@ -161,7 +163,6 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                         $paises = [
                             'AFG'=>'Afganistán','ALB'=>'Albania','DEU'=>'Alemania','AND'=>'Andorra','AGO'=>'Angola','AIA'=>'Anguila','ATA'=>'Antártida','ATG'=>'Antigua y Barbuda','SAU'=>'Arabia Saudí','IOT'=>'Archipiélago de Chagos','DZA'=>'Argelia','ARG'=>'Argentina','ARM'=>'Armenia','ABW'=>'Aruba','AUS'=>'Australia','AUT'=>'Austria','AZE'=>'Azerbaiyán','BHS'=>'Bahamas','BGD'=>'Bangladés','BRB'=>'Barbados','BHR'=>'Baréin','BEL'=>'Bélgica','BLZ'=>'Belice','BEN'=>'Benín','BMU'=>'Bermudas','BLR'=>'Bielorrusia','BOL'=>'Bolivia','BIH'=>'Bosnia y Herzegovina','BWA'=>'Botsuana','BRA'=>'Brasil','BRN'=>'Brunéi','BGR'=>'Bulgaria','BFA'=>'Burkina Faso','BDI'=>'Burundi','BTN'=>'Bután','CPV'=>'Cabo Verde','KHM'=>'Camboya','CMR'=>'Camerún','CAN'=>'Canadá','BES'=>'Caribe Neerlandés','QAT'=>'Catar','TCD'=>'Chad','CZE'=>'Chequia','CHL'=>'Chile','CHN'=>'China continental','CYP'=>'Chipre','VAT'=>'Ciudad del Vaticano','COL'=>'Colombia','COM'=>'Comoras','KOR'=>'Corea del Sur','CIV'=>'Costa de Marfil','CRI'=>'Costa Rica','HRV'=>'Croacia','CUW'=>'Curazao','DNK'=>'Dinamarca','DMA'=>'Dominica','ECU'=>'Ecuador','EGY'=>'Egipto','SLV'=>'El Salvador','ARE'=>'Emiratos Árabes Unidos','ERI'=>'Eritrea','SVK'=>'Eslovaquia','SVN'=>'Eslovenia','ESP'=>'España','USA'=>'Estados Unidos','EST'=>'Estonia','SWZ'=>'Esuatini','ETH'=>'Etiopía','PHL'=>'Filipinas','FIN'=>'Finlandia','FJI'=>'Fiyi','FRA'=>'Francia','GAB'=>'Gabón','GMB'=>'Gambia','GEO'=>'Georgia','GHA'=>'Ghana','GIB'=>'Gibraltar','GRD'=>'Granada','GRC'=>'Grecia','GRL'=>'Groenlandia','GLP'=>'Guadalupe','GUM'=>'Guam','GTM'=>'Guatemala','GUF'=>'Guayana Francesa','GGY'=>'Guernsey','GIN'=>'Guinea','GNB'=>'Guinea-Bissau','GNQ'=>'Guinea Ecuatorial','GUY'=>'Guyana','HTI'=>'Haití','HND'=>'Honduras','HKG'=>'Hong Kong','HUN'=>'Hungría','IND'=>'India','IDN'=>'Indonesia','IRQ'=>'Irak','IRL'=>'Irlanda','BVT'=>'Isla Bouvet','IMN'=>'Isla de Man','CXR'=>'Isla de Navidad','ISL'=>'Islandia','NFK'=>'Isla Norfolk','ALA'=>'Islas Åland','CYM'=>'Islas Caimán','CCK'=>'Islas Cocos','COK'=>'Islas Cook','FRO'=>'Islas Feroe','SGS'=>'Islas Georgia del Sur y Sandwich del Sur','FLK'=>'Islas Malvinas','MNP'=>'Islas Marianas del Norte','MHL'=>'Islas Marshall','UMI'=>'Islas menores alejadas de EE. UU.','SLB'=>'Islas Salomón','TCA'=>'Islas Turcas y Caicos','VGB'=>'Islas Vírgenes Británicas','VIR'=>'Islas Vírgenes de EE. UU.','ISR'=>'Israel','ITA'=>'Italia','JAM'=>'Jamaica','JPN'=>'Japón','JEY'=>'Jersey','JOR'=>'Jordania','KAZ'=>'Kazajistán','KEN'=>'Kenia','KGZ'=>'Kirguistán','KIR'=>'Kiribati','XKS'=>'Kosovo','KWT'=>'Kuwait','LAO'=>'Laos','LSO'=>'Lesoto','LVA'=>'Letonia','LBN'=>'Líbano','LBR'=>'Liberia','LBY'=>'Libia','LIE'=>'Liechtenstein','LTU'=>'Lituania','LUX'=>'Luxemburgo','MAC'=>'Macao','MKD'=>'Macedonia del Norte','MDG'=>'Madagascar','MYS'=>'Malasia','MWI'=>'Malaui','MDV'=>'Maldivas','MLI'=>'Mali','MLT'=>'Malta','MAR'=>'Marruecos','MTQ'=>'Martinica','MUS'=>'Mauricio','MRT'=>'Mauritania','MYT'=>'Mayotte','MEX'=>'México','FSM'=>'Micronesia','MDA'=>'Moldavia','MCO'=>'Mónaco','MNG'=>'Mongolia','MNE'=>'Montenegro','MSR'=>'Montserrat','MOZ'=>'Mozambique','MMR'=>'Myanmar','NAM'=>'Namibia','NRU'=>'Nauru','NPL'=>'Nepal','NIC'=>'Nicaragua','NER'=>'Níger','NGA'=>'Nigeria','NIU'=>'Niue','NOR'=>'Noruega','NCL'=>'Nueva Caledonia','NZL'=>'Nueva Zelanda','OMN'=>'Omán','NLD'=>'Países Bajos','PAK'=>'Pakistán','PLW'=>'Palaos','PAN'=>'Panamá','PNG'=>'Papúa Nueva Guinea','PRY'=>'Paraguay','PER'=>'Perú','PCN'=>'Pitcairn','PYF'=>'Polinesia Francesa','POL'=>'Polonia','PRT'=>'Portugal','PRI'=>'Puerto Rico','GBR'=>'Reino Unido','CAF'=>'República Centroafricana','COG'=>'República del Congo','COD'=>'República Democrática del Congo','DOM'=>'República Dominicana','REU'=>'Reunión','RWA'=>'Ruanda','ROU'=>'Rumanía','RUS'=>'Rusia','ESH'=>'Sáhara Occidental','WSM'=>'Samoa','ASM'=>'Samoa Americana','BLM'=>'San Bartolomé','KNA'=>'San Cristóbal y Nieves','SMR'=>'San Marino','MAF'=>'San Martín','SPM'=>'San Pedro y Miquelón','SHN'=>'Santa Elena','LCA'=>'Santa Lucía','STP'=>'Santo Tomé y Príncipe','VCT'=>'San Vicente y las Granadinas','SEN'=>'Senegal','SRB'=>'Serbia','SYC'=>'Seychelles','SLE'=>'Sierra Leona','SGP'=>'Singapur','SXM'=>'Sint Maarten','SOM'=>'Somalia','LKA'=>'Sri Lanka','ZAF'=>'Sudáfrica','SDN'=>'Sudán','SSD'=>'Sudán del Sur','SWE'=>'Suecia','CHE'=>'Suiza','SUR'=>'Surinam','SJM'=>'Svalbard y Jan Mayen','THA'=>'Tailandia','TWN'=>'Taiwán','TZA'=>'Tanzania','TJK'=>'Tayikistán','ATF'=>'Territorios Australes Franceses','PSE'=>'Territorios Palestinos','TLS'=>'Timor Oriental','TGO'=>'Togo','TKL'=>'Tokelau','TON'=>'Tonga','TTO'=>'Trinidad y Tobago','TUN'=>'Túnez','TKM'=>'Turkmenistán','TUR'=>'Turquía','TUV'=>'Tuvalu','UKR'=>'Ucrania','UGA'=>'Uganda','URY'=>'Uruguay','UZB'=>'Uzbekistán','VUT'=>'Vanuatu','VEN'=>'Venezuela','VNM'=>'Vietnam','WLF'=>'Wallis y Futuna','YEM'=>'Yemen','DJI'=>'Yibuti','ZMB'=>'Zambia','ZWE'=>'Zimbabue'
                         ];
-
                         foreach ($paises as $codigo => $nombre_pais) {
                             $sel = ($usuario['pais'] === $codigo) ? 'selected' : '';
                             echo "<option value=\"$codigo\" $sel>$nombre_pais</option>";
@@ -172,16 +173,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- Teléfono -->
-            <div class="campo-info">
-                <div class="campo-contenido">
-                    <h4>TELÉFONO</h4>
-                    <input type="tel" name="telefono" value="<?php echo htmlspecialchars(isset($usuario['telefono']) ? $usuario['telefono'] : ''); ?>" disabled placeholder="Añadir teléfono">
-                </div>
-                <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-
-            <!-- Botones de Acción (Se muestran en modo edición) -->
+            <!-- Botones de Acción -->
             <div class="acciones-edicion">
                 <button type="button" id="btn-cancelar" class="btn-circulo btn-rojo" title="Cancelar">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -194,6 +186,5 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
         </div>
     </form>
 </main>
-
 </body>
 </html>

@@ -67,7 +67,7 @@ main {
 }
 
 .logo-perfil img {
-    height: 35px;
+    height: 60px;
     object-fit: contain;
     filter: saturate(200%);
 }
@@ -312,6 +312,18 @@ main {
     max-width: 600px;
     margin-bottom: 20px;
     backdrop-filter: blur(5px);
+}
+
+/* ==============================
+   CAMPO BLOQUEADO (EMAIL)
+   ============================== */
+.campo-bloqueado {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.campo-bloqueado input {
+    cursor: not-allowed;
 }
 
 /* ==============================

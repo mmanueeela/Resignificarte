@@ -9,15 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputFoto = document.getElementById('input-foto');
     const avatarPreview = document.getElementById('avatar-preview');
 
-    const camposFormulario = form.querySelectorAll('input:not([type="hidden"]), select');
+    // CLAVE: Excluimos el input name="email" para que nunca se habilite
+    const camposFormulario = form.querySelectorAll('input:not([type="hidden"]):not([name="email"]), select');
 
     let enModoEdicion = false;
-    let datosOriginales = {}; // Aquí guardaremos los datos por si le da a cancelar
+    let datosOriginales = {};
     let fotoOriginalSrc = avatarPreview.src;
 
-    // ==========================================================
-    // 1. ACTIVAR MODO EDICIÓN (LÁPIZ)
-    // ==========================================================
     if (btnEditar) {
         btnEditar.addEventListener('click', (e) => {
             e.preventDefault();
@@ -26,12 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
             enModoEdicion = true;
             form.classList.add('modo-edicion');
 
-            // Hacemos el lápiz transparente e intocable
             btnEditar.disabled = true;
             btnEditar.style.opacity = '0.4';
             btnEditar.style.cursor = 'default';
 
-            // Guardamos los datos actuales y habilitamos los inputs
             camposFormulario.forEach(campo => {
                 datosOriginales[campo.name] = campo.value;
                 campo.disabled = false;
@@ -39,9 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ==========================================================
-    // 2. CANCELAR EDICIÓN (BOTÓN ROJO X)
-    // ==========================================================
     if (btnCancelar) {
         btnCancelar.addEventListener('click', (e) => {
             e.preventDefault();
@@ -49,12 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
             enModoEdicion = false;
             form.classList.remove('modo-edicion');
 
-            // Devolvemos el lápiz a la normalidad
             btnEditar.disabled = false;
             btnEditar.style.opacity = '1';
             btnEditar.style.cursor = 'pointer';
 
-            // Restauramos los textos originales y volvemos a bloquear
             camposFormulario.forEach(campo => {
                 if (datosOriginales[campo.name] !== undefined) {
                     campo.value = datosOriginales[campo.name];
@@ -62,15 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 campo.disabled = true;
             });
 
-            // Restauramos la foto original
             avatarPreview.src = fotoOriginalSrc;
             inputFoto.value = "";
         });
     }
 
-    // ==========================================================
-    // 3. PREVISUALIZACIÓN DE IMAGEN
-    // ==========================================================
     if (inputFoto && avatarPreview) {
         inputFoto.addEventListener('change', function (event) {
             const archivo = event.target.files[0];

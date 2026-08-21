@@ -1,4 +1,5 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -19,6 +20,7 @@ if (isset($_GET['code'])) {
 
         $email = $info_usuario->email;
         $nombre = $info_usuario->givenName;
+
         $apellidos = isset($info_usuario->familyName)
             ? $info_usuario->familyName
             : '';
@@ -31,12 +33,22 @@ if (isset($_GET['code'])) {
         // COMPROBAR SI EL USUARIO YA EXISTE
         // ==========================================
         $consulta = $conexion->prepare("
-            SELECT u.id, u.foto_perfil, c.telefono
+            SELECT
+                u.id,
+                u.foto_perfil,
+                u.apellidos,
+                u.pais,
+                u.fecha_nacimiento,
+                c.telefono
             FROM usuarios u
             JOIN usuarios_credenciales c
                 ON u.id = c.usuario_id
             WHERE c.email = ?
         ");
+
+        if (!$consulta) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
 
         $consulta->bind_param("s", $email);
         $consulta->execute();
@@ -46,29 +58,71 @@ if (isset($_GET['code'])) {
         if ($resultado->num_rows > 0) {
 
             // ==========================================
-            // EL USUARIO YA EXISTE -> LOGIN
+            // EL USUARIO YA EXISTE
             // ==========================================
-            session_regenerate_id(true);
-
             $usuario = $resultado->fetch_assoc();
 
             $id_usuario = $usuario['id'];
-            $foto_actual = isset($usuario['foto_perfil'])
-                ? $usuario['foto_perfil']
-                : '';
 
-            $telefono_actual = isset($usuario['telefono'])
-                ? $usuario['telefono']
-                : '';
+            $foto_actual = trim($usuario['foto_perfil'] ?? '');
+            $apellidos_actuales = trim($usuario['apellidos'] ?? '');
+            $telefono_actual = trim($usuario['telefono'] ?? '');
+            $pais_actual = trim($usuario['pais'] ?? '');
+            $fecha_actual = trim($usuario['fecha_nacimiento'] ?? '');
+
+            // ==========================================
+            // COMPROBAR QUÉ DATOS FALTAN
+            // ==========================================
+            $falta_apellidos = empty($apellidos_actuales);
+            $falta_telefono = empty($telefono_actual);
+            $falta_pais = empty($pais_actual);
+            $falta_fecha = empty($fecha_actual);
+
+            // ==========================================
+            // SI FALTA ALGÚN DATO
+            // ==========================================
+            if (
+                $falta_apellidos ||
+                $falta_telefono ||
+                $falta_pais ||
+                $falta_fecha
+            ) {
+
+                $_SESSION['registro_google'] = [
+                    'usuario_existente_id' => $id_usuario,
+                    'usuario_existente' => true,
+                    'email' => $email,
+                    'nombre' => $nombre,
+                    'apellidos' => $apellidos_actuales,
+                    'foto_perfil' => $foto_perfil,
+                    'telefono' => $telefono_actual,
+                    'pais' => $pais_actual,
+                    'fecha_nacimiento' => $fecha_actual
+                ];
+
+                $consulta->close();
+
+                header("Location: ../telefono_google.php");
+                exit();
+            }
+
+            // ==========================================
+            // TODOS LOS DATOS ESTÁN COMPLETOS
+            // -> LOGIN
+            // ==========================================
+            session_regenerate_id(true);
 
             $_SESSION['usuario_id'] = $id_usuario;
             $_SESSION['usuario_nombre'] = $nombre;
 
-            // Actualizar foto de Google si procede
+            // ==========================================
+            // ACTUALIZAR FOTO DE GOOGLE SI PROCEDE
+            // ==========================================
             if (
                 !empty($foto_perfil) &&
                 strpos($foto_actual, 'src/uploads/perfiles/') === false
             ) {
+
                 $update_foto = $conexion->prepare("
                     UPDATE usuarios
                     SET foto_perfil = ?
@@ -76,6 +130,7 @@ if (isset($_GET['code'])) {
                 ");
 
                 if ($update_foto) {
+
                     $update_foto->bind_param(
                         "si",
                         $foto_perfil,
@@ -99,14 +154,17 @@ if (isset($_GET['code'])) {
                 WHERE usuario_id = ?
             ");
 
-            $update_token->bind_param(
-                "si",
-                $token_hasheado,
-                $id_usuario
-            );
+            if ($update_token) {
 
-            $update_token->execute();
-            $update_token->close();
+                $update_token->bind_param(
+                    "si",
+                    $token_hasheado,
+                    $id_usuario
+                );
+
+                $update_token->execute();
+                $update_token->close();
+            }
 
             setcookie("recuerdame_token", $token_cookie, [
                 'expires' => time() + (86400 * 30),
@@ -116,6 +174,8 @@ if (isset($_GET['code'])) {
                 'samesite' => 'Lax'
             ]);
 
+            $consulta->close();
+
             header("Location: ../homepage.php?login=exito");
             exit();
 
@@ -124,26 +184,33 @@ if (isset($_GET['code'])) {
             // ==========================================
             // USUARIO NUEVO
             // ==========================================
-            // NO LO CREAMOS TODAVÍA.
-            // Primero necesitamos su teléfono.
-            // ==========================================
             $_SESSION['registro_google'] = [
+                'usuario_existente_id' => null,
+                'usuario_existente' => false,
                 'email' => $email,
                 'nombre' => $nombre,
                 'apellidos' => $apellidos,
-                'foto_perfil' => $foto_perfil
+                'foto_perfil' => $foto_perfil,
+                'telefono' => '',
+                'pais' => '',
+                'fecha_nacimiento' => ''
             ];
+
+            $consulta->close();
 
             header("Location: ../telefono_google.php");
             exit();
         }
 
     } else {
+
         die("Error al obtener el token de Google.");
     }
 
 } else {
+
     header("Location: ../login.php");
     exit();
 }
+
 ?>

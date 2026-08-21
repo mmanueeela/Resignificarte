@@ -10,11 +10,10 @@ if (!isset($_SESSION['registro_google'])) {
 $datos_google = $_SESSION['registro_google'];
 $nombre = htmlspecialchars($datos_google['nombre']);
 
-// Determinamos qué datos faltan por rellenar
-$falta_apellidos = empty(trim($datos_google['apellidos']));
-$falta_telefono = true; // Google no suele dar el teléfono
-$falta_pais = true;     // Google no da el país por defecto
-$falta_fecha = true;    // Google no da la fecha por defecto
+$falta_apellidos = empty(trim(isset($datos_google['apellidos']) ? $datos_google['apellidos'] : ''));
+$falta_telefono = empty(trim(isset($datos_google['telefono']) ? $datos_google['telefono'] : ''));
+$falta_pais = empty(trim(isset($datos_google['pais']) ? $datos_google['pais'] : ''));
+$falta_fecha = empty(trim(isset($datos_google['fecha_nacimiento']) ? $datos_google['fecha_nacimiento'] : ''));
 ?>
 <!doctype html>
 <html lang="es">

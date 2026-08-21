@@ -96,10 +96,10 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- 3. EMAIL (Fijo/No editable) -->
+            <!-- 3. EMAIL -->
             <div class="campo-info campo-bloqueado">
                 <div class="campo-contenido">
-                    <h4>CORREO ELECTRÓNICO (No editable)</h4>
+                    <h4>CORREO ELECTRÓNICO</h4>
                     <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" disabled>
                 </div>
             </div>

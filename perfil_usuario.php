@@ -54,14 +54,16 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
     <form id="form-perfil" class="perfil-container" method="POST" action="perfil_usuario.php" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" name="accion" value="actualizar">
 
-        <!-- Menú Superior -->
+        <!-- Menú Superior (Flecha - Logo - Botón) -->
         <div class="menu">
-            <a href="homepage.php"><img src="src/iconos/atras.svg" alt="Atrás" class="icono-blanco"></a>
-            <!-- Botón que cambia con JS -->
+            <a href="homepage.php" class="btn-volver">
+                <img src="src/iconos/atras.svg" alt="Atrás" class="icono-blanco">
+            </a>
+            <a href="homepage.php" class="logo-perfil">
+                <img src="src/logo/logo_con_inifito.png" alt="Logo Resignificarte">
+            </a>
             <button type="button" id="btn-accion-perfil" class="btn-guardar">Editar</button>
         </div>
-
-        <h2 class="titulo-pagina">Mi Perfil</h2>
 
         <!-- Zona Imagen -->
         <div class="contenedor-imagen-y-editar">
@@ -70,7 +72,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <img src="src/iconos/edit.svg" alt="Editar" class="icono-blanco">
             </div>
             <div class="avatar-wrapper">
-                <!-- El label envuelve la imagen para que al tocarla se abra el selector (solo si está habilitado) -->
+                <!-- El label envuelve la imagen para que al tocarla se abra el selector -->
                 <label for="input-foto" id="label-foto">
                     <img src="<?php echo htmlspecialchars($ruta_foto); ?>" alt="Imagen de perfil" id="avatar-preview" class="avatar-circular">
                 </label>
@@ -109,7 +111,7 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
 
-            <!-- Fecha Nacimiento (NUEVO) -->
+            <!-- Fecha Nacimiento -->
             <div class="campo-info fecha-info">
                 <div class="campo-contenido" style="width: 100%;">
                     <h4>FECHA DE NACIMIENTO</h4>
@@ -147,7 +149,6 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                         </select>
                     </div>
                 </div>
-                <!-- Ocultamos el chevron en la fecha porque tiene 3 selectores -->
             </div>
 
             <!-- País -->
@@ -155,11 +156,19 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
                 <div class="campo-contenido">
                     <h4>UBICACIÓN</h4>
                     <select id="pais" name="pais" disabled required>
-                        <option value="ESP" <?php echo ($usuario['pais'] === 'ESP') ? 'selected' : ''; ?>>España</option>
-                        <option value="MEX" <?php echo ($usuario['pais'] === 'MEX') ? 'selected' : ''; ?>>México</option>
-                        <option value="ARG" <?php echo ($usuario['pais'] === 'ARG') ? 'selected' : ''; ?>>Argentina</option>
-                        <option value="COL" <?php echo ($usuario['pais'] === 'COL') ? 'selected' : ''; ?>>Colombia</option>
-                        <!-- (Puedes pegar aquí el resto de países de tu registro) -->
+                        <option value="" disabled hidden>País/Región</option>
+                        <?php
+                        // Lista completa de países idéntica a la de registro.php
+                        $paises = [
+                            'AFG'=>'Afganistán','ALB'=>'Albania','DEU'=>'Alemania','AND'=>'Andorra','AGO'=>'Angola','AIA'=>'Anguila','ATA'=>'Antártida','ATG'=>'Antigua y Barbuda','SAU'=>'Arabia Saudí','IOT'=>'Archipiélago de Chagos','DZA'=>'Argelia','ARG'=>'Argentina','ARM'=>'Armenia','ABW'=>'Aruba','AUS'=>'Australia','AUT'=>'Austria','AZE'=>'Azerbaiyán','BHS'=>'Bahamas','BGD'=>'Bangladés','BRB'=>'Barbados','BHR'=>'Baréin','BEL'=>'Bélgica','BLZ'=>'Belice','BEN'=>'Benín','BMU'=>'Bermudas','BLR'=>'Bielorrusia','BOL'=>'Bolivia','BIH'=>'Bosnia y Herzegovina','BWA'=>'Botsuana','BRA'=>'Brasil','BRN'=>'Brunéi','BGR'=>'Bulgaria','BFA'=>'Burkina Faso','BDI'=>'Burundi','BTN'=>'Bután','CPV'=>'Cabo Verde','KHM'=>'Camboya','CMR'=>'Camerún','CAN'=>'Canadá','BES'=>'Caribe Neerlandés','QAT'=>'Catar','TCD'=>'Chad','CZE'=>'Chequia','CHL'=>'Chile','CHN'=>'China continental','CYP'=>'Chipre','VAT'=>'Ciudad del Vaticano','COL'=>'Colombia','COM'=>'Comoras','KOR'=>'Corea del Sur','CIV'=>'Costa de Marfil','CRI'=>'Costa Rica','HRV'=>'Croacia','CUW'=>'Curazao','DNK'=>'Dinamarca','DMA'=>'Dominica','ECU'=>'Ecuador','EGY'=>'Egipto','SLV'=>'El Salvador','ARE'=>'Emiratos Árabes Unidos','ERI'=>'Eritrea','SVK'=>'Eslovaquia','SVN'=>'Eslovenia','ESP'=>'España','USA'=>'Estados Unidos','EST'=>'Estonia','SWZ'=>'Esuatini','ETH'=>'Etiopía','PHL'=>'Filipinas','FIN'=>'Finlandia','FJI'=>'Fiyi','FRA'=>'Francia','GAB'=>'Gabón','GMB'=>'Gambia','GEO'=>'Georgia','GHA'=>'Ghana','GIB'=>'Gibraltar','GRD'=>'Granada','GRC'=>'Grecia','GRL'=>'Groenlandia','GLP'=>'Guadalupe','GUM'=>'Guam','GTM'=>'Guatemala','GUF'=>'Guayana Francesa','GGY'=>'Guernsey','GIN'=>'Guinea','GNB'=>'Guinea-Bissau','GNQ'=>'Guinea Ecuatorial','GUY'=>'Guyana','HTI'=>'Haití','HND'=>'Honduras','HKG'=>'Hong Kong','HUN'=>'Hungría','IND'=>'India','IDN'=>'Indonesia','IRQ'=>'Irak','IRL'=>'Irlanda','BVT'=>'Isla Bouvet','IMN'=>'Isla de Man','CXR'=>'Isla de Navidad','ISL'=>'Islandia','NFK'=>'Isla Norfolk','ALA'=>'Islas Åland','CYM'=>'Islas Caimán','CCK'=>'Islas Cocos','COK'=>'Islas Cook','FRO'=>'Islas Feroe','SGS'=>'Islas Georgia del Sur y Sandwich del Sur','FLK'=>'Islas Malvinas','MNP'=>'Islas Marianas del Norte','MHL'=>'Islas Marshall','UMI'=>'Islas menores alejadas de EE. UU.','SLB'=>'Islas Salomón','TCA'=>'Islas Turcas y Caicos','VGB'=>'Islas Vírgenes Británicas','VIR'=>'Islas Vírgenes de EE. UU.','ISR'=>'Israel','ITA'=>'Italia','JAM'=>'Jamaica','JPN'=>'Japón','JEY'=>'Jersey','JOR'=>'Jordania','KAZ'=>'Kazajistán','KEN'=>'Kenia','KGZ'=>'Kirguistán','KIR'=>'Kiribati','XKS'=>'Kosovo','KWT'=>'Kuwait','LAO'=>'Laos','LSO'=>'Lesoto','LVA'=>'Letonia','LBN'=>'Líbano','LBR'=>'Liberia','LBY'=>'Libia','LIE'=>'Liechtenstein','LTU'=>'Lituania','LUX'=>'Luxemburgo','MAC'=>'Macao','MKD'=>'Macedonia del Norte','MDG'=>'Madagascar','MYS'=>'Malasia','MWI'=>'Malaui','MDV'=>'Maldivas','MLI'=>'Mali','MLT'=>'Malta','MAR'=>'Marruecos','MTQ'=>'Martinica','MUS'=>'Mauricio','MRT'=>'Mauritania','MYT'=>'Mayotte','MEX'=>'México','FSM'=>'Micronesia','MDA'=>'Moldavia','MCO'=>'Mónaco','MNG'=>'Mongolia','MNE'=>'Montenegro','MSR'=>'Montserrat','MOZ'=>'Mozambique','MMR'=>'Myanmar','NAM'=>'Namibia','NRU'=>'Nauru','NPL'=>'Nepal','NIC'=>'Nicaragua','NER'=>'Níger','NGA'=>'Nigeria','NIU'=>'Niue','NOR'=>'Noruega','NCL'=>'Nueva Caledonia','NZL'=>'Nueva Zelanda','OMN'=>'Omán','NLD'=>'Países Bajos','PAK'=>'Pakistán','PLW'=>'Palaos','PAN'=>'Panamá','PNG'=>'Papúa Nueva Guinea','PRY'=>'Paraguay','PER'=>'Perú','PCN'=>'Pitcairn','PYF'=>'Polinesia Francesa','POL'=>'Polonia','PRT'=>'Portugal','PRI'=>'Puerto Rico','GBR'=>'Reino Unido','CAF'=>'República Centroafricana','COG'=>'República del Congo','COD'=>'República Democrática del Congo','DOM'=>'República Dominicana','REU'=>'Reunión','RWA'=>'Ruanda','ROU'=>'Rumanía','RUS'=>'Rusia','ESH'=>'Sáhara Occidental','WSM'=>'Samoa','ASM'=>'Samoa Americana','BLM'=>'San Bartolomé','KNA'=>'San Cristóbal y Nieves','SMR'=>'San Marino','MAF'=>'San Martín','SPM'=>'San Pedro y Miquelón','SHN'=>'Santa Elena','LCA'=>'Santa Lucía','STP'=>'Santo Tomé y Príncipe','VCT'=>'San Vicente y las Granadinas','SEN'=>'Senegal','SRB'=>'Serbia','SYC'=>'Seychelles','SLE'=>'Sierra Leona','SGP'=>'Singapur','SXM'=>'Sint Maarten','SOM'=>'Somalia','LKA'=>'Sri Lanka','ZAF'=>'Sudáfrica','SDN'=>'Sudán','SSD'=>'Sudán del Sur','SWE'=>'Suecia','CHE'=>'Suiza','SUR'=>'Surinam','SJM'=>'Svalbard y Jan Mayen','THA'=>'Tailandia','TWN'=>'Taiwán','TZA'=>'Tanzania','TJK'=>'Tayikistán','ATF'=>'Territorios Australes Franceses','PSE'=>'Territorios Palestinos','TLS'=>'Timor Oriental','TGO'=>'Togo','TKL'=>'Tokelau','TON'=>'Tonga','TTO'=>'Trinidad y Tobago','TUN'=>'Túnez','TKM'=>'Turkmenistán','TUR'=>'Turquía','TUV'=>'Tuvalu','UKR'=>'Ucrania','UGA'=>'Uganda','URY'=>'Uruguay','UZB'=>'Uzbekistán','VUT'=>'Vanuatu','VEN'=>'Venezuela','VNM'=>'Vietnam','WLF'=>'Wallis y Futuna','YEM'=>'Yemen','DJI'=>'Yibuti','ZMB'=>'Zambia','ZWE'=>'Zimbabue'
+                        ];
+
+                        // Bucle que imprime todas las opciones y selecciona automáticamente la que el usuario ya tiene en base de datos
+                        foreach ($paises as $codigo => $nombre_pais) {
+                            $sel = ($usuario['pais'] === $codigo) ? 'selected' : '';
+                            echo "<option value=\"$codigo\" $sel>$nombre_pais</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <svg class="icono-chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>

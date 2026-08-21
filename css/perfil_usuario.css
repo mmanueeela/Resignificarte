@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #200B30; /* Para evitar parpadeos blancos */
+    background-color: #200B30;
 }
 
 main {
@@ -37,33 +37,43 @@ main {
 }
 
 /* ==============================
-   MENÚ SUPERIOR
+   MENÚ SUPERIOR (Flecha - Logo - Editar)
    ============================== */
 .menu {
-    height: 40px;
+    height: 50px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.menu > a {
+.btn-volver {
+    flex: 1;
     display: flex;
-    align-items: center;
+    justify-content: flex-start;
 }
 
-.menu a img {
+.btn-volver img {
     width: 24px;
     height: 24px;
 }
 
-/* Filtro para que el SVG negro se vea blanco (si es necesario) */
-.icono-blanco {
-    filter: brightness(0) invert(1);
+.logo-perfil {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-perfil img {
+    height: 35px;
+    object-fit: contain;
+    filter: saturate(200%);
 }
 
 .btn-guardar {
+    flex: 1;
+    text-align: right;
     font-family: inherit;
     font-size: 16px;
     font-weight: 600;
@@ -72,21 +82,15 @@ main {
     border: none;
     cursor: pointer;
     transition: opacity 0.2s;
+    padding: 0;
 }
 
 .btn-guardar:hover {
     opacity: 0.7;
 }
 
-/* ==============================
-   TÍTULO PRINCIPAL
-   ============================== */
-.titulo-pagina {
-    font-size: 28px;
-    font-weight: 600;
-    margin: 0 0 25px 0;
-    color: white;
-    text-align: center;
+.icono-blanco {
+    filter: brightness(0) invert(1);
 }
 
 /* ==============================
@@ -95,7 +99,7 @@ main {
 .contenedor-imagen-y-editar {
     position: relative;
     padding: 25px 20px;
-    background-color: rgba(0, 0, 0, 0.15); /* Fondo oscuro sutil */
+    background-color: rgba(0, 0, 0, 0.15);
     border-radius: 25px;
     display: flex;
     flex-direction: column;
@@ -237,10 +241,11 @@ main {
     display: block;
 }
 
+/* Resalta el texto que se está editando */
 .modo-edicion .campo-contenido input,
 .modo-edicion .campo-contenido select {
     color: #fff;
-    text-shadow: 0 0 5px rgba(255,255,255,0.3); /* Resalta el texto en modo edición */
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
 }
 
 /* ==============================

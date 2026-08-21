@@ -1,32 +1,51 @@
 /* ==============================
-   RESET Y BASE
+   FONDO GENERAL Y BASE
    ============================== */
 body {
-    background-color: #d5c4e6;
     margin: 0;
     padding: 0;
+    background-color: #200B30; /* Para evitar parpadeos blancos */
 }
 
 main {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #d5c4e6;
+    background: linear-gradient(to bottom, #200B30, #a486c9);
     min-height: 100vh;
-    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     font-family: 'Montserrat', sans-serif;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* ==============================
+   CONTENEDOR DEL PERFIL (ESTILO CRISTAL)
+   ============================== */
+.perfil-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-radius: 35px;
+    padding: 30px;
+    box-sizing: border-box;
+    color: white;
 }
 
 /* ==============================
    MENÚ SUPERIOR
    ============================== */
 .menu {
-    height: 60px;
+    height: 40px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .menu > a {
@@ -39,11 +58,16 @@ main {
     height: 24px;
 }
 
+/* Filtro para que el SVG negro se vea blanco (si es necesario) */
+.icono-blanco {
+    filter: brightness(0) invert(1);
+}
+
 .btn-guardar {
     font-family: inherit;
     font-size: 16px;
-    font-weight: 500;
-    color: #000;
+    font-weight: 600;
+    color: white;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -51,17 +75,18 @@ main {
 }
 
 .btn-guardar:hover {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 /* ==============================
    TÍTULO PRINCIPAL
    ============================== */
 .titulo-pagina {
-    font-size: 32px;
-    font-weight: 500;
-    margin: 10px 0 20px 20px;
-    color: #000;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 25px 0;
+    color: white;
+    text-align: center;
 }
 
 /* ==============================
@@ -69,12 +94,14 @@ main {
    ============================== */
 .contenedor-imagen-y-editar {
     position: relative;
-    padding: 30px 20px;
-    background-color: rgba(255, 255, 255, 0.3);
+    padding: 25px 20px;
+    background-color: rgba(0, 0, 0, 0.15); /* Fondo oscuro sutil */
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .avatar-wrapper {
@@ -88,20 +115,20 @@ main {
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .icono-editar-wrapper {
     position: absolute;
-    top: 20px;
-    right: 25px;
-    width: 20px;
-    height: 20px;
-    opacity: 0.6;
+    top: 15px;
+    right: 20px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.8;
     display: none;
 }
 
-/* Muestra el lápiz solo en modo edición */
 .modo-edicion .icono-editar-wrapper {
     display: block;
 }
@@ -109,24 +136,18 @@ main {
 .contenedor-imagen-y-editar h4 {
     font-size: 13px;
     font-weight: 600;
-    color: #000;
+    color: rgba(255, 255, 255, 0.7);
     letter-spacing: 1px;
     margin: 0;
 }
 
-/* Permitir clic en el label de la foto solo en edición */
-#label-foto {
-    cursor: default;
-}
-.modo-edicion #label-foto {
-    cursor: pointer;
-}
+#label-foto { cursor: default; }
+.modo-edicion #label-foto { cursor: pointer; }
 
 /* ==============================
    INFORMACIÓN DEL USUARIO (LISTA)
    ============================== */
 .contenedor-info-usuario {
-    padding: 0 20px;
     display: flex;
     flex-direction: column;
 }
@@ -135,8 +156,12 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(82, 52, 121, 0.2);
+    padding: 20px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.campo-info:last-child {
+    border-bottom: none;
 }
 
 .campo-contenido {
@@ -148,18 +173,18 @@ main {
 .campo-contenido h4 {
     font-size: 11px;
     font-weight: 700;
-    color: #000;
+    color: rgba(255, 255, 255, 0.6);
     margin: 0 0 10px 0;
     letter-spacing: 1px;
 }
 
-/* Estilos de inputs (transparentes siempre) */
+/* Estilos de inputs / selects */
 .campo-contenido input,
 .campo-contenido select {
     font-family: inherit;
-    font-size: 15px;
-    font-weight: 400;
-    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
     border: none;
     background: transparent;
     outline: none;
@@ -168,46 +193,94 @@ main {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    color-scheme: dark;
 }
 
 .campo-contenido input:disabled,
 .campo-contenido select:disabled {
-    color: #333; /* Texto oscuro aunque esté deshabilitado */
-    opacity: 1; /* Para iOS que difumina los disabled */
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
 }
 
 .campo-contenido input::placeholder {
-    color: #aaa;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.campo-contenido select option {
+    background-color: #200B30;
+    color: white;
+}
+
+/* FECHAS */
+.selects-fecha {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.selects-fecha select {
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 5px;
 }
 
 /* Icono Flecha derecha */
 .icono-chevron {
     width: 20px;
     height: 20px;
-    color: #000;
-    opacity: 0.8;
-    display: none; /* Oculto por defecto */
+    color: white;
+    opacity: 0.6;
+    display: none;
 }
 
-/* MOSTRAR FLECHAS Y ESTILOS EN MODO EDICIÓN */
 .modo-edicion .icono-chevron {
     display: block;
 }
 
 .modo-edicion .campo-contenido input,
 .modo-edicion .campo-contenido select {
-    color: #523479; /* Destacamos un poco el texto que se está editando */
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255,255,255,0.3); /* Resalta el texto en modo edición */
 }
 
 /* ==============================
    ALERTA DE ÉXITO
    ============================== */
 .alerta-exito {
-    background-color: #200B30;
-    color: white;
+    background-color: rgba(77, 255, 145, 0.2);
+    border: 1px solid rgba(77, 255, 145, 0.5);
+    color: #e1fce1;
     text-align: center;
     padding: 15px;
+    border-radius: 12px;
     font-family: Montserrat, sans-serif;
     font-size: 14px;
     font-weight: 500;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+
+/* ==============================
+   RESPONSIVE MÓVIL
+   ============================== */
+@media (max-width: 600px) {
+    main {
+        align-items: flex-start;
+        padding: 60px 20px 40px;
+    }
+
+    .perfil-container {
+        padding: 25px 20px;
+    }
+
+    .selects-fecha {
+        gap: 10px;
+    }
+
+    .campo-contenido input,
+    .campo-contenido select {
+        font-size: 15px;
+    }
 }

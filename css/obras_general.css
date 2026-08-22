@@ -177,7 +177,26 @@
 
 .caja-transcripcion.visible {
     padding: 20px;
-    max-height: 500px; /* Suficiente para el texto */
+    max-height: 500px;
+}
+
+/* Estilos para el contenido HTML de la transcripción */
+.caja-transcripcion p {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.caja-transcripcion p:last-child {
+    margin-bottom: 0;
+}
+
+.caja-transcripcion ul {
+    margin: 0 0 15px 25px;
+    padding: 0;
+}
+
+.caja-transcripcion li {
+    margin-bottom: 5px;
 }
 
 .separador-cuadro {

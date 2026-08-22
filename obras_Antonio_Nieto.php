@@ -1,28 +1,28 @@
 <?php
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 
-// Array dinámico de cuadros (Escalable a los cuadros que quieras)
+// Array dinámico de cuadros
 $cuadros = [
     [
         'id' => 1,
         'titulo' => 'Cuadro 1',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_1.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_1.mp3',
-        'transcripcion' =>
-            'En muchas familias mexicanas, celebrar un cumpleaños es una oportunidad para reunirse. El pastel ocupa el centro de la mesa y, alrededor, aparecen alimentos, bebidas, conversaciones y pequeños rituales que se repiten año tras año. Más que una fecha en el calendario, es un momento para compartir con quienes forman parte de la vida cotidiana. 
- 
-            Mira la escena.  Fíjate en las personas que rodean la mesa y la forma en que se relacionan con los objetos. 
-            
-            ¿Qué ambiente percibes? 
-            ¿Qué hace que esta escena se sienta familiar? 
-            
-            Quizás esta imagen te lleva a pensar en… 
-            ¿Qué celebraciones recuerdas alrededor de una mesa? 
-            ¿Hay algún alimento, bebida o tradición que siempre esté presente en esas reuniones?
-            ¿Qué personas te vienen a la mente al observar esta imagen? 
-            ¿Qué momento cotidiano de tu vida merece ser recordado como una celebración? 
-            
-            Reconoce cómo los pequeños encuentros construyen nuestra historia.',
+        'transcripcion' => '
+            <p>En muchas familias mexicanas, celebrar un cumpleaños es una oportunidad para reunirse. El pastel ocupa el centro de la mesa y, alrededor, aparecen alimentos, bebidas, conversaciones y pequeños rituales que se repiten año tras año. Más que una fecha en el calendario, es un momento para compartir con quienes forman parte de la vida cotidiana.</p>
+            <p style="text-align: center;"><strong>Mira la escena. Fíjate en las personas que rodean la mesa y la forma en que se relacionan con los objetos.</strong></p>
+            <ul>
+                <li>¿Qué ambiente percibes?</li>
+                <li>¿Qué hace que esta escena se sienta familiar?</li>
+            </ul>
+            <p>Quizás esta imagen te lleva a pensar en...</p>
+            <ul>
+                <li>¿Qué celebraciones recuerdas alrededor de una mesa?</li>
+                <li>¿Hay algún alimento, bebida o tradición que siempre esté presente en esas reuniones?</li>
+                <li>¿Qué personas te vienen a la mente al observar esta imagen?</li>
+                <li>¿Qué momento cotidiano de tu vida merece ser recordado como una celebración?</li>
+            </ul>
+            <p>Reconoce cómo los pequeños encuentros construyen nuestra historia.</p>',
         'comentarios_ejemplo' => ['Impresionante uso del color.', 'Me transmite mucha paz.']
     ],
     [
@@ -30,20 +30,20 @@ $cuadros = [
         'titulo' => 'Cuadro 2',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_2.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_2.mp3',
-        'transcripcion' =>
-            'Los parques y las plazas reúnen distintas formas de vivir la ciudad. Mientras unas personas pasean, juegan o descansan, otras encuentran en esos mismos espacios una oportunidad para trabajar. La venta ambulante forma parte del paisaje cotidiano y permite a muchas familias obtener su sustento diario. 
- 
-            Detén la mirada en la mujer. 
-            Lleva a su hijo en brazos mientras espera a quienes se acercan a comprar. Observa los globos, los colores que sobresalen en la escena y la relación entre ella, las personas que transitan por el parque y el espacio que comparten. 
-            ¿Qué detalles captan primero tu atención? 
-            ¿Qué historias imaginas que suceden alrededor de este momento? 
-             
-            Ahora lleva la escena a tu propia memoria. 
-            ¿Recuerdas a alguna persona que haya trabajado en un parque, una plaza o una calle de tu comunidad? 
-            ¿Hay algún lugar donde el trabajo y la vida cotidiana convivan de forma similar? 
-            ¿Qué recuerdos aparecen al observar esta imagen? 
-             
-            Quizá esta escena te invite a mirar de otra manera a quienes forman parte del paisaje cotidiano de nuestras ciudades.',
+        'transcripcion' => '
+            <p>Los parques y las plazas reúnen distintas formas de vivir la ciudad. Mientras unas personas pasean, juegan o descansan, otras encuentran en esos mismos espacios una oportunidad para trabajar. La venta ambulante forma parte del paisaje cotidiano y permite a muchas familias obtener su sustento diario.</p>
+            <p><strong>Detén la mirada en la mujer.</strong><br>Lleva a su hijo en brazos mientras espera a quienes se acercan a comprar. Observa los globos, los colores que sobresalen en la escena y la relación entre ella, las personas que transitan por el parque y el espacio que comparten.</p>
+            <ul>
+                <li>¿Qué detalles captan primero tu atención?</li>
+                <li>¿Qué historias imaginas que suceden alrededor de este momento?</li>
+            </ul>
+            <p><strong>Ahora lleva la escena a tu propia memoria.</strong></p>
+            <ul>
+                <li>¿Recuerdas a alguna persona que haya trabajado en un parque, una plaza o una calle de tu comunidad?</li>
+                <li>¿Hay algún lugar donde el trabajo y la vida cotidiana convivan de forma similar?</li>
+                <li>¿Qué recuerdos aparecen al observar esta imagen?</li>
+            </ul>
+            <p>Quizá esta escena te invite a mirar de otra manera a quienes forman parte del paisaje cotidiano de nuestras ciudades.</p>',
         'comentarios_ejemplo' => ['No paro de mirarlo.', 'Una obra maestra.']
     ],
     [
@@ -51,19 +51,20 @@ $cuadros = [
         'titulo' => 'Cuadro 3',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_3.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_3.mp3',
-        'transcripcion' =>
-            'Cada día, antes de que los mercados abran y las carnicerías reciban a sus primeros clientes, hay lugares donde el trabajo ya ha comenzado desde la madrugada. En los obradores se preparan los productos que más tarde llegarán a comercios, restaurantes y hogares. Son espacios donde la experiencia, la precisión y la colaboración forman parte de la rutina. 
- 
-            Dedica unos segundos a recorrer la obra. Observa las herramientas, el espacio de trabajo y las personas que aparecen en él. 
-             ¿Qué elementos revelan el tipo de oficio que desempeñan? 
-             ¿Qué detalles hablan de una actividad que se repite cada día? 
-             
-            Ahora lleva la escena hacia ti. 
-             ¿Conoces algún oficio cuyo trabajo ocurre antes de que la mayoría de las personas inicie su jornada? 
-             ¿Hay alguna profesión que consideres esencial y que sientes que pasa casi desapercibida? 
-             ¿Qué personas recuerdas que hayan dedicado su vida a un mismo oficio o negocio familiar? 
-             
-            Podemos reconocer a quienes, desde espacios que rara vez vemos, hacen posible muchas de las actividades que forman parte de nuestra vida, como alimentarnos.',
+        'transcripcion' => '
+            <p>Cada día, antes de que los mercados abran y las carnicerías reciban a sus primeros clientes, hay lugares donde el trabajo ya ha comenzado desde la madrugada. En los obradores se preparan los productos que más tarde llegarán a comercios, restaurantes y hogares. Son espacios donde la experiencia, la precisión y la colaboración forman parte de la rutina.</p>
+            <p><strong>Dedica unos segundos a recorrer la obra. Observa las herramientas, el espacio de trabajo y las personas que aparecen en él.</strong></p>
+            <ul>
+                <li>¿Qué elementos revelan el tipo de oficio que desempeñan?</li>
+                <li>¿Qué detalles hablan de una actividad que se repite cada día?</li>
+            </ul>
+            <p><strong>Ahora lleva la escena hacia ti.</strong></p>
+            <ul>
+                <li>¿Conoces algún oficio cuyo trabajo ocurre antes de que la mayoría de las personas inicie su jornada?</li>
+                <li>¿Hay alguna profesión que consideres esencial y que sientes que pasa casi desapercibida?</li>
+                <li>¿Qué personas recuerdas que hayan dedicado su vida a un mismo oficio o negocio familiar?</li>
+            </ul>
+            <p>Podemos reconocer a quienes, desde espacios que rara vez vemos, hacen posible muchas de las actividades que forman parte de nuestra vida, como alimentarnos.</p>',
         'comentarios_ejemplo' => ['Muy profundo.', 'Me encanta la historia detrás del lienzo.']
     ]
 ];
@@ -208,7 +209,7 @@ $cuadros = [
 
                     <!-- Texto Transcripción (Oculto por defecto) -->
                     <div class="caja-transcripcion" id="transcripcion-<?= $cuadro['id'] ?>">
-                        <p><?= $cuadro['transcripcion'] ?></p>
+                        <?= $cuadro['transcripcion'] ?>
                     </div>
 
                     <hr class="separador-cuadro">

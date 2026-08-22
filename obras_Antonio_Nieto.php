@@ -1,73 +1,77 @@
 <?php
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
+require_once 'php/conexion.php';
 
-// Array dinámico de cuadros
-$cuadros = [
-    [
-        'id' => 1,
-        'titulo' => 'EL FESTEJO, 2025',
-        'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_1.png',
-        'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_1.mp3',
-        'transcripcion' => '
-            <p>En muchas familias mexicanas, celebrar un cumpleaños es una oportunidad para reunirse. El pastel ocupa el centro de la mesa y, alrededor, aparecen alimentos, bebidas, conversaciones y pequeños rituales que se repiten año tras año. Más que una fecha en el calendario, es un momento para compartir con quienes forman parte de la vida cotidiana.</p>
-            <p style="text-align: center;"><strong>Mira la escena. Fíjate en las personas que rodean la mesa y la forma en que se relacionan con los objetos.</strong></p>
-            <ul>
-                <li>¿Qué ambiente percibes?</li>
-                <li>¿Qué hace que esta escena se sienta familiar?</li>
-            </ul>
-            <p>Quizás esta imagen te lleva a pensar en...</p>
-            <ul>
-                <li>¿Qué celebraciones recuerdas alrededor de una mesa?</li>
-                <li>¿Hay algún alimento, bebida o tradición que siempre esté presente en esas reuniones?</li>
-                <li>¿Qué personas te vienen a la mente al observar esta imagen?</li>
-                <li>¿Qué momento cotidiano de tu vida merece ser recordado como una celebración?</li>
-            </ul>
-            <p>Reconoce cómo los pequeños encuentros construyen nuestra historia.</p>',
-        'comentarios_ejemplo' => ['Impresionante uso del color.', 'Me transmite mucha paz.']
-    ],
-    [
-        'id' => 2,
-        'titulo' => 'ENTRE GLOBOS Y ESPERANZA, 2025',
-        'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_2.png',
-        'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_2.mp3',
-        'transcripcion' => '
-            <p>Los parques y las plazas reúnen distintas formas de vivir la ciudad. Mientras unas personas pasean, juegan o descansan, otras encuentran en esos mismos espacios una oportunidad para trabajar. La venta ambulante forma parte del paisaje cotidiano y permite a muchas familias obtener su sustento diario.</p>
-            <p><strong>Detén la mirada en la mujer.</strong><br>Lleva a su hijo en brazos mientras espera a quienes se acercan a comprar. Observa los globos, los colores que sobresalen en la escena y la relación entre ella, las personas que transitan por el parque y el espacio que comparten.</p>
-            <ul>
-                <li>¿Qué detalles captan primero tu atención?</li>
-                <li>¿Qué historias imaginas que suceden alrededor de este momento?</li>
-            </ul>
-            <p><strong>Ahora lleva la escena a tu propia memoria.</strong></p>
-            <ul>
-                <li>¿Recuerdas a alguna persona que haya trabajado en un parque, una plaza o una calle de tu comunidad?</li>
-                <li>¿Hay algún lugar donde el trabajo y la vida cotidiana convivan de forma similar?</li>
-                <li>¿Qué recuerdos aparecen al observar esta imagen?</li>
-            </ul>
-            <p>Quizá esta escena te invite a mirar de otra manera a quienes forman parte del paisaje cotidiano de nuestras ciudades.</p>',
-        'comentarios_ejemplo' => ['No paro de mirarlo.', 'Una obra maestra.']
-    ],
-    [
-        'id' => 3,
-        'titulo' => 'EL OBRADOR, 2024',
-        'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_3.png',
-        'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_3.mp3',
-        'transcripcion' => '
-            <p>Cada día, antes de que los mercados abran y las carnicerías reciban a sus primeros clientes, hay lugares donde el trabajo ya ha comenzado desde la madrugada. En los obradores se preparan los productos que más tarde llegarán a comercios, restaurantes y hogares. Son espacios donde la experiencia, la precisión y la colaboración forman parte de la rutina.</p>
-            <p><strong>Dedica unos segundos a recorrer la obra. Observa las herramientas, el espacio de trabajo y las personas que aparecen en él.</strong></p>
-            <ul>
-                <li>¿Qué elementos revelan el tipo de oficio que desempeñan?</li>
-                <li>¿Qué detalles hablan de una actividad que se repite cada día?</li>
-            </ul>
-            <p><strong>Ahora lleva la escena hacia ti.</strong></p>
-            <ul>
-                <li>¿Conoces algún oficio cuyo trabajo ocurre antes de que la mayoría de las personas inicie su jornada?</li>
-                <li>¿Hay alguna profesión que consideres esencial y que sientes que pasa casi desapercibida?</li>
-                <li>¿Qué personas recuerdas que hayan dedicado su vida a un mismo oficio o negocio familiar?</li>
-            </ul>
-            <p>Podemos reconocer a quienes, desde espacios que rara vez vemos, hacen posible muchas de las actividades que forman parte de nuestra vida, como alimentarnos.</p>',
-        'comentarios_ejemplo' => ['Muy profundo.', 'Me encanta la historia detrás del lienzo.']
-    ]
-];
+// Si no está logeado, lo ideal sería mandarlo a login o bloquear la página
+if (!$usuario_logeado) {
+    header("Location: login.php");
+    exit();
+}
+
+$artista_id = 1; // ID de Antonio Nieto en la BD
+$usuario_id = $_SESSION['usuario_id'];
+
+// 1. Lógica de Desbloqueo (Comprobar si merece ver el cuadro secreto)
+$stmt = $conexion->prepare("SELECT COUNT(*) FROM obras WHERE artista_id = ? AND es_recompensa = 0");
+$stmt->bind_param("i", $artista_id);
+$stmt->execute();
+$stmt->bind_result($total_normales);
+$stmt->fetch();
+$stmt->close();
+
+$stmt = $conexion->prepare("
+    SELECT COUNT(DISTINCT c.obra_id) 
+    FROM comentarios c 
+    JOIN obras o ON c.obra_id = o.id 
+    WHERE o.artista_id = ? AND o.es_recompensa = 0 AND c.usuario_id = ?
+");
+$stmt->bind_param("ii", $artista_id, $usuario_id);
+$stmt->execute();
+$stmt->bind_result($comentadas);
+$stmt->fetch();
+$stmt->close();
+
+$ha_desbloqueado = ($comentadas >= $total_normales);
+
+// 2. Extraer Obras a mostrar
+$sql = "SELECT * FROM obras WHERE artista_id = ?";
+if (!$ha_desbloqueado) {
+    $sql .= " AND es_recompensa = 0"; // Ocultar recompensas si no cumple
+}
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $artista_id);
+$stmt->execute();
+$result_obras = $stmt->get_result();
+
+$cuadros = [];
+while ($obra = $result_obras->fetch_assoc()) {
+    // Para cada obra, sacar sus comentarios
+    $stmt_com = $conexion->prepare("
+        SELECT c.comentario, c.usuario_id, u.nombre 
+        FROM comentarios c 
+        JOIN usuarios u ON c.usuario_id = u.id 
+        WHERE c.obra_id = ? 
+        ORDER BY c.fecha DESC
+    ");
+    $stmt_com->bind_param("i", $obra['id']);
+    $stmt_com->execute();
+    $res_com = $stmt_com->get_result();
+
+    $comentarios = [];
+    $usuario_ya_comento = false;
+
+    while ($com = $res_com->fetch_assoc()) {
+        if ($com['usuario_id'] == $usuario_id) {
+            $usuario_ya_comento = true;
+        }
+        $comentarios[] = $com;
+    }
+    $stmt_com->close();
+
+    $obra['comentarios_lista'] = $comentarios;
+    $obra['usuario_ya_comento'] = $usuario_ya_comento;
+    $cuadros[] = $obra;
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -172,70 +176,77 @@ $cuadros = [
             Volver a Obras
         </a>
         <h1>Antonio Nieto</h1>
+        <?php if ($ha_desbloqueado): ?>
+            <p style="color: #523479; font-family: Montserrat; font-weight: bold;">⭐ ¡Has desbloqueado la obra secreta! ⭐</p>
+        <?php endif; ?>
     </div>
 
-    <!-- BUCLE DINÁMICO DE CUADROS -->
     <div class="galeria-cuadros">
         <?php foreach ($cuadros as $index => $cuadro):
-            // Si el índice es impar (1, 3, 5...), le añadimos la clase 'inversa' para que el cuadro salga a la derecha
             $clase_inversa = ($index % 2 !== 0) ? 'inversa' : '';
+            // Si el cuadro es la recompensa especial, le ponemos un borde dorado o algo que destaque (opcional)
+            $estilo_recompensa = ($cuadro['es_recompensa'] == 1) ? 'border: 3px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);' : '';
             ?>
-            <section class="fila-cuadro <?= $clase_inversa ?>">
-                <!-- Lado: Imagen -->
+            <section class="fila-cuadro <?= $clase_inversa ?>" style="<?= $estilo_recompensa ?>">
                 <div class="col-imagen">
-                    <img src="<?= $cuadro['imagen'] ?>" alt="<?= $cuadro['titulo'] ?>" class="imagen-obra">
+                    <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
                 </div>
 
-                <!-- Lado: Interacción (Audio, Transcripción, Comentarios) -->
                 <div class="col-info">
-                    <h2><?= $cuadro['titulo'] ?></h2>
+                    <h2><?= htmlspecialchars($cuadro['titulo']) ?></h2>
 
-                    <!-- Audio Player Custom -->
                     <div class="reproductor-audio">
-                        <audio id="audio-<?= $cuadro['id'] ?>" src="<?= $cuadro['audio'] ?>"></audio>
-                        <button class="btn-play-pause" data-audio-id="audio-<?= $cuadro['id'] ?>" aria-label="Reproducir">
-                            <!-- Icono Play -->
+                        <audio id="audio-<?= $cuadro['id'] ?>" src="<?= htmlspecialchars($cuadro['audio']) ?>"></audio>
+                        <button class="btn-play-pause" data-audio-id="audio-<?= $cuadro['id'] ?>">
                             <svg class="icono-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                            <!-- Icono Pause (oculto por defecto) -->
                             <svg class="icono-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
                         </button>
-                        <div class="onda-audio">Escuchar explicación del autor</div>
-
-                        <!-- Botón Transcripción -->
-                        <button class="btn-toggle-transcripcion" data-target="transcripcion-<?= $cuadro['id'] ?>" aria-label="Ver transcripción">
+                        <div class="onda-audio">Escuchar explicación</div>
+                        <button class="btn-toggle-transcripcion" data-target="transcripcion-<?= $cuadro['id'] ?>">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </button>
                     </div>
 
-                    <!-- Texto Transcripción (Oculto por defecto) -->
                     <div class="caja-transcripcion" id="transcripcion-<?= $cuadro['id'] ?>">
                         <?= $cuadro['transcripcion'] ?>
                     </div>
 
                     <hr class="separador-cuadro">
 
-                    <!-- Zona de Comentar -->
                     <div class="zona-escribir-comentario">
                         <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>">
-                            <input type="text" placeholder="Deja tu comentario sobre esta obra..." required class="input-comentario">
+                            <input type="text" name="comentario" placeholder="Deja tu comentario sobre esta obra..." required class="input-comentario">
                             <button type="submit" class="btn-enviar-comentario">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                             </button>
                         </form>
                     </div>
 
-                    <!-- Zona Ver Comentarios (Bloqueado) -->
                     <div class="zona-ver-comentarios" id="zona-comentarios-<?= $cuadro['id'] ?>">
-                        <!-- Este botón está semitransparente hasta que el usuario comenta -->
-                        <button class="btn-desplegar-comentarios bloqueado" data-target="lista-comentarios-<?= $cuadro['id'] ?>">
+                        <?php
+                        // Bloquear botón si NO ha comentado
+                        $clase_bloqueado = (!$cuadro['usuario_ya_comento']) ? 'bloqueado' : '';
+                        ?>
+                        <button class="btn-desplegar-comentarios <?= $clase_bloqueado ?>" data-target="lista-comentarios-<?= $cuadro['id'] ?>">
                             <span>Comentarios de la comunidad</span>
-                            <svg class="candado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <?php if(!$cuadro['usuario_ya_comento']): ?>
+                                <svg class="candado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <?php else: ?>
+                                <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                            <?php endif; ?>
                         </button>
 
                         <div class="lista-comentarios-oculta" id="lista-comentarios-<?= $cuadro['id'] ?>">
-                            <?php foreach($cuadro['comentarios_ejemplo'] as $comentario): ?>
+                            <?php foreach($cuadro['comentarios_lista'] as $com): ?>
                                 <div class="comentario-item">
-                                    <strong>Usuario:</strong> <?= $comentario ?>
+                                    <strong><?= htmlspecialchars($com['nombre']) ?></strong>
+
+                                    <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
+                                    <?php if($com['usuario_id'] == $usuario_id): ?>
+                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
+                                    <?php endif; ?>
+
+                                    <p style="margin: 5px 0 0 0;"><?= htmlspecialchars($com['comentario']) ?></p>
                                 </div>
                             <?php endforeach; ?>
                         </div>

@@ -45,15 +45,15 @@ $result_obras = $stmt->get_result();
 
 $cuadros = [];
 while ($obra = $result_obras->fetch_assoc()) {
-    // Para cada obra, sacar sus comentarios
+    // Para cada obra, sacar sus comentarios (Ordenando primero por tus propios comentarios)
     $stmt_com = $conexion->prepare("
         SELECT c.comentario, c.usuario_id, u.nombre 
         FROM comentarios c 
         JOIN usuarios u ON c.usuario_id = u.id 
         WHERE c.obra_id = ? 
-        ORDER BY c.fecha DESC
+        ORDER BY CASE WHEN c.usuario_id = ? THEN 1 ELSE 0 END DESC, c.fecha DESC
     ");
-    $stmt_com->bind_param("i", $obra['id']);
+    $stmt_com->bind_param("ii", $obra['id'], $usuario_id);
     $stmt_com->execute();
     $res_com = $stmt_com->get_result();
 
@@ -193,7 +193,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                 </div>
 
                 <div class="col-info">
-                    <h2><?= htmlspecialchars($cuadro['titulo']) ?></h2>
+                    <h2><?= mb_strtoupper(htmlspecialchars($cuadro['titulo']), 'UTF-8') ?></h2>
 
                     <div class="reproductor-audio">
                         <audio id="audio-<?= $cuadro['id'] ?>" src="<?= htmlspecialchars($cuadro['audio']) ?>"></audio>
@@ -201,7 +201,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                             <svg class="icono-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                             <svg class="icono-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
                         </button>
-                        <div class="onda-audio">Escuchar explicación</div>
+                        <div class="onda-audio">Escuchar</div>
                         <button class="btn-toggle-transcripcion" data-target="transcripcion-<?= $cuadro['id'] ?>">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </button>

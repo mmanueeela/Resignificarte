@@ -1,123 +1,149 @@
-// 1. REPRODUCCIÓN AUDIO Y TRANSCRIPCIÓN
-const botonesAudio = document.querySelectorAll('.btn-play-pause');
-botonesAudio.forEach(boton => {
-    boton.addEventListener('click', function() {
-        const audioId = this.getAttribute('data-audio-id');
-        const audio = document.getElementById(audioId);
-        const iconoPlay = this.querySelector('.icono-play');
-        const iconoPause = this.querySelector('.icono-pause');
+document.addEventListener("DOMContentLoaded", () => {
 
-        if (audio.paused) {
-            document.querySelectorAll('audio').forEach(a => {
-                a.pause();
-                const container = a.parentElement;
-                container.querySelector('.icono-play').style.display = 'block';
-                container.querySelector('.icono-pause').style.display = 'none';
-            });
-            audio.play();
-            iconoPlay.style.display = 'none';
-            iconoPause.style.display = 'block';
-        } else {
-            audio.pause();
-            iconoPlay.style.display = 'block';
-            iconoPause.style.display = 'none';
-        }
+    // =========================================================
+    // 0. COMPROBAR SI VENIMOS DE DESBLOQUEAR LA RECOMPENSA
+    // =========================================================
+    if (sessionStorage.getItem('bajar_a_secreta') === 'true') {
+        // Borramos la orden para que no baje la próxima vez que entre
+        sessionStorage.removeItem('bajar_a_secreta');
+
+        // Le damos un pequeñísimo tiempo al navegador para que pinte todo el HTML
+        setTimeout(() => {
+            const cuadroSecreto = document.getElementById('obra-secreta');
+            if (cuadroSecreto) {
+                // Hacemos que la cámara baje de forma suave hasta el cuadro
+                cuadroSecreto.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 300);
+    }
+
+    // =========================================================
+    // 1. REPRODUCCIÓN AUDIO Y TRANSCRIPCIÓN
+    // =========================================================
+    const botonesAudio = document.querySelectorAll('.btn-play-pause');
+    botonesAudio.forEach(boton => {
+        boton.addEventListener('click', function() {
+            const audioId = this.getAttribute('data-audio-id');
+            const audio = document.getElementById(audioId);
+            const iconoPlay = this.querySelector('.icono-play');
+            const iconoPause = this.querySelector('.icono-pause');
+
+            if (audio.paused) {
+                document.querySelectorAll('audio').forEach(a => {
+                    a.pause();
+                    const container = a.parentElement;
+                    container.querySelector('.icono-play').style.display = 'block';
+                    container.querySelector('.icono-pause').style.display = 'none';
+                });
+                audio.play();
+                iconoPlay.style.display = 'none';
+                iconoPause.style.display = 'block';
+            } else {
+                audio.pause();
+                iconoPlay.style.display = 'block';
+                iconoPause.style.display = 'none';
+            }
+        });
     });
-});
 
-const botonesTranscripcion = document.querySelectorAll('.btn-toggle-transcripcion');
-botonesTranscripcion.forEach(boton => {
-    boton.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        document.getElementById(targetId).classList.toggle('visible');
-        this.classList.toggle('abierto');
-    });
-});
-
-// 2. DESPLEGAR COMENTARIOS
-const botonesComentarios = document.querySelectorAll('.btn-desplegar-comentarios');
-botonesComentarios.forEach(boton => {
-    boton.addEventListener('click', function() {
-        if (!this.classList.contains('bloqueado')) {
+    const botonesTranscripcion = document.querySelectorAll('.btn-toggle-transcripcion');
+    botonesTranscripcion.forEach(boton => {
+        boton.addEventListener('click', function() {
             const targetId = this.getAttribute('data-target');
-            document.getElementById(targetId).classList.toggle('abierto');
-        }
+            document.getElementById(targetId).classList.toggle('visible');
+            this.classList.toggle('abierto');
+        });
     });
-});
 
-// 3. ENVIAR COMENTARIO REAL POR AJAX
-const formulariosComentario = document.querySelectorAll('.form-comentario');
-formulariosComentario.forEach(form => {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+    // =========================================================
+    // 2. DESPLEGAR COMENTARIOS
+    // =========================================================
+    const botonesComentarios = document.querySelectorAll('.btn-desplegar-comentarios');
+    botonesComentarios.forEach(boton => {
+        boton.addEventListener('click', function() {
+            if (!this.classList.contains('bloqueado')) {
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.toggle('abierto');
+            }
+        });
+    });
 
-        const input = this.querySelector('.input-comentario');
-        const comentario = input.value.trim();
-        if (comentario === '') return;
+    // =========================================================
+    // 3. ENVIAR COMENTARIO REAL POR AJAX
+    // =========================================================
+    const formulariosComentario = document.querySelectorAll('.form-comentario');
+    formulariosComentario.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        const cuadroId = this.getAttribute('data-cuadro-id');
+            const input = this.querySelector('.input-comentario');
+            const comentario = input.value.trim();
+            if (comentario === '') return;
 
-        const formData = new FormData();
-        formData.append('obra_id', cuadroId);
-        formData.append('comentario', comentario);
+            const cuadroId = this.getAttribute('data-cuadro-id');
 
-        fetch('php/procesar_comentario.php', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.exito) {
-                    const zonaComentarios = document.getElementById('zona-comentarios-' + cuadroId);
-                    const btnDesplegar = zonaComentarios.querySelector('.btn-desplegar-comentarios');
-                    const listaComentarios = document.getElementById('lista-comentarios-' + cuadroId);
+            const formData = new FormData();
+            formData.append('obra_id', cuadroId);
+            formData.append('comentario', comentario);
 
-                    // Añadir comentario visualmente
-                    const nuevoComentario = document.createElement('div');
-                    nuevoComentario.classList.add('comentario-item');
-                    nuevoComentario.innerHTML = `
+            fetch('php/procesar_comentario.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        const zonaComentarios = document.getElementById('zona-comentarios-' + cuadroId);
+                        const btnDesplegar = zonaComentarios.querySelector('.btn-desplegar-comentarios');
+                        const listaComentarios = document.getElementById('lista-comentarios-' + cuadroId);
+
+                        // Añadir comentario visualmente
+                        const nuevoComentario = document.createElement('div');
+                        nuevoComentario.classList.add('comentario-item');
+                        nuevoComentario.innerHTML = `
                         <strong>${data.nombre_usuario}</strong>
                         <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
                         <p style="margin: 5px 0 0 0;">${comentario}</p>
                     `;
-                    listaComentarios.prepend(nuevoComentario);
-                    input.value = '';
+                        listaComentarios.prepend(nuevoComentario);
+                        input.value = '';
 
-                    // Desbloquear zona si estaba bloqueada
-                    if (btnDesplegar.classList.contains('bloqueado')) {
-                        btnDesplegar.classList.remove('bloqueado');
-                        btnDesplegar.innerHTML = `
+                        // Desbloquear zona si estaba bloqueada
+                        if (btnDesplegar.classList.contains('bloqueado')) {
+                            btnDesplegar.classList.remove('bloqueado');
+                            btnDesplegar.innerHTML = `
                             <span>Comentarios de la comunidad</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><path d="M6 9l6 6 6-6"/></svg>
                         `;
-                        listaComentarios.classList.add('abierto');
-                    }
-
-                    // ALERTA DE RECOMPENSA (POPUP Y SCROLL)
-                    if (data.recompensa_desbloqueada) {
-                        const popup = document.getElementById('popup-recompensa');
-                        if (popup) {
-                            // Mostramos el popup
-                            popup.classList.add('activo');
-
-                            // Acción al pulsar el botón del popup
-                            document.getElementById('btn-cerrar-popup-recompensa').addEventListener('click', function() {
-                                // 1. Añadimos el ID secreto a la URL
-                                window.location.hash = 'obra-secreta';
-                                // 2. Recargamos la página (al cargar, bajará sola hasta ese ID)
-                                window.location.reload();
-                            });
-                        } else {
-                            // Fallback por si acaso
-                            alert("🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO.");
-                            window.location.hash = 'obra-secreta';
-                            window.location.reload();
+                            listaComentarios.classList.add('abierto');
                         }
+
+                        // =========================================================
+                        // ALERTA DE RECOMPENSA (EL TRUCO DEL SESSION STORAGE ESTÁ AQUÍ)
+                        // =========================================================
+                        if (data.recompensa_desbloqueada) {
+                            const popup = document.getElementById('popup-recompensa');
+                            if (popup) {
+                                popup.classList.add('activo');
+
+                                document.getElementById('btn-cerrar-popup-recompensa').addEventListener('click', function() {
+                                    // 1. Guardamos la nota en el navegador
+                                    sessionStorage.setItem('bajar_a_secreta', 'true');
+                                    // 2. Recargamos la página
+                                    window.location.reload();
+                                });
+                            } else {
+                                // Fallback
+                                alert("🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO.");
+                                sessionStorage.setItem('bajar_a_secreta', 'true');
+                                window.location.reload();
+                            }
+                        }
+                    } else {
+                        alert("Error al enviar: " + data.error);
                     }
-                } else {
-                    alert("Error al enviar: " + data.error);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                })
+                .catch(error => console.error('Error:', error));
+        });
     });
 });

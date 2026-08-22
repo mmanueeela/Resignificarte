@@ -183,13 +183,14 @@ while ($obra = $result_obras->fetch_assoc()) {
 
     <div class="galeria-cuadros">
         <?php foreach ($cuadros as $index => $cuadro):
-            $clase_inversa = ($index % 2 !== 0) ? 'inversa' : '';
-            // Si el cuadro es la recompensa especial, le ponemos un borde dorado o algo que destaque (opcional)
+            // LÓGICA NUEVA: Si es recompensa -> layout vertical. Si no -> alterna normal
+            $clase_layout = ($cuadro['es_recompensa'] == 1) ? 'layout-columna' : (($index % 2 !== 0) ? 'inversa' : '');
+
+            // Estilo y ID
             $estilo_recompensa = ($cuadro['es_recompensa'] == 1) ? 'border: 3px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);' : '';
-            // Le damos el ID dinámico para poder bajar directamente al ancla
             $id_seccion = ($cuadro['es_recompensa'] == 1) ? 'obra-secreta' : 'cuadro-' . $cuadro['id'];
             ?>
-            <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_inversa ?>" style="<?= $estilo_recompensa ?>">
+            <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_layout ?>" style="<?= $estilo_recompensa ?>">
                 <div class="col-imagen">
                     <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
                 </div>

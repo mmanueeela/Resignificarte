@@ -398,6 +398,29 @@ html {
 }
 
 /* =========================================================
+   LAYOUT VERTICAL (Para cuadros apaisados como la recompensa)
+========================================================= */
+.fila-cuadro.layout-columna {
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+}
+
+/* Forzamos a que ambas columnas tengan exactamente el mismo ancho */
+.fila-cuadro.layout-columna .col-imagen,
+.fila-cuadro.layout-columna .col-info {
+    width: 100%;
+    max-width: 900px;
+    flex: none;
+}
+
+.fila-cuadro.layout-columna .imagen-obra {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+}
+
+/* =========================================================
    RESPONSIVE MÓVIL
 ========================================================= */
 @media (max-width: 900px) {

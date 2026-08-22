@@ -462,14 +462,15 @@ html {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: #523479;
+    background-color: #5db543;
     color: white;
     padding: 8px 18px;
     border-radius: 20px;
     font-family: Montserrat, sans-serif;
     font-weight: 700;
     font-size: 13px;
-    box-shadow: 0 4px 15px rgba(82, 52, 121, 0.5);
+
+    box-shadow: 0 4px 15px rgba(93, 181, 67, 0.5);
     z-index: 10;
     pointer-events: none;
 
@@ -491,7 +492,7 @@ html {
 ========================================================= */
 @media (max-width: 900px) {
     .fila-cuadro, .fila-cuadro.inversa {
-        flex-direction: column; /* En móvil SIEMPRE apilados, imagen arriba */
+        flex-direction: column;
         gap: 30px;
         padding: 20px;
     }

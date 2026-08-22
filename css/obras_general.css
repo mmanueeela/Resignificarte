@@ -76,6 +76,7 @@ html {
 .col-imagen {
     flex: 1;
     display: flex;
+    margin: auto;
     justify-content: center;
 }
 

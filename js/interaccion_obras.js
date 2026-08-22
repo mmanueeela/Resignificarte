@@ -121,7 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         // =========================================================
                         // ALERTA DE RECOMPENSA (EL TRUCO DEL SESSION STORAGE ESTÁ AQUÍ)
                         // =========================================================
-                        if (data.recompensa_desbloqueada) {
+                        // Solo mostramos el popup si está desbloqueada Y el cuadro secreto AÚN NO existe en la página
+                        if (data.recompensa_desbloqueada && !document.getElementById('obra-secreta')) {
                             const popup = document.getElementById('popup-recompensa');
                             if (popup) {
                                 popup.classList.add('activo');

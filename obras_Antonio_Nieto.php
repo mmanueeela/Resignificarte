@@ -177,7 +177,7 @@ while ($obra = $result_obras->fetch_assoc()) {
         </a>
         <h1>Antonio Nieto</h1>
         <?php if ($ha_desbloqueado): ?>
-            <p style="color: #523479; font-family: Montserrat; font-weight: bold;">⭐ ¡Has desbloqueado la obra secreta! ⭐</p>
+            <p style="color: #523479; font-family: Montserrat; font-weight: bold;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
         <?php endif; ?>
     </div>
 
@@ -186,8 +186,10 @@ while ($obra = $result_obras->fetch_assoc()) {
             $clase_inversa = ($index % 2 !== 0) ? 'inversa' : '';
             // Si el cuadro es la recompensa especial, le ponemos un borde dorado o algo que destaque (opcional)
             $estilo_recompensa = ($cuadro['es_recompensa'] == 1) ? 'border: 3px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);' : '';
+            // Le damos el ID dinámico para poder bajar directamente al ancla
+            $id_seccion = ($cuadro['es_recompensa'] == 1) ? 'obra-secreta' : 'cuadro-' . $cuadro['id'];
             ?>
-            <section class="fila-cuadro <?= $clase_inversa ?>" style="<?= $estilo_recompensa ?>">
+            <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_inversa ?>" style="<?= $estilo_recompensa ?>">
                 <div class="col-imagen">
                     <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
                 </div>

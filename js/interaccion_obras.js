@@ -127,6 +127,10 @@ formulariosComentario.forEach(form => {
                     `;
                     listaComentarios.prepend(nuevoComentario);
                     input.value = '';
+                    const badge = document.getElementById('badge-comentado-' + cuadroId);
+                    if (badge) {
+                        badge.classList.add('visible');
+                    }
 
                     // Desbloquear zona si estaba bloqueada
                     if (btnDesplegar.classList.contains('bloqueado')) {

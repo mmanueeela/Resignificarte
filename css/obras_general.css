@@ -444,6 +444,49 @@ html {
 }
 
 /* =========================================================
+   ETIQUETA "COMENTADO" FLOTANTE SOBRE EL CUADRO
+========================================================= */
+.wrapper-imagen {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* En el cuadro final apaisado, quitamos el límite para que ocupe todo */
+.fila-cuadro.layout-columna .wrapper-imagen {
+    max-width: 100%;
+}
+
+.badge-comentado {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #523479;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 4px 15px rgba(82, 52, 121, 0.5);
+    z-index: 10;
+    pointer-events: none;
+
+    /* Animación oculta por defecto */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8) translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.badge-comentado.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+}
+
+/* =========================================================
    RESPONSIVE MÓVIL
 ========================================================= */
 @media (max-width: 900px) {

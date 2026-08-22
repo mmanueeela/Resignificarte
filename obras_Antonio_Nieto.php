@@ -190,9 +190,17 @@ while ($obra = $result_obras->fetch_assoc()) {
             $estilo_recompensa = ($cuadro['es_recompensa'] == 1) ? 'border: 3px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);' : '';
             $id_seccion = ($cuadro['es_recompensa'] == 1) ? 'obra-secreta' : 'cuadro-' . $cuadro['id'];
             ?>
-            <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_layout ?>" style="<?= $estilo_recompensa ?>">
+            <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_inversa ?>" style="<?= $estilo_recompensa ?>">
+
                 <div class="col-imagen">
-                    <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
+                    <div class="wrapper-imagen">
+                        <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
+
+                        <!-- Etiqueta Comentado -->
+                        <div id="badge-comentado-<?= $cuadro['id'] ?>" class="badge-comentado <?= ($cuadro['usuario_ya_comento']) ? 'visible' : '' ?>">
+                            Comentado
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-info">
@@ -256,7 +264,7 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                                     <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
                                     <?php if($com['usuario_id'] == $usuario_id): ?>
-                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
+                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
                                     <?php endif; ?>
 
                                     <p style="margin: 5px 0 0 0;"><?= htmlspecialchars($com['comentario']) ?></p>

@@ -127,7 +127,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
                 </p>
             </div>
         </div>
-        <a href="obras.php">Ver las obras</a>
+        <a href="obras_Antonio_Nieto.php">Ver las obras</a>
     </section>
 </main>
 <footer>

@@ -1,0 +1,311 @@
+/* =========================================================
+   ESTILOS GENERALES DE LA PÁGINA DEL ARTISTA
+========================================================= */
+
+.main-obras-artista {
+    padding: 40px;
+    background-color: #d5c4e6;
+    min-height: calc(100vh - 140px);
+}
+
+.cabecera-artista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.btn-volver-obras {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #523479;
+    text-decoration: none;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.btn-volver-obras svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-volver-obras:hover {
+    color: #200B30;
+}
+
+.cabecera-artista h1 {
+    font-family: 'AnsteryScript', cursive;
+    font-size: 80px;
+    color: #200B30;
+    margin: 10px 0;
+    font-weight: normal;
+}
+
+/* =========================================================
+   FILA DE CUADRO (LA MAGIA DEL ALTERNADO)
+========================================================= */
+.galeria-cuadros {
+    display: flex;
+    flex-direction: column;
+    gap: 80px; /* Separación enorme entre cuadros para respirar */
+}
+
+.fila-cuadro {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* CLAVE: Si tiene la clase inversa, la imagen se va a la derecha */
+.fila-cuadro.inversa {
+    flex-direction: row-reverse;
+}
+
+.col-imagen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.imagen-obra {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.col-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.col-info h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 32px;
+    color: #523479;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* =========================================================
+   REPRODUCTOR Y TRANSCRIPCIÓN
+========================================================= */
+.reproductor-audio {
+    display: flex;
+    align-items: center;
+    background-color: #523479;
+    border-radius: 50px;
+    padding: 10px 15px;
+    gap: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(82, 52, 121, 0.3);
+}
+
+.btn-play-pause {
+    background-color: white;
+    color: #523479;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-play-pause:hover {
+    transform: scale(1.1);
+}
+
+.btn-play-pause svg {
+    width: 18px;
+    height: 18px;
+}
+
+.onda-audio {
+    flex: 1;
+    color: white;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-toggle-transcripcion {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+.btn-toggle-transcripcion svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Rota la flecha cuando se abre */
+.btn-toggle-transcripcion.abierto svg {
+    transform: rotate(180deg);
+}
+
+.caja-transcripcion {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 0 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.caja-transcripcion.visible {
+    padding: 20px;
+    max-height: 500px; /* Suficiente para el texto */
+}
+
+.separador-cuadro {
+    border: none;
+    border-top: 1px solid rgba(82, 52, 121, 0.2);
+    margin: 25px 0;
+}
+
+/* =========================================================
+   ZONA COMENTARIOS
+========================================================= */
+.form-comentario {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-comentario {
+    flex: 1;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 25px;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.btn-enviar-comentario {
+    background-color: #523479;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-enviar-comentario:hover {
+    background-color: #200B30;
+    transform: scale(1.05);
+}
+
+.btn-enviar-comentario svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Botón de ver comentarios (BLOQUEADO INICIALMENTE) */
+.btn-desplegar-comentarios {
+    width: 100%;
+    background-color: rgba(82, 52, 121, 0.1);
+    color: #523479;
+    border: 1px solid rgba(82, 52, 121, 0.3);
+    padding: 15px;
+    border-radius: 15px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.btn-desplegar-comentarios.bloqueado {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.btn-desplegar-comentarios:not(.bloqueado) {
+    cursor: pointer;
+}
+
+.btn-desplegar-comentarios:not(.bloqueado):hover {
+    background-color: rgba(82, 52, 121, 0.2);
+}
+
+.btn-desplegar-comentarios svg {
+    width: 20px;
+    height: 20px;
+}
+
+.lista-comentarios-oculta {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lista-comentarios-oculta.abierto {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.comentario-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* =========================================================
+   RESPONSIVE MÓVIL
+========================================================= */
+@media (max-width: 900px) {
+    .fila-cuadro, .fila-cuadro.inversa {
+        flex-direction: column; /* En móvil SIEMPRE apilados, imagen arriba */
+        gap: 30px;
+        padding: 20px;
+    }
+    .imagen-obra {
+        max-width: 100%;
+    }
+    .cabecera-artista h1 {
+        font-size: 55px;
+        text-align: center;
+    }
+}

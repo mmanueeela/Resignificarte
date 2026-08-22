@@ -1,4 +1,4 @@
-// 1. REPRODUCCIÓN AUDIO Y TRANSCRIPCIÓN (Se mantiene igual que antes)
+// 1. REPRODUCCIÓN AUDIO Y TRANSCRIPCIÓN
 const botonesAudio = document.querySelectorAll('.btn-play-pause');
 botonesAudio.forEach(boton => {
     boton.addEventListener('click', function() {
@@ -34,7 +34,7 @@ botonesTranscripcion.forEach(boton => {
     });
 });
 
-// 2. DESPLEGAR COMENTARIOS (Solo si no están bloqueados)
+// 2. DESPLEGAR COMENTARIOS
 const botonesComentarios = document.querySelectorAll('.btn-desplegar-comentarios');
 botonesComentarios.forEach(boton => {
     boton.addEventListener('click', function() {
@@ -57,7 +57,6 @@ formulariosComentario.forEach(form => {
 
         const cuadroId = this.getAttribute('data-cuadro-id');
 
-        // Petición AJAX al servidor
         const formData = new FormData();
         formData.append('obra_id', cuadroId);
         formData.append('comentario', comentario);
@@ -73,7 +72,7 @@ formulariosComentario.forEach(form => {
                     const btnDesplegar = zonaComentarios.querySelector('.btn-desplegar-comentarios');
                     const listaComentarios = document.getElementById('lista-comentarios-' + cuadroId);
 
-                    // Añadir comentario visualmente con la etiqueta verde
+                    // Añadir comentario visualmente
                     const nuevoComentario = document.createElement('div');
                     nuevoComentario.classList.add('comentario-item');
                     nuevoComentario.innerHTML = `
@@ -84,7 +83,7 @@ formulariosComentario.forEach(form => {
                     listaComentarios.prepend(nuevoComentario);
                     input.value = '';
 
-                    // Desbloquear si estaba bloqueado
+                    // Desbloquear zona si estaba bloqueada
                     if (btnDesplegar.classList.contains('bloqueado')) {
                         btnDesplegar.classList.remove('bloqueado');
                         btnDesplegar.innerHTML = `
@@ -94,10 +93,22 @@ formulariosComentario.forEach(form => {
                         listaComentarios.classList.add('abierto');
                     }
 
-                    // ALERTA DE RECOMPENSA
+                    // ALERTA DE RECOMPENSA (AHORA CON POPUP)
                     if (data.recompensa_desbloqueada) {
-                        alert("🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO. Recargando la página...");
-                        window.location.reload(); // Recarga para mostrar el nuevo cuadro de la base de datos
+                        const popup = document.getElementById('popup-recompensa');
+                        if (popup) {
+                            // Mostramos el popup
+                            popup.classList.add('activo');
+
+                            // Recargamos la página al pulsar el botón
+                            document.getElementById('btn-cerrar-popup-recompensa').addEventListener('click', function() {
+                                window.location.reload();
+                            });
+                        } else {
+                            // Fallback por si acaso borras el HTML
+                            alert("🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO.");
+                            window.location.reload();
+                        }
                     }
                 } else {
                     alert("Error al enviar: " + data.error);

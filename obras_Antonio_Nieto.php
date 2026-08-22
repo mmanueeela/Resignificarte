@@ -260,6 +260,17 @@ while ($obra = $result_obras->fetch_assoc()) {
     </div>
 </main>
 
+<!-- ==============================
+     POPUP RECOMPENSA SECRETA
+     ============================== -->
+<div id="popup-recompensa" class="popup-recompensa-overlay">
+    <div class="popup-recompensa-content">
+        <h2>¡Enhorabuena! 🎉</h2>
+        <p>Has comentado en todas las obras y has desbloqueado un <strong>CUADRO SECRETO</strong>.</p>
+        <button id="btn-cerrar-popup-recompensa">Descubrir recompensa</button>
+    </div>
+</div>
+
 <footer>
     <p>&copy; Todos los derechos reservados. 2026</p>
 </footer>

@@ -8,7 +8,21 @@ $cuadros = [
         'titulo' => 'Cuadro 1',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_1.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_1.mp3',
-        'transcripcion' => 'Esta es la transcripción detallada del Cuadro 1. En esta obra, Antonio Nieto explora la profundidad de...',
+        'transcripcion' =>
+            'En muchas familias mexicanas, celebrar un cumpleaños es una oportunidad para reunirse. El pastel ocupa el centro de la mesa y, alrededor, aparecen alimentos, bebidas, conversaciones y pequeños rituales que se repiten año tras año. Más que una fecha en el calendario, es un momento para compartir con quienes forman parte de la vida cotidiana. 
+ 
+            Mira la escena.  Fíjate en las personas que rodean la mesa y la forma en que se relacionan con los objetos. 
+            
+            ¿Qué ambiente percibes? 
+            ¿Qué hace que esta escena se sienta familiar? 
+            
+            Quizás esta imagen te lleva a pensar en… 
+            ¿Qué celebraciones recuerdas alrededor de una mesa? 
+            ¿Hay algún alimento, bebida o tradición que siempre esté presente en esas reuniones?
+            ¿Qué personas te vienen a la mente al observar esta imagen? 
+            ¿Qué momento cotidiano de tu vida merece ser recordado como una celebración? 
+            
+            Reconoce cómo los pequeños encuentros construyen nuestra historia.',
         'comentarios_ejemplo' => ['Impresionante uso del color.', 'Me transmite mucha paz.']
     ],
     [
@@ -16,7 +30,20 @@ $cuadros = [
         'titulo' => 'Cuadro 2',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_2.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_2.mp3',
-        'transcripcion' => 'En el Cuadro 2, el artista rompe con la simetría tradicional para enfocarse en la textura...',
+        'transcripcion' =>
+            'Los parques y las plazas reúnen distintas formas de vivir la ciudad. Mientras unas personas pasean, juegan o descansan, otras encuentran en esos mismos espacios una oportunidad para trabajar. La venta ambulante forma parte del paisaje cotidiano y permite a muchas familias obtener su sustento diario. 
+ 
+            Detén la mirada en la mujer. 
+            Lleva a su hijo en brazos mientras espera a quienes se acercan a comprar. Observa los globos, los colores que sobresalen en la escena y la relación entre ella, las personas que transitan por el parque y el espacio que comparten. 
+            ¿Qué detalles captan primero tu atención? 
+            ¿Qué historias imaginas que suceden alrededor de este momento? 
+             
+            Ahora lleva la escena a tu propia memoria. 
+            ¿Recuerdas a alguna persona que haya trabajado en un parque, una plaza o una calle de tu comunidad? 
+            ¿Hay algún lugar donde el trabajo y la vida cotidiana convivan de forma similar? 
+            ¿Qué recuerdos aparecen al observar esta imagen? 
+             
+            Quizá esta escena te invite a mirar de otra manera a quienes forman parte del paisaje cotidiano de nuestras ciudades.',
         'comentarios_ejemplo' => ['No paro de mirarlo.', 'Una obra maestra.']
     ],
     [
@@ -24,7 +51,19 @@ $cuadros = [
         'titulo' => 'Cuadro 3',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_3.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_3.mp3',
-        'transcripcion' => 'La culminación de su etapa azul. El Cuadro 3 representa un viaje hacia el interior del ser humano...',
+        'transcripcion' =>
+            'Cada día, antes de que los mercados abran y las carnicerías reciban a sus primeros clientes, hay lugares donde el trabajo ya ha comenzado desde la madrugada. En los obradores se preparan los productos que más tarde llegarán a comercios, restaurantes y hogares. Son espacios donde la experiencia, la precisión y la colaboración forman parte de la rutina. 
+ 
+            Dedica unos segundos a recorrer la obra. Observa las herramientas, el espacio de trabajo y las personas que aparecen en él. 
+             ¿Qué elementos revelan el tipo de oficio que desempeñan? 
+             ¿Qué detalles hablan de una actividad que se repite cada día? 
+             
+            Ahora lleva la escena hacia ti. 
+             ¿Conoces algún oficio cuyo trabajo ocurre antes de que la mayoría de las personas inicie su jornada? 
+             ¿Hay alguna profesión que consideres esencial y que sientes que pasa casi desapercibida? 
+             ¿Qué personas recuerdas que hayan dedicado su vida a un mismo oficio o negocio familiar? 
+             
+            Podemos reconocer a quienes, desde espacios que rara vez vemos, hacen posible muchas de las actividades que forman parte de nuestra vida, como alimentarnos.',
         'comentarios_ejemplo' => ['Muy profundo.', 'Me encanta la historia detrás del lienzo.']
     ]
 ];

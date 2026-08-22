@@ -265,7 +265,7 @@ while ($obra = $result_obras->fetch_assoc()) {
      ============================== -->
 <div id="popup-recompensa" class="popup-recompensa-overlay">
     <div class="popup-recompensa-content">
-        <h2>¡Enhorabuena! 🎉</h2>
+        <h2>Enhorabuena 🎉</h2>
         <p>Has comentado en todas las obras y has desbloqueado un <strong>CUADRO SECRETO</strong>.</p>
         <button id="btn-cerrar-popup-recompensa">Descubrir recompensa</button>
     </div>

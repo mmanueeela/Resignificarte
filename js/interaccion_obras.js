@@ -93,20 +93,24 @@ formulariosComentario.forEach(form => {
                         listaComentarios.classList.add('abierto');
                     }
 
-                    // ALERTA DE RECOMPENSA (AHORA CON POPUP)
+                    // ALERTA DE RECOMPENSA (POPUP Y SCROLL)
                     if (data.recompensa_desbloqueada) {
                         const popup = document.getElementById('popup-recompensa');
                         if (popup) {
                             // Mostramos el popup
                             popup.classList.add('activo');
 
-                            // Recargamos la página al pulsar el botón
+                            // Acción al pulsar el botón del popup
                             document.getElementById('btn-cerrar-popup-recompensa').addEventListener('click', function() {
+                                // 1. Añadimos el ID secreto a la URL
+                                window.location.hash = 'obra-secreta';
+                                // 2. Recargamos la página (al cargar, bajará sola hasta ese ID)
                                 window.location.reload();
                             });
                         } else {
-                            // Fallback por si acaso borras el HTML
+                            // Fallback por si acaso
                             alert("🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO.");
+                            window.location.hash = 'obra-secreta';
                             window.location.reload();
                         }
                     }

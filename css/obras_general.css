@@ -177,7 +177,7 @@
 
 .caja-transcripcion.visible {
     padding: 20px;
-    max-height: 500px;
+    max-height: 1000px;
 }
 
 /* Estilos para el contenido HTML de la transcripción */

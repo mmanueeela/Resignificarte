@@ -5,7 +5,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
 $cuadros = [
     [
         'id' => 1,
-        'titulo' => 'Cuadro 1',
+        'titulo' => 'EL FESTEJO, 2025',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_1.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_1.mp3',
         'transcripcion' => '
@@ -27,7 +27,7 @@ $cuadros = [
     ],
     [
         'id' => 2,
-        'titulo' => 'Cuadro 2',
+        'titulo' => 'ENTRE GLOBOS Y ESPERANZA, 2025',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_2.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_2.mp3',
         'transcripcion' => '
@@ -48,7 +48,7 @@ $cuadros = [
     ],
     [
         'id' => 3,
-        'titulo' => 'Cuadro 3',
+        'titulo' => 'EL OBRADOR, 2024',
         'imagen' => 'src/uploads/cuadros/Antonio_Nieto/cuadro_3.png',
         'audio' => 'src/uploads/audios/Antonio_Nieto/cuadro_3.mp3',
         'transcripcion' => '

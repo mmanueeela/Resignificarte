@@ -488,19 +488,110 @@ html {
 }
 
 /* =========================================================
-   RESPONSIVE MÓVIL
+   RESPONSIVE MÓVIL (AJUSTES PARA PANTALLAS PEQUEÑAS)
 ========================================================= */
 @media (max-width: 900px) {
-    .fila-cuadro, .fila-cuadro.inversa {
-        flex-direction: column;
-        gap: 30px;
-        padding: 20px;
+    /* 1. Aprovechar más el ancho de la pantalla reduciendo márgenes */
+    .main-obras-artista {
+        padding: 20px 15px; /* Menos padding lateral exterior */
     }
-    .imagen-obra {
+
+    /* 2. Todos los cuadros en columna y con menos padding interno */
+    .fila-cuadro,
+    .fila-cuadro.inversa,
+    .fila-cuadro.layout-columna {
+        flex-direction: column;
+        gap: 25px;
+        padding: 20px 15px; /* Hacemos la tarjeta blanca más ancha por dentro */
+    }
+
+    .imagen-obra,
+    .fila-cuadro.layout-columna .imagen-obra {
         max-width: 100%;
     }
+
+    /* 3. Título un poco más compacto */
     .cabecera-artista h1 {
-        font-size: 55px;
+        font-size: 45px;
         text-align: center;
+    }
+
+    .col-info h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    /* 4. Reproductor de audio ajustado */
+    .reproductor-audio {
+        padding: 8px 12px;
+        gap: 10px;
+    }
+
+    .btn-play-pause {
+        width: 35px;
+        height: 35px;
+    }
+
+    .btn-reiniciar svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .onda-audio {
+        font-size: 13px; /* Texto más pequeño para que no desborde */
+    }
+
+    /* 5. Zona de comentarios (Inputs y botones) */
+    .form-comentario {
+        gap: 10px; /* Acercamos el input al botón */
+    }
+
+    .input-comentario {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .btn-enviar-comentario {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0; /* CLAVE: Evita que el botón se aplaste y se haga ovalado */
+    }
+
+    .btn-enviar-comentario svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-desplegar-comentarios {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS (Ej: iPhone SE)
+========================================================= */
+@media (max-width: 400px) {
+    .col-info h2 {
+        font-size: 20px;
+    }
+
+    .onda-audio {
+        font-size: 11px;
+    }
+
+    .btn-play-pause {
+        width: 30px;
+        height: 30px;
+    }
+
+    .btn-play-pause svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .btn-reiniciar svg {
+        width: 16px;
+        height: 16px;
     }
 }

@@ -138,6 +138,29 @@ html {
     height: 18px;
 }
 
+/* Botón de reiniciar audio */
+.btn-reiniciar {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-left: -5px;
+    transition: transform 0.3s ease;
+}
+
+.btn-reiniciar:hover {
+    transform: rotate(-45deg) scale(1.1);
+}
+
+.btn-reiniciar svg {
+    width: 20px;
+    height: 20px;
+}
+
 .onda-audio {
     flex: 1;
     color: white;

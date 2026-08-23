@@ -71,6 +71,15 @@
     background-color: #ff6b81;
 }
 
+/* --- SEPARADOR DE SECCIONES --- */
+.separador-admin {
+    border: none;
+    height: 1px;
+    background-color: #523578;
+    margin: 60px 0;
+    border-radius: 50px;
+}
+
 /* --- FORMULARIO EXPERIENCIAS --- */
 .form-experiencia {
     display: flex;

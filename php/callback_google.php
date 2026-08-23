@@ -39,6 +39,7 @@ if (isset($_GET['code'])) {
                 u.apellidos,
                 u.pais,
                 u.fecha_nacimiento,
+                u.es_admin, /* AÑADIDO PARA ADMIN */
                 c.telefono
             FROM usuarios u
             JOIN usuarios_credenciales c
@@ -114,6 +115,7 @@ if (isset($_GET['code'])) {
 
             $_SESSION['usuario_id'] = $id_usuario;
             $_SESSION['usuario_nombre'] = $nombre;
+            $_SESSION['es_admin'] = $usuario['es_admin']; /* AÑADIDO PARA ADMIN */
 
             // ==========================================
             // ACTUALIZAR FOTO DE GOOGLE SI PROCEDE

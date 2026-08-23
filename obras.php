@@ -1,5 +1,15 @@
 <?php
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
+require_once 'php/conexion.php';
+
+// Obtener todas las experiencias (Artistas) y su primer cuadro (portada)
+$query = "
+    SELECT a.id as artista_id, a.nombre, a.pais, 
+           (SELECT imagen FROM obras o WHERE o.artista_id = a.id ORDER BY id ASC LIMIT 1) as imagen_portada
+    FROM artistas a
+";
+$resultado = $conexion->query($query);
+$experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 ?>
 <!doctype html>
 <html lang="es">
@@ -100,35 +110,39 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     </nav>
 </header>
 <main>
-    <!-- PARTE SUPERIOR -->
     <div class="contenido-inicial">
         <h1>OBRAS</h1>
         <div class="buscador">
-
             <input type="text" placeholder="Busca el artista...">
-
             <button type="button" class="boton-busqueda" aria-label="Buscar">
                 <img src="src/iconos/lupa.png" alt="">
             </button>
-
         </div>
     </div>
-    <!-- EXPERIENCIA ARTISTA -->
-    <section class="experiencia-1">
-        <div class="contenedor-imagen-mas-texto">
-            <img src="src/images/img_antonio_nieto.jpg" alt="Antonio Nieto">
-            <div class="contenedor-texto">
-                <h2>
-                    Experiencia #1
-                </h2>
-                <p>
-                    <img src="src/iconos/bandera_mexico.png" alt="México">
-                    Obras de Antonio Nieto, México
-                </p>
+
+    <!-- EXPERIENCIAS GENERADAS DINÁMICAMENTE -->
+    <?php foreach ($experiencias as $index => $exp):
+        $num_experiencia = $index + 1;
+        // Definimos la ruta de la imagen o un placeholder si hay error
+        $img_perfil = !empty($exp['imagen_portada']) ? $exp['imagen_portada'] : 'src/iconos/usuario.png';
+        ?>
+        <section class="experiencia-1" style="margin-bottom: 20px;">
+            <div class="contenedor-imagen-mas-texto">
+                <img src="<?= htmlspecialchars($img_perfil) ?>" alt="<?= htmlspecialchars($exp['nombre']) ?>">
+                <div class="contenedor-texto">
+                    <h2>Experiencia #<?= $num_experiencia ?></h2>
+                    <p>
+                        <!-- (Opcional: aquí podrías guardar banderas en BD, o poner un pin genérico) -->
+                        <img src="src/iconos/bandera_mexico.png" alt="País">
+                        Obras de <?= htmlspecialchars($exp['nombre']) ?>, <?= htmlspecialchars($exp['pais']) ?>
+                    </p>
+                </div>
             </div>
-        </div>
-        <a href="obras_Antonio_Nieto.php">Ver las obras</a>
-    </section>
+            <!-- Enviamos el ID del artista por GET para saber qué obras cargar -->
+            <a href="Obras_Artista.php?id=<?= $exp['artista_id'] ?>">Ver las obras</a>
+        </section>
+    <?php endforeach; ?>
+
 </main>
 <footer>
     <p>

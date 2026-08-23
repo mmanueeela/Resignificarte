@@ -35,6 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario_id'] = $resultado['id'];
         $_SESSION['usuario_nombre'] = $resultado['nombre'];
 
+        // --- AÑADIMOS ESTA LÍNEA PARA EL ADMIN ---
+        $_SESSION['es_admin'] = $resultado['es_admin'];
+
         // --- LÓGICA DE RECUÉRDAME ---
         if (isset($_POST['remember'])) {
 

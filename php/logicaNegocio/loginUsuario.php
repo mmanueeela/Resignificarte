@@ -5,8 +5,8 @@ if (!defined('ACCESO_PERMITIDO')) {
 
 function verificarLogin($conexion, $email, $password_ingresada) {
 
-    // 1. Buscamos al usuario uniendo ambas tablas
-    $consulta = "SELECT u.id, u.nombre, c.password, c.metodo_registro 
+    // 1. Buscamos al usuario uniendo ambas tablas (AÑADIMOS u.es_admin)
+    $consulta = "SELECT u.id, u.nombre, u.es_admin, c.password, c.metodo_registro 
                  FROM usuarios_credenciales c
                  JOIN usuarios u ON c.usuario_id = u.id
                  WHERE c.email = ?";
@@ -25,7 +25,8 @@ function verificarLogin($conexion, $email, $password_ingresada) {
 
         if (password_verify($password_ingresada, $usuario['password'])) {
             $stmt->close();
-            return ["exito" => true, "id" => $usuario['id'], "nombre" => $usuario['nombre']];
+            // AÑADIMOS "es_admin" AL RETURN DE ÉXITO
+            return ["exito" => true, "id" => $usuario['id'], "nombre" => $usuario['nombre'], "es_admin" => $usuario['es_admin']];
         } else {
             $stmt->close();
             return ["exito" => false, "mensaje" => "La contraseña es incorrecta."];

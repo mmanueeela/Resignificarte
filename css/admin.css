@@ -1,0 +1,176 @@
+.main-admin {
+    padding: 40px;
+    background-color: #d5c4e6;
+    min-height: calc(100vh - 140px);
+}
+
+.cabecera-admin h1 {
+    font-family: Montserrat, sans-serif;
+    color: #200B30;
+    font-size: 45px;
+    margin: 0 0 10px 0;
+}
+
+.cabecera-admin p {
+    font-family: Montserrat, sans-serif;
+    color: #523479;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.admin-seccion {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.admin-seccion h2 {
+    font-family: Montserrat, sans-serif;
+    color: #523479;
+    margin-top: 0;
+    border-bottom: 2px solid rgba(82, 52, 121, 0.2);
+    padding-bottom: 15px;
+}
+
+/* --- TABLA USUARIOS --- */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Montserrat, sans-serif;
+}
+
+.tabla-usuarios th, .tabla-usuarios td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.tabla-usuarios th {
+    background-color: #523479;
+    color: white;
+}
+
+.btn-eliminar {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff6b81;
+}
+
+/* --- FORMULARIO EXPERIENCIAS --- */
+.form-experiencia {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bloque-formulario, .bloque-cuadro {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border-left: 5px solid #523479;
+}
+
+.inputs-fila {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.input-admin {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-family: Montserrat, sans-serif;
+    min-width: 200px;
+}
+
+.textarea-admin {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-family: monospace; /* Mejor para pegar HTML */
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+.input-file-custom {
+    flex: 1;
+    background-color: #f4f1f8;
+    border: 1px dashed #523479;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    color: #523479;
+}
+
+.cabecera-cuadro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-quitar-cuadro {
+    background-color: #ffeaa7;
+    color: #d63031;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.acciones-form {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-principal, .btn-secundario {
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-principal {
+    background-color: #523479;
+    color: white;
+}
+
+.btn-secundario {
+    background-color: white;
+    color: #523479;
+    border: 2px solid #523479;
+}
+
+.checkbox-recompensa {
+    font-family: Montserrat, sans-serif;
+    color: #e1b12c;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

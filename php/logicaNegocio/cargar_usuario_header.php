@@ -15,8 +15,9 @@ if (isset($_SESSION['usuario_id'])) {
     $usuario_logeado = true;
     $usuario_id = $_SESSION['usuario_id'];
 
+    // AÑADIMOS u.es_admin A LA CONSULTA
     $consulta = "
-        SELECT u.nombre, u.foto_perfil, c.email
+        SELECT u.nombre, u.foto_perfil, u.es_admin, c.email
         FROM usuarios u
         INNER JOIN usuarios_credenciales c ON u.id = c.usuario_id
         WHERE u.id = ?
@@ -35,9 +36,17 @@ if (isset($_SESSION['usuario_id'])) {
 
         if ($usuario_bd) {
 
+            // Actualizamos la sesión de admin por seguridad en cada carga
+            $_SESSION['es_admin'] = $usuario_bd['es_admin'];
+
             $nombre_usuario = !empty($usuario_bd['nombre'])
                 ? $usuario_bd['nombre']
                 : 'Usuario';
+
+            // SI ES ADMIN, LE AÑADIMOS LA ETIQUETA AL NOMBRE
+            if ($_SESSION['es_admin'] == 1) {
+                $nombre_usuario .= ' (admin)';
+            }
 
             $email_usuario = !empty($usuario_bd['email'])
                 ? $usuario_bd['email']

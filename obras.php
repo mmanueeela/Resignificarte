@@ -28,16 +28,23 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 </head>
 <body>
 <header>
-    <!-- Logo -->
+    <!-- Logo dinámico -->
     <div class="logo-container">
-        <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>">
+            <img src="src/logo/logo_con_inifito.png" alt="Imagen del logo">
+        </a>
     </div>
 
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="#">OBRAS</a></li>
-            <li><a href="contacto.php">CONTACTO</a></li>
+            <li><a href="obras.php">OBRAS</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -48,53 +55,41 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
             <span class="enlace-acceder">
                 <?= htmlspecialchars($nombre_usuario) ?>
             </span>
-                <img
-                        src="<?= htmlspecialchars($ruta_foto) ?>"
-                        alt="Usuario"
-                        style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"
-                >
+                <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
             </button>
-
             <div class="dropdown-menu" id="dropdown-usuario">
-                <a href="perfil_usuario.php" class="dropdown-item">
-                    Ver perfil
-                </a>
-                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">
-                    Cerrar Sesión
-                </a>
+                <a href="perfil_usuario.php" class="dropdown-item">Ver perfil</a>
+                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">Cerrar Sesión</a>
             </div>
         </div>
     <?php else: ?>
         <a href="login.php" class="area-usuario">
-        <span class="enlace-acceder">
-            Acceder
-        </span>
+            <span class="enlace-acceder">Acceder</span>
             <img src="src/iconos/usuario.png" alt="Icono de usuario">
         </a>
     <?php endif; ?>
 
     <!-- Menú hamburguesa (Móvil) -->
     <button id="btn-menu">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div></div><div></div><div></div>
     </button>
 
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="#">OBRAS</a></li>
-            <li><a href="contacto.php">CONTACTO</a></li>
-
-            <!-- Separador visual -->
+            <li><a href="obras.php">OBRAS</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <?php endif; ?>
             <hr class="separador-movil">
-
-            <!-- Área de usuario para móvil -->
             <?php if ($usuario_logeado): ?>
                 <li>
                     <a href="perfil_usuario.php">
                         <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
-                        Mi perfil (<?= htmlspecialchars($nombre_usuario) ?>)
+                        Mi perfil
                     </a>
                 </li>
                 <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>

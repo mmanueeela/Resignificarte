@@ -113,16 +113,20 @@ while ($obra = $result_obras->fetch_assoc()) {
 </head>
 <body>
 <header>
-    <!-- Logo -->
+    <!-- Logo dinámico -->
     <div class="logo-container">
-        <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>">
+            <img src="src/logo/logo_con_inifito.png" alt="Imagen del logo">
+        </a>
     </div>
 
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
             <li><a href="obras.php">OBRAS</a></li>
-            <li><a href="contacto.php">CONTACTO</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
             <?php endif; ?>
@@ -136,43 +140,32 @@ while ($obra = $result_obras->fetch_assoc()) {
             <span class="enlace-acceder">
                 <?= htmlspecialchars($nombre_usuario) ?>
             </span>
-                <img
-                        src="<?= htmlspecialchars($ruta_foto) ?>"
-                        alt="Usuario"
-                        style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;"
-                >
+                <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
             </button>
-
             <div class="dropdown-menu" id="dropdown-usuario">
-                <a href="perfil_usuario.php" class="dropdown-item">
-                    Ver perfil
-                </a>
-                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">
-                    Cerrar Sesión
-                </a>
+                <a href="perfil_usuario.php" class="dropdown-item">Ver perfil</a>
+                <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">Cerrar Sesión</a>
             </div>
         </div>
     <?php else: ?>
         <a href="login.php" class="area-usuario">
-        <span class="enlace-acceder">
-            Acceder
-        </span>
+            <span class="enlace-acceder">Acceder</span>
             <img src="src/iconos/usuario.png" alt="Icono de usuario">
         </a>
     <?php endif; ?>
 
     <!-- Menú hamburguesa (Móvil) -->
     <button id="btn-menu">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div></div><div></div><div></div>
     </button>
 
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
             <li><a href="obras.php">OBRAS</a></li>
-            <li><a href="contacto.php">CONTACTO</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
             <?php endif; ?>

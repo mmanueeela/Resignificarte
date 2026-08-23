@@ -2,14 +2,12 @@
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 require_once 'php/conexion.php';
 
-// PROTEGER LA PÁGINA: Solo si es admin (asumiendo que en tu login guardas $_SESSION['es_admin'])
-// Si no es admin, lo echamos de vuelta a la homepage normal
+// PROTEGER LA PÁGINA: Solo si es admin
 if (!$usuario_logeado || !isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1) {
     header("Location: homepage.php");
     exit();
 }
 
-// Extraer todos los usuarios (excepto el propio admin actual) para poder gestionarlos
 $stmt = $conexion->prepare("
     SELECT u.id, u.nombre, u.apellidos, c.email, u.fecha_registro 
     FROM usuarios u
@@ -31,28 +29,36 @@ $stmt->close();
     <title>Panel de Administración - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- AÑADIDO EL SCRIPT DEL POPUP DEL HEADER QUE FALTABA -->
+    <script src="js/abrir_popup_header.js" defer></script>
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/admin.js" defer></script>
 </head>
 <body>
 <header>
-    <!-- Logo -->
+    <!-- Logo dinámico -->
     <div class="logo-container">
-        <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>
+        <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>">
+            <img src="src/logo/logo_con_inifito.png" alt="Imagen del logo">
+        </a>
     </div>
 
     <nav class="menu-navegacion">
         <ul>
             <li><a href="obras.php">OBRAS</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
             <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
         </ul>
     </nav>
 
-    <!-- Área de usuario (Con la etiqueta ADMIN) -->
+    <!-- Área de usuario (Ya trae el admin automáticamente) -->
     <div class="area-usuario-dropdown">
         <button class="area-usuario area-usuario-btn" id="btn-usuario">
             <span class="enlace-acceder" style="color: #523479; font-weight: bold;">
-                <?= htmlspecialchars($nombre_usuario) ?> (admin)
+                <?= htmlspecialchars($nombre_usuario) ?>
             </span>
             <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
         </button>
@@ -62,9 +68,27 @@ $stmt->close();
             <a href="php/cerrar_sesion.php" class="dropdown-item cerrar-sesion">Cerrar Sesión</a>
         </div>
     </div>
+
+    <!-- Menú hamburguesa (Móvil) -->
+    <button id="btn-menu">
+        <div></div><div></div><div></div>
+    </button>
+    <nav class="menu-navegacion-mobile" id="menu-mobile">
+        <ul>
+            <li><a href="obras.php">OBRAS</a></li>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php">CONTACTO</a></li>
+            <?php endif; ?>
+            <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <hr class="separador-movil">
+            <li><a href="perfil_usuario.php">Mi perfil</a></li>
+            <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
 </header>
 
 <main class="main-admin">
+    <!-- (El resto del código del main sigue exactamente igual) -->
     <div class="cabecera-admin">
         <h1>Panel de Control</h1>
         <p>Gestiona la comunidad y las experiencias artísticas.</p>
@@ -90,7 +114,6 @@ $stmt->close();
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td><?= date('d/m/Y', strtotime($user['fecha_registro'])) ?></td>
                         <td>
-                            <!-- Formulario que irá al backend para eliminar -->
                             <form action="php/eliminar_usuario.php" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario de forma permanente?');">
                                 <input type="hidden" name="id_usuario" value="<?= $user['id'] ?>">
                                 <button type="submit" class="btn-eliminar">Eliminar</button>
@@ -120,7 +143,6 @@ $stmt->close();
                 </div>
             </div>
 
-            <!-- Contenedor dinámico de cuadros (Manejado por JS) -->
             <div id="contenedor-cuadros">
                 <div class="bloque-cuadro" data-index="1">
                     <div class="cabecera-cuadro">
@@ -137,7 +159,7 @@ $stmt->close();
                             <input type="file" name="audios[]" accept="audio/*" required>
                         </div>
                     </div>
-                    <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción (con <p>, <strong>, etc)..." required class="textarea-admin"></textarea>
+                    <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción..." required class="textarea-admin"></textarea>
 
                     <label class="checkbox-recompensa">
                         <input type="checkbox" name="es_recompensa[0]" value="1"> ¿Es el cuadro secreto de recompensa final?

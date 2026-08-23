@@ -98,6 +98,15 @@
     margin-bottom: 25px;
 }
 
+/* --- SUBTÍTULO DE LA SECCIÓN --- */
+.subtitulo-seccion {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    color: #665277;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
 .bloque-formulario:hover, .bloque-cuadro:hover {
     transform: translateY(-2px); /* Pequeña elevación al pasar el ratón */
 }
@@ -129,6 +138,7 @@
     background-color: #fcfbfe;
     color: #333;
     transition: all 0.3s;
+    box-sizing: border-box;
 }
 
 .input-admin:focus {
@@ -139,12 +149,13 @@
 
 .textarea-admin {
     width: 100%;
+    box-sizing: border-box; /* CLAVE: Evita que la caja se salga por la derecha */
     height: 140px;
     padding: 16px 20px;
     border: 1px solid #d5c4e6;
     border-radius: 15px;
-    font-family: monospace; /* La dejamos en monospace porque es HTML y es más fácil de leer */
-    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
     margin-bottom: 20px;
     resize: vertical;
     background-color: #fcfbfe;

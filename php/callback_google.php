@@ -201,7 +201,7 @@ if (isset($_GET['code'])) {
             $consulta->close();
 
             // Redirección dependiendo del rol
-            if ($_SESSION['es_admin'] == 1) {
+            if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) {
                 header("Location: ../homepage_admin.php?login=exito");
             } else {
                 header("Location: ../homepage.php?login=exito");

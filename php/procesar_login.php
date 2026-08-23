@@ -35,19 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario_id'] = $resultado['id'];
         $_SESSION['usuario_nombre'] = $resultado['nombre'];
 
-        // --- AÑADIMOS ESTA LÍNEA PARA EL ADMIN ---
+        // GUARDAMOS EL ROL DE ADMIN
         $_SESSION['es_admin'] = $resultado['es_admin'];
 
         // --- LÓGICA DE RECUÉRDAME ---
         if (isset($_POST['remember'])) {
-
             $token = bin2hex(random_bytes(32));
-
-            // Guardamos el hash del token en la base de datos
             $token_hasheado = hash('sha256', $token);
             guardarTokenRecuerdame($conexion, $resultado['id'], $token_hasheado);
 
-            // Creamos la cookie segura
             setcookie("recuerdame_token", $token, [
                 'expires'  => time() + (86400 * 30), // 30 días
                 'path'     => '/',
@@ -57,8 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
-        // Redirección dependiendo del rol
-        if ($_SESSION['es_admin'] == 1) {
+        // ==========================================
+        // REDIRECCIÓN DEPENDIENDO DEL ROL
+        // ==========================================
+        if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) {
             header("Location: ../homepage_admin.php");
         } else {
             header("Location: ../homepage.php");
@@ -66,13 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
 
     } else {
-
         // Login incorrecto
         volverConError($resultado['mensaje']);
     }
 
 } else {
-
     // Si intentan acceder directamente al archivo
     header("Location: ../login.php");
     exit();

@@ -132,10 +132,10 @@ $stmt->close();
                 <tbody>
                 <?php foreach ($usuarios as $user): ?>
                     <tr>
-                        <td><?= htmlspecialchars($user['nombre'] . ' ' . $user['apellidos']) ?></td>
-                        <td><?= htmlspecialchars($user['email']) ?></td>
-                        <td><?= date('d/m/Y', strtotime($user['fecha_registro'])) ?></td>
-                        <td>
+                        <td data-label="Nombre:"><?= htmlspecialchars($user['nombre'] . ' ' . $user['apellidos']) ?></td>
+                        <td data-label="Email:"><?= htmlspecialchars($user['email']) ?></td>
+                        <td data-label="Fecha:"><?= date('d/m/Y', strtotime($user['fecha_registro'])) ?></td>
+                        <td data-label="Acción:">
                             <form action="php/eliminar_usuario.php" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario de forma permanente?');">
                                 <input type="hidden" name="id_usuario" value="<?= $user['id'] ?>">
                                 <button type="submit" class="btn-eliminar">Eliminar</button>

@@ -242,11 +242,38 @@ body {
 /**************/
 
 /* =========================================================
-   FORZAR OCULTACIÓN DEL MENÚ MÓVIL EN ESCRITORIO
+   MENÚ HAMBURGUESA (GLOBAL PARA TODA LA WEB)
 ========================================================= */
-@media (min-width: 1001px) {
-    .menu-navegacion-mobile,
-    #btn-menu {
-        display: none !important;
+header { position: relative; }
+header > button { display: none; }
+
+.menu-navegacion-mobile {
+    position: absolute; top: 100%; left: 0; width: 100%;
+    background-color: #200B30; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    max-height: 0; overflow: hidden; transition: max-height 0.9s ease-in-out; z-index: 999;
+}
+.menu-navegacion-mobile.abierto { max-height: 400px; }
+.menu-navegacion-mobile ul { list-style: none; padding: 25px; margin: 0; }
+.menu-navegacion-mobile li { margin: 20px 0; }
+.menu-navegacion-mobile a { color: white; text-decoration: none; font-family: Montserrat, sans-serif; font-size: 20px; font-weight: 500; }
+.menu-navegacion-mobile hr.separador-movil { border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 25px 0; }
+
+@media (max-width: 1000px) {
+    .menu-navegacion, .area-usuario-dropdown, a.area-usuario { display: none !important; }
+
+    header > button {
+        display: flex; flex-direction: column; justify-content: center;
+        width: 2rem; height: 3rem; border: 0; background: transparent; gap: 8px; cursor: pointer; z-index: 1001;
     }
+    /* Usamos un color oscuro porque el header del admin suele ser claro */
+    header > button > div {
+        background-color: #fff; height: 3px; width: 100%; border-radius: 5px; transition: all 0.3s ease; transform-origin: center;
+    }
+    #btn-menu.activo div:nth-child(1) { transform: translateY(11px) rotate(45deg); width: 70%; }
+    #btn-menu.activo div:nth-child(2) { opacity: 0; }
+    #btn-menu.activo div:nth-child(3) { transform: translateY(-11px) rotate(-45deg); width: 70%; }
+}
+
+@media (min-width: 1001px) {
+    .menu-navegacion-mobile, #btn-menu { display: none !important; }
 }

@@ -75,6 +75,12 @@ $stmt->close();
         </div>
     </div>
 
+    <button id="btn-menu">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>

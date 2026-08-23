@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // REDIRECCIÓN DEPENDIENDO DEL ROL
         // ==========================================
         if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) {
-            header("Location: ../homepage_admin.php");
+            header("Location: ../homepage_administrador.php");
         } else {
             header("Location: ../homepage.php");
         }

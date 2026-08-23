@@ -179,7 +179,7 @@ if (isset($_GET['code'])) {
             $consulta->close();
 
             if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) {
-                header("Location: ../homepage_admin.php?login=exito");
+                header("Location: ../homepage_administrador.php?login=exito");
             } else {
                 header("Location: ../homepage.php?login=exito");
             }

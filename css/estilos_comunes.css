@@ -75,6 +75,15 @@ body {
 
     /* Estilos desplegable */
 
+    /* CLASE DINÁMICA PARA EL MENÚ */
+    .menu-navegacion ul li a.activo,
+    .menu-navegacion-mobile ul li a.activo {
+        color: #523479;
+        text-decoration: underline 2px;
+        text-underline-offset: 3px;
+        font-weight: bold;
+    }
+
     /* --- CONTENEDOR DEL DROPDOWN --- */
     .area-usuario-dropdown {
         position: relative;

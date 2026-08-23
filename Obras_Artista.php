@@ -14,6 +14,9 @@ if (!isset($_GET['id'])) {
     exit();
 }
 
+// Detectar en qué página estamos actualmente
+$pagina_actual = basename($_SERVER['PHP_SELF']);
+
 $artista_id = intval($_GET['id']);
 $usuario_id = $_SESSION['usuario_id'];
 
@@ -123,12 +126,14 @@ while ($obra = $result_obras->fetch_assoc()) {
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
-                <li><a href="contacto.php">CONTACTO</a></li>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
             <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
         </ul>
     </nav>
@@ -162,13 +167,16 @@ while ($obra = $result_obras->fetch_assoc()) {
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
-                <li><a href="contacto.php">CONTACTO</a></li>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
             <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
+
             <hr class="separador-movil">
             <?php if ($usuario_logeado): ?>
                 <li>

@@ -2,6 +2,9 @@
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 require_once 'php/conexion.php';
 
+// Detectar en qué página estamos actualmente
+$pagina_actual = basename($_SERVER['PHP_SELF']);
+
 // Obtener todas las experiencias (Artistas) y su primer cuadro (portada)
 $query = "
     SELECT a.id as artista_id, a.nombre, a.pais, 
@@ -38,12 +41,14 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
-                <li><a href="contacto.php">CONTACTO</a></li>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
             <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
         </ul>
     </nav>
@@ -77,13 +82,16 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="obras.php">OBRAS</a></li>
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
-                <li><a href="contacto.php">CONTACTO</a></li>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
             <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
+
             <hr class="separador-movil">
             <?php if ($usuario_logeado): ?>
                 <li>

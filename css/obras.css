@@ -18,15 +18,6 @@ main {
     background-color: #d5c4e6;
 }
 
-.menu-navegacion ul li:first-child {
-    text-decoration: underline 2px;
-    text-underline-offset: 3px;
-    transition: color 0.3s ease;
-}
-
-.menu-navegacion ul li:first-child:hover {
-    color: #523479;
-}
 /* ---------------------------------------------------------
    PARTE SUPERIOR: TITULO + BUSCADOR
 --------------------------------------------------------- */

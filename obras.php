@@ -140,7 +140,7 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
                 <div class="contenedor-texto">
                     <h2>Experiencia #<?= $num_experiencia ?></h2>
                     <p>
-                        <img src="src/iconos/bandera_mexico.png" alt="País">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; color: white;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                         Obras de <?= htmlspecialchars($exp['nombre']) ?>, <?= htmlspecialchars($exp['pais']) ?>
                     </p>
                 </div>
@@ -151,6 +151,12 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 
                 <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                     <a href="editar_experiencia.php?id=<?= $exp['artista_id'] ?>" class="btn-editar-obra">Editar</a>
+
+                    <!-- Botón para Eliminar la Experiencia entera -->
+                    <form action="php/eliminar_experiencia.php" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar a este artista y TODAS sus obras? Se borrarán también los comentarios asociados.');" style="margin:0;">
+                        <input type="hidden" name="id_artista" value="<?= $exp['artista_id'] ?>">
+                        <button type="submit" class="btn-eliminar-experiencia">Eliminar</button>
+                    </form>
                 <?php endif; ?>
             </div>
         </section>

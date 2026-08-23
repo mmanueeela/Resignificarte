@@ -13,7 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_artista = trim($_POST['nombre_artista']);
     $pais = trim($_POST['pais']);
 
-    // 2. ACTUALIZAR DATOS DEL ARTISTA
+    // --- COMPROBAR SI HAY FOTO DE ARTISTA NUEVA ---
+    $dir_artistas = "../src/uploads/artistas/";
+    if (!file_exists($dir_artistas)) mkdir($dir_artistas, 0777, true);
+
+    if (isset($_FILES['foto_artista']['name']) && $_FILES['foto_artista']['error'] === 0) {
+        $ext = pathinfo($_FILES['foto_artista']['name'], PATHINFO_EXTENSION);
+        $nombre_img_artista = "artista_" . time() . "." . $ext;
+        $ruta_fisica = $dir_artistas . $nombre_img_artista;
+
+        if (move_uploaded_file($_FILES['foto_artista']['tmp_name'], $ruta_fisica)) {
+            $ruta_foto_artista = "src/uploads/artistas/" . $nombre_img_artista;
+
+            // Actualizamos la foto en la BD
+            $stmt_img_art = $conexion->prepare("UPDATE artistas SET imagen_perfil = ? WHERE id = ?");
+            $stmt_img_art->bind_param("si", $ruta_foto_artista, $artista_id);
+            $stmt_img_art->execute();
+            $stmt_img_art->close();
+        }
+    }
+
+    // 2. ACTUALIZAR DATOS TEXTUALES DEL ARTISTA
     $stmt = $conexion->prepare("UPDATE artistas SET nombre = ?, pais = ? WHERE id = ?");
     $stmt->bind_param("ssi", $nombre_artista, $pais, $artista_id);
     $stmt->execute();

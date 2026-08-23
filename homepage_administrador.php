@@ -169,6 +169,11 @@ $stmt->close();
                     <input type="text" name="nombre_artista" placeholder="Nombre del Artista (Ej. Antonio Nieto)" required class="input-admin">
                     <input type="text" name="pais" placeholder="País (Ej. México)" required class="input-admin">
                 </div>
+                <!-- NUEVO INPUT PARA LA FOTO DEL ARTISTA -->
+                <div class="input-file-custom" style="margin-top: 15px;">
+                    <label>👤 Subir Foto del Artista (Portada de la Experiencia)</label>
+                    <input type="file" name="foto_artista" accept="image/*" required>
+                </div>
             </div>
 
             <div id="contenedor-cuadros">

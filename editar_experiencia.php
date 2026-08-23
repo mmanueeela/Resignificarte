@@ -17,10 +17,10 @@ $artista_id = intval($_GET['id']);
 $pagina_actual = 'obras.php'; // Para que en el header salga subrayado "OBRAS"
 
 // 3. OBTENER LOS DATOS DEL ARTISTA
-$stmt = $conexion->prepare("SELECT nombre, pais FROM artistas WHERE id = ?");
+$stmt = $conexion->prepare("SELECT nombre, pais, imagen_perfil FROM artistas WHERE id = ?");
 $stmt->bind_param("i", $artista_id);
 $stmt->execute();
-$stmt->bind_result($nombre_artista, $pais_artista);
+$stmt->bind_result($nombre_artista, $pais_artista, $imagen_artista);
 if (!$stmt->fetch()) {
     header("Location: obras.php");
     exit();
@@ -114,6 +114,14 @@ $stmt_obras->close();
                 <div class="inputs-fila">
                     <input type="text" name="nombre_artista" value="<?= htmlspecialchars($nombre_artista) ?>" required class="input-admin">
                     <input type="text" name="pais" value="<?= htmlspecialchars($pais_artista) ?>" required class="input-admin">
+                </div>
+                <!-- NUEVO INPUT EDICIÓN FOTO ARTISTA -->
+                <div class="input-file-custom" style="margin-top: 15px;">
+                    <label>👤 Cambiar Foto del Artista (Opcional)</label>
+                    <input type="file" name="foto_artista" accept="image/*">
+                    <?php if(!empty($imagen_artista)): ?>
+                        <small style="color:#666;">Actual: <?= basename($imagen_artista) ?></small>
+                    <?php endif; ?>
                 </div>
             </div>
 

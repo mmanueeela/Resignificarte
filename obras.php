@@ -5,12 +5,8 @@ require_once 'php/conexion.php';
 // Detectar en qué página estamos actualmente
 $pagina_actual = basename($_SERVER['PHP_SELF']);
 
-// Obtener todas las experiencias (Artistas) y su primer cuadro (portada)
-$query = "
-    SELECT a.id as artista_id, a.nombre, a.pais, 
-           (SELECT imagen FROM obras o WHERE o.artista_id = a.id ORDER BY id ASC LIMIT 1) as imagen_portada
-    FROM artistas a
-";
+// OBTENER TODAS LAS EXPERIENCIAS (Ahora traemos 'imagen_perfil' directamente de la tabla artistas)
+$query = "SELECT id as artista_id, nombre, pais, imagen_perfil FROM artistas";
 $resultado = $conexion->query($query);
 $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -127,15 +123,17 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <?php foreach ($experiencias as $index => $exp):
         $num_experiencia = $index + 1;
 
-        // LÓGICA DE LA IMAGEN: Si es Antonio Nieto (ID 1), foto original. Si no, su primer cuadro.
-        if ($exp['artista_id'] == 1) {
+        // LÓGICA DE LA IMAGEN DE PERFIL
+        // Mantenemos a Antonio Nieto por defecto si no le has subido foto en BD
+        if ($exp['artista_id'] == 1 && empty($exp['imagen_perfil'])) {
             $img_perfil = 'src/images/img_antonio_nieto.jpg';
         } else {
-            $img_perfil = !empty($exp['imagen_portada']) ? $exp['imagen_portada'] : 'src/iconos/usuario.png';
+            $img_perfil = !empty($exp['imagen_perfil']) ? $exp['imagen_perfil'] : 'src/iconos/usuario.png';
         }
         ?>
         <section class="experiencia-1" style="margin-bottom: 20px;">
             <div class="contenedor-imagen-mas-texto">
+                <!-- Mostramos la imagen de perfil del artista -->
                 <img src="<?= htmlspecialchars($img_perfil) ?>" alt="<?= htmlspecialchars($exp['nombre']) ?>">
                 <div class="contenedor-texto">
                     <h2>Experiencia #<?= $num_experiencia ?></h2>

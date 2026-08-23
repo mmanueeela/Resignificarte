@@ -12,19 +12,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_artista = trim($_POST['nombre_artista']);
     $pais = trim($_POST['pais']);
 
-    // 2. CREAR EL ARTISTA EN LA BASE DE DATOS
-    $stmt = $conexion->prepare("INSERT INTO artistas (nombre, pais) VALUES (?, ?)");
-    $stmt->bind_param("ss", $nombre_artista, $pais);
+    // Reemplazamos espacios por guiones bajos para que la ruta sea limpia
+    $nombre_carpeta = preg_replace('/[^a-zA-Z0-9_]/', '_', str_replace(' ', '_', $nombre_artista));
+
+    // --- NUEVO: PREPARAR CARPETAS Y SUBIR FOTO DEL ARTISTA ---
+    $dir_artistas = "../src/uploads/artistas/";
+    if (!file_exists($dir_artistas)) mkdir($dir_artistas, 0777, true);
+
+    $ruta_foto_artista = "";
+    if (isset($_FILES['foto_artista']['name']) && $_FILES['foto_artista']['error'] === 0) {
+        $ext = pathinfo($_FILES['foto_artista']['name'], PATHINFO_EXTENSION);
+        $nombre_img_artista = "artista_" . time() . "." . $ext;
+        $ruta_fisica = $dir_artistas . $nombre_img_artista;
+
+        if (move_uploaded_file($_FILES['foto_artista']['tmp_name'], $ruta_fisica)) {
+            $ruta_foto_artista = "src/uploads/artistas/" . $nombre_img_artista;
+        }
+    }
+
+    // 2. CREAR EL ARTISTA EN LA BASE DE DATOS (AHORA CON LA IMAGEN DE PERFIL)
+    $stmt = $conexion->prepare("INSERT INTO artistas (nombre, pais, imagen_perfil) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $nombre_artista, $pais, $ruta_foto_artista);
     if (!$stmt->execute()) {
         die("Error al guardar el artista en la base de datos.");
     }
     $artista_id = $stmt->insert_id; // Obtenemos el ID que se le acaba de asignar
     $stmt->close();
 
-    // 3. PREPARAR CARPETAS PARA LOS ARCHIVOS
-    // Reemplazamos espacios por guiones bajos para que la ruta sea limpia
-    $nombre_carpeta = preg_replace('/[^a-zA-Z0-9_]/', '_', str_replace(' ', '_', $nombre_artista));
-
+    // 3. PREPARAR CARPETAS PARA LOS CUADROS Y AUDIOS
     $dir_cuadros = "../src/uploads/cuadros/" . $nombre_carpeta . "/";
     $dir_audios = "../src/uploads/audios/" . $nombre_carpeta . "/";
 
@@ -43,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Si el checkbox de esta posición está marcado, es recompensa
         $es_recompensa = isset($recompensas[$i]) ? 1 : 0;
 
-        // --- SUBIR IMAGEN ---
+        // --- SUBIR IMAGEN DEL CUADRO ---
         $imagen_path = "";
         if (isset($_FILES['imagenes']['name'][$i]) && $_FILES['imagenes']['error'][$i] === 0) {
             $ext = pathinfo($_FILES['imagenes']['name'][$i], PATHINFO_EXTENSION);
@@ -56,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // --- SUBIR AUDIO ---
+        // --- SUBIR AUDIO DEL CUADRO ---
         $audio_path = "";
         if (isset($_FILES['audios']['name'][$i]) && $_FILES['audios']['error'][$i] === 0) {
             $ext = pathinfo($_FILES['audios']['name'][$i], PATHINFO_EXTENSION);

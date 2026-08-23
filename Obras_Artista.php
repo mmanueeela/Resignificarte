@@ -221,7 +221,7 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                         <!-- Etiqueta Comentado -->
                         <div id="badge-comentado-<?= $cuadro['id'] ?>" class="badge-comentado <?= ($cuadro['usuario_ya_comento']) ? 'visible' : '' ?>">
-                            Comentado ✔
+                            Comentado
                         </div>
                     </div>
                 </div>

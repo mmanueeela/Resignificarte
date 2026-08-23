@@ -231,3 +231,13 @@ body {
     }
 /* FIN FOOTER */
 /**************/
+
+/* =========================================================
+   FORZAR OCULTACIÓN DEL MENÚ MÓVIL EN ESCRITORIO
+========================================================= */
+@media (min-width: 1001px) {
+    .menu-navegacion-mobile,
+    #btn-menu {
+        display: none !important;
+    }
+}

@@ -124,7 +124,7 @@ while ($obra = $result_obras->fetch_assoc()) {
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_admin.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
             <?php endif; ?>
         </ul>
     </nav>
@@ -174,7 +174,7 @@ while ($obra = $result_obras->fetch_assoc()) {
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_admin.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+                <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
             <?php endif; ?>
             <hr class="separador-movil">
             <?php if ($usuario_logeado): ?>

@@ -38,7 +38,7 @@ $stmt->close();
     <nav class="menu-navegacion">
         <ul>
             <li><a href="obras.php">OBRAS</a></li>
-            <li><a href="homepage_admin.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <li><a href="homepage_administrador.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
         </ul>
     </nav>
 

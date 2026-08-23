@@ -162,7 +162,7 @@ $stmt->close();
                 <h3>Datos de la Experiencia</h3>
                 <div class="inputs-fila">
                     <input type="text" name="nombre_artista" placeholder="Nombre del Artista (Ej. Antonio Nieto)" required class="input-admin">
-                    <input type="text" name="pais" placeholder="País (Ej. México)" required class="input-admin">
+                    <input type="text" name="pais" placeholder="País (Ej. España)" required class="input-admin">
                 </div>
             </div>
 

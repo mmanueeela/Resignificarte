@@ -64,7 +64,7 @@ $stmt->close();
     <!-- Área de usuario (Ya trae el admin automáticamente) -->
     <div class="area-usuario-dropdown">
         <button class="area-usuario area-usuario-btn" id="btn-usuario">
-            <span class="enlace-acceder" style="color: #523479; font-weight: bold;">
+            <span class="enlace-acceder">
                 <?= htmlspecialchars($nombre_usuario) ?>
             </span>
             <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">

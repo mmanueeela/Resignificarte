@@ -52,10 +52,10 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
         <input type="hidden" name="accion" value="actualizar">
 
         <div class="menu">
-            <a href="homepage.php" class="btn-volver">
+            <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="btn-volver">
                 <img src="src/iconos/atras.svg" alt="Atrás" class="icono-blanco">
             </a>
-            <a href="homepage.php" class="logo-perfil">
+            <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="logo-perfil">
                 <img src="src/logo/logo_con_inifito.png" alt="Logo Resignificarte">
             </a>
             <button type="button" id="btn-editar-perfil" class="btn-lapiz" title="Editar Perfil">

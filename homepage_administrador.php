@@ -10,7 +10,13 @@ if (!$usuario_logeado || !isset($_SESSION['es_admin']) || $_SESSION['es_admin'] 
 }
 
 // Extraer todos los usuarios (excepto el propio admin actual) para poder gestionarlos
-$stmt = $conexion->prepare("SELECT id, nombre, apellidos, email, fecha_registro FROM usuarios WHERE id != ? ORDER BY fecha_registro DESC");
+$stmt = $conexion->prepare("
+    SELECT u.id, u.nombre, u.apellidos, c.email, u.fecha_registro 
+    FROM usuarios u
+    JOIN usuarios_credenciales c ON u.id = c.usuario_id
+    WHERE u.id != ? 
+    ORDER BY u.fecha_registro DESC
+");
 $stmt->bind_param("i", $_SESSION['usuario_id']);
 $stmt->execute();
 $result_usuarios = $stmt->get_result();

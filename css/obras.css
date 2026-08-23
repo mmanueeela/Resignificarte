@@ -168,9 +168,16 @@ main {
 }
 
 /* ---------------------------------------------------------
-   BOTÓN VER OBRAS
+   BOTONES VER OBRAS Y EDITAR
 --------------------------------------------------------- */
-.experiencia-1 > a {
+.contenedor-botones {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-ver-obras {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,9 +193,30 @@ main {
     transition: 0.3s;
 }
 
-.experiencia-1 > a:hover {
+.btn-ver-obras:hover {
     transform: scale(1.05);
     background-color: #674593;
+}
+
+.btn-editar-obra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;
+    height: 50px;
+    background-color: #f1c40f;
+    border-radius: 25px;
+    color: #200B30;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-editar-obra:hover {
+    transform: scale(1.05);
+    background-color: #f39c12;
 }
 
 /* ==============================
@@ -327,7 +355,7 @@ header > button {
         line-height: 50px;
     }
 
-    .experiencia-1 > a {
+    .btn-ver-obras {
         width: 220px;
         font-size: 20px;
     }
@@ -390,8 +418,8 @@ header > button {
         font-size: 15px;
     }
 
-    /* Botón más fino y compacto */
-    .experiencia-1 > a {
+    /* Botones más finos y compactos */
+    .btn-ver-obras, .btn-editar-obra {
         width: 100%;
         max-width: 250px;
         font-size: 16px;

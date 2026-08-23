@@ -146,11 +146,11 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
                 </div>
             </div>
             <!-- Enviamos el ID del artista por GET -->
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <a href="Obras_Artista.php?id=<?= $exp['artista_id'] ?>">Ver las obras</a>
+            <div class="contenedor-botones">
+                <a href="Obras_Artista.php?id=<?= $exp['artista_id'] ?>" class="btn-ver-obras">Ver las obras</a>
 
                 <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                    <a href="editar_experiencia.php?id=<?= $exp['artista_id'] ?>" style="background-color: #f1c40f; color: #200B30; padding: 0 25px; flex-shrink: 0; min-width: auto; text-align: center; border-radius: 25px; font-family: Montserrat, sans-serif; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; text-decoration: none;">Editar</a>
+                    <a href="editar_experiencia.php?id=<?= $exp['artista_id'] ?>" class="btn-editar-obra">Editar</a>
                 <?php endif; ?>
             </div>
         </section>

@@ -123,8 +123,13 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <!-- EXPERIENCIAS GENERADAS DINÁMICAMENTE -->
     <?php foreach ($experiencias as $index => $exp):
         $num_experiencia = $index + 1;
-        // Definimos la ruta de la imagen o un placeholder si hay error
-        $img_perfil = !empty($exp['imagen_portada']) ? $exp['imagen_portada'] : 'src/iconos/usuario.png';
+
+        // LÓGICA DE LA IMAGEN: Si es Antonio Nieto (ID 1), foto original. Si no, su primer cuadro.
+        if ($exp['artista_id'] == 1) {
+            $img_perfil = 'src/images/img_antonio_nieto.jpg';
+        } else {
+            $img_perfil = !empty($exp['imagen_portada']) ? $exp['imagen_portada'] : 'src/iconos/usuario.png';
+        }
         ?>
         <section class="experiencia-1" style="margin-bottom: 20px;">
             <div class="contenedor-imagen-mas-texto">
@@ -132,7 +137,6 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
                 <div class="contenedor-texto">
                     <h2>Experiencia #<?= $num_experiencia ?></h2>
                     <p>
-                        <!-- (Opcional: aquí podrías guardar banderas en BD, o poner un pin genérico) -->
                         <img src="src/iconos/bandera_mexico.png" alt="País">
                         Obras de <?= htmlspecialchars($exp['nombre']) ?>, <?= htmlspecialchars($exp['pais']) ?>
                     </p>

@@ -2,16 +2,36 @@
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 require_once 'php/conexion.php';
 
-// Si no está logeado, lo ideal sería mandarlo a login o bloquear la página
+// Si no está logeado, lo mandamos a login
 if (!$usuario_logeado) {
     header("Location: login.php");
     exit();
 }
 
-$artista_id = 1; // ID de Antonio Nieto en la BD
+// 1. COMPROBAR QUÉ ARTISTA QUEREMOS VER POR LA URL
+if (!isset($_GET['id'])) {
+    header("Location: obras.php");
+    exit();
+}
+
+$artista_id = intval($_GET['id']);
 $usuario_id = $_SESSION['usuario_id'];
 
-// 1. Lógica de Desbloqueo (Comprobar si merece ver el cuadro secreto)
+// Obtener el nombre del artista para el título
+$stmt = $conexion->prepare("SELECT nombre FROM artistas WHERE id = ?");
+$stmt->bind_param("i", $artista_id);
+$stmt->execute();
+$stmt->bind_result($nombre_artista_bd);
+$stmt->fetch();
+$stmt->close();
+
+// Si el artista no existe, volver a obras
+if (!$nombre_artista_bd) {
+    header("Location: obras.php");
+    exit();
+}
+
+// 2. Lógica de Desbloqueo (Comprobar si merece ver el cuadro secreto)
 $stmt = $conexion->prepare("SELECT COUNT(*) FROM obras WHERE artista_id = ? AND es_recompensa = 0");
 $stmt->bind_param("i", $artista_id);
 $stmt->execute();
@@ -31,9 +51,10 @@ $stmt->bind_result($comentadas);
 $stmt->fetch();
 $stmt->close();
 
-$ha_desbloqueado = ($comentadas >= $total_normales);
+// Añadimos $total_normales > 0 para evitar que desbloquee sin haber cuadros normales
+$ha_desbloqueado = ($comentadas >= $total_normales && $total_normales > 0);
 
-// 2. Extraer Obras a mostrar
+// 3. Extraer Obras a mostrar
 $sql = "SELECT * FROM obras WHERE artista_id = ?";
 if (!$ha_desbloqueado) {
     $sql .= " AND es_recompensa = 0"; // Ocultar recompensas si no cumple
@@ -45,9 +66,9 @@ $result_obras = $stmt->get_result();
 
 $cuadros = [];
 while ($obra = $result_obras->fetch_assoc()) {
-    // Para cada obra, sacar sus comentarios (Ordenando primero por tus propios comentarios)
+    // Para cada obra, sacar sus comentarios (AÑADIMOS c.id AS id_comentario PARA PODER BORRARLO)
     $stmt_com = $conexion->prepare("
-        SELECT c.comentario, c.usuario_id, u.nombre 
+        SELECT c.id AS id_comentario, c.comentario, c.usuario_id, u.nombre 
         FROM comentarios c 
         JOIN usuarios u ON c.usuario_id = u.id 
         WHERE c.obra_id = ? 
@@ -79,7 +100,8 @@ while ($obra = $result_obras->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Obras Antonio Nieto - Resignificarte</title>
+    <!-- TÍTULO DINÁMICO -->
+    <title>Obras <?= htmlspecialchars($nombre_artista_bd) ?> - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/obras.css">
     <link rel="stylesheet" href="css/obras_general.css">
@@ -101,6 +123,9 @@ while ($obra = $result_obras->fetch_assoc()) {
         <ul>
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_admin.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -146,14 +171,17 @@ while ($obra = $result_obras->fetch_assoc()) {
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="#">OBRAS</a></li>
+            <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_admin.php" style="color: #523479; text-decoration: underline;">PANEL ADMIN</a></li>
+            <?php endif; ?>
             <hr class="separador-movil">
             <?php if ($usuario_logeado): ?>
                 <li>
                     <a href="perfil_usuario.php">
                         <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
-                        Mi perfil (<?= htmlspecialchars($nombre_usuario) ?>)
+                        Mi perfil
                     </a>
                 </li>
                 <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
@@ -175,7 +203,8 @@ while ($obra = $result_obras->fetch_assoc()) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
             Volver a Obras
         </a>
-        <h1>Antonio Nieto</h1>
+        <!-- NOMBRE DEL ARTISTA DINÁMICO -->
+        <h1><?= htmlspecialchars($nombre_artista_bd) ?></h1>
         <?php if ($ha_desbloqueado): ?>
             <p style="color: #523479; font-family: Montserrat; font-weight: bold;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
         <?php endif; ?>
@@ -199,7 +228,7 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                         <!-- Etiqueta Comentado -->
                         <div id="badge-comentado-<?= $cuadro['id'] ?>" class="badge-comentado <?= ($cuadro['usuario_ya_comento']) ? 'visible' : '' ?>">
-                            Comentado
+                            Comentado ✔
                         </div>
                     </div>
                 </div>
@@ -265,7 +294,16 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                                     <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
                                     <?php if($com['usuario_id'] == $usuario_id): ?>
-                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
+                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
+                                    <?php endif; ?>
+
+                                    <!-- BOTÓN DE ELIMINAR COMENTARIO (SOLO PARA ADMIN) -->
+                                    <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                                        <form action="php/eliminar_comentario.php" method="POST" style="display:inline; float:right;" onsubmit="return confirm('¿Seguro que quieres borrar este comentario permanentemente?');">
+                                            <input type="hidden" name="id_comentario" value="<?= $com['id_comentario'] ?>">
+                                            <input type="hidden" name="id_artista" value="<?= $artista_id ?>">
+                                            <button type="submit" style="background:none; border:none; color:#ff4757; cursor:pointer; font-size: 12px; text-decoration:underline; font-family: Montserrat, sans-serif;">Eliminar</button>
+                                        </form>
                                     <?php endif; ?>
 
                                     <p style="margin: 5px 0 0 0;"><?= htmlspecialchars($com['comentario']) ?></p>

@@ -200,7 +200,12 @@ if (isset($_GET['code'])) {
 
             $consulta->close();
 
-            header("Location: ../telefono_google.php");
+            // Redirección dependiendo del rol
+            if ($_SESSION['es_admin'] == 1) {
+                header("Location: ../homepage_admin.php?login=exito");
+            } else {
+                header("Location: ../homepage.php?login=exito");
+            }
             exit();
         }
 

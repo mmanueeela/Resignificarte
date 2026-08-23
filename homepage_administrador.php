@@ -24,9 +24,9 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
-    <link rel="stylesheet" href="css/admin.css"> <!-- Nuevo CSS -->
+    <link rel="stylesheet" href="css/admin.css">
     <script src="js/menu_hamburguesa.js" defer></script>
-    <script src="js/admin.js" defer></script> <!-- Nuevo JS -->
+    <script src="js/admin.js" defer></script>
 </head>
 <body>
 <header>

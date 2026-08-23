@@ -57,8 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
         }
 
-        // Login correcto
-        header("Location: ../homepage.php");
+        // Redirección dependiendo del rol
+        if ($_SESSION['es_admin'] == 1) {
+            header("Location: ../homepage_admin.php");
+        } else {
+            header("Location: ../homepage.php");
+        }
         exit();
 
     } else {

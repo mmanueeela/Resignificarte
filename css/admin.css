@@ -286,3 +286,92 @@
 .checkbox-recompensa:hover {
     background-color: #fff4cc;
 }
+
+/* =========================================================
+   RESPONSIVE MÓVIL (PANEL ADMINISTRADOR)
+========================================================= */
+
+@media (max-width: 800px) {
+    /* 1. Ajustar márgenes generales */
+    .main-admin {
+        padding: 20px 15px;
+        min-height: calc(100vh - 100px);
+    }
+
+    /* 2. Textos de la cabecera centrados y más pequeños */
+    .cabecera-admin h1 {
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .cabecera-admin p {
+        font-size: 15px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /* 3. Secciones y bloques con menos padding interior */
+    .admin-seccion {
+        padding: 20px 15px;
+        margin-bottom: 25px;
+    }
+
+    .admin-seccion h2 {
+        font-size: 20px;
+    }
+
+    .bloque-formulario, .bloque-cuadro {
+        padding: 20px 15px;
+    }
+
+    .bloque-cuadro h3, .bloque-formulario h3 {
+        font-size: 18px;
+    }
+
+    /* 4. Tabla de usuarios más compacta (ya tiene overflow-x: auto) */
+    .tabla-usuarios th, .tabla-usuarios td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    /* 5. Inputs y botones al 100% de ancho para que no se salgan de la pantalla */
+    .input-admin,
+    .input-file-custom,
+    .btn-principal,
+    .btn-secundario {
+        min-width: 100%; /* Forzamos a que ocupen todo el ancho en móvil */
+        margin-bottom: 10px; /* Separación extra al apilarse */
+    }
+
+    .inputs-fila {
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-direction: column; /* Apilamos los inputs uno debajo de otro */
+    }
+
+    .acciones-form {
+        flex-direction: column; /* Botones de guardar uno debajo de otro */
+        gap: 15px;
+    }
+
+    /* 6. Cabecera del cuadro y botón de eliminar cuadro (si lo añades por JS) */
+    .cabecera-cuadro {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .btn-quitar-cuadro {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+
+    /* 7. Checkbox recompensa adaptado */
+    .checkbox-recompensa {
+        font-size: 13px;
+        padding: 12px;
+        text-align: center;
+        justify-content: center;
+    }
+}

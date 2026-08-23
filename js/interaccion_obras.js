@@ -122,7 +122,7 @@ formulariosComentario.forEach(form => {
                     nuevoComentario.classList.add('comentario-item');
                     nuevoComentario.innerHTML = `
                         <strong>${data.nombre_usuario}</strong>
-                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
+                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
                         <p style="margin: 5px 0 0 0;">${comentario}</p>
                     `;
                     listaComentarios.prepend(nuevoComentario);

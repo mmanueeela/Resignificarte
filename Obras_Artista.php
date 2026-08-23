@@ -295,7 +295,7 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                                     <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
                                     <?php if($com['usuario_id'] == $usuario_id): ?>
-                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú) ✔</span>
+                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
                                     <?php endif; ?>
 
                                     <!-- BOTÓN DE ELIMINAR COMENTARIO (SOLO PARA ADMIN) -->

@@ -182,59 +182,6 @@ main .img-fondo-container img {
 }
 
 /* ==============================
-   MENÚ DESPLEGABLE MÓVIL
-   ============================== */
-header {
-    position: relative;
-}
-
-.menu-navegacion-mobile {
-    position: absolute;
-    top: 100%;
-    left: 0;
-
-    width: 100%;
-
-    background-color: #200B30;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-
-    max-height: 0;
-    overflow: hidden;
-
-    transition: max-height 0.9s ease-in-out;
-
-    z-index: 999;
-}
-
-.menu-navegacion-mobile.abierto {
-    max-height: 400px;
-}
-
-.menu-navegacion-mobile ul {
-    list-style: none;
-    padding: 25px;
-}
-
-.menu-navegacion-mobile li {
-    margin: 20px 0;
-}
-
-.menu-navegacion-mobile a {
-    color: white;
-    text-decoration: none;
-    font-family: Montserrat, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.menu-navegacion-mobile hr.separador-movil {
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Línea blanca muy sutil */
-    margin: 25px 0;
-}
-
-/* ==============================
    ANIMACIÓN FLECHA
    ============================== */
 
@@ -254,20 +201,6 @@ header {
 
 .hola {
     margin: 500px;
-}
-
-@media (max-width: 1500px) {
-    .info_principal {
-        width: 50%;
-    }
-}
-
-/* ==============================
-   MENÚ HAMBURGUESA
-   ============================== */
-
-header > button {
-    display: none;
 }
 
 /* ==============================
@@ -299,57 +232,8 @@ header > button {
     }
 }
 
-header > button {
-    display: none;
-}
-
 @media (max-width: 1000px) {
-    /* 1. OCULTAR EL MENÚ Y USUARIO DE ESCRITORIO */
-    .menu-navegacion,
-    .area-usuario-dropdown,
-    a.area-usuario {
-        display: none !important;
-    }
-
-    /* 2. MOSTRAR EL BOTÓN HAMBURGUESA */
-    header > button {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 2rem;
-        height: 3rem;
-        border: 0;
-        background: transparent;
-        gap: 8px;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    header > button > div {
-        background-color: #fff;
-        height: 2px;
-        width: 100%;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        transform-origin: center;
-    }
-
-    /* 3. ANIMACIÓN DEL BOTÓN (Forma de flecha) */
-    #btn-menu.activo div:nth-child(1) {
-        transform: translateY(10px) rotate(45deg);
-        width: 70%;
-    }
-
-    #btn-menu.activo div:nth-child(2) {
-        opacity: 0;
-    }
-
-    #btn-menu.activo div:nth-child(3) {
-        transform: translateY(-10px) rotate(-45deg);
-        width: 70%;
-    }
-
-    /* 4. OCULTAR FLECHA DE BAJAR EN MÓVILES */
+    /* OCULTAR FLECHA DE BAJAR EN MÓVILES */
     .btn-bajar {
         display: none !important;
     }

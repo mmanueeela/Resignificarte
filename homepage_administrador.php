@@ -46,8 +46,11 @@ $stmt->close();
         </a>
     </div>
 
+    <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
+            <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
+
             <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
@@ -84,6 +87,8 @@ $stmt->close();
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
+            <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
+
             <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
@@ -99,7 +104,7 @@ $stmt->close();
                 <li>
                     <a href="perfil_usuario.php">
                         <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
-                        Mi perfil
+                        Mi perfil (<?= htmlspecialchars(explode(' ', trim($nombre_usuario))[0]) ?>)
                     </a>
                 </li>
                 <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>

@@ -56,10 +56,20 @@ $stmt_obras->close();
         </a>
     </div>
 
+    <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="obras.php" class="activo">OBRAS</a></li>
-            <li><a href="homepage_administrador.php">PANEL ADMIN</a></li>
+            <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
+
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -81,13 +91,38 @@ $stmt_obras->close();
     <button id="btn-menu">
         <div></div><div></div><div></div>
     </button>
+    <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="obras.php" class="activo">OBRAS</a></li>
-            <li><a href="homepage_administrador.php">PANEL ADMIN</a></li>
+            <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
+
+            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">OBRAS</a></li>
+
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
+            <?php endif; ?>
+
             <hr class="separador-movil">
-            <li><a href="perfil_usuario.php">Mi perfil</a></li>
-            <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
+            <?php if ($usuario_logeado): ?>
+                <li>
+                    <a href="perfil_usuario.php">
+                        <img src="<?= htmlspecialchars($ruta_foto) ?>" alt="Usuario" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
+                        Mi perfil (<?= htmlspecialchars(explode(' ', trim($nombre_usuario))[0]) ?>)
+                    </a>
+                </li>
+                <li><a href="php/cerrar_sesion.php" style="color: #ff8787;">Cerrar Sesión</a></li>
+            <?php else: ?>
+                <li>
+                    <a href="login.php">
+                        <img src="src/iconos/usuario.png" alt="Icono de usuario" style="width: 20px; vertical-align: middle; margin-right: 10px;">
+                        Acceder
+                    </a>
+                </li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>

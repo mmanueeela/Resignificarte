@@ -540,7 +540,7 @@ html {
     .fila-cuadro.layout-columna {
         flex-direction: column;
         gap: 25px;
-        padding: 20px 15px; /* Hacemos la tarjeta blanca más ancha por dentro */
+        padding: 20px 15px;
     }
 
     .imagen-obra,
@@ -548,9 +548,14 @@ html {
         max-width: 100%;
     }
 
+    .cabecera-artista {
+        margin: 0;
+    }
+
     /* 3. Título un poco más compacto */
     .cabecera-artista h1 {
         font-size: 45px;
+        margin: 30px 0;
         text-align: center;
     }
 
@@ -568,6 +573,7 @@ html {
     .btn-play-pause {
         width: 35px;
         height: 35px;
+        margin-right: 5px;
     }
 
     .btn-reiniciar svg {

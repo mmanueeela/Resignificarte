@@ -275,7 +275,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                             </form>
                         <?php else: ?>
                             <div class="mensaje-registro-comentario">
-                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para comentar y desbloquear la obra secreta.</p>
+                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para poder comentar las obras y así desbloquear la obra secreta.</p>
                             </div>
                         <?php endif; ?>
                     </div>

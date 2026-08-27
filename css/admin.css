@@ -30,11 +30,13 @@
     font-family: Montserrat, sans-serif;
     color: #523479;
     margin-top: 0;
-    border-bottom: 2px solid rgba(82, 52, 121, 0.2);
     padding-bottom: 15px;
 }
 
-/* --- TABLA USUARIOS --- */
+/* =========================================================
+   TABLA USUARIOS
+========================================================= */
+
 .tabla-contenedor {
     overflow-x: auto;
 }
@@ -45,7 +47,8 @@
     font-family: Montserrat, sans-serif;
 }
 
-.tabla-usuarios th, .tabla-usuarios td {
+.tabla-usuarios th,
+.tabla-usuarios td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -71,7 +74,10 @@
     background-color: #ff6b81;
 }
 
-/* --- SEPARADOR DE SECCIONES --- */
+/* =========================================================
+   SEPARADOR DE SECCIONES
+========================================================= */
+
 .separador-admin {
     border: none;
     height: 1px;
@@ -80,7 +86,10 @@
     border-radius: 50px;
 }
 
-/* --- FORMULARIO EXPERIENCIAS --- */
+/* =========================================================
+   FORMULARIO EXPERIENCIAS
+========================================================= */
+
 .form-experiencia {
     display: flex;
     flex-direction: column;
@@ -88,7 +97,8 @@
     font-family: Montserrat, sans-serif;
 }
 
-.bloque-formulario, .bloque-cuadro {
+.bloque-formulario,
+.bloque-cuadro {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 20px;
@@ -98,7 +108,10 @@
     margin-bottom: 25px;
 }
 
-/* --- SUBTÍTULO DE LA SECCIÓN --- */
+/* =========================================================
+   SUBTÍTULO DE LA SECCIÓN
+========================================================= */
+
 .subtitulo-seccion {
     font-family: Montserrat, sans-serif;
     font-size: 16px;
@@ -107,11 +120,13 @@
     line-height: 1.5;
 }
 
-.bloque-formulario:hover, .bloque-cuadro:hover {
-    transform: translateY(-2px); /* Pequeña elevación al pasar el ratón */
+.bloque-formulario:hover,
+.bloque-cuadro:hover {
+    transform: translateY(-2px);
 }
 
-.bloque-cuadro h3, .bloque-formulario h3 {
+.bloque-cuadro h3,
+.bloque-formulario h3 {
     color: #523479;
     margin-top: 0;
     margin-bottom: 20px;
@@ -119,6 +134,10 @@
     border-bottom: 1px solid rgba(82, 52, 121, 0.1);
     padding-bottom: 10px;
 }
+
+/* =========================================================
+   FILA DE INPUTS
+========================================================= */
 
 .inputs-fila {
     display: flex;
@@ -147,9 +166,13 @@
     box-shadow: 0 0 10px rgba(82, 52, 121, 0.15);
 }
 
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
 .textarea-admin {
     width: 100%;
-    box-sizing: border-box; /* CLAVE: Evita que la caja se salga por la derecha */
+    box-sizing: border-box;
     height: 140px;
     padding: 16px 20px;
     border: 1px solid #d5c4e6;
@@ -169,7 +192,10 @@
     box-shadow: 0 0 10px rgba(82, 52, 121, 0.15);
 }
 
-/* Cajas personalizadas para subir archivos */
+/* =========================================================
+   CAJAS PERSONALIZADAS PARA SUBIR ARCHIVOS
+========================================================= */
+
 .input-file-custom {
     flex: 1;
     background-color: #f4f1f8;
@@ -187,7 +213,7 @@
     min-width: 0;
     box-sizing: border-box;
     overflow: hidden;
-    position: relative; /* CLAVE: Para posicionar el input invisible */
+    position: relative;
 }
 
 .input-file-custom:hover {
@@ -201,21 +227,21 @@
     text-align: center;
     width: 100%;
     margin-bottom: 5px;
-    pointer-events: none; /* Evita que el label bloquee el clic */
+    pointer-events: none;
 }
 
-/* CLAVE: Hacemos el input invisible pero que ocupe TODA la caja para que al hacer clic en cualquier lado funcione */
+/* Input real invisible */
 .input-file-custom input[type="file"] {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0; /* Es invisible pero está ahí */
+    opacity: 0;
     cursor: pointer;
 }
 
-/* Botón falso (solo visual) */
+/* Botón visual */
 .input-file-custom .btn-falso {
     background-color: #523479;
     color: white;
@@ -225,7 +251,7 @@
     font-size: 12px;
     font-weight: 600;
     transition: all 0.2s;
-    pointer-events: none; /* No recibe clics, los recibe el input invisible que está encima */
+    pointer-events: none;
 }
 
 .input-file-custom:hover .btn-falso {
@@ -244,14 +270,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     position: relative;
-    z-index: 2; /* Para que quede por encima visualmente */
+    z-index: 2;
     pointer-events: none;
 }
 
-/* Cuando pasamos por encima */
-.input-file-custom:hover::after {
-    background-color: #200B30;
-}
+/* =========================================================
+   CABECERA DE LOS CUADROS
+========================================================= */
 
 .cabecera-cuadro {
     display: flex;
@@ -277,6 +302,10 @@
     color: white;
 }
 
+/* =========================================================
+   BOTONES DEL FORMULARIO
+========================================================= */
+
 .acciones-form {
     display: flex;
     gap: 20px;
@@ -284,7 +313,8 @@
     flex-wrap: wrap;
 }
 
-.btn-principal, .btn-secundario {
+.btn-principal,
+.btn-secundario {
     padding: 18px 35px;
     border-radius: 30px;
     font-family: Montserrat, sans-serif;
@@ -320,7 +350,10 @@
     color: white;
 }
 
-/* Caja del cuadro secreto para que resalte */
+/* =========================================================
+   CHECKBOX RECOMPENSA
+========================================================= */
+
 .checkbox-recompensa {
     font-family: Montserrat, sans-serif;
     color: #e1b12c;
@@ -342,17 +375,24 @@
 }
 
 /* =========================================================
-   RESPONSIVE MÓVIL (PANEL ADMINISTRADOR)
+   RESPONSIVE MÓVIL
 ========================================================= */
 
 @media (max-width: 860px) {
-    /* 1. Ajustar márgenes generales */
+
+    /* -----------------------------------------------------
+       AJUSTES GENERALES
+    ----------------------------------------------------- */
+
     .main-admin {
         padding: 20px 15px;
         min-height: calc(100vh - 100px);
     }
 
-    /* 2. Textos de la cabecera centrados y más pequeños */
+    /* -----------------------------------------------------
+       CABECERA
+    ----------------------------------------------------- */
+
     .cabecera-admin h1 {
         font-size: 35px;
         text-align: center;
@@ -364,7 +404,10 @@
         margin-bottom: 25px;
     }
 
-    /* 3. Secciones y bloques con menos padding interior */
+    /* -----------------------------------------------------
+       SECCIONES
+    ----------------------------------------------------- */
+
     .admin-seccion {
         padding: 20px 15px;
         margin-bottom: 25px;
@@ -374,41 +417,128 @@
         font-size: 20px;
     }
 
-    .bloque-formulario, .bloque-cuadro {
+    /* -----------------------------------------------------
+       BLOQUES DE FORMULARIO
+    ----------------------------------------------------- */
+
+    .bloque-formulario,
+    .bloque-cuadro {
         padding: 20px 15px;
     }
 
-    .bloque-cuadro h3, .bloque-formulario h3 {
+    .bloque-cuadro h3,
+    .bloque-formulario h3 {
         font-size: 18px;
     }
 
-    /* 4. Tabla de usuarios más compacta (ya tiene overflow-x: auto) */
-    .tabla-usuarios th, .tabla-usuarios td {
-        padding: 10px;
-        font-size: 13px;
+    /* -----------------------------------------------------
+       TABLA DE USUARIOS
+       En móvil se transforma en tarjetas
+    ----------------------------------------------------- */
+
+    .tabla-contenedor {
+        overflow-x: visible;
     }
 
-    /* 5. Inputs y botones al 100% de ancho para que no se salgan de la pantalla */
+    .tabla-usuarios {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    /* Ocultamos las cabeceras de la tabla */
+    .tabla-usuarios thead {
+        display: none;
+    }
+
+    /* Cada usuario se convierte en una tarjeta */
+    .tabla-usuarios tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .tabla-usuarios tr {
+        display: block;
+        background-color: #fcfbfe;
+        border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(82, 52, 121, 0.1);
+    }
+
+    /* Cada dato ocupa una fila */
+    .tabla-usuarios td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(82, 52, 121, 0.1);
+        font-size: 13px;
+        min-width: 0;
+        text-align: right;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+    }
+
+    /* Quitamos la línea del último elemento */
+    .tabla-usuarios td:last-child {
+        border-bottom: none;
+    }
+
+    /* Etiqueta izquierda */
+    .tabla-usuarios td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: #523479;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    /* Evita problemas con emails largos */
+    .tabla-usuarios td {
+        word-break: break-word;
+    }
+
+    /* Formulario del botón eliminar */
+    .tabla-usuarios td form {
+        margin: 0;
+    }
+
+    /* Botón eliminar */
+    .tabla-usuarios .btn-eliminar {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    /* -----------------------------------------------------
+       INPUTS Y BOTONES
+    ----------------------------------------------------- */
+
     .input-admin,
     .input-file-custom,
     .btn-principal,
     .btn-secundario {
-        min-width: 100%; /* Forzamos a que ocupen todo el ancho en móvil */
-        margin-bottom: 10px; /* Separación extra al apilarse */
+        min-width: 100%;
+        margin-bottom: 10px;
     }
 
     .inputs-fila {
         gap: 10px;
         margin-bottom: 10px;
-        flex-direction: column; /* Apilamos los inputs uno debajo de otro */
+        flex-direction: column;
     }
 
     .acciones-form {
-        flex-direction: column; /* Botones de guardar uno debajo de otro */
+        flex-direction: column;
         gap: 15px;
     }
 
-    /* 6. Cabecera del cuadro y botón de eliminar cuadro (si lo añades por JS) */
+    /* -----------------------------------------------------
+       CABECERA DEL CUADRO
+    ----------------------------------------------------- */
+
     .cabecera-cuadro {
         flex-direction: column;
         align-items: flex-start;
@@ -421,7 +551,10 @@
         padding: 12px;
     }
 
-    /* 7. Checkbox recompensa adaptado */
+    /* -----------------------------------------------------
+       CHECKBOX RECOMPENSA
+    ----------------------------------------------------- */
+
     .checkbox-recompensa {
         font-size: 13px;
         padding: 12px;

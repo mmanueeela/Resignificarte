@@ -529,12 +529,12 @@ html {
    RESPONSIVE MÓVIL (AJUSTES PARA PANTALLAS PEQUEÑAS)
 ========================================================= */
 @media (max-width: 900px) {
-    /* 1. Aprovechar más el ancho de la pantalla reduciendo márgenes */
-    .main-obras-artista {
-        padding: 20px 15px; /* Menos padding lateral exterior */
+    .main-obras-artista,
+    .main-obra {
+        padding: 20px 15px;
     }
 
-    /* 2. Todos los cuadros en columna y con menos padding interno */
+
     .fila-cuadro,
     .fila-cuadro.inversa,
     .fila-cuadro.layout-columna {
@@ -552,7 +552,6 @@ html {
         margin: 0;
     }
 
-    /* 3. Título un poco más compacto */
     .cabecera-artista h1 {
         font-size: 45px;
         margin: 30px 0;
@@ -564,7 +563,6 @@ html {
         margin-bottom: 15px;
     }
 
-    /* 4. Reproductor de audio ajustado */
     .reproductor-audio {
         padding: 8px 12px;
         gap: 10px;
@@ -582,12 +580,11 @@ html {
     }
 
     .onda-audio {
-        font-size: 13px; /* Texto más pequeño para que no desborde */
+        font-size: 13px;
     }
 
-    /* 5. Zona de comentarios (Inputs y botones) */
     .form-comentario {
-        gap: 10px; /* Acercamos el input al botón */
+        gap: 10px;
     }
 
     .input-comentario {
@@ -598,7 +595,7 @@ html {
     .btn-enviar-comentario {
         width: 45px;
         height: 45px;
-        flex-shrink: 0; /* CLAVE: Evita que el botón se aplaste y se haga ovalado */
+        flex-shrink: 0;
     }
 
     .btn-enviar-comentario svg {

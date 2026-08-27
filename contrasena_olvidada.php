@@ -19,6 +19,12 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
 
 <main>
     <div class="forgot-container">
+        <!-- Botón volver atrás a Login -->
+        <a href="login.php" class="btn-volver-atras" title="Volver al Login">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </a>
         <!-- Logo -->
         <div class="logo-container">
             <a href="homepage.php"><img src="src/logo/logo_con_inifito.png" alt="Imagen del logo"></a>

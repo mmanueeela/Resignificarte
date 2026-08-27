@@ -165,20 +165,6 @@ main {
     transform: scale(1.05) translateX(-3px);
 }
 
-/* Ajuste para móviles */
-@media (max-width: 560px) {
-    .btn-volver-atras {
-        top: 20px;
-        left: 20px;
-        width: 35px;
-        height: 35px;
-    }
-    .btn-volver-atras svg {
-        width: 18px;
-        height: 18px;
-    }
-}
-
 /* ---------------------------------------------------------
    MENSAJE DE ERROR / ÉXITO
 --------------------------------------------------------- */

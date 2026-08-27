@@ -41,7 +41,7 @@ if (!empty($token)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restablecer Contraseña - Resignificarte</title>
+    <title>Restablecer contraseña - Resignificarte</title>
     <link rel="stylesheet" href="../css/estilos_comunes.css">
     <link rel="stylesheet" href="../css/restablecer_contrasena.css">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
@@ -51,6 +51,12 @@ if (!empty($token)) {
 <body>
 <main>
     <div class="forgot-container">
+        <!-- Botón volver atrás a Login -->
+        <a href="../login.php" class="btn-volver-atras" title="Volver al Login">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </a>
         <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
             <a href="../homepage.php">
                 <img src="../src/logo/logo_con_inifito.png" alt="Logo">

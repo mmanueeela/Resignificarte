@@ -1,0 +1,74 @@
+/* =========================================================
+   BIOGRAFÍA ANTONIO NIETO (OBRAS)
+========================================================= */
+.info-antonio-nieto {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 10px auto 40px auto;
+    padding: 35px 45px;
+
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-left: 5px solid #523479;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    overflow: hidden;
+}
+
+/* Comilla gigante decorativa de fondo */
+.info-antonio-nieto::before {
+    content: "“";
+    position: absolute;
+    top: -40px;
+    left: 10px;
+    font-family: 'TheSignature', serif;
+    font-size: 180px;
+    color: rgba(82, 52, 121, 0.1);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.info-antonio-nieto p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #443355;
+    text-align: justify;
+}
+
+.info-antonio-nieto p strong {
+    color: #523479;
+    font-size: 17px;
+}
+
+/* =========================================================
+   RESPONSIVE MÓVIL
+========================================================= */
+@media (max-width: 900px) {
+    .info-antonio-nieto {
+        max-width: 100%;
+        padding: 25px 20px;
+        margin-bottom: 30px;
+        border-radius: 0 15px 15px 0;
+    }
+
+    .info-antonio-nieto::before {
+        font-size: 130px;
+        top: -20px;
+        left: 5px;
+    }
+
+    .info-antonio-nieto p {
+        font-size: 14.5px;
+        line-height: 1.6;
+        text-align: left;
+    }
+}

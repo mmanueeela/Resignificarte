@@ -101,11 +101,11 @@ while ($obra = $result_obras->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- TÍTULO DINÁMICO -->
     <title>Obras <?= htmlspecialchars($nombre_artista_bd) ?> - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
     <link rel="stylesheet" href="css/obras.css">
     <link rel="stylesheet" href="css/obras_general.css">
+    <link rel="stylesheet" href="css/info_antonio_nieto_obras.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
     <script src="js/menu_hamburguesa.js" defer></script>
@@ -207,8 +207,19 @@ while ($obra = $result_obras->fetch_assoc()) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
             Volver a Obras
         </a>
+
         <!-- NOMBRE DEL ARTISTA DINÁMICO -->
         <h1><?= htmlspecialchars($nombre_artista_bd) ?></h1>
+
+        <!-- NUEVO: BIOGRAFÍA SOLO PARA ANTONIO NIETO (ID 1) -->
+        <?php if ($artista_id == 1): ?>
+            <div class="info-antonio-nieto">
+                <p>
+                    <strong>Antonio Nieto</strong>, artista mexicano, pintor, muralista y académico, teje en su obra un diálogo vivo entre el rigor de las técnicas tradicionales y la fuerza del lenguaje contemporáneo. Con una formación de excelencia que culmina en su Doctorado en Artes y Diseño por la UNAM y estancias en la Universidad Complutense de Madrid, su universo plástico se expande tanto en el lienzo como en la monumentalidad del muro, avalado por más de quince intervenciones murales, dieciocho años de apasionada labor docente y una sólida presencia internacional en más de treinta exposiciones que han recorrido recintos emblemáticos de México, España, Italia, Alemania y Cuba.
+                </p>
+            </div>
+        <?php endif; ?>
+
         <?php if ($ha_desbloqueado): ?>
             <p style="color: #523479; font-family: Montserrat; font-weight: bold; margin-bottom: 10px;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
         <?php endif; ?>

@@ -136,7 +136,7 @@ $stmt_obras->close();
     </div>
 
     <section class="admin-seccion">
-        <h2 style="font-family: Montserrat, sans-serif; font-size: 45px; color: #523479; margin: 0; font-weight: bold;">Editar Experiencia</h2>
+        <h2>Editar Experiencia</h2>
         <p class="subtitulo-seccion">Modifica los datos del artista o actualiza sus cuadros.</p>
 
         <form action="php/procesar_edicion.php" method="POST" enctype="multipart/form-data" class="form-experiencia">

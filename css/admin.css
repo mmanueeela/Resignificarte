@@ -28,9 +28,11 @@
 
 .admin-seccion h2 {
     font-family: Montserrat, sans-serif;
+    font-size: 45px;
     color: #523479;
-    margin-top: 0;
+    margin: 0;
     padding-bottom: 15px;
+    font-weight: bold;
 }
 
 /* =========================================================
@@ -414,7 +416,7 @@
     }
 
     .admin-seccion h2 {
-        font-size: 20px;
+        text-align: center;
     }
 
     /* -----------------------------------------------------
@@ -581,5 +583,11 @@
         padding: 12px;
         text-align: center;
         justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-seccion h2 {
+        font-size: 25px;
     }
 }

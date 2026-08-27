@@ -2,11 +2,7 @@
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 require_once 'php/conexion.php';
 
-// Si no está logeado, lo mandamos a login
-if (!$usuario_logeado) {
-    header("Location: login.php");
-    exit();
-}
+// ¡ELIMINADA LA REDIRECCIÓN AL LOGIN! Ahora los invitados pueden entrar.
 
 // 1. COMPROBAR QUÉ ARTISTA QUEREMOS VER POR LA URL
 if (!isset($_GET['id'])) {
@@ -18,7 +14,9 @@ if (!isset($_GET['id'])) {
 $pagina_actual = basename($_SERVER['PHP_SELF']);
 
 $artista_id = intval($_GET['id']);
-$usuario_id = $_SESSION['usuario_id'];
+
+// CLAVE: Si está logeado, cogemos su ID. Si no, le asignamos 0 para que la base de datos no dé error.
+$usuario_id = $usuario_logeado ? $_SESSION['usuario_id'] : 0;
 
 // Obtener el nombre del artista para el título
 $stmt = $conexion->prepare("SELECT nombre FROM artistas WHERE id = ?");
@@ -69,7 +67,7 @@ $result_obras = $stmt->get_result();
 
 $cuadros = [];
 while ($obra = $result_obras->fetch_assoc()) {
-    // Para cada obra, sacar sus comentarios (AÑADIMOS c.id AS id_comentario PARA PODER BORRARLO)
+    // Para cada obra, sacar sus comentarios
     $stmt_com = $conexion->prepare("
         SELECT c.id AS id_comentario, c.comentario, c.usuario_id, u.nombre 
         FROM comentarios c 
@@ -85,7 +83,7 @@ while ($obra = $result_obras->fetch_assoc()) {
     $usuario_ya_comento = false;
 
     while ($com = $res_com->fetch_assoc()) {
-        if ($com['usuario_id'] == $usuario_id) {
+        if ($com['usuario_id'] == $usuario_id && $usuario_id != 0) {
             $usuario_ya_comento = true;
         }
         $comentarios[] = $com;
@@ -231,7 +229,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                     <div class="wrapper-imagen">
                         <img src="<?= htmlspecialchars($cuadro['imagen']) ?>" alt="<?= htmlspecialchars($cuadro['titulo']) ?>" class="imagen-obra">
 
-                        <!-- Etiqueta Comentado -->
+                        <!-- Etiqueta Comentado (Solo se muestra si es usuario y ha comentado) -->
                         <div id="badge-comentado-<?= $cuadro['id'] ?>" class="badge-comentado <?= ($cuadro['usuario_ya_comento']) ? 'visible' : '' ?>">
                             Comentado
                         </div>
@@ -244,20 +242,17 @@ while ($obra = $result_obras->fetch_assoc()) {
                     <div class="reproductor-audio">
                         <audio id="audio-<?= $cuadro['id'] ?>" src="<?= htmlspecialchars($cuadro['audio']) ?>"></audio>
 
-                        <!-- Botón Play/Pause -->
                         <button class="btn-play-pause" data-audio-id="audio-<?= $cuadro['id'] ?>">
                             <svg class="icono-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                             <svg class="icono-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
                         </button>
 
-                        <!-- NUEVO: Botón Reiniciar -->
                         <button class="btn-reiniciar" data-audio-id="audio-<?= $cuadro['id'] ?>" title="Reiniciar audio">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
                         </button>
 
                         <div class="onda-audio">Escuchar</div>
 
-                        <!-- Botón Transcripción -->
                         <button class="btn-toggle-transcripcion" data-target="transcripcion-<?= $cuadro['id'] ?>">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                         </button>
@@ -270,17 +265,24 @@ while ($obra = $result_obras->fetch_assoc()) {
                     <hr class="separador-cuadro">
 
                     <div class="zona-escribir-comentario">
-                        <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>">
-                            <input type="text" name="comentario" placeholder="Deja tu comentario sobre esta obra..." required class="input-comentario">
-                            <button type="submit" class="btn-enviar-comentario">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                            </button>
-                        </form>
+                        <!-- CLAVE: Si está logeado, mostramos el formulario. Si no, mostramos el mensaje -->
+                        <?php if ($usuario_logeado): ?>
+                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>">
+                                <input type="text" name="comentario" placeholder="Deja tu comentario sobre esta obra..." required class="input-comentario">
+                                <button type="submit" class="btn-enviar-comentario">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <div class="mensaje-registro-comentario">
+                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para comentar y desbloquear la obra secreta.</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="zona-ver-comentarios" id="zona-comentarios-<?= $cuadro['id'] ?>">
                         <?php
-                        // Bloquear botón si NO ha comentado
+                        // Bloquear botón si NO ha comentado (los invitados tampoco han comentado)
                         $clase_bloqueado = (!$cuadro['usuario_ya_comento']) ? 'bloqueado' : '';
                         ?>
                         <button class="btn-desplegar-comentarios <?= $clase_bloqueado ?>" data-target="lista-comentarios-<?= $cuadro['id'] ?>">
@@ -298,7 +300,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                                     <strong><?= htmlspecialchars($com['nombre']) ?></strong>
 
                                     <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
-                                    <?php if($com['usuario_id'] == $usuario_id): ?>
+                                    <?php if($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
                                         <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
                                     <?php endif; ?>
 
@@ -323,9 +325,6 @@ while ($obra = $result_obras->fetch_assoc()) {
     </div>
 </main>
 
-<!-- ==============================
-     POPUP RECOMPENSA SECRETA
-     ============================== -->
 <div id="popup-recompensa" class="popup-recompensa-overlay">
     <div class="popup-recompensa-content">
         <h2>Enhorabuena 🎉</h2>

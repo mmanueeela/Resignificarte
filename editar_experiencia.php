@@ -210,5 +210,8 @@ $stmt_obras->close();
     <img src="src/iconos/up_arrow.png" alt="Subir">
 </a>
 
+<footer>
+    <p>&copy; Todos los derechos reservados. 2026</p>
+</footer>
 </body>
 </html>

@@ -129,59 +129,6 @@ main .img-fondo-container img {
 }
 
 /* ==============================
-   FLECHA PARA VOLVER ARRIBA
-   ============================== */
-
-.btn-volver-arriba {
-    position: fixed;
-    z-index: 1000;
-
-    right: 30px;
-    bottom: 80px;
-
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: rgba(164, 134, 201, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    border-radius: 50%;
-
-    box-shadow:
-            0 5px 20px rgba(0, 0, 0, 0.25),
-            0 0 12px rgba(255, 255, 255, 0.15);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateY(20px);
-
-    transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease,
-            transform 0.3s ease;
-}
-
-.btn-volver-arriba.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.btn-volver-arriba img {
-    width: 28px;
-    height: auto;
-
-    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
-}
-
-/* ==============================
    ANIMACIÓN FLECHA
    ============================== */
 

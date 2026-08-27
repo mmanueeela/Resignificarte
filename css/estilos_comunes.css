@@ -267,6 +267,56 @@ header > button { display: none; }
 .menu-navegacion-mobile a { color: white; text-decoration: none; font-family: Montserrat, sans-serif; font-size: 20px; font-weight: 500; }
 .menu-navegacion-mobile hr.separador-movil { border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 25px 0; }
 
+
+/* =========================================================
+   FLECHA PARA VOLVER ARRIBA (GLOBAL)
+========================================================= */
+.btn-volver-arriba {
+    position: fixed;
+    z-index: 1000;
+    right: 30px;
+    bottom: 80px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(164, 134, 201, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25), 0 0 12px rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.btn-volver-arriba.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btn-volver-arriba img {
+    width: 28px;
+    height: auto;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+@media (max-width: 600px) {
+    .btn-volver-arriba {
+        right: 20px;
+        bottom: 70px;
+        width: 45px;
+        height: 45px;
+    }
+    .btn-volver-arriba img {
+        width: 22px;
+    }
+}
+
 @media (max-width: 600px) {
     header {
         padding: 20px 30px;

@@ -111,6 +111,7 @@ while ($obra = $result_obras->fetch_assoc()) {
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/abrir_popup_header.js" defer></script>
     <script src="js/interaccion_obras.js" defer></script>
+    <script src="js/btn-arriba.js" defer></script>
 </head>
 <body>
 <header>
@@ -332,6 +333,11 @@ while ($obra = $result_obras->fetch_assoc()) {
         <button id="btn-cerrar-popup-recompensa">Descubrir recompensa</button>
     </div>
 </div>
+
+<!-- Flecha para volver arriba -->
+<a href="#" class="btn-volver-arriba" title="Volver arriba">
+    <img src="src/iconos/up_arrow.png" alt="Subir">
+</a>
 
 <footer>
     <p>&copy; Todos los derechos reservados. 2026</p>

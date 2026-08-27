@@ -37,6 +37,7 @@ $stmt->close();
     <script src="js/abrir_popup_header.js" defer></script>
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/admin.js" defer></script>
+    <script src="js/btn-arriba.js" defer></script>
 </head>
 <body>
 <header>
@@ -215,5 +216,11 @@ $stmt->close();
         </form>
     </section>
 </main>
+
+<!-- Flecha para volver arriba -->
+<a href="#" class="btn-volver-arriba" title="Volver arriba">
+    <img src="src/iconos/up_arrow.png" alt="Subir">
+</a>
+
 </body>
 </html>

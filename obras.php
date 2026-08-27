@@ -24,6 +24,7 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <script src="js/obras.js" defer></script>
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/abrir_popup_header.js" defer></script>
+    <script src="js/btn-arriba.js" defer></script>
 </head>
 <body>
 <header>
@@ -165,6 +166,12 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <?php endforeach; ?>
 
 </main>
+
+<!-- Flecha para volver arriba -->
+<a href="#" class="btn-volver-arriba" title="Volver arriba">
+    <img src="src/iconos/up_arrow.png" alt="Subir">
+</a>
+
 <footer>
     <p>
         &copy; Todos los derechos reservados. 2026

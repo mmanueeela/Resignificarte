@@ -135,7 +135,7 @@ main {
     margin: 0;
     color: white;
     font-family: 'TheSignature', cursive;
-    font-size: 65px;
+    font-size: 70px;
     font-weight: normal;
     line-height: 1.1;
 }
@@ -251,7 +251,7 @@ main {
     }
 
     .contenedor-texto h2 {
-        font-size: 50px;
+        font-size: 60px;
         line-height: 50px;
     }
 
@@ -273,12 +273,11 @@ main {
 
 /* --- TABLETS PEQUEÑAS Y MÓVILES GRANDES (800px) --- */
 @media (max-width: 800px) {
-    /* Hacemos el contenedor mucho más compacto */
     .experiencia-1 {
         flex-direction: column;
         height: auto;
-        padding: 20px; /* Padding reducido a 20px */
-        gap: 15px; /* Menos espacio entre la parte de arriba y el botón */
+        padding: 20px;
+        gap: 15px;
         text-align: center;
     }
 
@@ -288,23 +287,22 @@ main {
 
     .contenedor-imagen-mas-texto {
         flex-direction: column;
-        gap: 10px; /* Menos espacio entre la foto y el texto */
+        gap: 10px;
     }
 
     .contenedor-imagen-mas-texto > img {
-        width: 90px; /* Imagen exacta a 90px */
+        width: 90px;
         height: 90px;
     }
 
     .contenedor-texto p {
         justify-content: center;
-        margin: 5px 0 0 0; /* Quitamos márgenes sobrantes para apretar el texto */
+        margin: 5px 0 0 0;
     }
 }
 
 /* --- MÓVILES (600px) --- */
 @media (max-width: 600px) {
-    /* Apilamos el título OBRAS y el buscador */
     .contenido-inicial {
         flex-direction: column;
         height: auto;
@@ -322,9 +320,8 @@ main {
         max-width: 400px;
     }
 
-    /* Reducimos los textos de la experiencia para que encajen con la foto pequeña */
     .contenedor-texto h2 {
-        font-size: 38px; /* Título cursivo más pequeño */
+        font-size: 50px;
         line-height: 40px;
     }
 
@@ -332,15 +329,13 @@ main {
         font-size: 15px;
     }
 
-    /* CLAVE: Forzamos a que los botones se apilen en columna */
     .contenedor-botones {
         flex-direction: column;
         width: 100%;
         align-items: center;
-        gap: 10px; /* Separación entre botón y botón */
+        gap: 10px;
     }
 
-    /* Botones más finos y con el mismo ancho para que queden alineados */
     .btn-ver-obras, .btn-editar-obra, .btn-eliminar-experiencia {
         width: 100%;
         max-width: 250px;

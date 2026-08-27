@@ -127,7 +127,7 @@ $stmt_obras->close();
     </nav>
 </header>
 
-<main class="main-obra">
+<main class="main-obra" style="min-height: calc(100vh - 140px); background-color: #d5c4e6; padding: 40px;">
 
     <div style="margin-bottom: 20px;">
         <a href="obras.php" style="color: #523479; text-decoration: none; font-family: Montserrat; font-weight: bold;">

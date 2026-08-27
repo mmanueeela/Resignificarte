@@ -267,18 +267,7 @@ header > button { display: none; }
 .menu-navegacion-mobile a { color: white; text-decoration: none; font-family: Montserrat, sans-serif; font-size: 20px; font-weight: 500; }
 .menu-navegacion-mobile hr.separador-movil { border: none; border-top: 1px solid rgba(255, 255, 255, 0.2); margin: 25px 0; }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    overflow-x: hidden; /* ¡NUEVO! Corta de raíz cualquier scroll horizontal */
-}
 
-/* Opcional: Para asegurar que el html tampoco genere scroll */
-html {
-    overflow-x: hidden;
-}
 /* =========================================================
    FLECHA PARA VOLVER ARRIBA (GLOBAL)
 ========================================================= */

@@ -248,7 +248,7 @@ main {
    ============================== */
 
 /* --- TABLETS Y PANTALLAS MEDIANAS (1000px) --- */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     .contenido-inicial h1 {
         font-size: 45px;
     }
@@ -270,6 +270,17 @@ main {
     .btn-ver-obras {
         width: 220px;
         font-size: 20px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .contenedor-botones {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-eliminar-experiencia {
+        width: 100%;
     }
 }
 

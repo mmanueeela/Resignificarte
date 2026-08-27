@@ -275,7 +275,6 @@ main {
 
 @media (max-width: 1050px) {
     .contenedor-botones {
-        display: flex;
         flex-direction: column;
     }
 
@@ -293,6 +292,10 @@ main {
         padding: 20px; /* Padding reducido a 20px */
         gap: 15px; /* Menos espacio entre la parte de arriba y el botón */
         text-align: center;
+    }
+
+    .contenedor-botones {
+        flex-direction: row;
     }
 
     .contenedor-imagen-mas-texto {

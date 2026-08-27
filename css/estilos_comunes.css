@@ -1,7 +1,15 @@
 /**********/
 /* FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'TheSignature';
+    src: url('fonts/Thesignature.ttf') format('truetype'),
+    url('fonts/Thesignature.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 /**********/
 
 * {

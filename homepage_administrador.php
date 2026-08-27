@@ -126,7 +126,7 @@ $stmt->close();
 
     <!-- SECCIÓN 1: GESTIÓN DE USUARIOS -->
     <section class="admin-seccion">
-        <h2>👥 Gestión de Usuarios</h2>
+        <h2><span>👥</span> Gestión de Usuarios</h2>
         <div class="tabla-contenedor">
             <table class="tabla-usuarios">
                 <thead>
@@ -160,7 +160,7 @@ $stmt->close();
 
     <!-- SECCIÓN 2: AÑADIR EXPERIENCIA -->
     <section class="admin-seccion">
-        <h2>🎨 Añadir Nueva Experiencia</h2>
+        <h2><span>🎨</span> Añadir Nueva Experiencia</h2>
         <p class="subtitulo-seccion">Crea un nuevo artista y sube sus cuadros. El primer cuadro será la portada de la experiencia.</p>
 
         <form action="php/procesar_experiencia.php" method="POST" enctype="multipart/form-data" class="form-experiencia">

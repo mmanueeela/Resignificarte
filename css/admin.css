@@ -591,6 +591,9 @@
     .admin-seccion h2 {
         font-size: 35px;
     }
+    .admin-seccion h2 span {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {

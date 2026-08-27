@@ -415,7 +415,8 @@
         margin-bottom: 25px;
     }
 
-    .admin-seccion h2 {
+    .admin-seccion h2,
+    .subtitulo-seccion {
         text-align: center;
     }
 
@@ -588,6 +589,12 @@
 
 @media (max-width: 600px) {
     .admin-seccion h2 {
-        font-size: 25px;
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-seccion h2 {
+        font-size: 30px;
     }
 }

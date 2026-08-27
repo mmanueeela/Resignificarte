@@ -33,6 +33,7 @@ function volverAtrasSeguro() {
     // Si venimos de recuperar/restablecer contraseña, o si abrieron la pestaña directamente (sin historial)
     if (paginaAnterior.includes('contrasena_olvidada.php') ||
         paginaAnterior.includes('restablecer_contrasena.php') ||
+        paginaAnterior.includes('registro.php') ||
         paginaAnterior === '') {
         window.location.href = 'homepage.php'; // Cortamos el bucle
     } else {

@@ -6,6 +6,7 @@
 .login-container {
     max-width: 600px;
     margin: 30px;
+    position: relative;
 }
 
 .logo-container a img {
@@ -199,6 +200,38 @@
 
 .cerrar-popup:hover {
     color: white;
+}
+
+/* =========================================================
+   BOTÓN VOLVER ATRÁS
+========================================================= */
+.btn-volver-atras {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.btn-volver-atras svg {
+    width: 22px;
+    height: 22px;
+    margin-right: 2px;
+}
+
+.btn-volver-atras:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05) translateX(-3px);
 }
 
 @media (max-width: 550px) {

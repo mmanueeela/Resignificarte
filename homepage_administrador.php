@@ -199,7 +199,7 @@ $stmt->close();
                             <span class="nombre-archivo">Ningún archivo seleccionado</span>
                         </div>
                     </div>
-                    <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción..." required class="textarea-admin"></textarea>
+                    <textarea name="transcripciones[]" placeholder="Pega aquí la transcripción de tu obra..." required class="textarea-admin"></textarea>
 
                     <label class="checkbox-recompensa">
                         <input type="checkbox" name="es_recompensa[0]" value="1"> ¿Es el cuadro secreto de recompensa final?

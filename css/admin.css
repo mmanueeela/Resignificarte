@@ -470,16 +470,16 @@
     /* Cada dato ocupa una fila */
     .tabla-usuarios td {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        gap: 15px;
+        gap: 5px 15px;
         padding: 10px 0;
         border-bottom: 1px solid rgba(82, 52, 121, 0.1);
         font-size: 13px;
-        min-width: 0;
         text-align: right;
-        overflow: hidden;
-        overflow-wrap: anywhere;
+        word-break: normal;
+        overflow-wrap: break-word;
     }
 
     /* Quitamos la línea del último elemento */
@@ -504,6 +504,7 @@
     /* Formulario del botón eliminar */
     .tabla-usuarios td form {
         margin: 0;
+        width: 100%;
     }
 
     /* Botón eliminar */

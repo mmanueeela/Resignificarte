@@ -469,17 +469,19 @@
 
     /* Cada dato ocupa una fila */
     .tabla-usuarios td {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 5px 15px;
-        padding: 10px 0;
+        display: block; /* MAGIA: Usamos block en vez de flex para anular el bug de Safari */
+        padding: 12px 0;
         border-bottom: 1px solid rgba(82, 52, 121, 0.1);
         font-size: 13px;
         text-align: right;
-        word-break: normal;
-        overflow-wrap: break-word;
+        overflow-wrap: break-word; /* Rotura de texto suave */
+        word-break: break-word;
+    }
+
+    .tabla-usuarios td::after {
+        content: "";
+        display: table;
+        clear: both;
     }
 
     /* Quitamos la línea del último elemento */
@@ -490,10 +492,10 @@
     /* Etiqueta izquierda */
     .tabla-usuarios td::before {
         content: attr(data-label);
+        float: left; /* Empuja la etiqueta a la izquierda y deja el valor a la derecha */
         font-weight: 700;
         color: #523479;
-        text-align: left;
-        flex-shrink: 0;
+        margin-right: 15px;
     }
 
     /* Evita problemas con emails largos */
@@ -503,8 +505,9 @@
 
     /* Formulario del botón eliminar */
     .tabla-usuarios td form {
-        margin: 0;
         width: 100%;
+        margin: 15px 0 0 0;
+        display: block;
     }
 
     /* Botón eliminar */

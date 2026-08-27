@@ -11,6 +11,6 @@ if (isset($_COOKIE['recuerdame_token'])) {
 }
 
 // 3. Lo devolvemos al login
-header("Location: ../login.php");
+header("Location: ../homepage.php");
 exit();
 ?>

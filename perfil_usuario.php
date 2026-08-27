@@ -51,13 +51,21 @@ $ruta_foto = (empty($foto_bd) || strtolower($foto_bd) === 'null') ? 'src/iconos/
     <form id="form-perfil" class="perfil-container" method="POST" action="perfil_usuario.php" autocomplete="off" enctype="multipart/form-data">
         <input type="hidden" name="accion" value="actualizar">
 
+        <!-- Botón volver atrás -->
+        <a href="javascript:history.back()" class="btn-volver-atras" title="Volver atrás">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </a>
+
         <div class="menu">
-            <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="btn-volver">
-                <img src="src/iconos/atras.svg" alt="Atrás" class="icono-blanco">
-            </a>
+            <!-- Este div vacío mantiene el logo perfectamente centrado con Flexbox -->
+            <div style="flex: 1;"></div>
+
             <a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="logo-perfil">
                 <img src="src/logo/logo_con_inifito.png" alt="Logo Resignificarte">
             </a>
+
             <button type="button" id="btn-editar-perfil" class="btn-lapiz" title="Editar Perfil">
                 <img src="src/iconos/edit.svg" alt="Editar" class="icono-blanco">
             </button>

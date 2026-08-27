@@ -209,7 +209,7 @@ while ($obra = $result_obras->fetch_assoc()) {
         <!-- NOMBRE DEL ARTISTA DINÁMICO -->
         <h1><?= htmlspecialchars($nombre_artista_bd) ?></h1>
         <?php if ($ha_desbloqueado): ?>
-            <p style="color: #523479; font-family: Montserrat; font-weight: bold;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
+            <p style="color: #523479; font-family: Montserrat; font-weight: bold; margin-bottom: 10px;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
         <?php endif; ?>
     </div>
 

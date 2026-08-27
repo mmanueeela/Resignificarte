@@ -18,24 +18,26 @@ if (btnAddCuadro && contenedorCuadros) {
                     <input type="text" name="titulos[]" placeholder="Título del Cuadro" required class="input-admin">
                     <div class="input-file-custom">
                         <label>📸 Subir Imagen</label>
+                        <span class="btn-falso">Seleccionar archivo</span>
                         <input type="file" name="imagenes[]" accept="image/*" required>
+                        <span class="nombre-archivo">Ningún archivo seleccionado</span>
                     </div>
                     <div class="input-file-custom">
                         <label>🎵 Subir Audio</label>
+                        <span class="btn-falso">Seleccionar archivo</span>
                         <input type="file" name="audios[]" accept="audio/*" required>
+                        <span class="nombre-archivo">Ningún archivo seleccionado</span>
                     </div>
                 </div>
                 <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción..." required class="textarea-admin"></textarea>
                 
                 <label class="checkbox-recompensa">
-                    <!-- Usamos el contador - 1 para el array de recompensas en PHP -->
                     <input type="checkbox" name="es_recompensa[${contadorCuadros - 1}]" value="1"> ¿Es el cuadro secreto de recompensa final?
                 </label>
             `;
 
         contenedorCuadros.appendChild(nuevoCuadro);
 
-        // Funcionalidad para eliminar el cuadro añadido si se equivoca
         const btnQuitar = nuevoCuadro.querySelector('.btn-quitar-cuadro');
         btnQuitar.addEventListener('click', function() {
             nuevoCuadro.remove();
@@ -43,29 +45,16 @@ if (btnAddCuadro && contenedorCuadros) {
     });
 }
 
-// Seleccionar imagen y audio
-const inputImagen = document.getElementById("imagen");
-const nombreImagen = document.getElementById("nombre-imagen");
-
-if (inputImagen) {
-    inputImagen.addEventListener("change", function () {
-        if (this.files.length > 0) {
-            nombreImagen.textContent = this.files[0].name;
-        } else {
-            nombreImagen.textContent = "Ningún archivo seleccionado";
+// Delegación de eventos para capturar los cambios en TODOS los inputs file (incluso los nuevos)
+document.addEventListener('change', function(e) {
+    if (e.target && e.target.type === 'file') {
+        const nombreArchivoSpan = e.target.parentElement.querySelector('.nombre-archivo');
+        if (nombreArchivoSpan) {
+            if (e.target.files.length > 0) {
+                nombreArchivoSpan.textContent = e.target.files[0].name;
+            } else {
+                nombreArchivoSpan.textContent = "Ningún archivo seleccionado";
+            }
         }
-    });
-}
-
-const inputAudio = document.getElementById("audio");
-const nombreAudio = document.getElementById("nombre-audio");
-
-if (inputAudio) {
-    inputAudio.addEventListener("change", function () {
-        if (this.files.length > 0) {
-            nombreAudio.textContent = this.files[0].name;
-        } else {
-            nombreAudio.textContent = "Ningún archivo seleccionado";
-        }
-    });
-}
+    }
+});

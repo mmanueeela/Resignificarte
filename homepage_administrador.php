@@ -173,7 +173,9 @@ $stmt->close();
                 <!-- NUEVO INPUT PARA LA FOTO DEL ARTISTA -->
                 <div class="input-file-custom" style="margin-top: 15px;">
                     <label>👤 Subir Foto del Artista (Portada de la Experiencia)</label>
-                    <input type="file" name="foto_artista" accept="image/*" required>
+                    <span class="btn-falso">Seleccionar archivo</span>
+                    <input type="file" id="foto-artista" name="foto_artista" accept="image/*" required>
+                    <span class="nombre-archivo">Ningún archivo seleccionado</span>
                 </div>
             </div>
 
@@ -185,22 +187,16 @@ $stmt->close();
                     <div class="inputs-fila">
                         <input type="text" name="titulos[]" placeholder="Título del Cuadro" required class="input-admin">
                         <div class="input-file-custom">
-                            <label for="imagen">📸 Subir Imagen</label>
-
-                            <input type="file" id="imagen" name="imagen" accept="image/*">
-
-                            <span class="nombre-archivo" id="nombre-imagen">
-                                Ningún archivo seleccionado
-                            </span>
+                            <label>📸 Subir Imagen</label>
+                            <span class="btn-falso">Seleccionar archivo</span>
+                            <input type="file" name="imagenes[]" accept="image/*" required>
+                            <span class="nombre-archivo">Ningún archivo seleccionado</span>
                         </div>
                         <div class="input-file-custom">
-                            <label for="audio">🎵 Subir Audio</label>
-
-                            <input type="file" id="audio" name="audio" accept="audio/*">
-
-                            <span class="nombre-archivo" id="nombre-audio">
-                                Ningún archivo seleccionado
-                            </span>
+                            <label>🎵 Subir Audio</label>
+                            <span class="btn-falso">Seleccionar archivo</span>
+                            <input type="file" name="audios[]" accept="audio/*" required>
+                            <span class="nombre-archivo">Ningún archivo seleccionado</span>
                         </div>
                     </div>
                     <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción..." required class="textarea-admin"></textarea>

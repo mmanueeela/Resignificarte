@@ -330,10 +330,19 @@ main {
         font-size: 15px;
     }
 
-    /* Botones más finos y compactos */
+    /* CLAVE: Forzamos a que los botones se apilen en columna */
+    .contenedor-botones {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 10px; /* Separación entre botón y botón */
+    }
+
+    /* Botones más finos y con el mismo ancho para que queden alineados */
     .btn-ver-obras, .btn-editar-obra, .btn-eliminar-experiencia {
-        width: 150px;
+        width: 100%;
+        max-width: 250px;
         font-size: 16px;
-        height: 40px;
+        height: 45px;
     }
 }

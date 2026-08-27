@@ -127,7 +127,7 @@ $stmt_obras->close();
     </nav>
 </header>
 
-<main class="main-obras-artista">
+<main class="main-obra">
 
     <div style="margin-bottom: 20px;">
         <a href="obras.php" style="color: #523479; text-decoration: none; font-family: Montserrat; font-weight: bold;">

@@ -42,3 +42,30 @@ if (btnAddCuadro && contenedorCuadros) {
         });
     });
 }
+
+// Seleccionar imagen y audio
+const inputImagen = document.getElementById("imagen");
+const nombreImagen = document.getElementById("nombre-imagen");
+
+if (inputImagen) {
+    inputImagen.addEventListener("change", function () {
+        if (this.files.length > 0) {
+            nombreImagen.textContent = this.files[0].name;
+        } else {
+            nombreImagen.textContent = "Ningún archivo seleccionado";
+        }
+    });
+}
+
+const inputAudio = document.getElementById("audio");
+const nombreAudio = document.getElementById("nombre-audio");
+
+if (inputAudio) {
+    inputAudio.addEventListener("change", function () {
+        if (this.files.length > 0) {
+            nombreAudio.textContent = this.files[0].name;
+        } else {
+            nombreAudio.textContent = "Ningún archivo seleccionado";
+        }
+    });
+}

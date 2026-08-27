@@ -185,12 +185,22 @@ $stmt->close();
                     <div class="inputs-fila">
                         <input type="text" name="titulos[]" placeholder="Título del Cuadro" required class="input-admin">
                         <div class="input-file-custom">
-                            <label>📸 Subir Imagen</label>
-                            <input type="file" name="imagenes[]" accept="image/*" required>
+                            <label for="imagen">📸 Subir Imagen</label>
+
+                            <input type="file" id="imagen" name="imagen" accept="image/*">
+
+                            <span class="nombre-archivo" id="nombre-imagen">
+                                Ningún archivo seleccionado
+                            </span>
                         </div>
                         <div class="input-file-custom">
-                            <label>🎵 Subir Audio</label>
-                            <input type="file" name="audios[]" accept="audio/*" required>
+                            <label for="audio">🎵 Subir Audio</label>
+
+                            <input type="file" id="audio" name="audio" accept="audio/*">
+
+                            <span class="nombre-archivo" id="nombre-audio">
+                                Ningún archivo seleccionado
+                            </span>
                         </div>
                     </div>
                     <textarea name="transcripciones[]" placeholder="Pega aquí el HTML de la transcripción..." required class="textarea-admin"></textarea>

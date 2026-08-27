@@ -169,13 +169,13 @@
     box-shadow: 0 0 10px rgba(82, 52, 121, 0.15);
 }
 
-/* Cajas personalizadas para subir archivos (foto y audio) */
+/* Cajas personalizadas para subir archivos */
 .input-file-custom {
     flex: 1;
     background-color: #f4f1f8;
     border: 2px dashed #a084c4;
     border-radius: 15px;
-    padding: 20px;
+    padding: 20px 10px;
     text-align: center;
     font-family: Montserrat, sans-serif;
     color: #523479;
@@ -185,7 +185,9 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    min-width: 200px;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .input-file-custom:hover {
@@ -196,7 +198,46 @@
 .input-file-custom label {
     font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Ocultamos el input original */
+.input-file-custom input[type="file"] {
+    display: none;
+}
+
+/* Botón personalizado */
+.input-file-custom::after {
+    content: "Seleccionar archivo";
+    background-color: #523479;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Nombre del archivo */
+.nombre-archivo {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #8a7a99;
+    font-size: 12px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Cuando pasamos por encima */
+.input-file-custom:hover::after {
+    background-color: #200B30;
 }
 
 .cabecera-cuadro {

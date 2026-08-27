@@ -42,7 +42,7 @@ $stmt_obras->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Experiencia - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
-    <link rel="stylesheet" href="css/admin.css"> <!-- Aprovechamos los estilos bonitos que hicimos -->
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/abrir_popup_header.js" defer></script>
@@ -127,7 +127,7 @@ $stmt_obras->close();
     </nav>
 </header>
 
-<main class="main-obra" style="min-height: calc(100vh - 140px); background-color: #d5c4e6; padding: 40px;">
+<main class="main-obra">
 
     <div style="margin-bottom: 20px;">
         <a href="obras.php" style="color: #523479; text-decoration: none; font-family: Montserrat; font-weight: bold;">

@@ -4,6 +4,12 @@
     min-height: calc(100vh - 140px);
 }
 
+.main-obra {
+    min-height: calc(100vh - 140px);
+    background-color: #d5c4e6;
+    padding: 40px;
+}
+
 .cabecera-admin h1 {
     font-family: Montserrat, sans-serif;
     color: #200B30;

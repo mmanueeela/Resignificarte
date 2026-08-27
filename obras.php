@@ -155,11 +155,13 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
                 <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                     <a href="editar_experiencia.php?id=<?= $exp['artista_id'] ?>" class="btn-editar-obra">Editar</a>
 
-                    <!-- Botón para Eliminar la Experiencia entera -->
-                    <form action="php/eliminar_experiencia.php" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar a este artista y TODAS sus obras? Se borrarán también los comentarios asociados.');" style="margin:0;">
-                        <input type="hidden" name="id_artista" value="<?= $exp['artista_id'] ?>">
-                        <button type="submit" class="btn-eliminar-experiencia">Eliminar</button>
-                    </form>
+                    <!-- Botón de Eliminar (SE OCULTA PARA EL ARTISTA 1) -->
+                    <?php if ($exp['artista_id'] != 1): ?>
+                        <form action="php/eliminar_experiencia.php" method="POST" onsubmit="return confirm('¿Seguro que quieres borrar a este artista y TODAS sus obras? Se borrarán también los comentarios asociados.');" style="margin:0;">
+                            <input type="hidden" name="id_artista" value="<?= $exp['artista_id'] ?>">
+                            <button type="submit" class="btn-eliminar-experiencia">Eliminar</button>
+                        </form>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </section>

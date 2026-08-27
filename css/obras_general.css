@@ -6,7 +6,8 @@ html {
     scroll-behavior: smooth;
 }
 
-.main-obras-artista {
+.main-obras-artista,
+.main-obra {
     padding: 40px;
     background-color: #d5c4e6;
     min-height: calc(100vh - 140px);

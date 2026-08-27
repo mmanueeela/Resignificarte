@@ -529,8 +529,7 @@ html {
    RESPONSIVE MÓVIL (AJUSTES PARA PANTALLAS PEQUEÑAS)
 ========================================================= */
 @media (max-width: 900px) {
-    .main-obras-artista,
-    .main-obra {
+    .main-obras-artista {
         padding: 20px 15px;
     }
 

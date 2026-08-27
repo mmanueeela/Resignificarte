@@ -540,16 +540,20 @@
     }
 
     /* =========================================================
-    FIX PARA CORREOS EN SAFARI (IPHONE)
+    FIX PARA CORREOS DETECTADOS AUTOMÁTICAMENTE EN SAFARI
     ========================================================= */
-    .tabla-usuarios td a,
-    .tabla-usuarios td a[x-apple-data-detectors] {
-        color: inherit !important;
+
+    .tabla-usuarios td {
+        -webkit-text-decoration: none !important;
         text-decoration: none !important;
-        font-size: inherit !important;
-        font-family: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
+    }
+
+    .tabla-usuarios td a,
+    .tabla-usuarios td a[x-apple-data-detectors],
+    .tabla-usuarios td a[href^="mailto:"] {
+        color: inherit !important;
+        -webkit-text-decoration: none !important;
+        text-decoration: none !important;
     }
 
     /* -----------------------------------------------------

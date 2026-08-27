@@ -24,6 +24,23 @@ toggleIcons.forEach(icon => {
 });
 
 // ---------------------------------------------------------
+// VOLVER ATRÁS INTELIGENTE
+// ---------------------------------------------------------
+function volverAtrasSeguro() {
+    // Obtenemos la URL de la página anterior
+    let paginaAnterior = document.referrer.toLowerCase();
+
+    // Si venimos de recuperar/restablecer contraseña, o si abrieron la pestaña directamente (sin historial)
+    if (paginaAnterior.includes('contrasena_olvidada.php') ||
+        paginaAnterior.includes('restablecer_contrasena.php') ||
+        paginaAnterior === '') {
+        window.location.href = 'homepage.php'; // Cortamos el bucle
+    } else {
+        window.history.back(); // Volvemos a Obras, Contacto, etc.
+    }
+}
+
+// ---------------------------------------------------------
 // MOSTRAR MENSAJE
 // ---------------------------------------------------------
 function mostrarMensaje(mensaje, tipo) {

@@ -21,7 +21,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
     <div class="login-container">
 
         <!-- Botón volver atrás -->
-        <a href="javascript:history.back()" class="btn-volver-atras" title="Volver a la página anterior">
+        <a href="javascript:void(0);" onclick="volverAtrasSeguro()" class="btn-volver-atras" title="Volver a la página anterior">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 18l-6-6 6-6"/>
             </svg>

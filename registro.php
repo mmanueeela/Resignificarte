@@ -170,11 +170,36 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
             <h2>Términos y Condiciones</h2>
 
             <div class="popup-texto">
-                <p>Bienvenido a nuestra plataforma. Al utilizar nuestros servicios, aceptas las siguientes condiciones que son obligatorias para el registro:</p>
+                <p><strong>Participación y testimonios</strong></p>
+                <p>Al participar en la experiencia ResignificARTE, la persona usuaria puede compartir un testimonio sobre su interpretación, percepción o experiencia ante una obra de Antonio Nieto.</p>
+                <p>Al dar un testimonio, la persona usuaria autoriza a ResignificARTE a reproducirlo, conservarlo y ponerlo a disposición en la plataforma digital, exclusivamente en el marco de los fines culturales, académicos y de investigación del proyecto.</p>
+                <p>Los testimonios forman parte del archivo colectivo de ResignificARTE y contribuyen a documentar las distintas interpretaciones que surgen alrededor de las obras y de las tradiciones culturales representadas.</p>
+                <p>La participación es voluntaria. La persona usuaria puede solicitar la eliminación de su testimonio en cualquier momento a través de los canales de contacto disponibles en la plataforma. Una vez recibida y procesada la solicitud, el testimonio será retirado de la plataforma.</p>
+
                 <br>
-                <p><strong>1. Privacidad de los datos:</strong> Tus datos serán cifrados y guardados en nuestros servidores, no siendo vendidos a terceros.</p>
-                <p><strong>2. Uso correcto:</strong> Te comprometes a no usar esta plataforma para fines ilícitos o malintencionados.</p>
-                <p><strong>3. Cancelación:</strong> Nos reservamos el derecho de eliminar cualquier cuenta que infrinja estas normas.</p>
+
+                <p><strong>Datos de participación</strong></p>
+                <p>Para participar en la experiencia, ResignificARTE solicita los siguientes datos:</p>
+                <ul>
+                    <li>Nombre</li>
+                    <li>Apellidos</li>
+                    <li>Nacionalidad</li>
+                    <li>Fecha de nacimiento</li>
+                    <li>Teléfono</li>
+                    <li>Correo</li>
+                </ul>
+                <p>Estos datos se utilizan para comprender la diversidad de las personas participantes y analizar el alcance intercultural de la experiencia en el marco de los objetivos académicos y de investigación del proyecto.</p>
+                <p>ResignificARTE utilizará estos datos únicamente para las finalidades descritas en estos términos y no solicitará información personal adicional a través del formulario de participación, salvo que se informe expresamente a la persona usuaria y esta proporcione su consentimiento cuando corresponda.</p>
+
+                <br>
+
+                <p><strong>Uso de la información</strong></p>
+                <p>La información y los testimonios recopilados forman parte del proceso de investigación y documentación de ResignificARTE. Los resultados derivados de este proceso podrán utilizarse para fines académicos, culturales y de divulgación del proyecto, respetando las condiciones de participación y los derechos de las personas usuarias.</p>
+
+                <br>
+
+                <p><strong>Contacto</strong></p>
+                <p>Para realizar consultas, solicitar la eliminación de un testimonio o ejercer cualquier derecho relacionado con la participación en ResignificARTE, la persona usuaria puede contactar con el equipo creador a través de los canales habilitados en la plataforma.</p>
             </div>
 
             <!-- Botón que activará el checkbox -->

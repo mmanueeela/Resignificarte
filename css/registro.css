@@ -178,6 +178,15 @@
     padding-right: 15px;
 }
 
+.popup-texto ul {
+    margin: 10px 0 15px 25px;
+    padding: 0;
+}
+
+.popup-texto li {
+    margin-bottom: 5px;
+}
+
 /* Estilo para la barra de scroll (Scrollbar) del popup */
 .popup-texto::-webkit-scrollbar {
     width: 6px;

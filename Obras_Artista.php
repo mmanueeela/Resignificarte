@@ -215,7 +215,7 @@ while ($obra = $result_obras->fetch_assoc()) {
         <?php if ($artista_id == 1): ?>
             <div class="info-antonio-nieto">
                 <p>
-                    <strong>Antonio Nieto</strong>, artista mexicano, pintor, muralista y académico, teje en su obra un diálogo vivo entre el rigor de las técnicas tradicionales y la fuerza del lenguaje contemporáneo. Con una formación de excelencia que culmina en su Doctorado en Artes y Diseño por la UNAM y estancias en la Universidad Complutense de Madrid, su universo plástico se expande tanto en el lienzo como en la monumentalidad del muro, avalado por más de quince intervenciones murales, dieciocho años de apasionada labor docente y una sólida presencia internacional en más de treinta exposiciones que han recorrido recintos emblemáticos de México, España, Italia, Alemania y Cuba.
+                    <strong>Antonio Nieto</strong>, artista mexicano, pintor, muralista y académico, teje en su obra un diálogo vivo entre el rigor de las técnicas tradicionales y la fuerza del lenguaje contemporáneo. Con una formación académica que culmina con el grado de Doctor en Artes y Diseño por la UNAM y una estancia en la Universidad Complutense de Madrid, su universo plástico se expande tanto en el lienzo como en la monumentalidad del muro. Ha participado en la realización de más de 15 murales en importantes recintos de México y el extranjero y ha compaginado su práctica profesional con su labor docente por más de 18 años. Cuenta con una sólida presencia internacional en más de treinta exposiciones que han recorrido recintos emblemáticos de México, España, Italia, Alemania y Cuba.
                 </p>
             </div>
         <?php endif; ?>

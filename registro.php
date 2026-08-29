@@ -172,8 +172,11 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
             <div class="popup-texto">
                 <p><strong>Participación y testimonios</strong></p>
                 <p>Al participar en la experiencia ResignificARTE, la persona usuaria puede compartir un testimonio sobre su interpretación, percepción o experiencia ante una obra de Antonio Nieto.</p>
-                <p>Al dar un testimonio, la persona usuaria autoriza a ResignificARTE a reproducirlo, conservarlo y ponerlo a disposición en la plataforma digital, exclusivamente en el marco de los fines culturales, académicos y de investigación del proyecto.</p>
+                <br>
+                <p>Al dar un testimonio, la persona usuaria autoriza a ResignificARTE a <strong>reproducirlo, conservarlo y ponerlo a disposición en la plataforma digital</strong>, exclusivamente en el marco de los fines culturales, académicos y de investigación del proyecto.</p>
+                <br>
                 <p>Los testimonios forman parte del archivo colectivo de ResignificARTE y contribuyen a documentar las distintas interpretaciones que surgen alrededor de las obras y de las tradiciones culturales representadas.</p>
+                <br>
                 <p>La participación es voluntaria. La persona usuaria puede solicitar la eliminación de su testimonio en cualquier momento a través de los canales de contacto disponibles en la plataforma. Una vez recibida y procesada la solicitud, el testimonio será retirado de la plataforma.</p>
 
                 <br>
@@ -189,6 +192,7 @@ require_once 'php/logicaNegocio/redireccion_logeado.php'
                     <li>Correo</li>
                 </ul>
                 <p>Estos datos se utilizan para comprender la diversidad de las personas participantes y analizar el alcance intercultural de la experiencia en el marco de los objetivos académicos y de investigación del proyecto.</p>
+                <br>
                 <p>ResignificARTE utilizará estos datos únicamente para las finalidades descritas en estos términos y no solicitará información personal adicional a través del formulario de participación, salvo que se informe expresamente a la persona usuaria y esta proporcione su consentimiento cuando corresponda.</p>
 
                 <br>

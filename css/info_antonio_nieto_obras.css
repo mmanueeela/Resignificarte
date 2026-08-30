@@ -4,7 +4,7 @@
 .info-antonio-nieto {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 10px auto 40px auto;
     padding: 35px 45px;
 
@@ -17,6 +17,11 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
     overflow: hidden;
+
+    /* MAGIA FLEXBOX */
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
 
 /* Comilla gigante decorativa de fondo */
@@ -33,9 +38,13 @@
     z-index: 0;
 }
 
-.info-antonio-nieto p {
+.texto-biografia {
+    flex: 1;
     position: relative;
     z-index: 1;
+}
+
+.info-antonio-nieto p {
     margin: 0;
     font-family: Montserrat, sans-serif;
     font-size: 16px;
@@ -49,6 +58,19 @@
     font-size: 17px;
 }
 
+/* Estilo retrato para la imagen */
+.info-antonio-nieto img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 25px rgba(82, 52, 121, 0.2);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
 /* =========================================================
    RESPONSIVE MÓVIL
 ========================================================= */
@@ -58,12 +80,22 @@
         padding: 25px 20px;
         margin-bottom: 30px;
         border-radius: 0 15px 15px 0;
+
+        /* En móvil, foto arriba y texto abajo */
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
     }
 
     .info-antonio-nieto::before {
         font-size: 130px;
         top: -20px;
         left: 5px;
+    }
+
+    .info-antonio-nieto img {
+        width: 150px;
+        height: 150px;
     }
 
     .info-antonio-nieto p {

@@ -231,15 +231,6 @@ main {
     background-color: #ff6b81;
 }
 
-/* Estilo para el botón cuando está deshabilitado */
-.btn-eliminar-experiencia:disabled {
-    background-color: rgba(255, 71, 87, 0.3);
-    color: rgba(255, 255, 255, 0.5);
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
 /* ==============================
    RESPONSIVE: CONTENIDO PRINCIPAL (OBRAS)
    ============================== */

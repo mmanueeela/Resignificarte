@@ -152,13 +152,11 @@ main .img-fondo-container img {
 
 .info-proyecto-section {
     width: 100%;
-    /* Un degradado oscuro que empalma bien con la foto superior */
     background: linear-gradient(to bottom, #150622, #200B30, #3C225A);
     padding: 100px 20px;
     box-sizing: border-box;
 }
 
-/* Efecto cristal reutilizable */
 .glass-card {
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(15px);
@@ -249,7 +247,7 @@ main .img-fondo-container img {
 }
 
 .miembro-card h3 {
-    font-family: 'Great Vibes', 'TheSignature', cursive; /* Usa tu fuente elegante */
+    font-family: 'TheSignature', cursive;
     font-size: 45px;
     margin: 0 0 20px 0;
     color: #d5c4e6;

@@ -123,9 +123,42 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
         <img src="src/iconos/down_arrow.png" alt="Bajar">
     </a>
 
-    <div class="hola" id="siguiente-seccion">
-        asjdfjlajslfñ
-    </div>
+    <!-- SECCIÓN: ACERCA DE Y EQUIPO -->
+    <section id="siguiente-seccion" class="info-proyecto-section">
+
+        <!-- Bloque: Acerca de ResignificARTE -->
+        <div class="acerca-de-container glass-card">
+            <h2 class="titulo-seccion">Acerca de Resignific<span>ARTE</span></h2>
+            <div class="texto-acerca">
+                <p><strong>ResignificARTE</strong> es una propuesta de mediación cultural transmedia centrada en la resignificación de la cultura a través del arte[cite: 2].</p>
+                <p>La experiencia parte de obras representativas de las tradiciones de México del pintor mexicano Antonio Nieto y construye un modelo de mediación que integra narrativa, participación y tecnología como partes de un mismo diseño[cite: 2].</p>
+                <p>El proyecto propone una relación activa con la obra. Quien se acerca a una pieza, además de ser un espectador, la interpreta desde su propio territorio, memoria y experiencia[cite: 2]. Esa interpretación se incorpora al ecosistema cultural de ResignificARTE y contribuye a la construcción de un archivo colectivo de miradas sobre la obra y las tradiciones que representa[cite: 2].</p>
+                <p>ResignificARTE surge en el marco del Máster en Comunicación Transmedia y del Grado XXX de la Universitat Politècnica de València (UPV), como resultado de una investigación que articula la mediación cultural, la narrativa transmedia, la participación y el estudio de la memoria colectiva[cite: 2].</p>
+            </div>
+        </div>
+
+        <!-- Bloque: Equipo Creador -->
+        <div class="equipo-container">
+            <h2 class="titulo-seccion">Equipo Creador</h2>
+            <div class="equipo-grid">
+
+                <!-- Miembro 1 -->
+                <div class="miembro-card glass-card">
+                    <img src="src/images/img_antonio_nieto.jpg" alt="Jessica López Escalera">
+                    <h3>Jessica López Escalera</h3>
+                    <p>Es internacionalista y comunicadora especializada en el desarrollo y posicionamiento de proyectos de comunicación y vinculación de alcance internacional[cite: 2]. Durante el Máster en Comunicación Transmedia de la UPV, encontró en el arte un elemento capaz de conectar personas, territorios y memorias[cite: 2]. A partir de esta premisa, desarrolló ResignificARTE como un modelo de mediación cultural que utiliza la narrativa transmedia para generar nuevas formas de relación entre la comunicación y el arte[cite: 2]. Jessica lidera el diseño conceptual y estratégico del proyecto[cite: 2].</p>
+                </div>
+
+                <!-- Miembro 2 -->
+                <div class="miembro-card glass-card">
+                    <img src="src/images/img_antonio_nieto.jpg" alt="Manuela Zazzaro">
+                    <h3>Manuela Zazzaro</h3>
+                    <p>Es (descripción de su formación y experiencia)[cite: 2]. En ResignificARTE desarrolla la dimensión tecnológica del proyecto y participa en la construcción de la experiencia digital y del prototipo del modelo de mediación cultural[cite: 2].</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </main>
 
 <a href="#" class="btn-volver-arriba" title="Volver arriba">

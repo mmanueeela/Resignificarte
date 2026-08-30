@@ -160,11 +160,11 @@ main .img-fondo-container img {
 /* Rejilla para escritorio: Izquierda grande, Derecha pequeña */
 .info-layout-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr; /* Proporción de anchura */
+    grid-template-columns: 1.6fr 1fr;
     gap: 50px;
     max-width: 1300px;
     margin: 0 auto;
-    align-items: stretch; /* Iguala las alturas de las columnas */
+    align-items: stretch;
 }
 
 /* Efecto cristal reutilizable */
@@ -221,12 +221,12 @@ main .img-fondo-container img {
 .equipo-column {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Separación entre los dos cuadrados */
+    gap: 30px;
 }
 
 .miembro-card {
     position: relative;
-    flex: 1; /* Para que ocupen exactamente la misma altura */
+    flex: 1;
     min-height: 280px;
     border-radius: 30px;
     overflow: hidden;
@@ -271,7 +271,7 @@ main .img-fondo-container img {
     background: rgba(32, 11, 48, 0.95);
     padding: 30px;
     box-sizing: border-box;
-    opacity: 0; /* Oculto por defecto */
+    opacity: 0;
     transform: translateY(20px);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -350,7 +350,7 @@ main .img-fondo-container img {
 
     /* 1. La tarjeta vuelve a ser un contenedor normal */
     .miembro-card {
-        flex: none; /* CRUCIAL: Evita que herede la altura forzada de escritorio */
+        flex: none;
         height: auto;
         min-height: auto;
         padding: 40px 25px;
@@ -379,7 +379,7 @@ main .img-fondo-container img {
         display: none;
     }
 
-    /* 4. CRUCIAL: El panel oculto vuelve a ser un bloque normal */
+    /* 4. El panel oculto vuelve a ser un bloque normal */
     .miembro-info-hover {
         position: relative;
         width: 100%;
@@ -388,7 +388,7 @@ main .img-fondo-container img {
         transform: none;
         background: transparent;
         padding: 0;
-        display: block; /* Rompe cualquier restricción de flex heredada */
+        display: block;
     }
 
     .miembro-info-hover h3 {
@@ -492,9 +492,6 @@ main .img-fondo-container img {
     }
 }
 
-/* ==============================
-   PUNTO DE CORTE PARA MÓVILES PEQUEÑOS
-============================== */
 @media (max-width: 600px) {
     main .img-fondo-container img {
         object-position: center center;

@@ -6,7 +6,7 @@ require_once 'php/conexion.php';
 
 // 1. COMPROBAR QUÉ ARTISTA QUEREMOS VER POR LA URL
 if (!isset($_GET['id'])) {
-    header("Location: obras.php");
+    header("Location: artistas.php");
     exit();
 }
 
@@ -28,7 +28,7 @@ $stmt->close();
 
 // Si el artista no existe, volver a obras
 if (!$nombre_artista_bd) {
-    header("Location: obras.php");
+    header("Location: artistas.php");
     exit();
 }
 
@@ -103,8 +103,8 @@ while ($obra = $result_obras->fetch_assoc()) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Obras <?= htmlspecialchars($nombre_artista_bd) ?> - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
-    <link rel="stylesheet" href="css/obras.css">
-    <link rel="stylesheet" href="css/obras_general.css">
+    <link rel="stylesheet" href="css/artistas.css">
+    <link rel="stylesheet" href="css/artistas_general.css">
     <link rel="stylesheet" href="css/info_antonio_nieto_obras.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
@@ -127,7 +127,7 @@ while ($obra = $result_obras->fetch_assoc()) {
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -170,7 +170,7 @@ while ($obra = $result_obras->fetch_assoc()) {
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -203,7 +203,7 @@ while ($obra = $result_obras->fetch_assoc()) {
 
 <main class="main-obras-artista">
     <div class="cabecera-artista">
-        <a href="obras.php" class="btn-volver-obras">
+        <a href="artistas.php" class="btn-volver-obras">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
             Volver a Artistas
         </a>

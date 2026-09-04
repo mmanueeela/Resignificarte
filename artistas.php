@@ -18,10 +18,10 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Artistas - Resignificarte</title>
     <link rel="stylesheet" href="css/estilos_comunes.css">
-    <link rel="stylesheet" href="css/obras.css">
+    <link rel="stylesheet" href="css/artistas.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="js/retardo_cambio_pagina.js" defer></script>
-    <script src="js/obras.js" defer></script>
+    <script src="js/artistas.js" defer></script>
     <script src="js/menu_hamburguesa.js" defer></script>
     <script src="js/abrir_popup_header.js" defer></script>
     <script src="js/btn-arriba.js" defer></script>
@@ -40,7 +40,7 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -83,7 +83,7 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>

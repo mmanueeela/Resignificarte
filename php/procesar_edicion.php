@@ -97,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Al terminar, volvemos a la página de obras
-    header("Location: ../obras.php?msg=experiencia_actualizada");
+    header("Location: ../artistas.php?msg=experiencia_actualizada");
     exit();
 } else {
-    header("Location: ../obras.php");
+    header("Location: ../artistas.php");
     exit();
 }
 ?>

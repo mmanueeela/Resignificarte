@@ -115,13 +115,15 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 </header>
 <main>
     <div class="contenido-inicial">
-        <h1>OBRAS</h1>
-        <div class="buscador">
-            <input type="text" placeholder="Busca el artista...">
-            <button type="button" class="boton-busqueda" aria-label="Buscar">
-                <img src="src/iconos/lupa.png" alt="">
-            </button>
-        </div>
+        <h1>ARTISTAS</h1>
+        <?php if (count($experiencias) >= 4): ?>
+            <div class="buscador">
+                <input type="text" placeholder="Busca el artista...">
+                <button type="button" class="boton-busqueda" aria-label="Buscar">
+                    <img src="src/iconos/lupa.png" alt="">
+                </button>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- EXPERIENCIAS GENERADAS DINÁMICAMENTE -->

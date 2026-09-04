@@ -10,11 +10,11 @@ if (!$usuario_logeado || !isset($_SESSION['es_admin']) || $_SESSION['es_admin'] 
 
 // 2. COMPROBAR QUÉ ARTISTA VAMOS A EDITAR
 if (!isset($_GET['id'])) {
-    header("Location: obras.php");
+    header("Location: artistas.php");
     exit();
 }
 $artista_id = intval($_GET['id']);
-$pagina_actual = 'obras.php'; // Para que en el header salga subrayado "OBRAS"
+$pagina_actual = 'artistas.php'; // Para que en el header salga subrayado "OBRAS"
 
 // 3. OBTENER LOS DATOS DEL ARTISTA
 $stmt = $conexion->prepare("SELECT nombre, pais, imagen_perfil FROM artistas WHERE id = ?");
@@ -22,7 +22,7 @@ $stmt->bind_param("i", $artista_id);
 $stmt->execute();
 $stmt->bind_result($nombre_artista, $pais_artista, $imagen_artista);
 if (!$stmt->fetch()) {
-    header("Location: obras.php");
+    header("Location: artistas.php");
     exit();
 }
 $stmt->close();
@@ -62,7 +62,7 @@ $stmt_obras->close();
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -97,7 +97,7 @@ $stmt_obras->close();
         <ul>
             <li><a href="<?= (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1) ? 'homepage_administrador.php' : 'homepage.php' ?>" class="<?= ($pagina_actual == 'homepage.php' || $pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">INICIO</a></li>
 
-            <li><a href="obras.php" class="<?= ($pagina_actual == 'obras.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -131,7 +131,7 @@ $stmt_obras->close();
 <main class="main-obra">
 
     <div style="margin-bottom: 20px;">
-        <a href="obras.php" style="color: #523479; text-decoration: none; font-family: Montserrat; font-weight: bold;">
+        <a href="artistas.php" style="color: #523479; text-decoration: none; font-family: Montserrat; font-weight: bold;">
             ← Volver a Artistas
         </a>
     </div>

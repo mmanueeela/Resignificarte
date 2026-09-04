@@ -29,7 +29,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     <nav class="menu-navegacion">
         <ul>
             <li><a href="#acerca-de">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
-            <li><a href="obras.php">ARTISTAS</a></li>
+            <li><a href="artistas.php">ARTISTAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
         </ul>
     </nav>
@@ -77,7 +77,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
             <li><a href="#acerca-de">¿QUÉ ES RESIGNIFICARTE?</a></li>
-            <li><a href="obras.php">ARTISTAS</a></li>
+            <li><a href="artistas.php">ARTISTAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
 
             <!-- Separador visual -->
@@ -115,7 +115,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
 
     <div class="info_principal">
         <h2>El arte jamás les habla a <br>las personas de la misma forma. <br><span>Y a ti, ¿qué te dice?</span></h2>
-        <a href="obras.php">Descubre a los artistas</a>
+        <a href="artistas.php">Descubre a los artistas</a>
     </div>
 
     <!-- Flecha para bajar -->

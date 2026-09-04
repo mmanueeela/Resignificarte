@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_artista'])) {
     // --- ¡NUEVO!: BLOQUEO DE SEGURIDAD PARA ANTONIO NIETO ---
     if ($id_artista === 1) {
         // Redirigimos con un mensaje de error (no se puede borrar la experiencia principal)
-        header("Location: ../obras.php?error=protegido");
+        header("Location: ../artistas.php?error=protegido");
         exit();
     }
     // --------------------------------------------------------
@@ -26,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_artista'])) {
     $stmt->bind_param("i", $id_artista);
 
     if ($stmt->execute()) {
-        header("Location: ../obras.php?msg=experiencia_eliminada");
+        header("Location: ../artistas.php?msg=experiencia_eliminada");
     } else {
-        header("Location: ../obras.php?error=1");
+        header("Location: ../artistas.php?error=1");
     }
 
     $stmt->close();
 } else {
-    header("Location: ../obras.php");
+    header("Location: ../artistas.php");
 }
 exit();
 ?>

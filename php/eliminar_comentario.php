@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_comentario']) && i
 
     $stmt->close();
 } else {
-    header("Location: ../obras.php");
+    header("Location: ../artistas.php");
 }
 exit();
 ?>

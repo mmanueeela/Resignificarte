@@ -28,7 +28,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="#">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
+            <li><a href="#acerca-de">¿QUÉ ES RESIGNIFIC<span>ARTE</span>?</a></li>
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
         </ul>
@@ -76,7 +76,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="#">¿QUÉ ES RESIGNIFICARTE?</a></li>
+            <li><a href="#acerca-de">¿QUÉ ES RESIGNIFICARTE?</a></li>
             <li><a href="obras.php">OBRAS</a></li>
             <li><a href="contacto.php">CONTACTO</a></li>
 
@@ -119,12 +119,12 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
     </div>
 
     <!-- Flecha para bajar -->
-    <a href="#siguiente-seccion" class="btn-bajar" title="Bajar">
+    <a href="#acerca-de" class="btn-bajar" title="Bajar">
         <img src="src/iconos/down_arrow.png" alt="Bajar">
     </a>
 
     <!-- SECCIÓN: ACERCA DE Y EQUIPO -->
-    <section id="siguiente-seccion" class="info-proyecto-section">
+    <section id="acerca-de" class="info-proyecto-section">
         <div class="info-layout-grid">
 
             <!-- Columna Izquierda: Acerca de -->

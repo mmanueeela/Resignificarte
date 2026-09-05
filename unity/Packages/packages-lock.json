@@ -7,15 +7,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.huggingface.api": {
-      "version": "file:C:/Users/Manu/Downloads/unity-api-main/unity-api-main",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.unity.nuget.newtonsoft-json": "3.0.1"
-      }
-    },
     "com.meta.xr.mrutilitykit": {
       "version": "205.0.0",
       "depth": 1,
@@ -255,7 +246,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.2",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -366,7 +357,7 @@
     },
     "com.unity.textmeshpro": {
       "version": "5.0.0",
-      "depth": 1,
+      "depth": 2,
       "source": "builtin",
       "dependencies": {
         "com.unity.ugui": "2.0.0"

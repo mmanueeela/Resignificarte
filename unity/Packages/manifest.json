@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.huggingface.api": "file:C:/Users/Manu/Downloads/unity-api-main/unity-api-main",
     "com.meta.xr.sdk.all": "205.0.0",
     "com.unity.cloud.gltfast": "6.19.0",
     "com.unity.feature.development": "1.0.2",

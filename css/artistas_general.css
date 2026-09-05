@@ -450,6 +450,11 @@ html {
     border-bottom-color: #200B30;
 }
 
+.mensaje-registro-comentario.mensaje-cuadro-comentado {
+    border-style: solid;
+    font-weight: 600;
+}
+
 @media (max-width: 1200px) {
     .cabecera-artista h1 {
         font-size: 45px;

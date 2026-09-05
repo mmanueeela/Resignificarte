@@ -279,17 +279,21 @@ while ($obra = $result_obras->fetch_assoc()) {
                     <hr class="separador-cuadro">
 
                     <div class="zona-escribir-comentario">
-                        <!-- CLAVE: Si está logeado, mostramos el formulario. Si no, mostramos el mensaje -->
-                        <?php if ($usuario_logeado): ?>
-                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>">
-                                <input type="text" name="comentario" placeholder="Deja tu comentario para desbloquear la obra final..." required class="input-comentario">
-                                <button type="submit" class="btn-enviar-comentario">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                </button>
-                            </form>
+                        <?php if (!$usuario_logeado): ?>
+                            <div class="mensaje-registro-comentario"><p>🔒 Debes <a href="login.php">iniciar sesión</a> para poder comentar las obras y así desbloquear la obra final.</p></div>
+                        <?php elseif ($cuadro['usuario_ya_comento']): ?>
+                            <div class="mensaje-registro-comentario mensaje-cuadro-comentado">
+                                <?php if ($cuadro['es_recompensa'] == 0): ?>
+                                    <p>Cuadro comentado. <?= $comentadas ?>/<?= $total_normales ?> para desbloquear la obra final.</p>
+                                <?php else: ?>
+                                    <p>Cuadro comentado.</p>
+                                <?php endif; ?>
+                            </div>
                         <?php else: ?>
-                            <div class="mensaje-registro-comentario">
-                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para poder comentar las obras y así desbloquear la obra final.</p>                            </div>
+                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>" data-es-recompensa="<?= $cuadro['es_recompensa'] ?>">
+                                <input type="text" name="comentario" placeholder="<?= $cuadro['es_recompensa'] == 1 ? 'Deja tu comentario sobre la obra...' : 'Deja tu comentario para desbloquear la obra final...' ?>" required class="input-comentario">
+                                <button type="submit" class="btn-enviar-comentario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+                            </form>
                         <?php endif; ?>
                     </div>
 

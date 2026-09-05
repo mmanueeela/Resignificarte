@@ -196,6 +196,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         input.value = '';
 
+                        const zonaEscribir = this.closest('.zona-escribir-comentario');
+                        const esRecompensa = this.dataset.esRecompensa === '1';
+
+                        if (zonaEscribir) {
+                            zonaEscribir.innerHTML = esRecompensa
+                                ? `<div class="mensaje-registro-comentario mensaje-cuadro-comentado"><p>Cuadro comentado.</p></div>`
+                                : `<div class="mensaje-registro-comentario mensaje-cuadro-comentado"><p>Cuadro comentado. ${data.comentadas}/${data.total_normales} para desbloquear la obra final.</p></div>`;
+                        }
+
                         const badge = document.getElementById('badge-comentado-' + cuadroId);
 
                         if (badge) {

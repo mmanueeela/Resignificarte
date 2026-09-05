@@ -228,9 +228,9 @@ while ($obra = $result_obras->fetch_assoc()) {
         <?php endif; ?>
     </div>
 
-    <h1>OBRAS</h1>
-
     <div class="galeria-cuadros">
+        <h1>OBRAS</h1>
+
         <?php foreach ($cuadros as $index => $cuadro):
             // LÓGICA CORRECTA: Si es recompensa -> layout vertical. Si no -> alterna normal (inversa)
             $clase_layout = ($cuadro['es_recompensa'] == 1) ? 'layout-columna' : (($index % 2 !== 0) ? 'inversa' : '');

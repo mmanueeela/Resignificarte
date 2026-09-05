@@ -49,6 +49,14 @@ html {
     font-weight: normal;
 }
 
+.galeria-cuadros h1 {
+    margin: 0;
+    color: #523479;
+    font-size: 58px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 800;
+}
+
 /* =========================================================
    FILA DE CUADRO (LA MAGIA DEL ALTERNADO)
 ========================================================= */
@@ -525,6 +533,12 @@ html {
     border-bottom-color: #200B30;
 }
 
+@media (max-width: 1200px) {
+    .cabecera-artista h1 {
+        font-size: 45px;
+    }
+}
+
 /* =========================================================
    RESPONSIVE MÓVIL (AJUSTES PARA PANTALLAS PEQUEÑAS)
 ========================================================= */
@@ -605,6 +619,12 @@ html {
     .btn-desplegar-comentarios {
         padding: 12px 15px;
         font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cabecera-artista h1 {
+        font-size: 38px;
     }
 }
 

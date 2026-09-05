@@ -60,6 +60,10 @@ $stmt->close();
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="sorteo_administrador.php" class="<?= ($pagina_actual == 'sorteo_administrador.php') ? 'activo' : '' ?>">SORTEO</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -95,6 +99,10 @@ $stmt->close();
 
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="sorteo_administrador.php" class="<?= ($pagina_actual == 'sorteo_administrador.php') ? 'activo' : '' ?>">SORTEO</a></li>
             <?php endif; ?>
 
             <hr class="separador-movil">
@@ -159,7 +167,22 @@ $stmt->close();
 
     <hr class="separador-admin">
 
-    <!-- SECCIÓN 2: AÑADIR EXPERIENCIA -->
+    <!-- SECCIÓN 2: SORTEO ANTONIO NIETO -->
+    <section class="admin-seccion">
+        <h2><span>🎁</span> Sorteo Antonio Nieto</h2>
+
+        <p class="subtitulo-seccion">
+            Consulta los usuarios que han participado en el sorteo y las imágenes que han enviado.
+        </p>
+
+        <a href="sorteo_administrador.php" class="btn-principal btn-ir-sorteo">
+            Ver participantes del sorteo
+        </a>
+    </section>
+
+    <hr class="separador-admin">
+
+    <!-- SECCIÓN 3: AÑADIR EXPERIENCIA -->
     <section class="admin-seccion">
         <h2><span>🎨</span> Añadir Nueva Experiencia</h2>
         <p class="subtitulo-seccion">Crea un nuevo artista y sube sus cuadros. El primer cuadro será la portada de la experiencia.</p>

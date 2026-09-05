@@ -1,0 +1,181 @@
+.main-sorteo-admin {
+    min-height: calc(100vh - 80px);
+    background-color: #d5c4e6;
+    padding: 50px 40px 100px;
+    box-sizing: border-box;
+}
+
+.cabecera-sorteo-admin {
+    max-width: 1300px;
+    margin: 0 auto 40px;
+    font-family: Montserrat, sans-serif;
+}
+
+.btn-volver-admin {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #523479;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-volver-admin:hover {
+    color: #200B30;
+}
+
+.cabecera-sorteo-admin h1 {
+    margin: 0 0 10px;
+    color: #200B30;
+    font-family: Montserrat, sans-serif;
+    font-size: 45px;
+    font-weight: 800;
+}
+
+.cabecera-sorteo-admin p {
+    max-width: 750px;
+    margin: 0 0 20px;
+    color: #523479;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.contador-participantes {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: #523479;
+    color: white;
+    border-radius: 25px;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.grid-participantes {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+}
+
+.tarjeta-participante {
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(32, 11, 48, 0.1);
+}
+
+.imagen-participante {
+    width: 100%;
+    height: 350px;
+    background-color: #f4f1f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen-participante img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.info-participante {
+    padding: 25px;
+    font-family: Montserrat, sans-serif;
+}
+
+.info-participante h2 {
+    margin: 0 0 20px;
+    color: #523479;
+    font-size: 24px;
+}
+
+.dato-participante {
+    margin-bottom: 15px;
+}
+
+.etiqueta-dato {
+    display: block;
+    margin-bottom: 5px;
+    color: #777;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.dato-participante a {
+    color: #523479;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.dato-participante a:hover {
+    text-decoration: underline;
+}
+
+.fecha-participante {
+    margin-top: 15px;
+    color: #777;
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+}
+
+.sin-participantes {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 25px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+}
+
+.sin-participantes h2 {
+    margin-top: 0;
+    color: #523479;
+}
+
+.sin-participantes p {
+    margin-bottom: 0;
+    color: #666;
+}
+
+@media (max-width: 900px) {
+    .main-sorteo-admin {
+        padding: 30px 20px 80px;
+    }
+
+    .grid-participantes {
+        grid-template-columns: 1fr;
+    }
+
+    .cabecera-sorteo-admin h1 {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-sorteo-admin {
+        padding: 25px 15px 70px;
+    }
+
+    .imagen-participante {
+        height: 260px;
+    }
+
+    .info-participante {
+        padding: 20px;
+    }
+
+    .cabecera-sorteo-admin h1 {
+        font-size: 29px;
+    }
+}

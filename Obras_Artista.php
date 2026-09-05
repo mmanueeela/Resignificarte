@@ -90,8 +90,21 @@ while ($obra = $result_obras->fetch_assoc()) {
     }
     $stmt_com->close();
 
+    $usuario_participa_sorteo = false;
+
+    if ($usuario_logeado && $artista_id == 1 && $obra['es_recompensa'] == 1) {
+        $stmt_sorteo = $conexion->prepare("SELECT COUNT(*) FROM sorteo_antonio_nieto WHERE usuario_id = ? AND obra_id = ?");
+        $stmt_sorteo->bind_param("ii", $usuario_id, $obra['id']);
+        $stmt_sorteo->execute();
+        $stmt_sorteo->bind_result($participa);
+        $stmt_sorteo->fetch();
+        $stmt_sorteo->close();
+        $usuario_participa_sorteo = ($participa > 0);
+    }
+
     $obra['comentarios_lista'] = $comentarios;
     $obra['usuario_ya_comento'] = $usuario_ya_comento;
+    $obra['usuario_participa_sorteo'] = $usuario_participa_sorteo;
     $cuadros[] = $obra;
 }
 ?>
@@ -286,12 +299,15 @@ while ($obra = $result_obras->fetch_assoc()) {
                                 <?php if ($cuadro['es_recompensa'] == 0): ?>
                                     <p>Cuadro comentado. <?= $comentadas ?>/<?= $total_normales ?> para desbloquear la obra final.</p>
                                 <?php else: ?>
-                                    <p>Cuadro comentado.</p>
+                                    <?php if ($cuadro['usuario_participa_sorteo']): ?>
+                                        <p>Cuadro comentado. ¡Ya estás participando en el sorteo de Antonio Nieto!</p>
+                                    <?php else: ?>
+                                        <p>Cuadro comentado.</p>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         <?php else: ?>
-                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>" data-es-recompensa="<?= $cuadro['es_recompensa'] ?>">
-                                <input type="text" name="comentario" placeholder="<?= $cuadro['es_recompensa'] == 1 ? 'Deja tu comentario sobre la obra...' : 'Deja tu comentario para desbloquear la obra final...' ?>" required class="input-comentario">
+                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>" data-es-recompensa="<?= $cuadro['es_recompensa'] ?>" data-sorteo="<?= ($artista_id == 1 && $cuadro['es_recompensa'] == 1) ? '1' : '0' ?>">                                <input type="text" name="comentario" placeholder="<?= $cuadro['es_recompensa'] == 1 ? 'Deja tu comentario sobre la obra...' : 'Deja tu comentario para desbloquear la obra final...' ?>" required class="input-comentario">
                                 <button type="submit" class="btn-enviar-comentario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
                             </form>
                         <?php endif; ?>
@@ -351,8 +367,20 @@ while ($obra = $result_obras->fetch_assoc()) {
     <div class="modal-comentario-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-comentario">
         <h2 id="titulo-modal-comentario">¿Quieres enviar este comentario?</h2>
         <div class="comentario-a-confirmar"><p id="texto-comentario-confirmacion"></p></div>
+
+        <div id="bloque-sorteo-antonio" class="bloque-sorteo-antonio" hidden>
+            <h3>Participa en el sorteo de Antonio Nieto</h3>
+            <p>Sube una imagen y entrarás en el sorteo para que Antonio Nieto pueda realizar una obra basada en ella.</p>
+            <p class="aviso-sorteo"><strong>La imagen es opcional.</strong> Si quieres participar, debes subirla ahora antes de enviar el comentario.</p>
+            <label for="imagen-sorteo-antonio" class="btn-seleccionar-imagen">Seleccionar imagen</label>
+            <input type="file" id="imagen-sorteo-antonio" accept="image/jpeg,image/png,image/webp">
+            <span id="nombre-imagen-sorteo" class="nombre-imagen-sorteo">Ninguna imagen seleccionada</span>
+            <p class="requisitos-imagen-sorteo">JPG, PNG o WEBP · máximo 5 MB</p>
+        </div>
+
         <p class="aviso-modal-comentario">Una vez enviado, no podrás modificar el comentario ni eliminarlo.</p>
         <p id="error-modal-comentario" class="error-modal-comentario"></p>
+
         <div class="modal-comentario-botones">
             <button type="button" id="btn-cancelar-comentario" class="btn-cancelar-comentario">Cancelar</button>
             <button type="button" id="btn-confirmar-comentario" class="btn-confirmar-comentario">Comentar</button>

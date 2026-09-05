@@ -162,6 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnCancelarComentario = document.getElementById('btn-cancelar-comentario');
     const btnConfirmarComentario = document.getElementById('btn-confirmar-comentario');
     const errorModalComentario = document.getElementById('error-modal-comentario');
+    const bloqueSorteoAntonio = document.getElementById('bloque-sorteo-antonio');
+    const inputImagenSorteo = document.getElementById('imagen-sorteo-antonio');
+    const nombreImagenSorteo = document.getElementById('nombre-imagen-sorteo');
 
     let formularioPendiente = null;
     let comentarioPendiente = '';
@@ -169,9 +172,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function abrirModalComentario(form, comentario) {
         formularioPendiente = form;
         comentarioPendiente = comentario;
+
+        const tieneSorteo = form.dataset.sorteo === '1';
+
         textoConfirmacion.textContent = comentario;
         errorModalComentario.textContent = '';
         errorModalComentario.classList.remove('visible');
+
+        bloqueSorteoAntonio.hidden = !tieneSorteo;
+        inputImagenSorteo.value = '';
+        nombreImagenSorteo.textContent = 'Ninguna imagen seleccionada';
+
         modalComentario.classList.add('activo');
         modalComentario.setAttribute('aria-hidden', 'false');
         btnConfirmarComentario.focus();
@@ -181,8 +192,14 @@ document.addEventListener('DOMContentLoaded', function () {
         modalComentario.classList.remove('activo');
         modalComentario.setAttribute('aria-hidden', 'true');
         btnConfirmarComentario.disabled = false;
+
         errorModalComentario.textContent = '';
         errorModalComentario.classList.remove('visible');
+
+        bloqueSorteoAntonio.hidden = true;
+        inputImagenSorteo.value = '';
+        nombreImagenSorteo.textContent = 'Ninguna imagen seleccionada';
+
         formularioPendiente = null;
         comentarioPendiente = '';
     }
@@ -207,14 +224,51 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Escape' && modalComentario.classList.contains('activo')) cerrarModalComentario();
     });
 
+    inputImagenSorteo.addEventListener('change', function() {
+        errorModalComentario.textContent = '';
+        errorModalComentario.classList.remove('visible');
+
+        if (this.files.length === 0) {
+            nombreImagenSorteo.textContent = 'Ninguna imagen seleccionada';
+            return;
+        }
+
+        const archivo = this.files[0];
+        const maximo = 5 * 1024 * 1024;
+        const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (!tiposPermitidos.includes(archivo.type)) {
+            this.value = '';
+            nombreImagenSorteo.textContent = 'Ninguna imagen seleccionada';
+            errorModalComentario.textContent = 'Solo se permiten imágenes JPG, PNG o WEBP.';
+            errorModalComentario.classList.add('visible');
+            return;
+        }
+
+        if (archivo.size > maximo) {
+            this.value = '';
+            nombreImagenSorteo.textContent = 'Ninguna imagen seleccionada';
+            errorModalComentario.textContent = 'La imagen no puede superar los 5 MB.';
+            errorModalComentario.classList.add('visible');
+            return;
+        }
+
+        nombreImagenSorteo.textContent = archivo.name;
+    });
+
     btnConfirmarComentario.addEventListener('click', function() {
         if (!formularioPendiente || comentarioPendiente === '') return;
 
         const cuadroId = formularioPendiente.getAttribute('data-cuadro-id');
+        const tieneSorteo = formularioPendiente.dataset.sorteo === '1';
         const formData = new FormData();
 
         formData.append('obra_id', cuadroId);
         formData.append('comentario', comentarioPendiente);
+
+        if (tieneSorteo && inputImagenSorteo.files.length > 0) {
+            formData.append('imagen_sorteo', inputImagenSorteo.files[0]);
+        }
 
         btnConfirmarComentario.disabled = true;
 

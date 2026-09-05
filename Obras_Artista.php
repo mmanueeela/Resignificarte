@@ -302,12 +302,13 @@ while ($obra = $result_obras->fetch_assoc()) {
                                     <?php if ($cuadro['usuario_participa_sorteo']): ?>
                                         <p>Cuadro comentado. ¡Ya estás participando en el sorteo de Antonio Nieto!</p>
                                     <?php else: ?>
-                                        <p>Cuadro comentado.</p>
+                                        <p>Cuadro final comentado.</p>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         <?php else: ?>
-                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>" data-es-recompensa="<?= $cuadro['es_recompensa'] ?>" data-sorteo="<?= ($artista_id == 1 && $cuadro['es_recompensa'] == 1) ? '1' : '0' ?>">                                <input type="text" name="comentario" placeholder="<?= $cuadro['es_recompensa'] == 1 ? 'Deja tu comentario sobre la obra...' : 'Deja tu comentario para desbloquear la obra final...' ?>" required class="input-comentario">
+                            <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>" data-es-recompensa="<?= $cuadro['es_recompensa'] ?>" data-sorteo="<?= ($artista_id == 1 && $cuadro['es_recompensa'] == 1) ? '1' : '0' ?>">
+                                <input type="text" name="comentario" placeholder="<?= $cuadro['es_recompensa'] == 1 ? 'Deja tu comentario sobre la obra...' : 'Deja tu comentario para desbloquear la obra final...' ?>" required class="input-comentario">
                                 <button type="submit" class="btn-enviar-comentario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
                             </form>
                         <?php endif; ?>
@@ -342,8 +343,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                                         <form action="php/eliminar_comentario.php" method="POST" style="display:inline; float:right;" onsubmit="return confirm('¿Seguro que quieres borrar este comentario permanentemente?');">
                                             <input type="hidden" name="id_comentario" value="<?= $com['id_comentario'] ?>">
                                             <input type="hidden" name="id_artista" value="<?= $artista_id ?>">
-                                            <button type="submit" style="background:none; border:none; color:#ff4757; cursor:pointer; font-size: 12px; text-decoration:underline; font-family: Montserrat, sans-serif;">Eliminar</button>
-                                        </form>
+                                            <button type="submit" class="btn-eliminar-comentario">Eliminar</button>                                        </form>
                                     <?php endif; ?>
 
                                     <p style="margin: 5px 0 0 0;"><?= htmlspecialchars($com['comentario']) ?></p>

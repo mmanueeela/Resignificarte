@@ -1,21 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // =========================================================
-    // 0. COMPROBAR SI VENIMOS DE DESBLOQUEAR LA RECOMPENSA
+    // 0. COMPROBAR SI VENIMOS DE DESBLOQUEAR LA OBRA FINAL
     // =========================================================
     if (sessionStorage.getItem('bajar_a_secreta') === 'true') {
         sessionStorage.removeItem('bajar_a_secreta');
 
         setTimeout(() => {
-            const cuadroSecreto = document.getElementById('obra-secreta');
+            const destino = document.getElementById('mensaje-obra-final') || document.getElementById('obra-secreta');
 
-            if (cuadroSecreto) {
-                cuadroSecreto.scrollIntoView({
+            if (destino) {
+                destino.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             }
-        }, 300);
+        }, 500);
     }
 
     // =========================================================
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const estaAbierta = transcripcion.classList.toggle('visible');
 
-            this.textContent = estaAbierta ? 'Ocultar texto' : 'Leer el texto';
+            this.textContent = estaAbierta ? 'Ocultar texto' : 'Leer la obra';
             this.setAttribute('aria-expanded', estaAbierta ? 'true' : 'false');
         });
     });
@@ -216,22 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
 
                         if (data.recompensa_desbloqueada && !document.getElementById('obra-secreta')) {
-                            const popup = document.getElementById('popup-recompensa');
-
-                            if (popup) {
-                                popup.classList.add('activo');
-
-                                const botonCerrarPopup = document.getElementById('btn-cerrar-popup-recompensa');
-
-                                botonCerrarPopup.addEventListener('click', function () {
-                                    sessionStorage.setItem('bajar_a_secreta', 'true');
-                                    window.location.reload();
-                                }, { once: true });
-                            } else {
-                                alert('🎉 ¡Increíble! Has comentado en todas las obras y has desbloqueado un CUADRO SECRETO.');
-                                sessionStorage.setItem('bajar_a_secreta', 'true');
-                                window.location.reload();
-                            }
+                            sessionStorage.setItem('bajar_a_secreta', 'true');
+                            window.location.reload();
                         }
                     } else {
                         alert('Error al enviar: ' + data.error);

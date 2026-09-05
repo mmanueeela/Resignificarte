@@ -222,10 +222,6 @@ while ($obra = $result_obras->fetch_assoc()) {
                 </div>
             </div>
         <?php endif; ?>
-
-        <?php if ($ha_desbloqueado): ?>
-            <p style="color: #523479; font-family: Montserrat; font-weight: bold; margin-bottom: 10px;">⭐ ¡Has desbloqueado la <a href="#obra-secreta" style="color: #523479; text-decoration: underline; cursor: pointer;">obra secreta</a>! ⭐</p>
-        <?php endif; ?>
     </div>
 
     <div class="galeria-cuadros">
@@ -239,7 +235,14 @@ while ($obra = $result_obras->fetch_assoc()) {
             $estilo_recompensa = ($cuadro['es_recompensa'] == 1) ? 'border: 3px solid #f1c40f; box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);' : '';
             $id_seccion = ($cuadro['es_recompensa'] == 1) ? 'obra-secreta' : 'cuadro-' . $cuadro['id'];
             ?>
+
             <section id="<?= $id_seccion ?>" class="fila-cuadro <?= $clase_layout ?>" style="<?= $estilo_recompensa ?>">
+
+                <?php if ($cuadro['es_recompensa'] == 1): ?>
+                    <div id="mensaje-obra-final" class="mensaje-obra-final">
+                        ⭐ ¡Has desbloqueado la obra final! ⭐
+                    </div>
+                <?php endif; ?>
 
                 <!-- Lado: Imagen -->
                 <div class="col-imagen">
@@ -259,7 +262,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                     <div class="reproductor-audio">
                         <audio id="audio-<?= $cuadro['id'] ?>" src="<?= htmlspecialchars($cuadro['audio']) ?>"></audio>
 
-                        <!-- REPRODUCIR / PAUSAR / CONTINUAR -->
+                        <!-- ESCUCHAR / PAUSAR / INICIAR -->
                         <button class="btn-play-pause" data-audio-id="audio-<?= $cuadro['id'] ?>">Escuchar la obra</button>
 
                         <!-- VOLVER AL PRINCIPIO -->
@@ -286,8 +289,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                             </form>
                         <?php else: ?>
                             <div class="mensaje-registro-comentario">
-                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para poder comentar las obras y así desbloquear la obra secreta.</p>
-                            </div>
+                                <p>🔒 Debes <a href="login.php">iniciar sesión</a> para poder comentar las obras y así desbloquear la obra final.</p>                            </div>
                         <?php endif; ?>
                     </div>
 
@@ -335,14 +337,6 @@ while ($obra = $result_obras->fetch_assoc()) {
         <?php endforeach; ?>
     </div>
 </main>
-
-<div id="popup-recompensa" class="popup-recompensa-overlay">
-    <div class="popup-recompensa-content">
-        <h2>Enhorabuena 🎉</h2>
-        <p>Has comentado en todas las obras y has desbloqueado un <strong>CUADRO SECRETO</strong>.</p>
-        <button id="btn-cerrar-popup-recompensa">Descubrir recompensa</button>
-    </div>
-</div>
 
 <!-- Flecha para volver arriba -->
 <a href="#" class="btn-volver-arriba" title="Volver arriba">

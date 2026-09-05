@@ -333,85 +333,17 @@ html {
 }
 
 /* =========================================================
-   POPUP RECOMPENSA SECRETA
+   MENSAJE OBRA FINAL DESBLOQUEADA
 ========================================================= */
-.popup-recompensa-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+.mensaje-obra-final {
     width: 100%;
-    height: 100%;
-    background-color: rgba(32, 11, 48, 0.85); /* Fondo oscuro morado */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-
-    /* Oculto por defecto con animación */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-/* Clase que activa el JavaScript para mostrarlo */
-.popup-recompensa-overlay.activo {
-    opacity: 1;
-    visibility: visible;
-}
-
-.popup-recompensa-content {
-    background: linear-gradient(to bottom, #ffffff, #f4f1f8);
-    padding: 40px 30px;
-    border-radius: 25px;
     text-align: center;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-
-    /* Animación de entrada desde abajo */
-    transform: translateY(30px) scale(0.95);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.popup-recompensa-overlay.activo .popup-recompensa-content {
-    transform: translateY(0) scale(1);
-}
-
-.popup-recompensa-content h2 {
     color: #523479;
-    font-family: 'TheSignature', cursive;
-    font-size: 60px;
-    margin: 0 0 15px 0;
-    font-weight: normal;
-}
-
-.popup-recompensa-content p {
     font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-.popup-recompensa-content button {
-    background-color: #523479;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-    box-shadow: 0 4px 15px rgba(82, 52, 121, 0.3);
-}
-
-.popup-recompensa-content button:hover {
-    background-color: #200B30;
-    transform: scale(1.05);
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    scroll-margin-top: 30px;
 }
 
 /* =========================================================

@@ -1,21 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // =========================================================
-    // 0. COMPROBAR SI VENIMOS DE DESBLOQUEAR LA OBRA FINAL
+    // 0. RESTAURAR POSICIÓN O BAJAR A LA OBRA FINAL
     // =========================================================
-    if (sessionStorage.getItem('bajar_a_secreta') === 'true') {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    const bajarASecreta = sessionStorage.getItem('bajar_a_secreta') === 'true';
+    const posicionGuardada = sessionStorage.getItem('posicion_scroll');
+
+    if (bajarASecreta) {
         sessionStorage.removeItem('bajar_a_secreta');
+        sessionStorage.removeItem('posicion_scroll');
 
-        setTimeout(() => {
-            const destino = document.getElementById('mensaje-obra-final') || document.getElementById('obra-secreta');
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                const destino = document.getElementById('mensaje-obra-final') || document.getElementById('obra-secreta');
+                if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 500);
+        }, { once: true });
 
-            if (destino) {
-                destino.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }, 500);
+    } else if (posicionGuardada !== null) {
+        sessionStorage.removeItem('posicion_scroll');
+
+        window.addEventListener('load', function () {
+            window.scrollTo({
+                top: parseInt(posicionGuardada, 10),
+                behavior: 'auto'
+            });
+        }, { once: true });
     }
 
     // =========================================================
@@ -168,66 +180,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.exito) {
-                        const zonaComentarios = document.getElementById('zona-comentarios-' + cuadroId);
-                        const btnDesplegar = zonaComentarios.querySelector('.btn-desplegar-comentarios');
-                        const listaComentarios = document.getElementById('lista-comentarios-' + cuadroId);
-
-                        const nuevoComentario = document.createElement('div');
-                        nuevoComentario.classList.add('comentario-item');
-
-                        const nombreUsuario = document.createElement('strong');
-                        nombreUsuario.textContent = data.nombre_usuario;
-
-                        const etiquetaTu = document.createElement('span');
-                        etiquetaTu.textContent = '(Tú)';
-                        etiquetaTu.style.color = '#2ed573';
-                        etiquetaTu.style.fontSize = '12px';
-                        etiquetaTu.style.marginLeft = '5px';
-                        etiquetaTu.style.fontWeight = 'bold';
-
-                        const textoComentario = document.createElement('p');
-                        textoComentario.textContent = comentario;
-                        textoComentario.style.margin = '5px 0 0 0';
-
-                        nuevoComentario.appendChild(nombreUsuario);
-                        nuevoComentario.appendChild(etiquetaTu);
-                        nuevoComentario.appendChild(textoComentario);
-                        listaComentarios.prepend(nuevoComentario);
-
-                        input.value = '';
-
-                        const zonaEscribir = this.closest('.zona-escribir-comentario');
-                        const esRecompensa = this.dataset.esRecompensa === '1';
-
-                        if (zonaEscribir) {
-                            zonaEscribir.innerHTML = esRecompensa
-                                ? `<div class="mensaje-registro-comentario mensaje-cuadro-comentado"><p>Cuadro comentado.</p></div>`
-                                : `<div class="mensaje-registro-comentario mensaje-cuadro-comentado"><p>Cuadro comentado. ${data.comentadas}/${data.total_normales} para desbloquear la obra final.</p></div>`;
-                        }
-
-                        const badge = document.getElementById('badge-comentado-' + cuadroId);
-
-                        if (badge) {
-                            badge.classList.add('visible');
-                        }
-
-                        if (btnDesplegar.classList.contains('bloqueado')) {
-                            btnDesplegar.classList.remove('bloqueado');
-
-                            btnDesplegar.innerHTML = `
-                                <span>Comentarios de la comunidad</span>
-                                <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M6 9l6 6 6-6"></path>
-                                </svg>
-                            `;
-
-                            listaComentarios.classList.add('abierto');
-                        }
-
                         if (data.recompensa_desbloqueada && !document.getElementById('obra-secreta')) {
                             sessionStorage.setItem('bajar_a_secreta', 'true');
-                            window.location.reload();
+                            sessionStorage.removeItem('posicion_scroll');
+                        } else {
+                            sessionStorage.setItem('posicion_scroll', window.scrollY.toString());
                         }
+
+                        window.location.reload();
                     } else {
                         alert('Error al enviar: ' + data.error);
                     }

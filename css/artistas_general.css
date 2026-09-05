@@ -451,8 +451,11 @@ html {
 }
 
 .mensaje-registro-comentario.mensaje-cuadro-comentado {
+    color: #2ed573;
+    border-color: #2ed573;
     border-style: solid;
-    font-weight: 600;
+    background-color: rgba(46, 213, 115, 0.08);
+    font-weight: 700;
 }
 
 @media (max-width: 1200px) {

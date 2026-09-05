@@ -111,91 +111,76 @@ html {
 }
 
 /* =========================================================
-   REPRODUCTOR Y TRANSCRIPCIÓN
+   REPRODUCTOR DE AUDIO
 ========================================================= */
 .reproductor-audio {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
     background-color: #523479;
-    border-radius: 50px;
-    padding: 10px 15px;
-    gap: 15px;
+    border-radius: 25px;
+    padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0 5px 15px rgba(82, 52, 121, 0.3);
 }
 
+/* =========================================================
+   ESTILO GENERAL DE LOS BOTONES DEL REPRODUCTOR
+========================================================= */
+.btn-play-pause,
+.btn-reiniciar,
+.btn-toggle-transcripcion {
+    min-height: 44px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+/* =========================================================
+   BOTÓN PRINCIPAL: ESCUCHAR
+========================================================= */
 .btn-play-pause {
     background-color: white;
     color: #523479;
     border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.2s;
 }
 
 .btn-play-pause:hover {
-    transform: scale(1.1);
+    background-color: #f4f1f8;
+    transform: scale(1.03);
 }
 
-.btn-play-pause svg {
-    width: 18px;
-    height: 18px;
-}
-
-/* Botón de reiniciar audio */
+/* =========================================================
+   VOLVER A EMPEZAR
+========================================================= */
 .btn-reiniciar {
-    background: transparent;
-    border: none;
+    background-color: transparent;
     color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin-left: -5px;
-    transition: transform 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .btn-reiniciar:hover {
-    transform: rotate(-45deg) scale(1.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
 }
 
-.btn-reiniciar svg {
-    width: 20px;
-    height: 20px;
-}
-
-.onda-audio {
-    flex: 1;
-    color: white;
-    font-family: Montserrat, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-}
-
+/* =========================================================
+   LEER TEXTO
+========================================================= */
 .btn-toggle-transcripcion {
-    background: transparent;
-    border: none;
+    background-color: transparent;
     color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s;
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
-.btn-toggle-transcripcion svg {
-    width: 24px;
-    height: 24px;
-}
-
-/* Rota la flecha cuando se abre */
-.btn-toggle-transcripcion.abierto svg {
-    transform: rotate(180deg);
+.btn-toggle-transcripcion:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
 }
 
 .caja-transcripcion {
@@ -576,23 +561,15 @@ html {
     }
 
     .reproductor-audio {
-        padding: 8px 12px;
+        padding: 12px;
         gap: 10px;
     }
 
-    .btn-play-pause {
-        width: 35px;
-        height: 35px;
-        margin-right: 5px;
-    }
-
-    .btn-reiniciar svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .onda-audio {
+    .btn-play-pause,
+    .btn-reiniciar,
+    .btn-toggle-transcripcion {
         font-size: 13px;
+        padding: 10px 16px;
     }
 
     .form-comentario {
@@ -625,6 +602,17 @@ html {
     .galeria-cuadros h1 {
         font-size: 38px;
     }
+
+    .reproductor-audio {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-play-pause,
+    .btn-reiniciar,
+    .btn-toggle-transcripcion {
+        width: 100%;
+    }
 }
 
 /* =========================================================
@@ -633,24 +621,5 @@ html {
 @media (max-width: 400px) {
     .col-info h2 {
         font-size: 20px;
-    }
-
-    .onda-audio {
-        font-size: 11px;
-    }
-
-    .btn-play-pause {
-        width: 30px;
-        height: 30px;
-    }
-
-    .btn-play-pause svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .btn-reiniciar svg {
-        width: 16px;
-        height: 16px;
     }
 }

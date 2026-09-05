@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4b7f8f737cf9947419c10c78bc262f80
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - startButton: {fileID: 7854077891303358940, guid: 74418088d2a64624f9fae908e37f4e4b, type: 3}
+  - stopButton: {fileID: 4826539953713284216, guid: a6013f23d9b533b4684323b905d1b5be, type: 3}
+  - resultText: {fileID: 8740730666988576403, guid: 50e18904f901ea34fa057b75c6d69a0c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

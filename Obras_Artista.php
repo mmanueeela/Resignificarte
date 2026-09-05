@@ -351,7 +351,7 @@ while ($obra = $result_obras->fetch_assoc()) {
     <div class="modal-comentario-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-comentario">
         <h2 id="titulo-modal-comentario">¿Quieres enviar este comentario?</h2>
         <div class="comentario-a-confirmar"><p id="texto-comentario-confirmacion"></p></div>
-        <p class="aviso-modal-comentario">Una vez enviado, solo podrás comentar esta obra una vez.</p>
+        <p class="aviso-modal-comentario">Una vez enviado, no podrás modificar el comentario ni eliminarlo.</p>
         <p id="error-modal-comentario" class="error-modal-comentario"></p>
         <div class="modal-comentario-botones">
             <button type="button" id="btn-cancelar-comentario" class="btn-cancelar-comentario">Cancelar</button>

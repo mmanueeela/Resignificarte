@@ -154,48 +154,97 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // =========================================================
-    // 5. ENVIAR COMENTARIO REAL POR AJAX
+    // 5. CONFIRMAR Y ENVIAR COMENTARIO
     // =========================================================
     const formulariosComentario = document.querySelectorAll('.form-comentario');
+    const modalComentario = document.getElementById('modal-confirmar-comentario');
+    const textoConfirmacion = document.getElementById('texto-comentario-confirmacion');
+    const btnCancelarComentario = document.getElementById('btn-cancelar-comentario');
+    const btnConfirmarComentario = document.getElementById('btn-confirmar-comentario');
+    const errorModalComentario = document.getElementById('error-modal-comentario');
+
+    let formularioPendiente = null;
+    let comentarioPendiente = '';
+
+    function abrirModalComentario(form, comentario) {
+        formularioPendiente = form;
+        comentarioPendiente = comentario;
+        textoConfirmacion.textContent = comentario;
+        errorModalComentario.textContent = '';
+        errorModalComentario.classList.remove('visible');
+        modalComentario.classList.add('activo');
+        modalComentario.setAttribute('aria-hidden', 'false');
+        btnConfirmarComentario.focus();
+    }
+
+    function cerrarModalComentario() {
+        modalComentario.classList.remove('activo');
+        modalComentario.setAttribute('aria-hidden', 'true');
+        btnConfirmarComentario.disabled = false;
+        errorModalComentario.textContent = '';
+        errorModalComentario.classList.remove('visible');
+        formularioPendiente = null;
+        comentarioPendiente = '';
+    }
 
     formulariosComentario.forEach(form => {
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const input = this.querySelector('.input-comentario');
             const comentario = input.value.trim();
-
             if (comentario === '') return;
-
-            const cuadroId = this.getAttribute('data-cuadro-id');
-            const formData = new FormData();
-
-            formData.append('obra_id', cuadroId);
-            formData.append('comentario', comentario);
-
-            fetch('php/procesar_comentario.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.exito) {
-                        if (data.recompensa_desbloqueada && !document.getElementById('obra-secreta')) {
-                            sessionStorage.setItem('bajar_a_secreta', 'true');
-                            sessionStorage.removeItem('posicion_scroll');
-                        } else {
-                            sessionStorage.setItem('posicion_scroll', window.scrollY.toString());
-                        }
-
-                        window.location.reload();
-                    } else {
-                        alert('Error al enviar: ' + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            abrirModalComentario(this, comentario);
         });
+    });
+
+    btnCancelarComentario.addEventListener('click', cerrarModalComentario);
+
+    modalComentario.addEventListener('click', function(e) {
+        if (e.target === modalComentario) cerrarModalComentario();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalComentario.classList.contains('activo')) cerrarModalComentario();
+    });
+
+    btnConfirmarComentario.addEventListener('click', function() {
+        if (!formularioPendiente || comentarioPendiente === '') return;
+
+        const cuadroId = formularioPendiente.getAttribute('data-cuadro-id');
+        const formData = new FormData();
+
+        formData.append('obra_id', cuadroId);
+        formData.append('comentario', comentarioPendiente);
+
+        btnConfirmarComentario.disabled = true;
+
+        fetch('php/procesar_comentario.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    if (data.recompensa_desbloqueada && !document.getElementById('obra-secreta')) {
+                        sessionStorage.setItem('bajar_a_secreta', 'true');
+                        sessionStorage.removeItem('posicion_scroll');
+                    } else {
+                        sessionStorage.setItem('posicion_scroll', window.scrollY.toString());
+                    }
+
+                    window.location.reload();
+                } else {
+                    btnConfirmarComentario.disabled = false;
+                    errorModalComentario.textContent = 'Error al enviar: ' + data.error;
+                    errorModalComentario.classList.add('visible');
+                }
+            })
+            .catch(error => {
+                btnConfirmarComentario.disabled = false;
+                errorModalComentario.textContent = 'Ha ocurrido un error al enviar el comentario. Inténtalo de nuevo.';
+                errorModalComentario.classList.add('visible');
+                console.error('Error:', error);
+            });
     });
 
 });

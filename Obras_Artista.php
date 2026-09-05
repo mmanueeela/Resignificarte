@@ -347,6 +347,19 @@ while ($obra = $result_obras->fetch_assoc()) {
     <img src="src/iconos/up_arrow.png" alt="Subir">
 </a>
 
+<div id="modal-confirmar-comentario" class="modal-comentario" aria-hidden="true">
+    <div class="modal-comentario-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-comentario">
+        <h2 id="titulo-modal-comentario">¿Quieres enviar este comentario?</h2>
+        <div class="comentario-a-confirmar"><p id="texto-comentario-confirmacion"></p></div>
+        <p class="aviso-modal-comentario">Una vez enviado, solo podrás comentar esta obra una vez.</p>
+        <p id="error-modal-comentario" class="error-modal-comentario"></p>
+        <div class="modal-comentario-botones">
+            <button type="button" id="btn-cancelar-comentario" class="btn-cancelar-comentario">Cancelar</button>
+            <button type="button" id="btn-confirmar-comentario" class="btn-confirmar-comentario">Comentar</button>
+        </div>
+    </div>
+</div>
+
 <footer>
     <p>&copy; Todos los derechos reservados. 2026</p>
 </footer>

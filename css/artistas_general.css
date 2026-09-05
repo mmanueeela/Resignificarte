@@ -458,6 +458,143 @@ html {
     font-weight: 700;
 }
 
+/* =========================================================
+   MODAL CONFIRMAR COMENTARIO
+========================================================= */
+.modal-comentario {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(32, 11, 48, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-comentario.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-comentario-contenido {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.25s ease;
+}
+
+.modal-comentario.activo .modal-comentario-contenido {
+    transform: translateY(0) scale(1);
+}
+
+.modal-comentario-contenido h2 {
+    margin: 0 0 20px;
+    color: #523479;
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+
+.comentario-a-confirmar {
+    background-color: #f4f1f8;
+    border-left: 4px solid #523479;
+    border-radius: 12px;
+    padding: 18px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.comentario-a-confirmar p {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.aviso-modal-comentario {
+    margin: 15px 0 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+.error-modal-comentario {
+    display: none;
+    margin: 0 0 18px;
+    padding: 10px 15px;
+    background-color: rgba(255, 71, 87, 0.1);
+    border: 1px solid #ff4757;
+    border-radius: 12px;
+    color: #d63031;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.error-modal-comentario.visible {
+    display: block;
+}
+
+.modal-comentario-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancelar-comentario,
+.btn-confirmar-comentario {
+    min-height: 44px;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-cancelar-comentario {
+    background-color: white;
+    color: #523479;
+    border: 2px solid #523479;
+}
+
+.btn-confirmar-comentario {
+    background-color: #523479;
+    color: white;
+    border: 2px solid #523479;
+}
+
+.btn-cancelar-comentario:hover,
+.btn-confirmar-comentario:hover {
+    transform: scale(1.03);
+}
+
+.btn-confirmar-comentario:hover {
+    background-color: #200B30;
+}
+
+.btn-confirmar-comentario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 @media (max-width: 1200px) {
     .cabecera-artista h1 {
         font-size: 45px;
@@ -551,6 +688,19 @@ html {
     .btn-play-pause,
     .btn-reiniciar,
     .btn-toggle-transcripcion {
+        width: 100%;
+    }
+
+    .modal-comentario-contenido {
+        padding: 25px 20px;
+    }
+
+    .modal-comentario-botones {
+        flex-direction: column-reverse;
+    }
+
+    .btn-cancelar-comentario,
+    .btn-confirmar-comentario {
         width: 100%;
     }
 }

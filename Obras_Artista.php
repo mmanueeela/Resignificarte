@@ -228,6 +228,8 @@ while ($obra = $result_obras->fetch_assoc()) {
         <?php endif; ?>
     </div>
 
+    <h1>OBRAS</h1>
+
     <div class="galeria-cuadros">
         <?php foreach ($cuadros as $index => $cuadro):
             // LÓGICA CORRECTA: Si es recompensa -> layout vertical. Si no -> alterna normal (inversa)
@@ -283,7 +285,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                         <!-- CLAVE: Si está logeado, mostramos el formulario. Si no, mostramos el mensaje -->
                         <?php if ($usuario_logeado): ?>
                             <form class="form-comentario" data-cuadro-id="<?= $cuadro['id'] ?>">
-                                <input type="text" name="comentario" placeholder="Deja tu comentario sobre esta obra..." required class="input-comentario">
+                                <input type="text" name="comentario" placeholder="Deja tu comentario para desbloquear la obra final..." required class="input-comentario">
                                 <button type="submit" class="btn-enviar-comentario">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                 </button>

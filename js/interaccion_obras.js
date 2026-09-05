@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (botonCorrespondiente) {
                     botonCorrespondiente.textContent = audio.currentTime > 0
-                        ? 'Continuar audio'
+                        ? 'Iniciar audio'
                         : 'Escuchar la obra';
                 }
             }
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             } else {
                 audio.pause();
-                this.textContent = 'Continuar audio';
+                this.textContent = 'Iniciar audio';
             }
         });
     });

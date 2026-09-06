@@ -49,6 +49,10 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="sorteo_administrador.php" class="<?= ($pagina_actual == 'sorteo_administrador.php') ? 'activo' : '' ?>">SORTEO</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -91,6 +95,10 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
 
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="sorteo_administrador.php" class="<?= ($pagina_actual == 'sorteo_administrador.php') ? 'activo' : '' ?>">SORTEO</a></li>
             <?php endif; ?>
 
             <hr class="separador-movil">

@@ -144,6 +144,10 @@ while ($obra = $result_obras->fetch_assoc()) {
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="homepage.php" class="<?= ($pagina_actual == 'homepage.php') ? 'activo' : '' ?>">INICIO</a></li>
+            <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
@@ -189,6 +193,10 @@ while ($obra = $result_obras->fetch_assoc()) {
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="homepage.php" class="<?= ($pagina_actual == 'homepage.php') ? 'activo' : '' ?>">INICIO</a></li>
+            <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>

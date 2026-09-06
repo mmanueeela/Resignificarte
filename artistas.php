@@ -38,6 +38,10 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="homepage.php" class="<?= ($pagina_actual == 'homepage.php') ? 'activo' : '' ?>">INICIO</a></li>
+            <?php endif; ?>
+
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
@@ -83,6 +87,10 @@ $experiencias = $resultado->fetch_all(MYSQLI_ASSOC);
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
+            <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
+                <li><a href="homepage.php" class="<?= ($pagina_actual == 'homepage.php') ? 'activo' : '' ?>">INICIO</a></li>
+            <?php endif; ?>
+            
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>

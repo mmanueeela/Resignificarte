@@ -51,11 +51,11 @@ $stmt->close();
     <!-- Menú principal (Escritorio) -->
     <nav class="menu-navegacion">
         <ul>
-            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
-
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
                 <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
+
+            <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
@@ -91,14 +91,14 @@ $stmt->close();
     <!-- Menú Desplegable (Móvil) -->
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
+            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
+            <?php endif; ?>
+            
             <li><a href="artistas.php" class="<?= ($pagina_actual == 'artistas.php' || $pagina_actual == 'Obras_Artista.php') ? 'activo' : '' ?>">ARTISTAS</a></li>
 
             <?php if (!isset($_SESSION['es_admin']) || $_SESSION['es_admin'] != 1): ?>
                 <li><a href="contacto.php" class="<?= ($pagina_actual == 'contacto.php') ? 'activo' : '' ?>">CONTACTO</a></li>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                <li><a href="homepage_administrador.php" class="<?= ($pagina_actual == 'homepage_administrador.php') ? 'activo' : '' ?>">PANEL ADMIN</a></li>
             <?php endif; ?>
 
             <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>

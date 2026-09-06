@@ -157,6 +157,23 @@ main {
     height: auto;
 }
 
+.datos-autor-comentario {
+    font-family: Montserrat, sans-serif;
+    color: #523479;
+}
+
+.datos-secundarios-comentario {
+    font-weight: 400;
+    color: #666;
+}
+
+.etiqueta-tu {
+    color: #2ed573;
+    font-size: 12px;
+    margin-left: 5px;
+    font-weight: 700;
+}
+
 /* ---------------------------------------------------------
    BOTONES VER OBRAS Y EDITAR
 --------------------------------------------------------- */

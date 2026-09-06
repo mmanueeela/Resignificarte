@@ -1,8 +1,7 @@
 <?php
 require_once 'php/logicaNegocio/cargar_usuario_header.php';
 require_once 'php/conexion.php';
-
-// ¡ELIMINADA LA REDIRECCIÓN AL LOGIN! Ahora los invitados pueden entrar.
+require_once 'php/paises.php';
 
 // 1. COMPROBAR QUÉ ARTISTA QUEREMOS VER POR LA URL
 if (!isset($_GET['id'])) {
@@ -69,10 +68,17 @@ $cuadros = [];
 while ($obra = $result_obras->fetch_assoc()) {
     // Para cada obra, sacar sus comentarios
     $stmt_com = $conexion->prepare("
-        SELECT c.id AS id_comentario, c.comentario, c.usuario_id, u.nombre 
-        FROM comentarios c 
-        JOIN usuarios u ON c.usuario_id = u.id 
-        WHERE c.obra_id = ? 
+        SELECT 
+            c.id AS id_comentario,
+            c.comentario,
+            c.usuario_id,
+            u.nombre,
+            u.fecha_nacimiento,
+            u.pais,
+            TIMESTAMPDIFF(YEAR, u.fecha_nacimiento, CURDATE()) AS edad
+        FROM comentarios c
+        JOIN usuarios u ON c.usuario_id = u.id
+        WHERE c.obra_id = ?
         ORDER BY CASE WHEN c.usuario_id = ? THEN 1 ELSE 0 END DESC, c.fecha DESC
     ");
     $stmt_com->bind_param("ii", $obra['id'], $usuario_id);
@@ -331,12 +337,16 @@ while ($obra = $result_obras->fetch_assoc()) {
                         <div class="lista-comentarios-oculta" id="lista-comentarios-<?= $cuadro['id'] ?>">
                             <?php foreach($cuadro['comentarios_lista'] as $com): ?>
                                 <div class="comentario-item">
-                                    <strong><?= htmlspecialchars($com['nombre']) ?></strong>
+                                    <div class="datos-autor-comentario">
+                                        <strong><?= htmlspecialchars($com['nombre']) ?></strong>
+                                        <span class="datos-secundarios-comentario">
+                                            , <?= intval($com['edad']) ?> años, <?= htmlspecialchars($paises[$com['pais']] ?? $com['pais']) ?>
+                                        </span>
 
-                                    <!-- AQUI ESTÁ LA ETIQUETA EN VERDE PARA EL USUARIO -->
-                                    <?php if($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
-                                        <span style="color: #2ed573; font-size: 12px; margin-left: 5px; font-weight: bold;">(Tú)</span>
-                                    <?php endif; ?>
+                                        <?php if($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
+                                            <span class="etiqueta-tu">(Tú)</span>
+                                        <?php endif; ?>
+                                    </div>
 
                                     <!-- BOTÓN DE ELIMINAR COMENTARIO (SOLO PARA ADMIN) -->
                                     <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>

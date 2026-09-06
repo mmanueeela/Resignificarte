@@ -34,7 +34,6 @@
 }
 
 .cabecera-sorteo-admin p {
-    max-width: 750px;
     margin: 0 0 20px;
     color: #523479;
     font-size: 15px;
@@ -80,6 +79,7 @@
 .imagen-participante img {
     width: 100%;
     height: 100%;
+    padding: 20px;
     object-fit: contain;
     display: block;
 }

@@ -59,10 +59,10 @@ $stmt->close();
     <nav class="menu-navegacion">
         <ul>
             <li>
-                <a href="artistas.php">ARTISTAS</a>
+                <a href="homepage_administrador.php">PANEL ADMIN</a>
             </li>
             <li>
-                <a href="homepage_administrador.php">PANEL ADMIN</a>
+                <a href="artistas.php">ARTISTAS</a>
             </li>
             <li>
                 <a href="sorteo_administrador.php" class="activo">SORTEO</a>
@@ -92,8 +92,8 @@ $stmt->close();
     </button>
     <nav class="menu-navegacion-mobile" id="menu-mobile">
         <ul>
-            <li><a href="artistas.php">ARTISTAS</a></li>
             <li><a href="homepage_administrador.php">PANEL ADMIN</a></li>
+            <li><a href="artistas.php">ARTISTAS</a></li>
             <li><a href="sorteo_administrador.php" class="activo">SORTEO</a></li>
             <hr class="separador-movil">
             <li>

@@ -11,51 +11,76 @@ public class VRDoor : MonoBehaviour
     [SerializeField] private float minAngle = 0f;
     [SerializeField] private float maxAngle = 100f;
 
+    [Header("Sensación")]
+    [SerializeField] private float degreesPerMeter = 200f;
+    [SerializeField] private float smoothSpeed = 14f;
+    [SerializeField] private float deadZoneDegrees = 0.3f;
+
+    [Header("Dirección")]
+    [SerializeField] private bool invertDirection = false;
+
     private Transform handTransform;
+
     private Quaternion closedRotation;
 
-    private float startHandAngle;
-    private float startDoorAngle;
+    private Vector3 grabHandPosition;
+    private Vector3 movementAxis;
+
+    private float grabDoorAngle;
     private float currentDoorAngle;
+    private float targetDoorAngle;
 
     private void Awake()
     {
         closedRotation = doorPivot.localRotation;
+
+        CalculateMovementAxis();
     }
 
     private void OnEnable()
     {
-        Debug.Log("PUERTA: SCRIPT ACTIVO");
-
-        handleInteractable.hoverEntered.AddListener(OnHoverEnter);
-        handleInteractable.hoverExited.AddListener(OnHoverExit);
-
         handleInteractable.selectEntered.AddListener(OnGrab);
         handleInteractable.selectExited.AddListener(OnRelease);
     }
 
     private void OnDisable()
     {
-        handleInteractable.hoverEntered.RemoveListener(OnHoverEnter);
-        handleInteractable.hoverExited.RemoveListener(OnHoverExit);
-
         handleInteractable.selectEntered.RemoveListener(OnGrab);
         handleInteractable.selectExited.RemoveListener(OnRelease);
     }
 
     private void Update()
     {
-        if (handTransform == null)
-            return;
+        if (handTransform != null)
+        {
+            Vector3 handMovement =
+                handTransform.position - grabHandPosition;
 
-        float currentHandAngle = GetHandAngle();
+            float movement =
+                Vector3.Dot(handMovement, movementAxis);
 
-        float difference = Mathf.DeltaAngle(startHandAngle, currentHandAngle);
+            if (invertDirection)
+                movement *= -1f;
 
-        currentDoorAngle = Mathf.Clamp(
-            startDoorAngle + difference,
-            minAngle,
-            maxAngle
+            float desiredAngle =
+                grabDoorAngle + movement * degreesPerMeter;
+
+            desiredAngle = Mathf.Clamp(
+                desiredAngle,
+                minAngle,
+                maxAngle
+            );
+
+            if (Mathf.Abs(desiredAngle - targetDoorAngle) > deadZoneDegrees)
+            {
+                targetDoorAngle = desiredAngle;
+            }
+        }
+
+        currentDoorAngle = Mathf.Lerp(
+            currentDoorAngle,
+            targetDoorAngle,
+            1f - Mathf.Exp(-smoothSpeed * Time.deltaTime)
         );
 
         doorPivot.localRotation =
@@ -63,45 +88,41 @@ public class VRDoor : MonoBehaviour
             Quaternion.AngleAxis(currentDoorAngle, Vector3.up);
     }
 
-    private void OnHoverEnter(HoverEnterEventArgs args)
-    {
-        Debug.Log("PUERTA: HOVER DETECTADO");
-    }
-
-    private void OnHoverExit(HoverExitEventArgs args)
-    {
-        Debug.Log("PUERTA: HOVER TERMINADO");
-    }
-
     private void OnGrab(SelectEnterEventArgs args)
     {
-        Debug.Log("PUERTA: GRAB DETECTADO");
-
         handTransform =
             args.interactorObject.GetAttachTransform(handleInteractable);
 
-        startHandAngle = GetHandAngle();
-        startDoorAngle = currentDoorAngle;
+        grabHandPosition = handTransform.position;
+        grabDoorAngle = currentDoorAngle;
+        targetDoorAngle = currentDoorAngle;
     }
 
     private void OnRelease(SelectExitEventArgs args)
     {
-        Debug.Log("PUERTA: GRAB SOLTADO");
-
         handTransform = null;
     }
 
-    private float GetHandAngle()
+    private void CalculateMovementAxis()
     {
-        Transform reference = doorPivot.parent;
+        Vector3 hingeAxis =
+            doorPivot.TransformDirection(Vector3.up);
 
-        Vector3 handLocal =
-            reference.InverseTransformPoint(handTransform.position);
+        Vector3 handleDirection =
+            handleInteractable.transform.position - doorPivot.position;
 
-        Vector3 pivotLocal = doorPivot.localPosition;
+        handleDirection =
+            Vector3.ProjectOnPlane(handleDirection, hingeAxis);
 
-        Vector3 direction = handLocal - pivotLocal;
+        if (handleDirection.sqrMagnitude < 0.0001f)
+        {
+            movementAxis = doorPivot.parent.right;
+            return;
+        }
 
-        return Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        handleDirection.Normalize();
+
+        movementAxis =
+            Vector3.Cross(hingeAxis, handleDirection).normalized;
     }
 }

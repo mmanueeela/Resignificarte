@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 35895775}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.44871, y: 0.023000002, z: 1.086}
+  m_LocalPosition: {x: -0.029999971, y: -0.036000013, z: 0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,8 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRDoor
   doorPivot: {fileID: 403454079}
   handleInteractable: {fileID: 35895778}
-  minAngle: 0
-  maxAngle: 100
+  minAngle: -90
+  maxAngle: 0
   degreesPerMeter: 200
   smoothSpeed: 14
   deadZoneDegrees: 0.3
@@ -508,6 +508,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10bbbee69f6b73a4e820ba169579c447, type: 3}
       propertyPath: m_Name
       value: todo_entorno
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10bbbee69f6b73a4e820ba169579c447, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1678,7 +1682,7 @@ Transform:
   m_GameObject: {fileID: 403454078}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.76171, y: 1.17, z: 1.947}
+  m_LocalPosition: {x: -3.76171, y: 1.17, z: 1.9022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1993,7 +1997,7 @@ MonoBehaviour:
   doorPivot: {fileID: 1825774914}
   handleInteractable: {fileID: 452642506}
   minAngle: 0
-  maxAngle: 100
+  maxAngle: 90
   degreesPerMeter: 200
   smoothSpeed: 14
   deadZoneDegrees: 0.3
@@ -2491,7 +2495,7 @@ Transform:
   m_GameObject: {fileID: 660057153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.478, y: 1.122, z: 3.734}
+  m_LocalPosition: {x: 0.536, y: 1.122, z: 3.734}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3652,7 +3656,7 @@ Transform:
   m_GameObject: {fileID: 910998235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.76171, y: 1.17, z: -3.051}
+  m_LocalPosition: {x: -3.76171, y: 1.17, z: -3.093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4001,7 +4005,7 @@ Transform:
   m_GameObject: {fileID: 990998062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.76171, y: 1.17, z: -0.54}
+  m_LocalPosition: {x: -3.76171, y: 1.17, z: -0.594}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5234,7 +5238,7 @@ Transform:
   m_GameObject: {fileID: 1296542823}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.44871, y: 0.023000002, z: 6.084}
+  m_LocalPosition: {x: -0.02999997, y: -0.03600001, z: 0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5254,8 +5258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRDoor
   doorPivot: {fileID: 910998236}
   handleInteractable: {fileID: 1296542826}
-  minAngle: 0
-  maxAngle: 100
+  minAngle: -90
+  maxAngle: 0
   degreesPerMeter: 200
   smoothSpeed: 14
   deadZoneDegrees: 0.3
@@ -5765,7 +5769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8806329115733545878, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8806329115733545878, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5798,6 +5802,14 @@ PrefabInstance:
     - target: {fileID: 8806329115733545878, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059786329452581396, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059786329452581396, guid: 77e7c27b2c5525e4aa8cc9f99d654486, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6584,7 +6596,7 @@ Transform:
   m_GameObject: {fileID: 1759026060}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.036, z: -0}
+  m_LocalPosition: {x: -0.029999971, y: -0.036000013, z: -0.005700052}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6604,8 +6616,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VRDoor
   doorPivot: {fileID: 990998063}
   handleInteractable: {fileID: 1759026063}
-  minAngle: 0
-  maxAngle: -100
+  minAngle: -90
+  maxAngle: 0
   degreesPerMeter: 200
   smoothSpeed: 14
   deadZoneDegrees: 0.3
@@ -7229,7 +7241,7 @@ Transform:
   m_GameObject: {fileID: 1860912659}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.209, y: 0.07099998, z: -0.701}
+  m_LocalPosition: {x: 0.003, y: 0.07099998, z: -0.001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7250,7 +7262,7 @@ MonoBehaviour:
   doorPivot: {fileID: 660057154}
   handleInteractable: {fileID: 1860912662}
   minAngle: 0
-  maxAngle: 100
+  maxAngle: 90
   degreesPerMeter: 200
   smoothSpeed: 14
   deadZoneDegrees: 0.3
@@ -7691,8 +7703,8 @@ Transform:
   m_GameObject: {fileID: 8617835151006811946}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.021290064, y: 0.017639995, z: 1.06022}
-  m_LocalScale: {x: 100, y: 99.757, z: 99.97001}
+  m_LocalPosition: {x: -0.021290064, y: 0.017639995, z: 1.10502}
+  m_LocalScale: {x: 100, y: 99.75702, z: 99.970024}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 403454079}
@@ -7801,8 +7813,8 @@ Transform:
   m_GameObject: {fileID: 5092708245468105741}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.021290064, y: 0.01722002, z: 1.0491999}
-  m_LocalScale: {x: 100, y: 99.83004, z: 99.93404}
+  m_LocalPosition: {x: -0.021290064, y: 0.01722002, z: 1.1032}
+  m_LocalScale: {x: 100, y: 99.780136, z: 99.93405}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 990998063}
@@ -7885,8 +7897,8 @@ Transform:
   m_GameObject: {fileID: 2674951465885273716}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: -0.01928997, y: 0.01760006, z: 1.0582901}
-  m_LocalScale: {x: 100, y: 99.67501, z: 99.97001}
+  m_LocalPosition: {x: -0.01928997, y: 0.01760006, z: 1.10029}
+  m_LocalScale: {x: 100, y: 99.675026, z: 99.970024}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 910998236}
@@ -8118,8 +8130,8 @@ Transform:
   m_GameObject: {fileID: 8839568720851472420}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8591, y: 0.011790037, z: 0.013999939}
-  m_LocalScale: {x: 83.23199, y: 100, z: 95.45364}
+  m_LocalPosition: {x: -0.9171, y: 0.011790037, z: 0.013999939}
+  m_LocalScale: {x: 83.23199, y: 100, z: 95.45363}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 660057154}

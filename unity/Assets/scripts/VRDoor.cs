@@ -25,12 +25,20 @@ public class VRDoor : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("PUERTA: SCRIPT ACTIVO");
+
+        handleInteractable.hoverEntered.AddListener(OnHoverEnter);
+        handleInteractable.hoverExited.AddListener(OnHoverExit);
+
         handleInteractable.selectEntered.AddListener(OnGrab);
         handleInteractable.selectExited.AddListener(OnRelease);
     }
 
     private void OnDisable()
     {
+        handleInteractable.hoverEntered.RemoveListener(OnHoverEnter);
+        handleInteractable.hoverExited.RemoveListener(OnHoverExit);
+
         handleInteractable.selectEntered.RemoveListener(OnGrab);
         handleInteractable.selectExited.RemoveListener(OnRelease);
     }
@@ -55,9 +63,22 @@ public class VRDoor : MonoBehaviour
             Quaternion.AngleAxis(currentDoorAngle, Vector3.up);
     }
 
+    private void OnHoverEnter(HoverEnterEventArgs args)
+    {
+        Debug.Log("PUERTA: HOVER DETECTADO");
+    }
+
+    private void OnHoverExit(HoverExitEventArgs args)
+    {
+        Debug.Log("PUERTA: HOVER TERMINADO");
+    }
+
     private void OnGrab(SelectEnterEventArgs args)
     {
-        handTransform = args.interactorObject.GetAttachTransform(handleInteractable);
+        Debug.Log("PUERTA: GRAB DETECTADO");
+
+        handTransform =
+            args.interactorObject.GetAttachTransform(handleInteractable);
 
         startHandAngle = GetHandAngle();
         startDoorAngle = currentDoorAngle;
@@ -65,6 +86,8 @@ public class VRDoor : MonoBehaviour
 
     private void OnRelease(SelectExitEventArgs args)
     {
+        Debug.Log("PUERTA: GRAB SOLTADO");
+
         handTransform = null;
     }
 

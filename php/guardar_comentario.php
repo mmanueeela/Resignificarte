@@ -1,125 +1,176 @@
 <?php
 
-require_once 'conexion.php';
+// ======================================================
+// MODO DEPURACIÓN MYSQL
+// ======================================================
+
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 header('Content-Type: text/plain; charset=utf-8');
 
-$usuario_id = intval($_POST['usuario_id'] ?? 0);
-$obra_id = intval($_POST['obra_id'] ?? 0);
-$comentario = trim($_POST['comentario'] ?? '');
+try {
 
-if ($usuario_id <= 0 || $obra_id <= 0 || empty($comentario)) {
-    echo 'ERROR|Datos incompletos';
-    exit();
-}
+    require_once 'conexion.php';
 
-// ======================================================
-// 1. COMPROBAR QUE EL USUARIO EXISTE
-// ======================================================
+    $usuario_id = intval($_POST['usuario_id'] ?? 0);
+    $obra_id = intval($_POST['obra_id'] ?? 0);
+    $comentario = trim($_POST['comentario'] ?? '');
 
-$stmt = $conexion->prepare("SELECT id FROM usuarios WHERE id = ? LIMIT 1");
+    // ======================================================
+    // 0. COMPROBAR DATOS RECIBIDOS
+    // ======================================================
 
-if (!$stmt) {
-    echo 'ERROR|Prepare usuario: ' . $conexion->error;
-    exit();
-}
+    if ($usuario_id <= 0 || $obra_id <= 0 || empty($comentario)) {
+        echo 'ERROR|Datos incompletos';
+        exit();
+    }
 
-$stmt->bind_param("i", $usuario_id);
 
-if (!$stmt->execute()) {
-    echo 'ERROR|Execute usuario: ' . $stmt->error;
+    // ======================================================
+    // 1. COMPROBAR QUE EL USUARIO EXISTE
+    // ======================================================
+
+    $stmt = $conexion->prepare("
+        SELECT id
+        FROM usuarios
+        WHERE id = ?
+        LIMIT 1
+    ");
+
+    $stmt->bind_param(
+        "i",
+        $usuario_id
+    );
+
+    $stmt->execute();
+
+    $stmt->bind_result(
+        $usuarioEncontrado
+    );
+
+    if (!$stmt->fetch()) {
+
+        $stmt->close();
+
+        echo 'ERROR|Usuario no válido';
+        exit();
+    }
+
     $stmt->close();
-    exit();
-}
 
-$stmt->bind_result($usuarioEncontrado);
 
-if (!$stmt->fetch()) {
+    // ======================================================
+    // 2. COMPROBAR SI YA COMENTÓ ESA OBRA DESDE VR
+    // ======================================================
+
+    $stmt = $conexion->prepare("
+        SELECT COUNT(*)
+        FROM comentarios
+        WHERE obra_id = ?
+        AND usuario_id = ?
+        AND origen = 'vr'
+    ");
+
+    $stmt->bind_param(
+        "ii",
+        $obra_id,
+        $usuario_id
+    );
+
+    $stmt->execute();
+
+    $stmt->bind_result(
+        $ya_comento
+    );
+
+    $stmt->fetch();
     $stmt->close();
-    echo 'ERROR|Usuario no válido';
-    exit();
-}
 
-$stmt->close();
 
-// ======================================================
-// 2. COMPROBAR SI YA COMENTÓ ESA OBRA DESDE VR
-// ======================================================
+    if ($ya_comento > 0) {
 
-$stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios WHERE obra_id = ? AND usuario_id = ? AND origen = 'vr'");
+        echo 'ERROR|Ya has comentado esta obra desde VR';
+        exit();
+    }
 
-if (!$stmt) {
-    echo 'ERROR|Prepare comprobar comentario: ' . $conexion->error;
-    exit();
-}
 
-$stmt->bind_param("ii", $obra_id, $usuario_id);
+    // ======================================================
+    // 3. GUARDAR EL COMENTARIO
+    // ======================================================
 
-if (!$stmt->execute()) {
-    echo 'ERROR|Execute comprobar comentario: ' . $stmt->error;
+    $stmt = $conexion->prepare("
+        INSERT INTO comentarios
+        (
+            obra_id,
+            usuario_id,
+            comentario,
+            origen
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            'vr'
+        )
+    ");
+
+    $stmt->bind_param(
+        "iis",
+        $obra_id,
+        $usuario_id,
+        $comentario
+    );
+
+    $stmt->execute();
     $stmt->close();
-    exit();
-}
 
-$stmt->bind_result($ya_comento);
-$stmt->fetch();
-$stmt->close();
 
-if ($ya_comento > 0) {
-    echo 'ERROR|Ya has comentado esta obra desde VR';
-    exit();
-}
+    // ======================================================
+    // 4. CALCULAR PROGRESO VR DEL USUARIO
+    // ======================================================
 
-// ======================================================
-// 3. GUARDAR EL COMENTARIO
-// ======================================================
+    $artistaAntonio = 1;
 
-$stmt = $conexion->prepare("INSERT INTO comentarios (obra_id, usuario_id, comentario, origen) VALUES (?, ?, ?, 'vr')");
+    $stmt = $conexion->prepare("
+        SELECT COUNT(DISTINCT c.obra_id)
+        FROM comentarios c
+        INNER JOIN obras o
+            ON c.obra_id = o.id
+        WHERE c.usuario_id = ?
+        AND c.origen = 'vr'
+        AND o.artista_id = ?
+        AND o.es_recompensa = 0
+    ");
 
-if (!$stmt) {
-    echo 'ERROR|Prepare insertar comentario: ' . $conexion->error;
-    exit();
-}
+    $stmt->bind_param(
+        "ii",
+        $usuario_id,
+        $artistaAntonio
+    );
 
-$stmt->bind_param("iis", $obra_id, $usuario_id, $comentario);
+    $stmt->execute();
 
-if (!$stmt->execute()) {
-    echo 'ERROR|Insert comentario: ' . $stmt->error;
+    $stmt->bind_result(
+        $comentadas_vr
+    );
+
+    $stmt->fetch();
     $stmt->close();
-    exit();
+
+
+    // ======================================================
+    // 5. RESPUESTA A UNITY
+    // ======================================================
+
+    echo 'OK|' . $comentadas_vr;
+
 }
+catch (Throwable $e) {
 
-$stmt->close();
+    http_response_code(500);
 
-// ======================================================
-// 4. CALCULAR PROGRESO VR DEL USUARIO
-// ======================================================
-
-$artistaAntonio = 1;
-
-$stmt = $conexion->prepare("SELECT COUNT(DISTINCT c.obra_id) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 0");
-
-if (!$stmt) {
-    echo 'ERROR|Prepare progreso: ' . $conexion->error;
-    exit();
+    echo 'ERROR|PHP: ' . $e->getMessage();
 }
-
-$stmt->bind_param("ii", $usuario_id, $artistaAntonio);
-
-if (!$stmt->execute()) {
-    echo 'ERROR|Execute progreso: ' . $stmt->error;
-    $stmt->close();
-    exit();
-}
-
-$stmt->bind_result($comentadas_vr);
-$stmt->fetch();
-$stmt->close();
-
-// ======================================================
-// 5. RESPUESTA A UNITY
-// ======================================================
-
-echo 'OK|' . $comentadas_vr;
 
 ?>

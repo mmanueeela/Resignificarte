@@ -73,6 +73,14 @@ public class PhoneLoginManager : MonoBehaviour
             {
                 statusText.text = "Error de conexión con el servidor.";
                 statusText.color = Color.yellow;
+
+                Debug.LogError(
+                    "ERROR LOGIN VR\n" +
+                    "Resultado: " + www.result + "\n" +
+                    "HTTP: " + www.responseCode + "\n" +
+                    "Error: " + www.error + "\n" +
+                    "Respuesta PHP: " + www.downloadHandler.text
+                );
             }
             else
             {

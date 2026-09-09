@@ -13,18 +13,28 @@ if ($usuario_id <= 0 || $obra_id <= 0 || empty($comentario)) {
     exit();
 }
 
-// Comprobar que el usuario existe
-$stmt = $conexion->prepare("
-    SELECT id
-    FROM usuarios
-    WHERE id = ?
-");
+// ======================================================
+// 1. COMPROBAR QUE EL USUARIO EXISTE
+// ======================================================
+
+$stmt = $conexion->prepare("SELECT id FROM usuarios WHERE id = ? LIMIT 1");
+
+if (!$stmt) {
+    echo 'ERROR|Prepare usuario: ' . $conexion->error;
+    exit();
+}
 
 $stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$resultado = $stmt->get_result();
 
-if ($resultado->num_rows !== 1) {
+if (!$stmt->execute()) {
+    echo 'ERROR|Execute usuario: ' . $stmt->error;
+    $stmt->close();
+    exit();
+}
+
+$stmt->bind_result($usuarioEncontrado);
+
+if (!$stmt->fetch()) {
     $stmt->close();
     echo 'ERROR|Usuario no válido';
     exit();
@@ -32,17 +42,25 @@ if ($resultado->num_rows !== 1) {
 
 $stmt->close();
 
-// Comprobar si YA comentó esta obra desde VR
-$stmt = $conexion->prepare("
-    SELECT COUNT(*)
-    FROM comentarios
-    WHERE obra_id = ?
-    AND usuario_id = ?
-    AND origen = 'vr'
-");
+// ======================================================
+// 2. COMPROBAR SI YA COMENTÓ ESA OBRA DESDE VR
+// ======================================================
+
+$stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios WHERE obra_id = ? AND usuario_id = ? AND origen = 'vr'");
+
+if (!$stmt) {
+    echo 'ERROR|Prepare comprobar comentario: ' . $conexion->error;
+    exit();
+}
 
 $stmt->bind_param("ii", $obra_id, $usuario_id);
-$stmt->execute();
+
+if (!$stmt->execute()) {
+    echo 'ERROR|Execute comprobar comentario: ' . $stmt->error;
+    $stmt->close();
+    exit();
+}
+
 $stmt->bind_result($ya_comento);
 $stmt->fetch();
 $stmt->close();
@@ -52,51 +70,55 @@ if ($ya_comento > 0) {
     exit();
 }
 
-// Guardar comentario VR
-$stmt = $conexion->prepare("
-    INSERT INTO comentarios
-    (obra_id, usuario_id, comentario, origen)
-    VALUES (?, ?, ?, 'vr')
-");
+// ======================================================
+// 3. GUARDAR EL COMENTARIO
+// ======================================================
 
-$stmt->bind_param(
-    "iis",
-    $obra_id,
-    $usuario_id,
-    $comentario
-);
+$stmt = $conexion->prepare("INSERT INTO comentarios (obra_id, usuario_id, comentario, origen) VALUES (?, ?, ?, 'vr')");
+
+if (!$stmt) {
+    echo 'ERROR|Prepare insertar comentario: ' . $conexion->error;
+    exit();
+}
+
+$stmt->bind_param("iis", $obra_id, $usuario_id, $comentario);
 
 if (!$stmt->execute()) {
-    echo 'ERROR|No se pudo guardar el comentario';
+    echo 'ERROR|Insert comentario: ' . $stmt->error;
     $stmt->close();
     exit();
 }
 
 $stmt->close();
 
-// Contar obras NORMALES de Antonio Nieto comentadas desde VR
+// ======================================================
+// 4. CALCULAR PROGRESO VR DEL USUARIO
+// ======================================================
+
 $artistaAntonio = 1;
 
-$stmt = $conexion->prepare("
-    SELECT COUNT(DISTINCT c.obra_id)
-    FROM comentarios c
-    JOIN obras o ON c.obra_id = o.id
-    WHERE c.usuario_id = ?
-    AND c.origen = 'vr'
-    AND o.artista_id = ?
-    AND o.es_recompensa = 0
-");
+$stmt = $conexion->prepare("SELECT COUNT(DISTINCT c.obra_id) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 0");
 
-$stmt->bind_param(
-    "ii",
-    $usuario_id,
-    $artistaAntonio
-);
+if (!$stmt) {
+    echo 'ERROR|Prepare progreso: ' . $conexion->error;
+    exit();
+}
 
-$stmt->execute();
+$stmt->bind_param("ii", $usuario_id, $artistaAntonio);
+
+if (!$stmt->execute()) {
+    echo 'ERROR|Execute progreso: ' . $stmt->error;
+    $stmt->close();
+    exit();
+}
+
 $stmt->bind_result($comentadas_vr);
 $stmt->fetch();
 $stmt->close();
+
+// ======================================================
+// 5. RESPUESTA A UNITY
+// ======================================================
 
 echo 'OK|' . $comentadas_vr;
 

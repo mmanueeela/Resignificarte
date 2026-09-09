@@ -303,7 +303,6 @@ MonoBehaviour:
   resultText: {fileID: 0}
   obraId: 1
   commentUploader: {fileID: 0}
-  apiUrl: https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo
 --- !u!4 &41689621
 Transform:
   m_ObjectHideFlags: 0
@@ -2180,7 +2179,6 @@ MonoBehaviour:
   resultText: {fileID: 0}
   obraId: 1
   commentUploader: {fileID: 0}
-  apiUrl: https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo
 --- !u!4 &487433964
 Transform:
   m_ObjectHideFlags: 0
@@ -6824,7 +6822,6 @@ MonoBehaviour:
   resultText: {fileID: 0}
   obraId: 1
   commentUploader: {fileID: 0}
-  apiUrl: https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo
 --- !u!4 &1517513642
 Transform:
   m_ObjectHideFlags: 0
@@ -8351,7 +8348,6 @@ MonoBehaviour:
   resultText: {fileID: 1451173277}
   obraId: 1
   commentUploader: {fileID: 358062583}
-  apiUrl: https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo
 --- !u!4 &1993919550
 Transform:
   m_ObjectHideFlags: 0

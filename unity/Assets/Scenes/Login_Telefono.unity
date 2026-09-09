@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoneLoginManager
   phoneDisplay: {fileID: 258676767}
-  statusText: {fileID: 0}
+  statusText: {fileID: 252806878}
   apiUrl: https://mzazzar.upv.edu.es/php/login_vr.php
 --- !u!1 &259463036
 GameObject:

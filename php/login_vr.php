@@ -1,65 +1,72 @@
 <?php
 
-$servidor   = "localhost";
-$usuario    = "manuela";
-$contrasena = "elena2009plesk@";
-$base_datos = "resignificarte";
+require_once 'conexion.php';
 
-$conexion = new mysqli(
-    $servidor,
-    $usuario,
-    $contrasena,
-    $base_datos
-);
+header('Content-Type: text/plain; charset=utf-8');
 
-if ($conexion->connect_error) {
-    die("DB_ERROR");
+$telefono = trim($_POST['telefono'] ?? '');
+
+if (empty($telefono)) {
+    echo 'ERROR|Teléfono vacío';
+    exit();
 }
 
-$conexion->set_charset("utf8mb4");
-
-if (!isset($_POST["telefono"])) {
-    echo "NO_POST";
-    exit;
-}
-
-$telefono = trim($_POST["telefono"]);
-
-$sql = "
-    SELECT 
-        u.id,
-        u.nombre
+// Buscar usuario
+$stmt = $conexion->prepare("
+    SELECT u.id
     FROM usuarios u
-    INNER JOIN usuarios_credenciales uc
-        ON u.id = uc.usuario_id
-    WHERE uc.telefono = ?
-";
+    JOIN usuarios_credenciales c
+        ON c.usuario_id = u.id
+    WHERE c.telefono = ?
+    LIMIT 1
+");
 
-$stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $telefono);
 $stmt->execute();
 
-$result = $stmt->get_result();
+$resultado = $stmt->get_result();
 
-if ($result->num_rows === 1) {
+if ($resultado->num_rows !== 1) {
+    $stmt->close();
 
-    $row = $result->fetch_assoc();
-
-    echo "OK|" . $row["id"] . "|" . $row["nombre"];
-
+    echo 'ERROR|Usuario no encontrado';
+    exit();
 }
-else if ($result->num_rows > 1) {
 
-    // Esto detectará precisamente teléfonos duplicados
-    echo "ERROR|TELEFONO_DUPLICADO";
-
-}
-else {
-
-    echo "ERROR|NO_ENCONTRADO";
-}
+$usuario = $resultado->fetch_assoc();
+$usuario_id = intval($usuario['id']);
 
 $stmt->close();
-$conexion->close();
+
+
+// Contar obras normales de Antonio Nieto
+// comentadas DESDE VR
+
+$artistaAntonio = 1;
+
+$stmt = $conexion->prepare("
+    SELECT COUNT(DISTINCT c.obra_id)
+    FROM comentarios c
+    JOIN obras o
+        ON c.obra_id = o.id
+    WHERE c.usuario_id = ?
+    AND c.origen = 'vr'
+    AND o.artista_id = ?
+    AND o.es_recompensa = 0
+");
+
+$stmt->bind_param(
+    "ii",
+    $usuario_id,
+    $artistaAntonio
+);
+
+$stmt->execute();
+
+$stmt->bind_result($comentadas_vr);
+$stmt->fetch();
+$stmt->close();
+
+echo 'OK|' . $usuario_id . '|' . $comentadas_vr;
 
 ?>

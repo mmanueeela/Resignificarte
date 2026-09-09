@@ -80,18 +80,34 @@ public class PhoneLoginManager : MonoBehaviour
 
                 if (response.StartsWith("OK|"))
                 {
-                    // Guardamos el teléfono para usarlo después
-                    PlayerPrefs.SetString("telefono_usuario", phone);
-                    PlayerPrefs.Save();
+                    string[] partes = response.Split('|');
 
-                    // No mostramos ningún mensaje en pantalla
-                    statusText.text = "";
+                    if (partes.Length >= 3)
+                    {
+                        int usuarioId;
+                        int comentariosVR;
 
-                    // Esperamos 2 segundos
-                    yield return new WaitForSeconds(2f);
+                        if (int.TryParse(partes[1], out usuarioId) &&
+                            int.TryParse(partes[2], out comentariosVR))
+                        {
+                            PlayerPrefs.SetInt("usuario_id", usuarioId);
+                            PlayerPrefs.SetInt("comentarios_vr", comentariosVR);
+                            PlayerPrefs.SetString("telefono_usuario", phone);
 
-                    // Cambiamos de escena
-                    SceneManager.LoadScene("SampleScene");
+                            PlayerPrefs.Save();
+
+                            Debug.Log(
+                                "Usuario: " + usuarioId +
+                                " | Comentarios VR: " + comentariosVR
+                            );
+
+                            statusText.text = "";
+
+                            yield return new WaitForSeconds(2f);
+
+                            SceneManager.LoadScene("SampleScene");
+                        }
+                    }
                 }
                 else
                 {

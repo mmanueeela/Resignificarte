@@ -31,8 +31,15 @@ if (!$stmt->fetch()) {
 }
 $stmt->close();
 
-// 2. Evitar segundo comentario
-$stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios WHERE obra_id = ? AND usuario_id = ?");
+// 2. Evitar un segundo comentario DESDE LA WEB
+$stmt = $conexion->prepare("
+    SELECT COUNT(*)
+    FROM comentarios
+    WHERE obra_id = ?
+    AND usuario_id = ?
+    AND origen = 'web'
+");
+
 $stmt->bind_param("ii", $obra_id, $usuario_id);
 $stmt->execute();
 $stmt->bind_result($ya_comento);
@@ -40,10 +47,12 @@ $stmt->fetch();
 $stmt->close();
 
 if ($ya_comento > 0) {
-    echo json_encode(['exito' => false, 'error' => 'Ya has comentado esta obra.']);
+    echo json_encode([
+        'exito' => false,
+        'error' => 'Ya has comentado esta obra desde la web.'
+    ]);
     exit();
 }
-
 // 3. Número de obras normales
 $stmt = $conexion->prepare("SELECT COUNT(*) FROM obras WHERE artista_id = ? AND es_recompensa = 0");
 $stmt->bind_param("i", $artista_id);
@@ -57,7 +66,7 @@ $stmt = $conexion->prepare("
     SELECT COUNT(DISTINCT c.obra_id)
     FROM comentarios c
     JOIN obras o ON c.obra_id = o.id
-    WHERE o.artista_id = ? AND o.es_recompensa = 0 AND c.usuario_id = ?
+    WHERE o.artista_id = ? AND o.es_recompensa = 0 AND c.usuario_id = ? AND c.origen = 'web'
 ");
 $stmt->bind_param("ii", $artista_id, $usuario_id);
 $stmt->execute();
@@ -131,7 +140,11 @@ $conexion->begin_transaction();
 
 try {
     // 6. Guardar comentario
-    $stmt = $conexion->prepare("INSERT INTO comentarios (obra_id, usuario_id, comentario) VALUES (?, ?, ?)");
+    $stmt = $conexion->prepare("
+    INSERT INTO comentarios
+        (obra_id, usuario_id, comentario, origen)
+        VALUES (?, ?, ?, 'web')
+    ");
     $stmt->bind_param("iis", $obra_id, $usuario_id, $comentario);
 
     if (!$stmt->execute()) {
@@ -178,7 +191,7 @@ $stmt = $conexion->prepare("
     SELECT COUNT(DISTINCT c.obra_id)
     FROM comentarios c
     JOIN obras o ON c.obra_id = o.id
-    WHERE o.artista_id = ? AND o.es_recompensa = 0 AND c.usuario_id = ?
+    WHERE o.artista_id = ? AND o.es_recompensa = 0 AND c.usuario_id = ? AND c.origen = 'web'
 ");
 $stmt->bind_param("ii", $artista_id, $usuario_id);
 $stmt->execute();

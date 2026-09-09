@@ -26,14 +26,11 @@ public class SpeechRecognitionTest : MonoBehaviour
     private AudioClip clip;
     private byte[] wavBytes;
     private bool recording;
-
     private string microphoneDevice;
 
     private const int sampleRate = 44100;
     private const int maxRecordingSeconds = 10;
-
-    private const string huggingFaceUrl =
-        "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo";
+    private const string huggingFaceUrl = "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo";
 
     private void Start()
     {
@@ -57,66 +54,34 @@ public class SpeechRecognitionTest : MonoBehaviour
 #if UNITY_ANDROID
         if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
         {
-            Debug.LogWarning("No hay permiso de micrófono. Solicitándolo...");
             Permission.RequestUserPermission(Permission.Microphone);
         }
 #endif
 
         if (Microphone.devices.Length == 0)
         {
-            Debug.LogError("NO SE HA DETECTADO NINGÚN MICRÓFONO.");
-
+            microphoneDevice = null;
             if (resultText != null)
                 resultText.text = "No se ha detectado micrófono";
-
             return;
-        }
-
-        Debug.Log("MICRÓFONOS DETECTADOS: " + Microphone.devices.Length);
-
-        // Mostrar todos los dispositivos encontrados
-        for (int i = 0; i < Microphone.devices.Length; i++)
-        {
-            Debug.Log(
-                "Micrófono " +
-                i +
-                ": " +
-                Microphone.devices[i]
-            );
         }
 
         microphoneDevice = null;
 
-        // Buscar automáticamente el micrófono de Meta Quest Link
         foreach (string dispositivo in Microphone.devices)
         {
-            if (
-                dispositivo.IndexOf(
-                    "Oculus Virtual Audio Device",
-                    System.StringComparison.OrdinalIgnoreCase
-                ) >= 0
-            )
+            if (dispositivo.IndexOf("Oculus Virtual Audio Device", System.StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 microphoneDevice = dispositivo;
                 break;
             }
         }
 
-        // Si no encontramos el de Oculus
+        // En Quest Link utilizará Oculus.
+        // En el APK de las Quest, si ese nombre no existe,
+        // utilizará el micrófono disponible.
         if (string.IsNullOrEmpty(microphoneDevice))
-        {
-            Debug.LogWarning(
-                "No se encontró Oculus Virtual Audio Device. " +
-                "Se utilizará el primer micrófono disponible."
-            );
-
             microphoneDevice = Microphone.devices[0];
-        }
-
-        Debug.Log(
-            "MICRÓFONO SELECCIONADO: " +
-            microphoneDevice
-        );
     }
 
     private void Update()
@@ -124,13 +89,10 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (!recording || clip == null)
             return;
 
-        int position =
-            Microphone.GetPosition(microphoneDevice);
+        int position = Microphone.GetPosition(microphoneDevice);
 
         if (position >= clip.samples - 1)
-        {
             StopRecording();
-        }
     }
 
     public void StartRecording()
@@ -138,48 +100,24 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (recording)
             return;
 
-        if (Microphone.devices.Length == 0)
-        {
-            ComprobarMicrofono();
-            return;
-        }
-
         if (string.IsNullOrEmpty(microphoneDevice))
         {
             ComprobarMicrofono();
 
             if (string.IsNullOrEmpty(microphoneDevice))
             {
-                Debug.LogError("No se ha podido seleccionar un micrófono.");
-
                 if (resultText != null)
                     resultText.text = "No se ha detectado micrófono";
-
                 return;
             }
         }
 
-        Debug.Log(
-            "INICIANDO GRABACIÓN CON: " +
-            microphoneDevice
-        );
-
-        clip = Microphone.Start(
-            microphoneDevice,
-            false,
-            maxRecordingSeconds,
-            sampleRate
-        );
+        clip = Microphone.Start(microphoneDevice, false, maxRecordingSeconds, sampleRate);
 
         if (clip == null)
         {
-            Debug.LogError(
-                "Microphone.Start ha devuelto NULL."
-            );
-
             if (resultText != null)
                 resultText.text = "Error al iniciar micrófono";
-
             return;
         }
 
@@ -193,40 +131,6 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         if (resultText != null)
             resultText.text = "Escuchando...";
-
-        StartCoroutine(
-            ComprobarInicioMicrofono()
-        );
-    }
-
-    private IEnumerator ComprobarInicioMicrofono()
-    {
-        float timeout = 2f;
-        float tiempo = 0f;
-
-        while (
-            Microphone.GetPosition(microphoneDevice) <= 0 &&
-            tiempo < timeout
-        )
-        {
-            tiempo += Time.deltaTime;
-            yield return null;
-        }
-
-        int posicion =
-            Microphone.GetPosition(microphoneDevice);
-
-        Debug.Log(
-            "POSICIÓN DEL MICRÓFONO DESPUÉS DE INICIAR: " +
-            posicion
-        );
-
-        if (posicion <= 0)
-        {
-            Debug.LogError(
-                "EL MICRÓFONO NO HA EMPEZADO A CAPTURAR AUDIO."
-            );
-        }
     }
 
     public void StopRecording()
@@ -234,11 +138,8 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (!recording || clip == null)
             return;
 
-        int position =
-            Microphone.GetPosition(microphoneDevice);
-
+        int position = Microphone.GetPosition(microphoneDevice);
         Microphone.End(microphoneDevice);
-
         recording = false;
 
         if (startButton != null)
@@ -247,409 +148,137 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (stopButton != null)
             stopButton.interactable = false;
 
-        Debug.Log(
-            "GRABACIÓN DETENIDA. MUESTRAS: " +
-            position
-        );
-
         if (position <= 0)
         {
-            Debug.LogError(
-                "NO SE HAN CAPTURADO MUESTRAS."
-            );
-
             if (resultText != null)
-                resultText.text =
-                    "No se ha detectado audio";
-
+                resultText.text = "No se ha detectado audio";
             return;
         }
-
-        float duracion =
-            (float)position / clip.frequency;
-
-        Debug.Log(
-            "DURACIÓN REAL DEL AUDIO: " +
-            duracion.ToString("F2") +
-            " segundos"
-        );
 
         if (resultText != null)
-            resultText.text =
-                "Procesando audio...";
+            resultText.text = "Procesando audio...";
 
-        bool audioValido =
-            EncodeAsWAV(position);
-
-        if (!audioValido)
+        if (!EncodeAsWAV(position))
         {
             if (resultText != null)
-                resultText.text =
-                    "No se ha detectado voz";
-
+                resultText.text = "No se ha detectado voz";
             return;
         }
 
-        StartCoroutine(
-            EnviarAHuggingFace()
-        );
+        StartCoroutine(EnviarAHuggingFace());
     }
 
     private bool EncodeAsWAV(int length)
     {
         int channels = clip.channels;
+        float[] samples = new float[length * channels];
 
-        float[] samples =
-            new float[length * channels];
-
-        bool datosCorrectos =
-            clip.GetData(samples, 0);
-
-        Debug.Log(
-            "Clip frecuencia: " +
-            clip.frequency
-        );
-
-        Debug.Log(
-            "Clip canales: " +
-            clip.channels
-        );
-
-        Debug.Log(
-            "GetData correcto: " +
-            datosCorrectos
-        );
+        if (!clip.GetData(samples, 0))
+            return false;
 
         float maxAmplitude = 0f;
-        double sumaCuadrados = 0;
 
         for (int i = 0; i < samples.Length; i++)
         {
-            float valor =
-                Mathf.Abs(samples[i]);
-
+            float valor = Mathf.Abs(samples[i]);
             if (valor > maxAmplitude)
                 maxAmplitude = valor;
-
-            sumaCuadrados +=
-                samples[i] * samples[i];
         }
 
-        float rms =
-            Mathf.Sqrt(
-                (float)(
-                    sumaCuadrados /
-                    samples.Length
-                )
-            );
-
-        Debug.Log(
-            "AMPLITUD MÁXIMA: " +
-            maxAmplitude
-        );
-
-        Debug.Log(
-            "RMS AUDIO: " +
-            rms
-        );
-
-        // Si obtenemos valores extremadamente bajos,
-        // prácticamente estamos enviando silencio.
+        // Evita mandar silencio a Whisper.
         if (maxAmplitude < 0.005f)
-        {
-            Debug.LogError(
-                "EL AUDIO ES PRÁCTICAMENTE SILENCIO. " +
-                "No se enviará a Hugging Face."
-            );
-
             return false;
-        }
 
-        using (
-            MemoryStream memoryStream =
-                new MemoryStream()
-        )
+        using (MemoryStream memoryStream = new MemoryStream())
         {
-            using (
-                BinaryWriter writer =
-                    new BinaryWriter(memoryStream)
-            )
+            using (BinaryWriter writer = new BinaryWriter(memoryStream))
             {
-                writer.Write(
-                    Encoding.ASCII.GetBytes("RIFF")
-                );
+                writer.Write(Encoding.ASCII.GetBytes("RIFF"));
+                writer.Write(36 + samples.Length * 2);
+                writer.Write(Encoding.ASCII.GetBytes("WAVE"));
 
-                writer.Write(
-                    36 +
-                    samples.Length * 2
-                );
-
-                writer.Write(
-                    Encoding.ASCII.GetBytes("WAVE")
-                );
-
-                writer.Write(
-                    Encoding.ASCII.GetBytes("fmt ")
-                );
-
+                writer.Write(Encoding.ASCII.GetBytes("fmt "));
                 writer.Write(16);
+                writer.Write((ushort)1);
+                writer.Write((ushort)channels);
+                writer.Write(clip.frequency);
+                writer.Write(clip.frequency * channels * 2);
+                writer.Write((ushort)(channels * 2));
+                writer.Write((ushort)16);
 
-                writer.Write(
-                    (ushort)1
-                );
-
-                writer.Write(
-                    (ushort)channels
-                );
-
-                writer.Write(
-                    clip.frequency
-                );
-
-                writer.Write(
-                    clip.frequency *
-                    channels *
-                    2
-                );
-
-                writer.Write(
-                    (ushort)(
-                        channels * 2
-                    )
-                );
-
-                writer.Write(
-                    (ushort)16
-                );
-
-                writer.Write(
-                    Encoding.ASCII.GetBytes("data")
-                );
-
-                writer.Write(
-                    samples.Length * 2
-                );
+                writer.Write(Encoding.ASCII.GetBytes("data"));
+                writer.Write(samples.Length * 2);
 
                 foreach (float sample in samples)
                 {
-                    float limitado =
-                        Mathf.Clamp(
-                            sample,
-                            -1f,
-                            1f
-                        );
-
-                    writer.Write(
-                        (short)(
-                            limitado *
-                            short.MaxValue
-                        )
-                    );
+                    float limitado = Mathf.Clamp(sample, -1f, 1f);
+                    writer.Write((short)(limitado * short.MaxValue));
                 }
             }
 
-            wavBytes =
-                memoryStream.ToArray();
+            wavBytes = memoryStream.ToArray();
         }
-
-        Debug.Log(
-            "TAMAÑO WAV: " +
-            wavBytes.Length +
-            " bytes"
-        );
 
         return true;
     }
 
     private IEnumerator EnviarAHuggingFace()
     {
-        // ================================
-        // OBTENER TOKEN LOCAL
-        // ================================
+        HFSecrets secrets = Resources.Load<HFSecrets>("Local/HFSecrets");
 
-        HFSecrets secrets =
-            Resources.Load<HFSecrets>(
-                "Local/HFSecrets"
-            );
-
-        if (secrets == null)
+        if (secrets == null || string.IsNullOrWhiteSpace(secrets.huggingFaceToken))
         {
-            Debug.LogError(
-                "No se encontró HFSecrets.asset."
-            );
-
             if (resultText != null)
-                resultText.text =
-                    "Error de configuración";
-
+                resultText.text = "Error de configuración";
             yield break;
         }
 
-        string apiKey =
-            secrets.huggingFaceToken;
-
-        if (string.IsNullOrWhiteSpace(apiKey))
+        using (UnityWebRequest request = new UnityWebRequest(huggingFaceUrl, "POST"))
         {
-            Debug.LogError(
-                "El token de Hugging Face está vacío."
-            );
+            request.uploadHandler = new UploadHandlerRaw(wavBytes);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Authorization", "Bearer " + secrets.huggingFaceToken);
+            request.SetRequestHeader("Content-Type", "audio/wav");
 
-            if (resultText != null)
-                resultText.text =
-                    "Error de configuración";
+            yield return request.SendWebRequest();
 
-            yield break;
-        }
-
-        Debug.Log(
-            "ENVIANDO WAV A HUGGING FACE..."
-        );
-
-        using (
-            UnityWebRequest request =
-                new UnityWebRequest(
-                    huggingFaceUrl,
-                    "POST"
-                )
-        )
-        {
-            request.uploadHandler =
-                new UploadHandlerRaw(
-                    wavBytes
-                );
-
-            request.downloadHandler =
-                new DownloadHandlerBuffer();
-
-            request.SetRequestHeader(
-                "Authorization",
-                "Bearer " + apiKey
-            );
-
-            request.SetRequestHeader(
-                "Content-Type",
-                "audio/wav"
-            );
-
-            yield return
-                request.SendWebRequest();
-
-            if (
-                request.result ==
-                UnityWebRequest.Result.Success
-            )
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                string jsonResponse =
-                    request.downloadHandler.text;
-
-                Debug.Log(
-                    "RESPUESTA COMPLETA HF: " +
-                    jsonResponse
-                );
-
-                string textoExtraido =
-                    ExtraerTextoDeJson(
-                        jsonResponse
-                    );
-
-                Debug.Log(
-                    "TRANSCRIPCIÓN EXTRAÍDA: [" +
-                    textoExtraido +
-                    "]"
-                );
-
-                if (
-                    string.IsNullOrWhiteSpace(
-                        textoExtraido
-                    )
-                )
-                {
-                    if (resultText != null)
-                        resultText.text =
-                            "No se detectó texto";
-
-                    yield break;
-                }
-
                 if (resultText != null)
-                {
-                    resultText.text =
-                        textoExtraido;
-                }
-
-                // ==============================
-                // GUARDAR EN BBDD
-                // ==============================
-
-                if (commentUploader == null)
-                {
-                    Debug.LogError(
-                        "CommentUploader no está asignado."
-                    );
-
-                    yield break;
-                }
-
-                Debug.Log(
-                    "ENVIANDO COMENTARIO A BBDD | " +
-                    "Obra: " +
-                    obraId +
-                    " | Texto: " +
-                    textoExtraido
-                );
-
-                commentUploader
-                    .GuardarComentario(
-                        obraId,
-                        textoExtraido
-                    );
+                    resultText.text = "Error procesando audio";
+                yield break;
             }
-            else
-            {
-                Debug.LogError(
-                    "ERROR HTTP: " +
-                    request.error +
-                    " | HTTP " +
-                    request.responseCode +
-                    " | " +
-                    request.downloadHandler.text
-                );
 
+            string textoExtraido = ExtraerTextoDeJson(request.downloadHandler.text);
+
+            if (string.IsNullOrWhiteSpace(textoExtraido))
+            {
                 if (resultText != null)
-                    resultText.text =
-                        "Error procesando audio";
+                    resultText.text = "No se detectó texto";
+                yield break;
+            }
+
+            textoExtraido = textoExtraido.Trim();
+
+            if (resultText != null)
+                resultText.text = textoExtraido;
+
+            if (commentUploader != null)
+            {
+                commentUploader.GuardarComentario(obraId, textoExtraido);
             }
         }
     }
 
-    private string ExtraerTextoDeJson(
-        string json
-    )
+    private string ExtraerTextoDeJson(string json)
     {
-        if (
-            json.Contains(
-                "\"text\":\""
-            )
-        )
+        if (json.Contains("\"text\":\""))
         {
-            int start =
-                json.IndexOf(
-                    "\"text\":\""
-                ) + 8;
-
-            int end =
-                json.IndexOf(
-                    "\"",
-                    start
-                );
+            int start = json.IndexOf("\"text\":\"") + 8;
+            int end = json.IndexOf("\"", start);
 
             if (end > start)
-            {
-                return json.Substring(
-                    start,
-                    end - start
-                );
-            }
+                return json.Substring(start, end - start);
         }
 
         return "";

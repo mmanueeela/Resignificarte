@@ -10,26 +10,29 @@ public class PhoneLoginManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private string apiUrl = "https://mzazzar.upv.edu.es/php/login_vr.php";
 
-    private int maxDigits = 15;
+    private const int maxDigits = 15;
+
     private string currentNumber = "";
     private bool loginEnProceso = false;
 
-    void Start()
+    private void Start()
     {
         if (phoneDisplay == null)
         {
             GameObject phoneObject = GameObject.Find("PhoneDisplay_Text");
-
             if (phoneObject != null)
+            {
                 phoneDisplay = phoneObject.GetComponent<TextMeshProUGUI>();
+            }
         }
 
         if (statusText == null)
         {
             GameObject statusObject = GameObject.Find("StatusDisplay_Text");
-
             if (statusObject != null)
+            {
                 statusText = statusObject.GetComponent<TextMeshProUGUI>();
+            }
         }
 
         if (statusText != null)
@@ -43,14 +46,14 @@ public class PhoneLoginManager : MonoBehaviour
         if (loginEnProceso)
             return;
 
-        if (currentNumber.Length < maxDigits)
-        {
-            currentNumber += digit;
-            UpdateDisplay();
+        if (currentNumber.Length >= maxDigits)
+            return;
 
-            if (statusText != null)
-                statusText.text = "";
-        }
+        currentNumber += digit;
+        UpdateDisplay();
+
+        if (statusText != null)
+            statusText.text = "";
     }
 
     public void DeleteLastDigit()
@@ -58,18 +61,14 @@ public class PhoneLoginManager : MonoBehaviour
         if (loginEnProceso)
             return;
 
-        if (currentNumber.Length > 0)
-        {
-            currentNumber = currentNumber.Substring(
-                0,
-                currentNumber.Length - 1
-            );
+        if (currentNumber.Length == 0)
+            return;
 
-            UpdateDisplay();
+        currentNumber = currentNumber.Substring(0, currentNumber.Length - 1);
+        UpdateDisplay();
 
-            if (statusText != null)
-                statusText.text = "";
-        }
+        if (statusText != null)
+            statusText.text = "";
     }
 
     private void UpdateDisplay()
@@ -87,7 +86,6 @@ public class PhoneLoginManager : MonoBehaviour
         if (loginEnProceso)
             return;
 
-        // Si no ha introducido ningún número
         if (string.IsNullOrWhiteSpace(currentNumber))
         {
             MostrarTelefonoIncorrecto();
@@ -98,11 +96,10 @@ public class PhoneLoginManager : MonoBehaviour
             statusText.text = "";
 
         loginEnProceso = true;
-
         StartCoroutine(CheckLogin(currentNumber));
     }
 
-    IEnumerator CheckLogin(string phone)
+    private IEnumerator CheckLogin(string phone)
     {
         WWWForm form = new WWWForm();
         form.AddField("telefono", phone);
@@ -111,7 +108,6 @@ public class PhoneLoginManager : MonoBehaviour
         {
             yield return www.SendWebRequest();
 
-            // Error real de conexión
             if (www.result != UnityWebRequest.Result.Success)
             {
                 loginEnProceso = false;
@@ -122,110 +118,56 @@ public class PhoneLoginManager : MonoBehaviour
                     statusText.color = Color.red;
                 }
 
-                Debug.LogError(
-                    "ERROR LOGIN VR\n" +
-                    "Resultado: " + www.result + "\n" +
-                    "HTTP: " + www.responseCode + "\n" +
-                    "Error: " + www.error + "\n" +
-                    "Respuesta PHP: " +
-                    (www.downloadHandler != null
-                        ? www.downloadHandler.text
-                        : "Sin respuesta")
-                );
-
                 yield break;
             }
 
             string response = www.downloadHandler.text.Trim();
 
-            Debug.Log("Respuesta login_vr.php: " + response);
-
-            // El teléfono existe en la BBDD
-            if (response.StartsWith("OK|"))
+            if (!response.StartsWith("OK|"))
             {
-                string[] partes = response.Split('|');
+                MostrarTelefonoIncorrecto();
+                yield break;
+            }
 
-                if (partes.Length >= 3)
-                {
-                    int usuarioId;
-                    int comentariosVR;
+            string[] partes = response.Split('|');
 
-                    bool usuarioCorrecto =
-                        int.TryParse(partes[1], out usuarioId);
+            if (partes.Length < 3)
+            {
+                MostrarErrorLogin();
+                yield break;
+            }
 
-                    bool comentariosCorrectos =
-                        int.TryParse(partes[2], out comentariosVR);
+            if (!int.TryParse(partes[1], out int usuarioId) || !int.TryParse(partes[2], out int comentariosVR))
+            {
+                MostrarErrorLogin();
+                yield break;
+            }
 
-                    if (usuarioCorrecto && comentariosCorrectos)
-                    {
-                        PlayerPrefs.SetInt(
-                            "usuario_id",
-                            usuarioId
-                        );
+            PlayerPrefs.SetInt("usuario_id", usuarioId);
+            PlayerPrefs.SetInt("comentarios_vr", comentariosVR);
+            PlayerPrefs.SetString("telefono_usuario", phone);
+            PlayerPrefs.Save();
 
-                        PlayerPrefs.SetInt(
-                            "comentarios_vr",
-                            comentariosVR
-                        );
+            if (statusText != null)
+                statusText.text = "";
 
-                        PlayerPrefs.SetString(
-                            "telefono_usuario",
-                            phone
-                        );
+            AsyncOperation carga = SceneManager.LoadSceneAsync("SampleScene");
 
-                        PlayerPrefs.Save();
-
-                        Debug.Log(
-                            "LOGIN CORRECTO | Usuario: " +
-                            usuarioId +
-                            " | Comentarios VR: " +
-                            comentariosVR
-                        );
-
-                        if (statusText != null)
-                            statusText.text = "";
-
-                        AsyncOperation carga =
-                            SceneManager.LoadSceneAsync(
-                                "SampleScene"
-                            );
-
-                        if (carga != null)
-                        {
-                            while (!carga.isDone)
-                                yield return null;
-                        }
-                        else
-                        {
-                            loginEnProceso = false;
-
-                            if (statusText != null)
-                            {
-                                statusText.text =
-                                    "Error al cargar la experiencia";
-
-                                statusText.color = Color.red;
-                            }
-                        }
-
-                        yield break;
-                    }
-                }
-
-                // Si PHP devuelve OK pero los datos vienen mal
+            if (carga == null)
+            {
                 loginEnProceso = false;
 
                 if (statusText != null)
                 {
-                    statusText.text = "Error al iniciar sesión";
+                    statusText.text = "Error al cargar la experiencia";
                     statusText.color = Color.red;
                 }
 
                 yield break;
             }
 
-            // El teléfono NO existe en la BBDD
-            MostrarTelefonoIncorrecto();
+            while (!carga.isDone)
+                yield return null;
         }
     }
 
@@ -235,13 +177,22 @@ public class PhoneLoginManager : MonoBehaviour
 
         if (statusText != null)
         {
-            statusText.text =
-                "Teléfono incorrecto, introdúcelo de nuevo";
-
+            statusText.text = "Teléfono incorrecto, introdúcelo de nuevo";
             statusText.color = Color.red;
         }
 
         currentNumber = "";
         UpdateDisplay();
+    }
+
+    private void MostrarErrorLogin()
+    {
+        loginEnProceso = false;
+
+        if (statusText != null)
+        {
+            statusText.text = "Error al iniciar sesión";
+            statusText.color = Color.red;
+        }
     }
 }

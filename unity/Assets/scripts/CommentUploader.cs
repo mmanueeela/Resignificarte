@@ -13,31 +13,15 @@ public class CommentUploader : MonoBehaviour
     public void GuardarComentario(int obraId, string texto)
     {
         if (string.IsNullOrWhiteSpace(texto))
-        {
-            Debug.LogWarning("No se puede guardar un comentario vacío.");
             return;
-        }
 
         if (!PlayerPrefs.HasKey("usuario_id"))
-        {
-            Debug.LogError("No existe usuario_id. El usuario debe iniciar sesión primero.");
             return;
-        }
 
         if (obraId < 1 || obraId > 4)
-        {
-            Debug.LogError("obra_id no válido: " + obraId);
             return;
-        }
 
         int usuarioId = PlayerPrefs.GetInt("usuario_id");
-
-        Debug.Log(
-            "PREPARANDO COMENTARIO PARA BBDD\n" +
-            "Usuario ID: " + usuarioId + "\n" +
-            "Obra ID: " + obraId + "\n" +
-            "Texto: " + texto
-        );
 
         StartCoroutine(EnviarComentario(usuarioId, obraId, texto));
     }
@@ -53,51 +37,28 @@ public class CommentUploader : MonoBehaviour
         {
             yield return www.SendWebRequest();
 
-            string response = www.downloadHandler != null ? www.downloadHandler.text.Trim() : "";
-
-            Debug.Log(
-                "RESPUESTA guardar_comentario.php\n" +
-                "HTTP: " + www.responseCode + "\n" +
-                "Resultado: " + www.result + "\n" +
-                "Respuesta: [" + response + "]"
-            );
-
             if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(
-                    "ERROR GUARDANDO COMENTARIO\n" +
-                    "HTTP: " + www.responseCode + "\n" +
-                    "Error Unity: " + www.error + "\n" +
-                    "Respuesta PHP: " + response + "\n" +
-                    "Usuario ID: " + usuarioId + "\n" +
-                    "Obra ID: " + obraId + "\n" +
-                    "Texto: " + texto
-                );
                 yield break;
-            }
 
-            if (response.StartsWith("OK|"))
+            string response = www.downloadHandler.text.Trim();
+
+            if (!response.StartsWith("OK|"))
+                yield break;
+
+            string[] partes = response.Split('|');
+
+            if (partes.Length < 2)
+                yield break;
+
+            if (!int.TryParse(partes[1], out int comentariosVR))
+                yield break;
+
+            PlayerPrefs.SetInt("comentarios_vr", comentariosVR);
+            PlayerPrefs.Save();
+
+            if (doorProgressManager != null)
             {
-                string[] partes = response.Split('|');
-
-                if (partes.Length >= 2 && int.TryParse(partes[1], out int comentariosVR))
-                {
-                    Debug.Log(
-                        "COMENTARIO GUARDADO CORRECTAMENTE\n" +
-                        "Usuario: " + usuarioId + "\n" +
-                        "Obra: " + obraId + "\n" +
-                        "Progreso VR: " + comentariosVR + "/3"
-                    );
-
-                    if (doorProgressManager != null)
-                    {
-                        doorProgressManager.ActualizarProgreso(comentariosVR);
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("ERROR DEVUELTO POR PHP: " + response);
+                doorProgressManager.ActualizarProgreso(comentariosVR);
             }
         }
     }

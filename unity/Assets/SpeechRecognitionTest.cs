@@ -74,6 +74,7 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         Debug.Log("MICRÓFONOS DETECTADOS: " + Microphone.devices.Length);
 
+        // Mostrar todos los dispositivos encontrados
         for (int i = 0; i < Microphone.devices.Length; i++)
         {
             Debug.Log(
@@ -84,7 +85,33 @@ public class SpeechRecognitionTest : MonoBehaviour
             );
         }
 
-        microphoneDevice = Microphone.devices[3];
+        microphoneDevice = null;
+
+        // Buscar automáticamente el micrófono de Meta Quest Link
+        foreach (string dispositivo in Microphone.devices)
+        {
+            if (
+                dispositivo.IndexOf(
+                    "Oculus Virtual Audio Device",
+                    System.StringComparison.OrdinalIgnoreCase
+                ) >= 0
+            )
+            {
+                microphoneDevice = dispositivo;
+                break;
+            }
+        }
+
+        // Si no encontramos el de Oculus
+        if (string.IsNullOrEmpty(microphoneDevice))
+        {
+            Debug.LogWarning(
+                "No se encontró Oculus Virtual Audio Device. " +
+                "Se utilizará el primer micrófono disponible."
+            );
+
+            microphoneDevice = Microphone.devices[0];
+        }
 
         Debug.Log(
             "MICRÓFONO SELECCIONADO: " +
@@ -118,7 +145,19 @@ public class SpeechRecognitionTest : MonoBehaviour
         }
 
         if (string.IsNullOrEmpty(microphoneDevice))
-            microphoneDevice = Microphone.devices[3];
+        {
+            ComprobarMicrofono();
+
+            if (string.IsNullOrEmpty(microphoneDevice))
+            {
+                Debug.LogError("No se ha podido seleccionar un micrófono.");
+
+                if (resultText != null)
+                    resultText.text = "No se ha detectado micrófono";
+
+                return;
+            }
+        }
 
         Debug.Log(
             "INICIANDO GRABACIÓN CON: " +

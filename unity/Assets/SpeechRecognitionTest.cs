@@ -30,7 +30,9 @@ public class SpeechRecognitionTest : MonoBehaviour
 
     private const int sampleRate = 44100;
     private const int maxRecordingSeconds = 10;
-    private const string huggingFaceUrl = "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo";
+
+    private const string huggingFaceUrl =
+        "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo";
 
     private void Start()
     {
@@ -61,8 +63,10 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (Microphone.devices.Length == 0)
         {
             microphoneDevice = null;
+
             if (resultText != null)
                 resultText.text = "No se ha detectado micrófono";
+
             return;
         }
 
@@ -70,16 +74,15 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         foreach (string dispositivo in Microphone.devices)
         {
-            if (dispositivo.IndexOf("Oculus Virtual Audio Device", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            if (dispositivo.IndexOf(
+                    "Oculus Virtual Audio Device",
+                    System.StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 microphoneDevice = dispositivo;
                 break;
             }
         }
 
-        // En Quest Link utilizará Oculus.
-        // En el APK de las Quest, si ese nombre no existe,
-        // utilizará el micrófono disponible.
         if (string.IsNullOrEmpty(microphoneDevice))
             microphoneDevice = Microphone.devices[0];
     }
@@ -89,7 +92,8 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (!recording || clip == null)
             return;
 
-        int position = Microphone.GetPosition(microphoneDevice);
+        int position =
+            Microphone.GetPosition(microphoneDevice);
 
         if (position >= clip.samples - 1)
             StopRecording();
@@ -100,25 +104,73 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (recording)
             return;
 
+        StartCoroutine(IniciarMicrofono());
+    }
+
+    private IEnumerator IniciarMicrofono()
+    {
+        // Volvemos a buscar el dispositivo cada vez
+        ComprobarMicrofono();
+
         if (string.IsNullOrEmpty(microphoneDevice))
         {
-            ComprobarMicrofono();
+            if (resultText != null)
+                resultText.text = "No se ha detectado micrófono";
 
-            if (string.IsNullOrEmpty(microphoneDevice))
-            {
-                if (resultText != null)
-                    resultText.text = "No se ha detectado micrófono";
-                return;
-            }
+            yield break;
         }
 
-        clip = Microphone.Start(microphoneDevice, false, maxRecordingSeconds, sampleRate);
+        // DEBUG TEMPORAL 1
+        Debug.Log("MICROFONO USADO: " + microphoneDevice);
+
+        // Liberar cualquier sesión anterior del mismo micrófono
+        if (Microphone.IsRecording(microphoneDevice))
+        {
+            Microphone.End(microphoneDevice);
+        }
+
+        clip = null;
+
+        // Esperar un poco para que el dispositivo de Oculus se libere
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        clip = Microphone.Start(
+            microphoneDevice,
+            false,
+            maxRecordingSeconds,
+            sampleRate
+        );
 
         if (clip == null)
         {
             if (resultText != null)
                 resultText.text = "Error al iniciar micrófono";
-            return;
+
+            yield break;
+        }
+
+        // Esperar a que realmente empiece la captura
+        float tiempoEspera = 0f;
+
+        while (
+            Microphone.GetPosition(microphoneDevice) <= 0 &&
+            tiempoEspera < 2f
+        )
+        {
+            tiempoEspera += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (Microphone.GetPosition(microphoneDevice) <= 0)
+        {
+            Microphone.End(microphoneDevice);
+
+            clip = null;
+
+            if (resultText != null)
+                resultText.text = "Error al iniciar micrófono";
+
+            yield break;
         }
 
         recording = true;
@@ -138,8 +190,14 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (!recording || clip == null)
             return;
 
-        int position = Microphone.GetPosition(microphoneDevice);
+        int position =
+            Microphone.GetPosition(microphoneDevice);
+
+        // DEBUG TEMPORAL 2
+        Debug.Log("MUESTRAS CAPTURADAS: " + position);
+
         Microphone.End(microphoneDevice);
+
         recording = false;
 
         if (startButton != null)
@@ -152,6 +210,7 @@ public class SpeechRecognitionTest : MonoBehaviour
         {
             if (resultText != null)
                 resultText.text = "No se ha detectado audio";
+
             return;
         }
 
@@ -162,6 +221,7 @@ public class SpeechRecognitionTest : MonoBehaviour
         {
             if (resultText != null)
                 resultText.text = "No se ha detectado voz";
+
             return;
         }
 
@@ -170,8 +230,11 @@ public class SpeechRecognitionTest : MonoBehaviour
 
     private bool EncodeAsWAV(int length)
     {
-        int channels = clip.channels;
-        float[] samples = new float[length * channels];
+        int channels =
+            clip.channels;
+
+        float[] samples =
+            new float[length * channels];
 
         if (!clip.GetData(samples, 0))
             return false;
@@ -180,12 +243,16 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         for (int i = 0; i < samples.Length; i++)
         {
-            float valor = Mathf.Abs(samples[i]);
+            float valor =
+                Mathf.Abs(samples[i]);
+
             if (valor > maxAmplitude)
                 maxAmplitude = valor;
         }
 
-        // Evita mandar silencio a Whisper.
+        // DEBUG TEMPORAL 3
+        Debug.Log("AMPLITUD MAXIMA: " + maxAmplitude);
+
         if (maxAmplitude < 0.005f)
             return false;
 
@@ -193,30 +260,67 @@ public class SpeechRecognitionTest : MonoBehaviour
         {
             using (BinaryWriter writer = new BinaryWriter(memoryStream))
             {
-                writer.Write(Encoding.ASCII.GetBytes("RIFF"));
-                writer.Write(36 + samples.Length * 2);
-                writer.Write(Encoding.ASCII.GetBytes("WAVE"));
+                writer.Write(
+                    Encoding.ASCII.GetBytes("RIFF")
+                );
 
-                writer.Write(Encoding.ASCII.GetBytes("fmt "));
+                writer.Write(
+                    36 + samples.Length * 2
+                );
+
+                writer.Write(
+                    Encoding.ASCII.GetBytes("WAVE")
+                );
+
+                writer.Write(
+                    Encoding.ASCII.GetBytes("fmt ")
+                );
+
                 writer.Write(16);
                 writer.Write((ushort)1);
                 writer.Write((ushort)channels);
                 writer.Write(clip.frequency);
-                writer.Write(clip.frequency * channels * 2);
-                writer.Write((ushort)(channels * 2));
+
+                writer.Write(
+                    clip.frequency *
+                    channels *
+                    2
+                );
+
+                writer.Write(
+                    (ushort)(channels * 2)
+                );
+
                 writer.Write((ushort)16);
 
-                writer.Write(Encoding.ASCII.GetBytes("data"));
-                writer.Write(samples.Length * 2);
+                writer.Write(
+                    Encoding.ASCII.GetBytes("data")
+                );
+
+                writer.Write(
+                    samples.Length * 2
+                );
 
                 foreach (float sample in samples)
                 {
-                    float limitado = Mathf.Clamp(sample, -1f, 1f);
-                    writer.Write((short)(limitado * short.MaxValue));
+                    float limitado =
+                        Mathf.Clamp(
+                            sample,
+                            -1f,
+                            1f
+                        );
+
+                    writer.Write(
+                        (short)(
+                            limitado *
+                            short.MaxValue
+                        )
+                    );
                 }
             }
 
-            wavBytes = memoryStream.ToArray();
+            wavBytes =
+                memoryStream.ToArray();
         }
 
         return true;
@@ -224,48 +328,98 @@ public class SpeechRecognitionTest : MonoBehaviour
 
     private IEnumerator EnviarAHuggingFace()
     {
-        HFSecrets secrets = Resources.Load<HFSecrets>("Local/HFSecrets");
+        HFSecrets secrets =
+            Resources.Load<HFSecrets>(
+                "Local/HFSecrets"
+            );
 
-        if (secrets == null || string.IsNullOrWhiteSpace(secrets.huggingFaceToken))
+        if (
+            secrets == null ||
+            string.IsNullOrWhiteSpace(
+                secrets.huggingFaceToken
+            )
+        )
         {
             if (resultText != null)
-                resultText.text = "Error de configuración";
+                resultText.text =
+                    "Error de configuración";
+
             yield break;
         }
 
-        using (UnityWebRequest request = new UnityWebRequest(huggingFaceUrl, "POST"))
+        using (
+            UnityWebRequest request =
+                new UnityWebRequest(
+                    huggingFaceUrl,
+                    "POST"
+                )
+        )
         {
-            request.uploadHandler = new UploadHandlerRaw(wavBytes);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Authorization", "Bearer " + secrets.huggingFaceToken);
-            request.SetRequestHeader("Content-Type", "audio/wav");
+            request.uploadHandler =
+                new UploadHandlerRaw(
+                    wavBytes
+                );
 
-            yield return request.SendWebRequest();
+            request.downloadHandler =
+                new DownloadHandlerBuffer();
 
-            if (request.result != UnityWebRequest.Result.Success)
+            request.SetRequestHeader(
+                "Authorization",
+                "Bearer " +
+                secrets.huggingFaceToken
+            );
+
+            request.SetRequestHeader(
+                "Content-Type",
+                "audio/wav"
+            );
+
+            yield return
+                request.SendWebRequest();
+
+            if (
+                request.result !=
+                UnityWebRequest.Result.Success
+            )
             {
                 if (resultText != null)
-                    resultText.text = "Error procesando audio";
+                    resultText.text =
+                        "Error procesando audio";
+
                 yield break;
             }
 
-            string textoExtraido = ExtraerTextoDeJson(request.downloadHandler.text);
+            string textoExtraido =
+                ExtraerTextoDeJson(
+                    request.downloadHandler.text
+                );
 
-            if (string.IsNullOrWhiteSpace(textoExtraido))
+            if (
+                string.IsNullOrWhiteSpace(
+                    textoExtraido
+                )
+            )
             {
                 if (resultText != null)
-                    resultText.text = "No se detectó texto";
+                    resultText.text =
+                        "No se detectó texto";
+
                 yield break;
             }
 
-            textoExtraido = textoExtraido.Trim();
+            textoExtraido =
+                textoExtraido.Trim();
 
             if (resultText != null)
-                resultText.text = textoExtraido;
+                resultText.text =
+                    textoExtraido;
 
             if (commentUploader != null)
             {
-                commentUploader.GuardarComentario(obraId, textoExtraido);
+                commentUploader.GuardarComentario(
+                    obraId,
+                    textoExtraido
+                );
             }
         }
     }
@@ -274,11 +428,24 @@ public class SpeechRecognitionTest : MonoBehaviour
     {
         if (json.Contains("\"text\":\""))
         {
-            int start = json.IndexOf("\"text\":\"") + 8;
-            int end = json.IndexOf("\"", start);
+            int start =
+                json.IndexOf(
+                    "\"text\":\""
+                ) + 8;
+
+            int end =
+                json.IndexOf(
+                    "\"",
+                    start
+                );
 
             if (end > start)
-                return json.Substring(start, end - start);
+            {
+                return json.Substring(
+                    start,
+                    end - start
+                );
+            }
         }
 
         return "";

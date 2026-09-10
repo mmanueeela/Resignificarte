@@ -131,13 +131,16 @@ public class PhoneLoginManager : MonoBehaviour
 
             string[] partes = response.Split('|');
 
-            if (partes.Length < 3)
+            // Ahora esperamos: OK|usuarioId|comentariosVR|finalComentada
+            if (partes.Length < 4)
             {
                 MostrarErrorLogin();
                 yield break;
             }
 
-            if (!int.TryParse(partes[1], out int usuarioId) || !int.TryParse(partes[2], out int comentariosVR))
+            if (!int.TryParse(partes[1], out int usuarioId) ||
+                !int.TryParse(partes[2], out int comentariosVR) ||
+                !int.TryParse(partes[3], out int finalComentada))
             {
                 MostrarErrorLogin();
                 yield break;
@@ -145,6 +148,7 @@ public class PhoneLoginManager : MonoBehaviour
 
             PlayerPrefs.SetInt("usuario_id", usuarioId);
             PlayerPrefs.SetInt("comentarios_vr", comentariosVR);
+            PlayerPrefs.SetInt("obra_final_comentada", finalComentada);
             PlayerPrefs.SetString("telefono_usuario", phone);
             PlayerPrefs.Save();
 

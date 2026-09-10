@@ -9,6 +9,7 @@ public class CommentUploader : MonoBehaviour
 
     [Header("Progreso")]
     [SerializeField] private DoorProgressManager doorProgressManager;
+    [SerializeField] private RoomProgressUIManager roomProgressUIManager;
 
     public void GuardarComentario(int obraId, string texto)
     {
@@ -47,18 +48,32 @@ public class CommentUploader : MonoBehaviour
 
             string[] partes = response.Split('|');
 
-            if (partes.Length < 2)
+            if (partes.Length < 3)
                 yield break;
 
             if (!int.TryParse(partes[1], out int comentariosVR))
                 yield break;
 
+            if (!int.TryParse(partes[2], out int finalInt))
+                yield break;
+
+            bool finalComentada = finalInt == 1;
+
+            // Guardar progreso
             PlayerPrefs.SetInt("comentarios_vr", comentariosVR);
+            PlayerPrefs.SetInt("obra_final_comentada", finalComentada ? 1 : 0);
             PlayerPrefs.Save();
 
+            // Actualizar puertas
             if (doorProgressManager != null)
             {
                 doorProgressManager.ActualizarProgreso(comentariosVR);
+            }
+
+            // Actualizar botones y mensajes
+            if (roomProgressUIManager != null)
+            {
+                roomProgressUIManager.ActualizarEstado(comentariosVR, finalComentada);
             }
         }
     }

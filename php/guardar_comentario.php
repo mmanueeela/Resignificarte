@@ -14,7 +14,7 @@ if ($usuario_id <= 0 || $obra_id <= 0 || empty($comentario)) {
 }
 
 // ======================================================
-// 1. COMPROBAR QUE EL USUARIO EXISTE
+// 1. COMPROBAR USUARIO
 // ======================================================
 
 $stmt = $conexion->prepare("SELECT id FROM usuarios WHERE id = ? LIMIT 1");
@@ -43,24 +43,12 @@ if (!$stmt->fetch()) {
 $stmt->close();
 
 // ======================================================
-// 2. COMPROBAR SI YA COMENTÓ ESTA OBRA DESDE VR
+// 2. COMPROBAR SI YA COMENTÓ DESDE VR
 // ======================================================
 
 $stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios WHERE obra_id = ? AND usuario_id = ? AND origen = 'vr'");
-
-if (!$stmt) {
-    echo 'ERROR|Servidor';
-    exit();
-}
-
 $stmt->bind_param("ii", $obra_id, $usuario_id);
-
-if (!$stmt->execute()) {
-    $stmt->close();
-    echo 'ERROR|Servidor';
-    exit();
-}
-
+$stmt->execute();
 $stmt->bind_result($ya_comento);
 $stmt->fetch();
 $stmt->close();
@@ -71,7 +59,7 @@ if ($ya_comento > 0) {
 }
 
 // ======================================================
-// 3. GUARDAR COMENTARIO
+// 3. INSERTAR COMENTARIO
 // ======================================================
 
 $stmt = $conexion->prepare("INSERT INTO comentarios (obra_id, usuario_id, comentario, origen) VALUES (?, ?, ?, 'vr')");
@@ -92,34 +80,35 @@ if (!$stmt->execute()) {
 $stmt->close();
 
 // ======================================================
-// 4. CALCULAR PROGRESO VR
+// 4. CONTAR OBRAS NORMALES
 // ======================================================
 
 $artistaAntonio = 1;
 
 $stmt = $conexion->prepare("SELECT COUNT(DISTINCT c.obra_id) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 0");
-
-if (!$stmt) {
-    echo 'ERROR|Servidor';
-    exit();
-}
-
 $stmt->bind_param("ii", $usuario_id, $artistaAntonio);
-
-if (!$stmt->execute()) {
-    $stmt->close();
-    echo 'ERROR|Servidor';
-    exit();
-}
-
+$stmt->execute();
 $stmt->bind_result($comentadas_vr);
 $stmt->fetch();
 $stmt->close();
 
 // ======================================================
-// 5. RESPUESTA A UNITY
+// 5. COMPROBAR SI COMENTÓ LA OBRA FINAL
 // ======================================================
 
-echo 'OK|' . $comentadas_vr;
+$stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 1");
+$stmt->bind_param("ii", $usuario_id, $artistaAntonio);
+$stmt->execute();
+$stmt->bind_result($comentario_final);
+$stmt->fetch();
+$stmt->close();
+
+$final_comentada = $comentario_final > 0 ? 1 : 0;
+
+// ======================================================
+// 6. RESPUESTA A UNITY
+// ======================================================
+
+echo 'OK|' . $comentadas_vr . '|' . $final_comentada;
 
 ?>

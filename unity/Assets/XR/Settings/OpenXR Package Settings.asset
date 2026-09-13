@@ -808,7 +808,9 @@ MonoBehaviour:
   m_Name: Standalone
   m_EditorClassIdentifier: 
   features:
+  - {fileID: 7737101953823570045}
   - {fileID: -6279212148996162835}
+  - {fileID: 9213713958058577147}
   - {fileID: 8569400138515980273}
   - {fileID: -4174791845739555486}
   - {fileID: 3169817069085240826}
@@ -831,14 +833,12 @@ MonoBehaviour:
   - {fileID: 1899199988088519695}
   - {fileID: 5356499721767166187}
   - {fileID: 1571100802476220213}
+  - {fileID: -3359894836926566860}
   - {fileID: -1255617407676331039}
   - {fileID: -9006725167115301800}
   - {fileID: 3751020502294189570}
   - {fileID: 3475109953619096060}
   - {fileID: -5458299087152305293}
-  - {fileID: 7737101953823570045}
-  - {fileID: 9213713958058577147}
-  - {fileID: -3359894836926566860}
   customLoaderName: 
   m_renderMode: 0
   m_latencyOptimization: 0
@@ -2216,16 +2216,7 @@ MonoBehaviour:
   required: 0
   customRuntimeLoaderName: 
   m_ApiLayers:
-    m_Collection:
-    - m_Json:
-        name: XR_APILAYER_METAX_operator
-        library_path: ./XrApiLayer_METAX_operator.dll
-        api_version: 1.1
-        implementation_version: 1
-        description: API layer that providing agentic interface for OpenXR
-      m_JsonFileName: XrApiLayer_METAX_operator.json
-      m_LibraryArchitecture: 1
-      m_IsEnabled: 1
+    m_Collection: []
 --- !u!114 &7893915479609987824
 MonoBehaviour:
   m_ObjectHideFlags: 0

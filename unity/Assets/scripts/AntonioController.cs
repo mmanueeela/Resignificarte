@@ -8,7 +8,6 @@ public class AntonioController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     // Teletransporta a Antonio al cuarto especial
-    // y lo pone directamente en Standing Idle.
     public void TeletransportarAlCuartoEspecial()
     {
         if (antonioRoot == null || puntoCuartoEspecial == null || animator == null)
@@ -20,17 +19,18 @@ public class AntonioController : MonoBehaviour
         antonioRoot.position = puntoCuartoEspecial.position;
         antonioRoot.rotation = puntoCuartoEspecial.rotation;
 
+        // Al llegar se queda de pie esperando
         animator.Play("Standing Idle", 0, 0f);
 
         Debug.Log("Antonio teletransportado al cuarto especial.");
     }
 
-    // Se llamará cuando el usuario pulse Play/Escuchar audio.
+    // Empieza a gesticular cuando se reproduce el audio
     public void EmpezarGestos()
     {
         if (animator == null)
         {
-            Debug.LogError("No hay Animator asignado en AntonioController.");
+            Debug.LogError("No hay Animator asignado.");
             return;
         }
 
@@ -39,17 +39,41 @@ public class AntonioController : MonoBehaviour
         Debug.Log("Antonio empieza a gesticular.");
     }
 
-    // SOLO PARA HACER PRUEBAS DESDE EL INSPECTOR.
+    // Para los gestos y vuelve a Standing Idle
+    public void PararGestos()
+    {
+        if (animator == null)
+        {
+            Debug.LogError("No hay Animator asignado.");
+            return;
+        }
+
+        animator.ResetTrigger("EmpezarGestos");
+
+        // Vuelve directamente a la animación de espera
+        animator.Play("Standing Idle", 0, 0f);
+
+        Debug.Log("Antonio deja de gesticular.");
+    }
+
+
+    // -------- PRUEBAS --------
+
     [ContextMenu("Probar Teletransporte")]
     private void ProbarTeletransporte()
     {
         TeletransportarAlCuartoEspecial();
     }
 
-    // SOLO PARA HACER PRUEBAS DESDE EL INSPECTOR.
     [ContextMenu("Probar Gestos")]
     private void ProbarGestos()
     {
         EmpezarGestos();
+    }
+
+    [ContextMenu("Probar Parar Gestos")]
+    private void ProbarPararGestos()
+    {
+        PararGestos();
     }
 }

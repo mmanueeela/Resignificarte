@@ -17,6 +17,9 @@ public class SpeechRecognitionTest : MonoBehaviour
     [SerializeField] private Button stopButton;
     [SerializeField] private TextMeshProUGUI resultText;
 
+    [Header("UI Botón de grabación")]
+    [SerializeField] private RecordingButtonUI recordingButtonUI;
+
     [Header("Configuración de la obra")]
     [SerializeField] private int obraId = 1;
 
@@ -175,6 +178,9 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         recording = true;
 
+        if (recordingButtonUI != null)
+            recordingButtonUI.MostrarGrabando();
+
         if (startButton != null)
             startButton.interactable = false;
 
@@ -211,6 +217,9 @@ public class SpeechRecognitionTest : MonoBehaviour
             if (resultText != null)
                 resultText.text = "No se ha detectado audio";
 
+            if (recordingButtonUI != null)
+                recordingButtonUI.MostrarNormal();
+
             return;
         }
 
@@ -221,6 +230,9 @@ public class SpeechRecognitionTest : MonoBehaviour
         {
             if (resultText != null)
                 resultText.text = "No se ha detectado voz";
+
+            if (recordingButtonUI != null)
+                recordingButtonUI.MostrarNormal();
 
             return;
         }
@@ -344,6 +356,9 @@ public class SpeechRecognitionTest : MonoBehaviour
                 resultText.text =
                     "Error de configuración";
 
+            if (recordingButtonUI != null)
+                recordingButtonUI.MostrarNormal();
+
             yield break;
         }
 
@@ -386,6 +401,9 @@ public class SpeechRecognitionTest : MonoBehaviour
                     resultText.text =
                         "Error procesando audio";
 
+                if (recordingButtonUI != null)
+                    recordingButtonUI.MostrarNormal();
+
                 yield break;
             }
 
@@ -404,6 +422,9 @@ public class SpeechRecognitionTest : MonoBehaviour
                     resultText.text =
                         "No se detectó texto";
 
+                if (recordingButtonUI != null)
+                    recordingButtonUI.MostrarNormal();
+
                 yield break;
             }
 
@@ -421,6 +442,9 @@ public class SpeechRecognitionTest : MonoBehaviour
                     textoExtraido
                 );
             }
+
+            if (recordingButtonUI != null)
+                recordingButtonUI.MostrarGracias();
         }
     }
 

@@ -72,6 +72,33 @@
 }
 
 /* =========================================================
+   VER MÁS / VER MENOS EN COMENTARIOS
+========================================================= */
+
+.btn-ver-mas-comentario {
+    margin-top: 8px;
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    color: #523479;
+
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.btn-ver-mas-comentario:hover {
+    color: #200B30;
+    text-decoration: underline;
+}
+
+/* =========================================================
    RESPONSIVE MÓVIL
 ========================================================= */
 @media (max-width: 900px) {

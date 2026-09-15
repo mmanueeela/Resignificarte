@@ -308,24 +308,6 @@ html {
 }
 
 /* =========================================================
-   DESPLEGABLE DE COMENTARIOS
-========================================================= */
-
-.lista-comentarios-oculta {
-    max-height: 0;
-    overflow: hidden;
-    margin-top: 15px;
-    transition: max-height 0.5s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-.lista-comentarios-oculta.abierto {
-    max-height: 650px;
-    overflow-y: auto;
-    opacity: 1;
-}
-
-/* =========================================================
    DOS COLUMNAS: WEB + REALIDAD VIRTUAL
 ========================================================= */
 
@@ -335,6 +317,7 @@ html {
         repeat(auto-fit, minmax(330px, 1fr));
     gap: 15px;
     width: 100%;
+    align-items: start;
 }
 
 /* Caja de cada tipo de comentarios */
@@ -379,6 +362,40 @@ html {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+}
+
+/* =========================================================
+   SCROLL DE CADA COLUMNA
+========================================================= */
+
+.lista-columna-comentarios {
+    scrollbar-width: thin;
+    scrollbar-color:
+            rgba(82, 52, 121, 0.45)
+            transparent;
+}
+
+/* Chrome, Edge, Safari */
+.lista-columna-comentarios::-webkit-scrollbar {
+    width: 7px;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-thumb {
+    background-color: rgba(82, 52, 121, 0.35);
+
+    border-radius: 20px;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(82, 52, 121, 0.55);
 }
 
 /* =========================================================

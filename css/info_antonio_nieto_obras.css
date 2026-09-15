@@ -93,6 +93,26 @@
     transition: color 0.2s ease;
 }
 
+/* =========================================================
+   DESPLEGABLE GENERAL DE COMENTARIOS
+========================================================= */
+
+.lista-comentarios-oculta {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 15px;
+    opacity: 0;
+    transition:
+            max-height 0.5s ease,
+            opacity 0.3s ease;
+}
+
+.lista-comentarios-oculta.abierto {
+    max-height: 2000px;
+    overflow: hidden;
+    opacity: 1;
+}
+
 .btn-ver-mas-comentario:hover {
     color: #200B30;
     text-decoration: underline;

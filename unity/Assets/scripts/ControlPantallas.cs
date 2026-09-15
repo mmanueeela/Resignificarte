@@ -1,8 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControlPantallas : MonoBehaviour
 {
     [SerializeField] private GameObject[] pantallas;
+
+    [Header("Escena final")]
+    [SerializeField] private string siguienteEscena = "SampleScene";
 
     private int pantallaActual = 0;
 
@@ -13,10 +17,16 @@ public class ControlPantallas : MonoBehaviour
 
     public void Siguiente()
     {
+        // Si todavía no estamos en la última pantalla
         if (pantallaActual < pantallas.Length - 1)
         {
             pantallaActual++;
             MostrarPantalla(pantallaActual);
+        }
+        else
+        {
+            // Estamos en la Pantalla 7
+            SceneManager.LoadScene(siguienteEscena);
         }
     }
 

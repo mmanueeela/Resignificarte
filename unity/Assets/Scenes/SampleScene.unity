@@ -127,10 +127,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 16167198623022628, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 234793905991154621, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 819202369296422369, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 819202369296422369, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73ea49e5dd469c64f9c807c4b97f7cc6, type: 3}
     - target: {fileID: 1074740141770652824, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_text
       value: 
@@ -254,6 +266,10 @@ PrefabInstance:
     - target: {fileID: 2985643771424164987, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3250497006573074802, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3689133404065205476, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_LocalScale.x
@@ -415,6 +431,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 73ea49e5dd469c64f9c807c4b97f7cc6, type: 3}
+    - target: {fileID: 8260063479387285609, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260063479387285609, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4bbeccdd60d25f4fb1fc8a6ffd88c88, type: 3}
     - target: {fileID: 8450648960994588088, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_Type
       value: 0
@@ -436,10 +460,39 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e4bbeccdd60d25f4fb1fc8a6ffd88c88, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8816237533619876689, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+    - {fileID: 3503590266334197351, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3528881246852501338, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 24291085}
   m_SourcePrefab: {fileID: 100100000, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+--- !u!1 &24291084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3528881246852501338, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+  m_PrefabInstance: {fileID: 24291083}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &24291085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24291084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!1 &35895775
 GameObject:
   m_ObjectHideFlags: 0

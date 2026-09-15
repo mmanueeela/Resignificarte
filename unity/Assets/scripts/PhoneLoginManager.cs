@@ -155,7 +155,7 @@ public class PhoneLoginManager : MonoBehaviour
             if (statusText != null)
                 statusText.text = "";
 
-            AsyncOperation carga = SceneManager.LoadSceneAsync("SampleScene");
+            AsyncOperation carga = SceneManager.LoadSceneAsync("pantalla_inicio");
 
             if (carga == null)
             {

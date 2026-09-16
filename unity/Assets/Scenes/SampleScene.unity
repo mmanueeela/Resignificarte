@@ -455,6 +455,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -968.6001
       objectReference: {fileID: 0}
+    - target: {fileID: 7293536900174921779, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: grabacionObra1
+      value: 
+      objectReference: {fileID: 1993919549}
+    - target: {fileID: 7293536900174921779, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: grabacionObra2
+      value: 
+      objectReference: {fileID: 487433963}
+    - target: {fileID: 7293536900174921779, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: grabacionObra3
+      value: 
+      objectReference: {fileID: 1517513641}
+    - target: {fileID: 7293536900174921779, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+      propertyPath: grabacionObra4
+      value: 
+      objectReference: {fileID: 41689620}
     - target: {fileID: 7376035710864900821, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
       propertyPath: m_Type
       value: 0
@@ -495,6 +511,8 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 8816237533619876689, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
     - {fileID: 3503590266334197351, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+    - {fileID: 16167198623022628, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
+    - {fileID: 5426486378688462569, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3528881246852501338, guid: 23e96436cebd87a4099da783242bfe6c, type: 3}
@@ -721,6 +739,7 @@ MonoBehaviour:
   recordingButtonUI: {fileID: 1856457922}
   obraId: 4
   commentUploader: {fileID: 358062583}
+  maxRecordingSeconds: 120
 --- !u!4 &41689621
 Transform:
   m_ObjectHideFlags: 0
@@ -3117,6 +3136,7 @@ MonoBehaviour:
   recordingButtonUI: {fileID: 1479479919}
   obraId: 2
   commentUploader: {fileID: 358062583}
+  maxRecordingSeconds: 120
 --- !u!4 &487433964
 Transform:
   m_ObjectHideFlags: 0
@@ -5367,6 +5387,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3cd67a6fb40186f429bbb495a28aed2c, type: 3}
   m_PrefabInstance: {fileID: 877938569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &881595720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881595722}
+  - component: {fileID: 881595721}
+  m_Layer: 0
+  m_Name: QuestMicrophoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &881595721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881595720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4ad8ad2e5af604eb77e88c13e22af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestMicrophoneManager
+--- !u!4 &881595722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881595720}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.78312, y: 0.08473, z: -0.57305}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &894100177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9570,6 +9634,7 @@ MonoBehaviour:
   recordingButtonUI: {fileID: 743579382}
   obraId: 3
   commentUploader: {fileID: 358062583}
+  maxRecordingSeconds: 120
 --- !u!4 &1517513642
 Transform:
   m_ObjectHideFlags: 0
@@ -12281,6 +12346,7 @@ MonoBehaviour:
   recordingButtonUI: {fileID: 1090947326}
   obraId: 1
   commentUploader: {fileID: 358062583}
+  maxRecordingSeconds: 120
 --- !u!4 &1993919550
 Transform:
   m_ObjectHideFlags: 0
@@ -13600,3 +13666,4 @@ SceneRoots:
   - {fileID: 1944155762}
   - {fileID: 24291083}
   - {fileID: 1732696915}
+  - {fileID: 881595722}

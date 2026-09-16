@@ -31,8 +31,16 @@ public class SpeechRecognitionTest : MonoBehaviour
     private bool recording;
     private string microphoneDevice;
 
-    private const int sampleRate = 44100;
-    private const int maxRecordingSeconds = 10;
+    private bool audioEscuchado = false;
+
+    #if UNITY_ANDROID && !UNITY_EDITOR
+        private const int sampleRate = 48000;
+    #else
+        private const int sampleRate = 44100;
+    #endif
+
+    [Header("Duración máxima de grabación")]
+    [SerializeField] private int maxRecordingSeconds = 120;
 
     private const string huggingFaceUrl =
         "https://router.huggingface.co/hf-inference/models/openai/whisper-large-v3-turbo";
@@ -40,7 +48,16 @@ public class SpeechRecognitionTest : MonoBehaviour
     private void Start()
     {
         if (startButton != null)
-            startButton.onClick.AddListener(StartRecording);
+        {
+            startButton.onClick.AddListener(
+                StartRecording
+            );
+
+            // No puede grabar hasta escuchar
+            // el audio completo.
+            startButton.interactable =
+                audioEscuchado;
+        }
 
         if (stopButton != null)
         {
@@ -49,20 +66,20 @@ public class SpeechRecognitionTest : MonoBehaviour
         }
 
         if (resultText != null)
-            resultText.text = "Presiona grabar";
+        {
+            resultText.text = audioEscuchado ? "Presiona grabar" : "Escucha primero el audio";
+        }
 
         ComprobarMicrofono();
     }
 
     private void ComprobarMicrofono()
     {
-#if UNITY_ANDROID
-        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-        {
-            Permission.RequestUserPermission(Permission.Microphone);
-        }
-#endif
-
+#if UNITY_ANDROID && !UNITY_EDITOR
+    // En la APK de Quest usamos directamente el micrófono del propio visor.
+    microphoneDevice = null;
+#else
+        // En Unity Editor / Windows buscamos automáticamente el dispositivo de Quest Link.
         if (Microphone.devices.Length == 0)
         {
             microphoneDevice = null;
@@ -77,17 +94,19 @@ public class SpeechRecognitionTest : MonoBehaviour
 
         foreach (string dispositivo in Microphone.devices)
         {
-            if (dispositivo.IndexOf(
-                    "Oculus Virtual Audio Device",
-                    System.StringComparison.OrdinalIgnoreCase) >= 0)
+            if (dispositivo.IndexOf("Oculus Virtual Audio Device", System.StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 microphoneDevice = dispositivo;
                 break;
             }
         }
 
+        // Si no encuentra Oculus, usa el primer micrófono disponible.
         if (string.IsNullOrEmpty(microphoneDevice))
+        {
             microphoneDevice = Microphone.devices[0];
+        }
+#endif
     }
 
     private void Update()
@@ -102,18 +121,100 @@ public class SpeechRecognitionTest : MonoBehaviour
             StopRecording();
     }
 
+    public void HabilitarGrabacionTrasAudio()
+    {
+        audioEscuchado = true;
+
+        if (startButton != null)
+        {
+            startButton.interactable = true;
+        }
+
+        if (resultText != null)
+        {
+            resultText.text = "Presiona grabar";
+        }
+
+        if (recordingButtonUI != null)
+        {
+            recordingButtonUI.MostrarNormal();
+        }
+    }
+
     public void StartRecording()
     {
+        if (!audioEscuchado)
+        {
+            if (resultText != null)
+                resultText.text = "Escucha primero el audio completo";
+
+            return;
+        }
+
         if (recording)
             return;
 
-        StartCoroutine(IniciarMicrofono());
+        StartCoroutine(PrepararYGrabar());
+    }
+
+    private IEnumerator PrepararYGrabar()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+
+    // ==========================================
+    // COMPROBAR PERMISO
+    // ==========================================
+
+    if (
+        !Permission.HasUserAuthorizedPermission(
+            Permission.Microphone
+        )
+    )
+    {
+        if (resultText != null)
+        {
+            resultText.text =
+                "Es necesario permitir el micrófono";
+        }
+
+        Permission.RequestUserPermission(
+            Permission.Microphone
+        );
+
+        yield break;
+    }
+
+
+    // ==========================================
+    // COMPROBAR SI QUEST HA MUTEADO EL MICRO
+    // ==========================================
+
+    if (
+        QuestMicrophoneManager
+            .MicrofonoSistemaMuteado()
+    )
+    {
+        if (resultText != null)
+        {
+            resultText.text =
+                "El micrófono está silenciado. Actívalo en las Quest.";
+        }
+
+        yield break;
+    }
+
+#endif
+
+
+        yield return IniciarMicrofono();
     }
 
     private IEnumerator IniciarMicrofono()
     {
         // Volvemos a buscar el dispositivo cada vez
         ComprobarMicrofono();
+
+#if !UNITY_ANDROID || UNITY_EDITOR
 
         if (string.IsNullOrEmpty(microphoneDevice))
         {
@@ -122,6 +223,8 @@ public class SpeechRecognitionTest : MonoBehaviour
 
             yield break;
         }
+
+#endif
 
         // DEBUG TEMPORAL 1
         Debug.Log("MICROFONO USADO: " + microphoneDevice);
@@ -242,8 +345,7 @@ public class SpeechRecognitionTest : MonoBehaviour
 
     private bool EncodeAsWAV(int length)
     {
-        int channels =
-            clip.channels;
+        int channels = clip.channels;
 
         float[] samples =
             new float[length * channels];
@@ -251,22 +353,69 @@ public class SpeechRecognitionTest : MonoBehaviour
         if (!clip.GetData(samples, 0))
             return false;
 
+
+        // ==========================================
+        // COMPROBAR QUE REALMENTE HAY VOZ
+        // ==========================================
+
         float maxAmplitude = 0f;
+        double sumaCuadrados = 0.0;
 
         for (int i = 0; i < samples.Length; i++)
         {
-            float valor =
-                Mathf.Abs(samples[i]);
+            float valor = samples[i];
+            float absoluto = Mathf.Abs(valor);
 
-            if (valor > maxAmplitude)
-                maxAmplitude = valor;
+            if (absoluto > maxAmplitude)
+            {
+                maxAmplitude = absoluto;
+            }
+
+            sumaCuadrados += valor * valor;
         }
 
-        // DEBUG TEMPORAL 3
-        Debug.Log("AMPLITUD MAXIMA: " + maxAmplitude);
 
-        if (maxAmplitude < 0.005f)
+        float rms =
+            Mathf.Sqrt(
+                (float)(
+                    sumaCuadrados /
+                    samples.Length
+                )
+            );
+
+
+        Debug.Log(
+            "AMPLITUD MAXIMA: " +
+            maxAmplitude
+        );
+
+        Debug.Log(
+            "RMS AUDIO: " +
+            rms
+        );
+
+
+        // Si solo hay silencio o ruido muy pequeño,
+        // no lo enviamos a Whisper.
+        if (
+            maxAmplitude < 0.005f ||
+            rms < 0.0015f
+        )
+        {
+            Debug.LogWarning(
+                "AUDIO DESCARTADO | Max: " +
+                maxAmplitude +
+                " | RMS: " +
+                rms
+            );
+
             return false;
+        }
+
+
+        // ==========================================
+        // CREAR WAV
+        // ==========================================
 
         using (MemoryStream memoryStream = new MemoryStream())
         {

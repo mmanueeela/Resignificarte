@@ -41,11 +41,7 @@ public class ExitDoorPrompt : MonoBehaviour
     {
         Debug.Log("El usuario quiere salir");
 
-        // Si quieres volver a una escena de inicio:
-        SceneManager.LoadScene("SampleScene");
-
-        // Si más adelante quieres cerrar la app:
-        // Application.Quit();
+        Application.Quit();
     }
 
     public void NoExit()

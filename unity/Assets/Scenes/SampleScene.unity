@@ -4630,7 +4630,6 @@ Transform:
   m_Children:
   - {fileID: 3534916117657098061}
   - {fileID: 1619938395}
-  - {fileID: 764640384}
   - {fileID: 1860912660}
   m_Father: {fileID: 543450652847272036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6159,13 +6158,14 @@ GameObject:
   - component: {fileID: 764640383}
   - component: {fileID: 764640382}
   - component: {fileID: 764640381}
+  - component: {fileID: 764640385}
   m_Layer: 5
   m_Name: CanvasExit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &764640381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6236,21 +6236,40 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764640380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.51}
-  m_LocalScale: {x: 0.014064928, y: 0.014064928, z: 0.014064928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 7.295}
+  m_LocalScale: {x: 0.06742394, y: 0.06742394, z: 0.06742394}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2013632027}
   - {fileID: 1530889587}
   - {fileID: 2065802511}
-  m_Father: {fileID: 660057154}
+  m_Father: {fileID: 543450652847272036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.51, y: 0.366}
+  m_AnchoredPosition: {x: 0.026009, y: 1.488}
   m_SizeDelta: {x: 649.3334, y: 325.66666}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &764640385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764640380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!65 &772904761
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15195,9 +15214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b24f4dee392c74eaa75d59e1deb998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  doorPivot: {fileID: 3534916117657098061}
+  doorPivot: {fileID: 660057154}
   exitPanel: {fileID: 764640380}
-  activationAngle: 60
+  activationAngle: 10
 --- !u!1001 &1899672307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16385,6 +16404,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 764640384}
   - {fileID: 1825774914}
   - {fileID: 990998063}
   - {fileID: 403454079}

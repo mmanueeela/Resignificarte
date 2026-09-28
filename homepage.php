@@ -143,7 +143,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
 
                 <!-- Miembro 1 -->
                 <div class="miembro-card glass-card">
-                    <img src="src/images/img_antonio_nieto.jpg" alt="Jessica López Escalera" class="miembro-img-fondo">
+                    <img src="src/images/img_jessica.jpeg" alt="Jessica López Escalera" class="miembro-img-fondo">
                     <div class="etiqueta-nombre">Jessica Lopez Escalera</div>
 
                     <div class="miembro-info-hover">

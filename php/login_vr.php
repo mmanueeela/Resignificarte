@@ -12,10 +12,16 @@ if (empty($telefono)) {
 }
 
 // ======================================================
-// BUSCAR USUARIO
+// 1. BUSCAR USUARIO
 // ======================================================
 
-$stmt = $conexion->prepare("SELECT u.id FROM usuarios u INNER JOIN usuarios_credenciales c ON c.usuario_id = u.id WHERE c.telefono = ? LIMIT 1");
+$stmt = $conexion->prepare("
+    SELECT u.id
+    FROM usuarios u
+    INNER JOIN usuarios_credenciales c ON c.usuario_id = u.id
+    WHERE c.telefono = ?
+    LIMIT 1
+");
 
 if (!$stmt) {
     echo 'ERROR|Servidor';
@@ -31,39 +37,62 @@ if (!$stmt->fetch()) {
     echo 'ERROR|Usuario no encontrado';
     exit();
 }
-
 $stmt->close();
 
 // ======================================================
-// CONTAR OBRAS NORMALES COMENTADAS
+// 2. CONTAR OBRAS NORMALES COMENTADAS (WEB + VR)
 // ======================================================
 
 $artistaAntonio = 1;
 
-$stmt = $conexion->prepare("SELECT COUNT(DISTINCT c.obra_id) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 0");
+$stmt = $conexion->prepare("
+    SELECT COUNT(DISTINCT c.obra_id)
+    FROM comentarios c
+    INNER JOIN obras o ON c.obra_id = o.id
+    WHERE c.usuario_id = ?
+      AND o.artista_id = ?
+      AND o.es_recompensa = 0
+");
+
+if (!$stmt) {
+    echo 'ERROR|Servidor';
+    exit();
+}
+
 $stmt->bind_param("ii", $usuario_id, $artistaAntonio);
 $stmt->execute();
-$stmt->bind_result($comentariosVR);
+$stmt->bind_result($comentarios);
 $stmt->fetch();
 $stmt->close();
 
 // ======================================================
-// COMPROBAR OBRA FINAL
+// 3. COMPROBAR OBRA FINAL (WEB + VR)
 // ======================================================
 
-$stmt = $conexion->prepare("SELECT COUNT(*) FROM comentarios c INNER JOIN obras o ON c.obra_id = o.id WHERE c.usuario_id = ? AND c.origen = 'vr' AND o.artista_id = ? AND o.es_recompensa = 1");
+$stmt = $conexion->prepare("
+    SELECT COUNT(*)
+    FROM comentarios c
+    INNER JOIN obras o ON c.obra_id = o.id
+    WHERE c.usuario_id = ?
+      AND o.artista_id = ?
+      AND o.es_recompensa = 1
+");
+
+if (!$stmt) {
+    echo 'ERROR|Servidor';
+    exit();
+}
+
 $stmt->bind_param("ii", $usuario_id, $artistaAntonio);
 $stmt->execute();
 $stmt->bind_result($comentarioFinal);
 $stmt->fetch();
 $stmt->close();
 
-$finalComentada = $comentarioFinal > 0 ? 1 : 0;
+$finalComentada = ($comentarioFinal > 0) ? 1 : 0;
 
 // ======================================================
-// RESPUESTA
+// 4. RESPUESTA A UNITY (OK|usuario_id|comentarios|finalComentada)
 // ======================================================
 
-echo 'OK|' . $usuario_id . '|' . $comentariosVR . '|' . $finalComentada;
-
-?>
+echo "OK|{$usuario_id}|{$comentarios}|{$finalComentada}";

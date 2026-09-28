@@ -65,10 +65,37 @@ $stmt->execute();
 $result_obras = $stmt->get_result();
 
 $cuadros = [];
+
 while ($obra = $result_obras->fetch_assoc()) {
-    // Para cada obra, sacar sus comentarios
+
+    // ======================================================
+    // 1. COMPROBAR SI EL USUARIO YA HA COMENTADO ESTA OBRA (WEB + RV)
+    // ======================================================
+
+    $usuario_ya_comento = false;
+
+    if ($usuario_logeado && $usuario_id > 0) {
+        $stmt_check = $conexion->prepare("
+            SELECT COUNT(*)
+            FROM comentarios
+            WHERE obra_id = ?
+              AND usuario_id = ?
+        ");
+        $stmt_check->bind_param("ii", $obra['id'], $usuario_id);
+        $stmt_check->execute();
+        $stmt_check->bind_result($cantidad_comentarios_usuario);
+        $stmt_check->fetch();
+        $stmt_check->close();
+
+        $usuario_ya_comento = ($cantidad_comentarios_usuario > 0);
+    }
+
+    // ======================================================
+    // 2. SACAR TODOS LOS COMENTARIOS DE ESTA OBRA (WEB + RV)
+    // ======================================================
+
     $stmt_com = $conexion->prepare("
-        SELECT 
+        SELECT
             c.id AS id_comentario,
             c.comentario,
             c.usuario_id,
@@ -80,60 +107,68 @@ while ($obra = $result_obras->fetch_assoc()) {
         FROM comentarios c
         JOIN usuarios u ON c.usuario_id = u.id
         WHERE c.obra_id = ?
-        ORDER BY CASE WHEN c.usuario_id = ? THEN 1 ELSE 0 END DESC, c.fecha DESC
+        ORDER BY
+            CASE
+                WHEN c.usuario_id = ? THEN 1
+                ELSE 0
+            END DESC,
+            c.fecha DESC
     ");
     $stmt_com->bind_param("ii", $obra['id'], $usuario_id);
     $stmt_com->execute();
     $res_com = $stmt_com->get_result();
 
+    // ======================================================
+    // 3. SEPARAR COMENTARIOS WEB Y RV
+    // ======================================================
+
     $comentarios = [];
     $comentarios_web = [];
     $comentarios_vr = [];
 
-    $usuario_ya_comento = false;
-
     while ($com = $res_com->fetch_assoc()) {
-        $origen = strtolower(trim($com['origen'] ?? 'web'));
-        if (
-            $com['usuario_id'] == $usuario_id &&
-            $usuario_id != 0 &&
-            $origen === 'web'
-        ) {
-            $usuario_ya_comento = true;
-        }
-
-        // Guardamos todos por compatibilidad
         $comentarios[] = $com;
 
-        // Los separamos según procedencia
-        if ($origen === 'vr') {
-            $comentarios_vr[] = $com;
-        } else {
+        if ($com['origen'] === 'web') {
             $comentarios_web[] = $com;
+        } elseif ($com['origen'] === 'vr') {
+            $comentarios_vr[] = $com;
         }
     }
-
     $stmt_com->close();
+
+    // ======================================================
+    // 4. COMPROBAR SORTEO
+    // ======================================================
 
     $usuario_participa_sorteo = false;
 
     if ($usuario_logeado && $artista_id == 1 && $obra['es_recompensa'] == 1) {
-        $stmt_sorteo = $conexion->prepare("SELECT COUNT(*) FROM sorteo_antonio_nieto WHERE usuario_id = ? AND obra_id = ?");
+        $stmt_sorteo = $conexion->prepare("
+            SELECT COUNT(*)
+            FROM sorteo_antonio_nieto
+            WHERE usuario_id = ?
+              AND obra_id = ?
+        ");
         $stmt_sorteo->bind_param("ii", $usuario_id, $obra['id']);
         $stmt_sorteo->execute();
         $stmt_sorteo->bind_result($participa);
         $stmt_sorteo->fetch();
         $stmt_sorteo->close();
+
         $usuario_participa_sorteo = ($participa > 0);
     }
 
-    $obra['comentarios_lista'] = $comentarios;
+    // ======================================================
+    // 5. GUARDAR TODOS LOS DATOS DE LA OBRA
+    // ======================================================
 
-    $obra['comentarios_web'] = $comentarios_web;
-    $obra['comentarios_vr'] = $comentarios_vr;
-
-    $obra['usuario_ya_comento'] = $usuario_ya_comento;
+    $obra['comentarios_lista']        = $comentarios;
+    $obra['comentarios_web']          = $comentarios_web;
+    $obra['comentarios_vr']           = $comentarios_vr;
+    $obra['usuario_ya_comento']       = $usuario_ya_comento;
     $obra['usuario_participa_sorteo'] = $usuario_participa_sorteo;
+
     $cuadros[] = $obra;
 }
 ?>

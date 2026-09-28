@@ -428,27 +428,29 @@ if (contenedorPrincipal) {
     });
 }
 
-const inputImagen = form.querySelector('input[type="file"]');
-const mensajeError = form.querySelector('.error-imagen-sorteo');
+document.querySelectorAll('.form-participar-sorteo').forEach(form => {
+    const inputImagen = form.querySelector('input[type="file"]');
+    const mensajeError = form.querySelector('.error-imagen-sorteo');
 
-form.addEventListener('submit', function (e) {
-    if (!inputImagen || !inputImagen.files || inputImagen.files.length === 0) {
-        e.preventDefault();
-        if (mensajeError) {
-            mensajeError.style.display = 'block';
+    form.addEventListener('submit', function (e) {
+        if (!inputImagen || !inputImagen.files || inputImagen.files.length === 0) {
+            e.preventDefault();
+            if (mensajeError) {
+                mensajeError.style.display = 'block';
+            }
+            return;
         }
-        return;
-    }
 
-    if (mensajeError) {
-        mensajeError.style.display = 'none';
-    }
-});
-
-if (inputImagen) {
-    inputImagen.addEventListener('change', function () {
-        if (inputImagen.files && inputImagen.files.length > 0 && mensajeError) {
+        if (mensajeError) {
             mensajeError.style.display = 'none';
         }
     });
-}
+
+    if (inputImagen) {
+        inputImagen.addEventListener('change', function () {
+            if (inputImagen.files && inputImagen.files.length > 0 && mensajeError) {
+                mensajeError.style.display = 'none';
+            }
+        });
+    }
+});

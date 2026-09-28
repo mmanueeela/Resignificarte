@@ -406,7 +406,7 @@ while ($obra = $result_obras->fetch_assoc()) {
                                                 Seleccionar imagen
                                             </label>
 
-                                            <input type="file" id="imagen-sorteo-<?= $cuadro['id'] ?>" name="imagen_sorteo" accept="image/jpeg,image/png,image/webp" required>
+                                            <input type="file" id="imagen-sorteo-<?= $cuadro['id'] ?>" name="imagen_sorteo" accept="image/jpeg,image/png,image/webp">
 
                                             <p class="requisitos-imagen-sorteo">
                                                 JPG, PNG o WEBP · máximo 5 MB

@@ -160,6 +160,8 @@ main {
 .datos-autor-comentario {
     font-family: Montserrat, sans-serif;
     color: #523479;
+    min-width: 0;
+    line-height: 1.35;
 }
 
 .datos-secundarios-comentario {

@@ -307,29 +307,147 @@ html {
     height: 20px;
 }
 
-.lista-comentarios-oculta {
-    max-height: 0;
+/* =========================================================
+   DOS COLUMNAS: WEB + REALIDAD VIRTUAL
+========================================================= */
+
+.comentarios-dos-columnas {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(330px, 1fr));
+    gap: 15px;
+    width: 100%;
+    align-items: start;
+}
+
+/* Caja de cada tipo de comentarios */
+.columna-comentarios {
+    min-width: 0;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(82, 52, 121, 0.12);
+    border-radius: 15px;
+    box-sizing: border-box;
     overflow: hidden;
-    transition: max-height 0.5s ease;
-    margin-top: 15px;
+}
+
+/* =========================================================
+   TÍTULOS DE LAS COLUMNAS
+========================================================= */
+
+.titulo-columna-comentarios {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: #523479;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.titulo-columna-comentarios svg {
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+    stroke: #523479;
+}
+
+/* =========================================================
+   LISTA INTERIOR
+========================================================= */
+
+.lista-columna-comentarios {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.lista-comentarios-oculta.abierto {
     max-height: 500px;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
 }
+
+/* =========================================================
+   SCROLL DE CADA COLUMNA
+========================================================= */
+
+.lista-columna-comentarios {
+    scrollbar-width: thin;
+    scrollbar-color:
+            rgba(82, 52, 121, 0.45)
+            transparent;
+}
+
+/* Chrome, Edge, Safari */
+.lista-columna-comentarios::-webkit-scrollbar {
+    width: 7px;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-thumb {
+    background-color: rgba(82, 52, 121, 0.35);
+
+    border-radius: 20px;
+}
+
+.lista-columna-comentarios::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(82, 52, 121, 0.55);
+}
+
+/* =========================================================
+   TARJETA DE COMENTARIO
+========================================================= */
 
 .comentario-item {
     background-color: white;
-    padding: 15px;
+    padding: 13px;
     border-radius: 10px;
     font-family: Montserrat, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     color: #333;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+}
+
+/* Nombre + botón eliminar */
+.cabecera-comentario {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 10px;
+}
+
+/* Texto del comentario */
+.texto-comentario {
+    margin: 6px 0 0 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+/* Formulario de eliminar */
+.form-eliminar-comentario {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   CUANDO UNA COLUMNA NO TIENE COMENTARIOS
+========================================================= */
+
+.sin-comentarios {
+    padding: 18px 12px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.45);
+    color: #777;
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    text-align: center;
 }
 
 .btn-eliminar-comentario {
@@ -341,6 +459,7 @@ html {
     font-family: Montserrat, sans-serif;
     font-size: 12px;
     font-weight: 600;
+    white-space: nowrap;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }

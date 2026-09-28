@@ -72,6 +72,7 @@ while ($obra = $result_obras->fetch_assoc()) {
             c.id AS id_comentario,
             c.comentario,
             c.usuario_id,
+            c.origen,
             u.nombre,
             u.fecha_nacimiento,
             u.pais,
@@ -86,14 +87,32 @@ while ($obra = $result_obras->fetch_assoc()) {
     $res_com = $stmt_com->get_result();
 
     $comentarios = [];
+    $comentarios_web = [];
+    $comentarios_vr = [];
+
     $usuario_ya_comento = false;
 
     while ($com = $res_com->fetch_assoc()) {
-        if ($com['usuario_id'] == $usuario_id && $usuario_id != 0) {
+        $origen = strtolower(trim($com['origen'] ?? 'web'));
+        if (
+            $com['usuario_id'] == $usuario_id &&
+            $usuario_id != 0 &&
+            $origen === 'web'
+        ) {
             $usuario_ya_comento = true;
         }
+
+        // Guardamos todos por compatibilidad
         $comentarios[] = $com;
+
+        // Los separamos según procedencia
+        if ($origen === 'vr') {
+            $comentarios_vr[] = $com;
+        } else {
+            $comentarios_web[] = $com;
+        }
     }
+
     $stmt_com->close();
 
     $usuario_participa_sorteo = false;
@@ -109,6 +128,10 @@ while ($obra = $result_obras->fetch_assoc()) {
     }
 
     $obra['comentarios_lista'] = $comentarios;
+
+    $obra['comentarios_web'] = $comentarios_web;
+    $obra['comentarios_vr'] = $comentarios_vr;
+
     $obra['usuario_ya_comento'] = $usuario_ya_comento;
     $obra['usuario_participa_sorteo'] = $usuario_participa_sorteo;
     $cuadros[] = $obra;
@@ -347,30 +370,108 @@ while ($obra = $result_obras->fetch_assoc()) {
                         </button>
 
                         <div class="lista-comentarios-oculta" id="lista-comentarios-<?= $cuadro['id'] ?>">
-                            <?php foreach($cuadro['comentarios_lista'] as $com): ?>
-                                <div class="comentario-item">
-                                    <div class="datos-autor-comentario">
-                                        <strong><?= htmlspecialchars($com['nombre']) ?></strong>
-                                        <span class="datos-secundarios-comentario">
-                                            , <?= intval($com['edad']) ?> años, <?= htmlspecialchars($paises[$com['pais']] ?? $com['pais']) ?>
-                                        </span>
+                            <div class="comentarios-dos-columnas">
 
-                                        <?php if($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
-                                            <span class="etiqueta-tu">(Tú)</span>
-                                        <?php endif; ?>
+                                <!-- ==================================================
+                                     COMENTARIOS WEB
+                                =================================================== -->
+                                <div class="columna-comentarios">
+                                    <div class="titulo-columna-comentarios">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+                                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                                        </svg>
+                                        <span>Comentarios Web</span>
                                     </div>
 
-                                    <!-- BOTÓN DE ELIMINAR COMENTARIO (SOLO PARA ADMIN) -->
-                                    <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
-                                        <form action="php/eliminar_comentario.php" method="POST" style="display:inline; float:right;" onsubmit="return confirm('¿Seguro que quieres borrar este comentario permanentemente?');">
-                                            <input type="hidden" name="id_comentario" value="<?= $com['id_comentario'] ?>">
-                                            <input type="hidden" name="id_artista" value="<?= $artista_id ?>">
-                                            <button type="submit" class="btn-eliminar-comentario">Eliminar</button>                                        </form>
-                                    <?php endif; ?>
+                                    <div class="lista-columna-comentarios">
+                                        <?php if (empty($cuadro['comentarios_web'])): ?>
+                                            <div class="sin-comentarios">
+                                                Todavía no hay comentarios desde la web.
+                                            </div>
+                                        <?php else: ?>
+                                            <?php foreach ($cuadro['comentarios_web'] as $com): ?>
+                                                <div class="comentario-item">
+                                                    <div class="cabecera-comentario">
+                                                        <div class="datos-autor-comentario">
+                                                            <strong><?= htmlspecialchars($com['nombre']) ?></strong>
+                                                            <span class="datos-secundarios-comentario">
+                                        , <?= intval($com['edad']) ?> años, <?= htmlspecialchars($paises[$com['pais']] ?? $com['pais']) ?>
+                                    </span>
+                                                            <?php if ($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
+                                                                <span class="etiqueta-tu">(Tú)</span>
+                                                            <?php endif; ?>
+                                                        </div>
 
-                                    <p style="margin: 5px 0 0 0;"><?= htmlspecialchars($com['comentario']) ?></p>
+                                                        <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                                                            <form action="php/eliminar_comentario.php" method="POST" class="form-eliminar-comentario" onsubmit="return confirm('¿Seguro que quieres borrar este comentario permanentemente?');">
+                                                                <input type="hidden" name="id_comentario" value="<?= $com['id_comentario'] ?>">
+                                                                <input type="hidden" name="id_artista" value="<?= $artista_id ?>">
+                                                                <button type="submit" class="btn-eliminar-comentario">Eliminar</button>
+                                                            </form>
+                                                        <?php endif; ?>
+                                                    </div>
+
+                                                    <p class="texto-comentario">
+                                                        <?= htmlspecialchars($com['comentario']) ?>
+                                                    </p>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                            <?php endforeach; ?>
+
+                                <!-- ==================================================
+                                     COMENTARIOS REALIDAD VIRTUAL
+                                =================================================== -->
+                                <div class="columna-comentarios">
+                                    <div class="titulo-columna-comentarios">
+                                        <!-- Icono de gafas VR -->
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 8.5C4 7.1 5.1 6 6.5 6h11C18.9 6 20 7.1 20 8.5v5c0 1.4-1.1 2.5-2.5 2.5h-2.1c-.8 0-1.5-.4-1.9-1.1L12 12.5l-1.5 2.4c-.4.7-1.1 1.1-1.9 1.1H6.5C5.1 16 4 14.9 4 13.5v-5z"></path>
+                                        </svg>
+                                        <span>Comentarios RV</span>
+                                    </div>
+
+                                    <div class="lista-columna-comentarios">
+                                        <?php if (empty($cuadro['comentarios_vr'])): ?>
+                                            <div class="sin-comentarios">
+                                                Todavía no hay comentarios desde la experiencia.
+                                            </div>
+                                        <?php else: ?>
+                                            <?php foreach ($cuadro['comentarios_vr'] as $com): ?>
+                                                <div class="comentario-item">
+                                                    <div class="cabecera-comentario">
+                                                        <div class="datos-autor-comentario">
+                                                            <strong><?= htmlspecialchars($com['nombre']) ?></strong>
+                                                            <span class="datos-secundarios-comentario">
+                                                                , <?= intval($com['edad']) ?> años, <?= htmlspecialchars($paises[$com['pais']] ?? $com['pais']) ?>
+                                                            </span>
+                                                            <?php if ($usuario_logeado && $com['usuario_id'] == $usuario_id): ?>
+                                                                <span class="etiqueta-tu">(Tú)</span>
+                                                            <?php endif; ?>
+                                                        </div>
+
+                                                        <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] == 1): ?>
+                                                            <form action="php/eliminar_comentario.php" method="POST" class="form-eliminar-comentario" onsubmit="return confirm('¿Seguro que quieres borrar este comentario permanentemente?');">
+                                                                <input type="hidden" name="id_comentario" value="<?= $com['id_comentario'] ?>">
+                                                                <input type="hidden" name="id_artista" value="<?= $artista_id ?>">
+                                                                <button type="submit" class="btn-eliminar-comentario">Eliminar</button>
+                                                            </form>
+                                                        <?php endif; ?>
+                                                    </div>
+
+                                                    <p class="texto-comentario">
+                                                        <?= htmlspecialchars($com['comentario']) ?>
+                                                    </p>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 

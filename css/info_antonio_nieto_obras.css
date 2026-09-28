@@ -72,6 +72,53 @@
 }
 
 /* =========================================================
+   VER MÁS / VER MENOS EN COMENTARIOS
+========================================================= */
+
+.btn-ver-mas-comentario {
+    margin-top: 8px;
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    color: #523479;
+
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+/* =========================================================
+   DESPLEGABLE GENERAL DE COMENTARIOS
+========================================================= */
+
+.lista-comentarios-oculta {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 15px;
+    opacity: 0;
+    transition:
+            max-height 0.5s ease,
+            opacity 0.3s ease;
+}
+
+.lista-comentarios-oculta.abierto {
+    max-height: 2000px;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.btn-ver-mas-comentario:hover {
+    color: #200B30;
+    text-decoration: underline;
+}
+
+/* =========================================================
    RESPONSIVE MÓVIL
 ========================================================= */
 @media (max-width: 900px) {

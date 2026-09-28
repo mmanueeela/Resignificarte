@@ -373,41 +373,29 @@ while ($obra = $result_obras->fetch_assoc()) {
                         <?php elseif ($cuadro['usuario_ya_comento']): ?>
 
                             <div class="mensaje-registro-comentario mensaje-cuadro-comentado">
-
                                 <?php if ($cuadro['es_recompensa'] == 0): ?>
-
                                     <!-- ==========================================
                                          OBRA NORMAL YA COMENTADA
                                     =========================================== -->
-                                    <p>
-                                        Cuadro comentado.
+                                    <p>Cuadro comentado.
                                         <?= $comentadas ?>/<?= $total_normales ?>
                                         para desbloquear la obra final.
                                     </p>
 
                                 <?php else: ?>
-
                                     <!-- ==========================================
                                          OBRA FINAL YA COMENTADA
                                     =========================================== -->
                                     <?php if ($cuadro['usuario_participa_sorteo']): ?>
-
                                         <!-- YA SUBIÓ IMAGEN -->
-                                        <p>
-                                            Cuadro final comentado.
-                                            ¡Ya estás participando en el sorteo de Antonio Nieto!
-                                        </p>
-
+                                        <p>Cuadro final comentado. ¡Ya estás participando en el sorteo de Antonio Nieto!</p>
                                     <?php else: ?>
-
                                         <!-- ======================================
                                              HA COMENTADO LA OBRA FINAL
                                              PERO TODAVÍA NO PARTICIPA
                                         ======================================= -->
-                                        <p>Cuadro final comentado.</p>
-                                        <p>
-                                            Si quieres participar en el sorteo de Antonio Nieto,
-                                            puedes añadir una imagen.
+                                        <p style="margin-bottom: 20px">Cuadro final comentado.</p>
+                                        <p>Si quieres participar en el sorteo de Antonio Nieto, puedes añadir una imagen.
                                         </p>
 
                                         <form action="php/participar_sorteo.php" method="POST" enctype="multipart/form-data" class="form-participar-sorteo">
@@ -422,6 +410,10 @@ while ($obra = $result_obras->fetch_assoc()) {
 
                                             <p class="requisitos-imagen-sorteo">
                                                 JPG, PNG o WEBP · máximo 5 MB
+                                            </p>
+
+                                            <p class="error-imagen-sorteo" style="display: none;">
+                                                Debes seleccionar una imagen para participar en el sorteo.
                                             </p>
 
                                             <button type="submit" class="btn-confirmar-comentario">

@@ -594,6 +594,99 @@ html {
     border-style: solid;
     background-color: rgba(46, 213, 115, 0.08);
     font-weight: 700;
+
+    /* NUEVO */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   FORMULARIO PARA PARTICIPAR EN EL SORTEO DESPUÉS DE COMENTAR
+========================================================= */
+
+.form-participar-sorteo {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+/* Ocultar el input de archivo nativo */
+.form-participar-sorteo input[type="file"] {
+    display: none;
+}
+
+/* Botón seleccionar imagen */
+.form-participar-sorteo .btn-seleccionar-imagen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 22px;
+    background-color: #523479;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-participar-sorteo .btn-seleccionar-imagen:hover {
+    background-color: #200B30;
+    transform: scale(1.03);
+}
+
+/* Texto formatos admitidos */
+.form-participar-sorteo .requisitos-imagen-sorteo {
+    margin: 0;
+    color: #777;
+    font-family: Montserrat, sans-serif;
+    font-size: 11.5px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Botón participar */
+.form-participar-sorteo .btn-confirmar-comentario {
+    margin-top: 5px;
+    min-width: 210px;
+    background-color: #523479;
+    color: white;
+    border: 2px solid #523479;
+    border-radius: 25px;
+    padding: 11px 22px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-participar-sorteo .btn-confirmar-comentario:hover {
+    background-color: #200B30;
+    border-color: #200B30;
+    transform: scale(1.03);
+}
+
+.mensaje-cuadro-comentado > p {
+    margin: 0;
+    max-width: 650px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.mensaje-cuadro-comentado > p + p {
+    margin-top: 2px;
+    font-weight: 600;
 }
 
 /* =========================================================
@@ -806,6 +899,26 @@ html {
     font-size: 11.5px;
 }
 
+.error-imagen-sorteo {
+    margin: 5px 0 0;
+    padding: 10px 15px;
+
+    background-color: rgba(255, 71, 87, 0.1);
+    border: 1px solid #ff4757;
+    border-radius: 12px;
+
+    color: #d63031;
+
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: center;
+
+    width: 100%;
+    box-sizing: border-box;
+}
+
 @media (max-width: 1200px) {
     .cabecera-artista h1 {
         font-size: 45px;
@@ -913,6 +1026,16 @@ html {
     .btn-cancelar-comentario,
     .btn-confirmar-comentario {
         width: 100%;
+    }
+
+    .form-participar-sorteo {
+        max-width: 100%;
+    }
+
+    .form-participar-sorteo .btn-seleccionar-imagen,
+    .form-participar-sorteo .btn-confirmar-comentario {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 

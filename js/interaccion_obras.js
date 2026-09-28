@@ -427,3 +427,28 @@ if (contenedorPrincipal) {
         subtree: true
     });
 }
+
+const inputImagen = form.querySelector('input[type="file"]');
+const mensajeError = form.querySelector('.error-imagen-sorteo');
+
+form.addEventListener('submit', function (e) {
+    if (!inputImagen || !inputImagen.files || inputImagen.files.length === 0) {
+        e.preventDefault();
+        if (mensajeError) {
+            mensajeError.style.display = 'block';
+        }
+        return;
+    }
+
+    if (mensajeError) {
+        mensajeError.style.display = 'none';
+    }
+});
+
+if (inputImagen) {
+    inputImagen.addEventListener('change', function () {
+        if (inputImagen.files && inputImagen.files.length > 0 && mensajeError) {
+            mensajeError.style.display = 'none';
+        }
+    });
+}

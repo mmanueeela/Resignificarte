@@ -144,10 +144,10 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
                 <!-- Miembro 1 -->
                 <div class="miembro-card glass-card">
                     <img src="src/images/img_jessica.jpeg" alt="Jessica López Escalera" class="miembro-img-fondo">
-                    <div class="etiqueta-nombre">Jessica Lopez Escalera</div>
+                    <div class="etiqueta-nombre">Jessica López Escalera</div>
 
                     <div class="miembro-info-hover">
-                        <h3>Jessica Lopez Escalera</h3>
+                        <h3>Jessica López Escalera</h3>
                         <div class="texto-scroll">
                             <p>Es internacionalista y comunicadora especializada en el desarrollo y posicionamiento de proyectos de comunicación y vinculación de alcance internacional. Durante el Máster en Comunicación Transmedia de la UPV, encontró en el arte un elemento capaz de conectar personas, territorios y memorias. A partir de esta premisa, desarrolló ResignificARTE como un modelo de mediación cultural que utiliza la narrativa transmedia para generar nuevas formas de relación entre la comunicación y el arte. Jessica lidera el diseño conceptual y estratégico del proyecto.</p>
                         </div>
@@ -156,7 +156,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
 
                 <!-- Miembro 2 -->
                 <div class="miembro-card glass-card">
-                    <img src="src/images/img_antonio_nieto.jpg" alt="Manuela Zazzaro" class="miembro-img-fondo">
+                    <img src="src/images/img_manuela.png" alt="Manuela Zazzaro" class="miembro-img-fondo">
                     <div class="etiqueta-nombre">Manuela Zazzaro</div>
 
                     <div class="miembro-info-hover">

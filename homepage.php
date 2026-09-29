@@ -134,7 +134,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
                     <p><strong>ResignificARTE</strong> es una propuesta de mediación cultural transmedia centrada en la resignificación de la cultura a través del arte.</p>
                     <p>La experiencia parte de obras representativas de las tradiciones de México del pintor mexicano Antonio Nieto y construye un modelo de mediación que integra narrativa, participación y tecnología como partes de un mismo diseño.</p>
                     <p>El proyecto propone una relación activa con la obra. Quien se acerca a una pieza, además de ser un espectador, la interpreta desde su propio territorio, memoria y experiencia. Esa interpretación se incorpora al ecosistema cultural de ResignificARTE y contribuye a la construcción de un archivo colectivo de miradas sobre la obra y las tradiciones que representa.</p>
-                    <p>ResignificARTE surge en el marco del Máster en Comunicación Transmedia y del Grado XXX de la Universitat Politècnica de València (UPV), como resultado de una investigación que articula la mediación cultural, la narrativa transmedia, la participación y el estudio de la memoria colectiva.</p>
+                    <p>ResignificARTE surge en el marco del Máster en Comunicación Transmedia y del Grado de Tecnologías Interactivas de la Universitat Politècnica de València (UPV), como resultado de una investigación que articula la mediación cultural, la narrativa transmedia, la participación y el estudio de la memoria colectiva.</p>
                 </div>
             </div>
 

@@ -162,7 +162,7 @@ require_once 'php/logicaNegocio/cargar_usuario_header.php';
                     <div class="miembro-info-hover">
                         <h3>Manuela Zazzaro</h3>
                         <div class="texto-scroll">
-                            <p>Es (descripción de su formación y experiencia). En ResignificARTE desarrolla la dimensión tecnológica del proyecto y participa en la construcción de la experiencia digital y del prototipo del modelo de mediación cultural.</p>
+                            <p>Manuela Zazzaro es una estudiante del Grado en Tecnologías Interactivas de la Universitat Politècnica de València. Su perfil combina desarollo tecnológico, diseño de experiencias interactivas y entornos inmersivos. En ResignificARTE se encarga principalmente de la dimensión tecnológica del proyecto, desarrollando la experiencia de realidad virtual, la integración web y la conexión entre los distintos sistemas que permiten recoger y compartir la participación de los usuarios.</p>
                         </div>
                     </div>
                 </div>
